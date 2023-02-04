@@ -1,0 +1,503 @@
+@use "master";
+
+
+/* Start Home Page */
+.toggle-handle{
+    background-color: var(--te);
+}
+
+/* End Home Page */
+
+.page-header{
+    min-height: 600px;
+    position: relative;
+}
+
+.search{
+    margin: 100px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 80px 0;
+}
+
+.search label{
+    color: var(--se);
+}
+
+.secondary-header{
+    min-height: auto;
+}
+
+
+.post-header{
+    min-height: 400px;
+    /* background-image: the post background; */
+}
+
+.about{
+    min-height: 500px !important;
+}
+
+.page-header .header-bg{
+    background-image: url(../images/header.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+
+
+
+#featured-properties .carousel img{
+    width: 500px;
+    height: 450px;
+}
+
+
+/* Start Properties for Buy */
+
+.buy-header{
+    min-height: 400px;
+}
+
+.buy-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.buy-header .header-bg{
+    background-image: url(../images/header_buy.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+#properties-for-buy .meta,
+#properties-for-rent .meta{
+    padding: 10px;
+    border-bottom: 2px solid var(--fo);
+    color: var(--se);
+}
+
+#properties-for-buy .share,
+#properties-for-rent .share{
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--se);
+}
+
+#properties-for-buy .share:hover,
+#properties-for-rent .share:hover{
+    color: var(--te);
+    scale: 1.5;
+}
+
+
+/* End Properties for Buy */
+
+
+
+
+/* Start Properties for Rent */
+
+.rent-header{
+    min-height: 400px;
+}
+
+.rent-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.rent-header .header-bg{
+    background-image: url(../images/header_buy.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+
+/* End Properties for Rent */
+
+
+
+/* Start Conatct Page */
+.contact-header{
+    min-height: 400px;
+}
+
+.contact-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.contact-header .header-bg{
+    background-image: url(../images/header_contact.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+
+.branch .l-item:first-of-type{
+    background-color: var(--se);
+    color: var(--pr);
+    padding: 20px;
+}
+
+/* End Conatct Page */
+
+
+
+
+/* Start Valuation Page */
+
+.valuation-header{
+    min-height: 400px;
+}
+
+.valuation-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.valuation-header .header-bg{
+    background-image: url(../images/header_valuation.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+#valuation{
+    background-color: var(--pr);
+    color: var(--te);
+    border-radius: var(--br);
+    padding: 20px;
+    box-shadow: 0 0 2px var(--se);
+}
+
+
+#valuation form label,
+#vavluation form h2,
+#valuation form h3{
+    text-transform: capitalize;
+}
+
+
+/* End Valuation Page */
+
+
+
+/* Start About Us Page */
+
+
+.about-header{
+    min-height: 400px;
+}
+
+.about-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.about-header .header-bg{
+    background-image: url(../images/header_about.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+.about .headline{
+    color: var(--pr);
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.why-us{
+    place-content: center;
+}
+
+
+.why-us article{
+    width: 500px;
+    margin: 2px;
+    color: var(--fo);
+}
+
+.why-us article h2{
+    color: var(--te);
+}
+
+
+/* End About Us Page */
+
+
+
+/* Start Privacy Page */
+
+.privacy-header{
+    min-height: 400px;
+}
+
+.privacy-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.privacy-header .header-bg{
+    background-image: url(../images/header_privacy.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+.about .headline{
+    color: var(--pr);
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+#privacy article{
+    margin: 2px;
+    color: var(--fo);
+    border-bottom: 1px solid var(--fo);
+}
+
+#privacy article:last-of-type{
+    border: none;
+}
+
+#privacy article h3{
+    color: var(--te);
+}
+
+
+/* End Privacy Page */
+
+
+
+
+
+/* Start Team Page */
+
+.team-header{
+    min-height: 400px;
+}
+
+.team-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.team-header .header-bg{
+    background-image: url(../images/header_team.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+.about .headline{
+    color: var(--pr);
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+#team article{
+    margin: 2px;
+    color: var(--fo);
+    box-shadow: 0 0 2px var(--fo);
+}
+
+#team article h3{
+    color: var(--te);
+}
+
+#team article h4{
+    color: var(--fo);
+    text-transform: capitalize;
+}
+
+
+/* End Team Page */
+
+
+/* Start Services Page */
+
+q{
+    display: block;
+    width: 100%;
+    border-top: 2px solid var(--se);
+    border-bottom: 2px solid var(--se);
+    color: var(--te);
+    font-weight: bold;
+}
+
+
+#services article{
+    margin: 2px;
+    color: var(--fo);
+}
+
+#services article h2{
+    color: var(--te);
+}
+
+/* End Services Page */
+
+/* Start Terms Page */
+
+.terms-header{
+    min-height: 400px;
+}
+
+.terms-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.terms-header .header-bg{
+    background-image: url(../images/header_terms.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+
+#terms article{
+    margin: 2px;
+    color: var(--fo);
+}
+
+#terms article h3{
+    color: var(--te);
+}
+
+#terms article h4{
+    color: var(--fo);
+    text-transform: capitalize;
+}
+
+/* End Terms Page */
+
+
+
+
+/* Start Advertisement Page */
+.advertise-header{
+    min-height: 400px;
+}
+
+.advertise-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.advertise-header .header-bg{
+    background-image: url(../images/header_terms.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+
+#advertise .why-us h3{
+    color: var(--te);
+}
+
+#advertise .why-us p{
+    color: var(--se);
+}
+
+#advertise form{
+    background-color: var(--pr);
+    color: var(--te);
+    border-radius: var(--br);
+    padding: 20px;
+    box-shadow: 0 0 2px var(--se);
+}
+
+
+#advertise form label,
+#advertise form h2,
+#advertise form h3{
+    text-transform: capitalize;
+}
+/* End Advertisement Page */
+
+
+/* Start Post Page */
+
+.post-header{
+    min-height: 400px;
+}
+
+.post-header .search{
+    margin: 50px auto;
+    background-color: rgba(var(--rgbte), 0.3);
+    padding: 10px 0;
+}
+
+.post-header .header-bg{
+    background-image: url(../images/header_terms.jpg) !important;
+    background-attachment: scroll !important;
+}
+
+
+#post .meta{
+    background-color: var(--te);
+    color: var(--pr);
+}
+
+#post .meta .flex a{
+    color: var(--fo) !important;
+    text-decoration: none;
+    opacity: 0.5;
+    transition: var(--transition);
+}
+
+#post .meta .flex a:hover{
+    opacity: 1;
+}
+
+#post p{
+    padding: 20px;
+    text-indent: 20px;
+    color: var(--fo);
+}
+
+#post p img{
+    display: block;
+    max-width: 100%;
+}
+
+/* End Post Page */
+
+
+/* Start Property Page */
+
+#property .list-item{
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 0 5px var(--se) inset;
+}
+
+
+
+/* End Property Page */
+
+#team article{
+    text-align: center;
+    background-color: var(--pr);
+    border-radius: var(--br);
+}
+
+
+#team .ceo{
+    width: 100%;
+}
+
+#team article img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
