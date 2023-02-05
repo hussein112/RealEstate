@@ -1,8 +1,10 @@
 <x-user-layout>
-
+    <x-slot name="header">
+        <x-header page="buy"></x-header>
+    </x-slot>
     <x-slot name="main">
         @isset($properties)
-            <section id="all-properties">
+            <section id="properties-for-buy">
                 <h2 class="section-title center">All Properties For Buy</h2>
                 <div class="container cards d-flex flex-wrap align-items-center">
                     @foreach($properties as $property)

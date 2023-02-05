@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ValuationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name("home");
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,6 +34,10 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+
+Route::get("valuation", [ValuationController::class, 'create'])->name("newValuation");
+
+
 /**
  *
  * Properties Routes
@@ -40,10 +45,10 @@ require __DIR__.'/auth.php';
 
 Route::prefix("properties")->group(function(){
     Route::get("all", [PropertyController::class, 'index'])->name('properties');
-    Route::get("featured", [PropertyController::class, 'featured'])->name('featured_properties');
-    Route::get("{id}", [PropertyController::class, 'show'])->name('property');
-    Route::get("buy", [PropertyController::class, 'buy'])->name('properties_for_buy');
-    Route::get("rent", [PropertyController::class, 'rent'])->name('properties_for_rent');
+    Route::get("featured", [PropertyController::class, 'featured'])->name('featuredProperties');
+    Route::get("property/{id}", [PropertyController::class, 'show'])->name('property');
+    Route::get("buy", [PropertyController::class, 'buy'])->name('propertiesForBuy');
+    Route::get("rent", [PropertyController::class, 'rent'])->name('propertiesForRent');
 });
 
 

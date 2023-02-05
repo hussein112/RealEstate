@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 class ValuationController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Display all the valuations
      */
     public function index()
     {
@@ -17,13 +15,11 @@ class ValuationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show the form for creating a new valuation.
      */
     public function create()
     {
-        //
+        return view("newValuation");
     }
 
     /**

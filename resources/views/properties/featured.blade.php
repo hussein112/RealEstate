@@ -1,5 +1,7 @@
 <x-user-layout>
-
+    <x-slot name="header">
+        <x-header page="featured"></x-header>
+    </x-slot>
     <x-slot name="main">
         @isset($properties)
             <section id="all-properties">

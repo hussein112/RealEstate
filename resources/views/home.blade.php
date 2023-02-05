@@ -1,5 +1,7 @@
 <x-user-layout>
-
+    <x-slot name="header">
+        <x-header page="page"></x-header>
+    </x-slot>
     <x-slot name="main">
         <!-- Featured Properties -->
 
@@ -234,7 +236,7 @@
                 </div>
 
                 <div class="v-m center">
-                    <a href="#" class="btn btn-primary view-more">View More</a>
+                    <a href="{{ route("properties") }}" class="btn btn-primary view-more">View More</a>
                 </div>
             </div>
         </section>
@@ -306,7 +308,7 @@
                 </div>
 
                 <div class="v-m center">
-                    <a href="#" class="btn btn-primary view-more">View More</a>
+                    <a href="{{ route("blog") }}" class="btn btn-primary view-more">View More</a>
                 </div>
             </div>
 

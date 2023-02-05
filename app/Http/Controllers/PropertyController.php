@@ -49,7 +49,7 @@ class PropertyController extends Controller
      */
     public function buy(){
         return view("properties")->with([
-            'properties' => Property::where("for", "buy")->paginate($this->paginate),
+            'properties' => Property::where('featured', '1')->paginate($this->paginate),
             'page' => 'buy'
         ]);
     }
@@ -59,7 +59,7 @@ class PropertyController extends Controller
      */
     public function rent(){
         return view("properties")->with([
-            'properties' => Property::where("for", "rent"),
+            'properties' => Property::where("for", "rent")->paginate($this->paginate),
             'page' => 'rent'
         ]);
     }
