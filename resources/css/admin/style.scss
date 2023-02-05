@@ -1,0 +1,153 @@
+@use "master";
+
+
+/* Start Home Page */
+.home-admin{
+    .admin-cards{
+        text-align: center;
+    }
+
+    .card-image{
+        font-size: 70px;
+        color: var(--fo);
+        border-radius: 50%;
+        border: 2px solid var(--fo);
+        padding: 20px;
+    }
+}
+
+/* End Home Page */
+
+
+/* Start Property Page */
+
+.admin-property{
+    text-align: center;
+
+    form{
+        label{
+            color: var(--se);
+        }
+    }
+
+
+    .property-slides{
+        width: 100%;
+        height: 50%;
+        position: relative;
+
+        img{
+            height: 100%;
+        }
+
+        // CRUD Btns for images
+        .carousel-btns{
+            padding: 10px 0;
+            position: absolute;
+            top: 0;
+            right: 1%;
+            z-index: 123;
+            iconify-icon{
+                background-color: var(--pr);
+                color: var(--te);
+                font-size: 25px;
+                padding: 5px;
+                margin-right: 10px;
+                cursor: pointer;
+                border-radius: var(--br);
+
+                transition: var(--transition);
+
+                &:hover{
+                    scale: 1.3;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .property-slides{
+            height: 100%;
+        }
+    }
+
+    .features{
+        padding: 5px;
+        margin-top: 40px;
+        .feature{
+            color: var(--se);
+            box-shadow: 0 0 1px var(--te);
+        }
+    }
+
+    table{
+        width: 30%;
+        tfoot{
+            margin-top: 200px;
+            display: block;
+        }
+
+        .description{
+            position: absolute;
+            margin-right: 10px;
+        }
+    }
+
+}
+
+
+/* End Property Page */
+
+
+/* Start Valuations Page */
+.admin-valuations{
+
+}
+
+
+/* End Valuations Page */
+
+
+/* Start Customers Page */
+
+.customer-properties a{
+    color: var(--se);
+    transition: var(--transition);
+    &:hover{
+        color: var(--fo);
+    }
+}
+
+/* End Customers Page */
+
+
+/* Start Home Page */
+
+
+/* End Home Page */
+
+
+
+/* Start Edit User Page */
+.change-user-image{
+    width: 100px;
+    height: 100px;
+}
+
+/* End Edit User Page */
+
+
+/* Start Edit AdminLayout Profile */
+.admin-edit-profile{
+    .image{
+        text-align: center;
+        img{
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+        }
+    }
+}
+
+/* End Edit AdminLayout Profile */
