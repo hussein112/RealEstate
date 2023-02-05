@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Feature extends Model
 {
     use HasFactory;
+
+    protected $table = 'feature';
+
+    public function property(){
+        return $this->belongsToMany(Property::class, 'property_feature', 'feature_id', 'property_id');
+    }
 }

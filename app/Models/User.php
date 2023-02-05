@@ -45,4 +45,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    public function avatar(){
+        return $this->belongsTo(Image::class);
+    }
+
+    public function added_by(){
+        return $this->belongsTo(Admin::class);
+    }
+
+
+    public function groups(){
+        return $this->hasMany(Group::class);
+    }
 }

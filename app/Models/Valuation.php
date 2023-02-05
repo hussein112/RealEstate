@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Valuation extends Model
 {
     use HasFactory;
+
+    protected $table = 'valuation';
+
+    public function requestedForValuation(){
+        return $this->hasMany(Valuation::class);
+    }
 }

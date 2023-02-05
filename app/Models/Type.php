@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
     use HasFactory;
+
+    protected $table = 'type';
+
+    public function property(){
+        return $this->hasMany(Property::class);
+    }
 }
