@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
@@ -31,26 +33,44 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+/**
+ *
+ * Properties Routes
+ */
+
+Route::prefix("properties")->group(function(){
+    Route::get("all", [PropertyController::class, 'index'])->name('properties');
+    Route::get("featured", [PropertyController::class, 'featured'])->name('featured_properties');
+    Route::get("{id}", [PropertyController::class, 'show'])->name('property');
+    Route::get("buy", [PropertyController::class, 'buy'])->name('properties_for_buy');
+    Route::get("rent", [PropertyController::class, 'rent'])->name('properties_for_rent');
+});
 
 
 
 
-Route::get("", );
-Route::get("blog", );
-Route::get("contact", );
-Route::get("post", );
-Route::get("partner/terms", );
-Route::get("policy", );
-Route::get("property/{id}", [PropertyController::class, 'show']);
+/**
+ * Posts Routes
+ * Display Posts Based on a Criteria
+ */
+Route::prefix('posts')->group(function(){
+    Route::get('/all', [PostController::class, 'index'])->name('blog');
+    Route::get('{id}', [PostController::class, 'show'])->name('post');
+    Route::get("/date/{date}", [PostController::class, 'getByDate'])->name('post_dates');
+    Route::get("/author/{id}", [AdminController::class, 'posts'])->name('author_posts');
+    Route::get("/category/category", [PostController::class, 'getByCategory'])->name('category_posts');
+});
 
 
+/**
+ * Company Routes
+ */
 
-Route::get("buy", );
-Route::get("rent", );
+//Route::get("contact", );
+//Route::get("partner/terms", );
+//Route::get("policy", );
+//Route::get("services", );
+//Route::get("team", );
+//Route::get("terms", );
+//Route::get("about", );
 
-
-
-Route::get("services", );
-Route::get("team", );
-Route::get("terms", );
-Route::get("about", );

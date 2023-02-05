@@ -7,22 +7,81 @@ use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
+
+    protected int $paginate = 12;
+
+    /********************* START READ METHODS *********************/
+
     /**
-     * Display a listing of the resource.
-     *
+     * Display all Properties
      */
     public function index()
     {
-        return view("properties");
+        return view("properties")->with([
+            'properties' => Property::paginate($this->paginate),
+            'page' => 'all'
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display all Featured Properties
+     */
+    public function featured(){
+        return view('properties')->with([
+            'properties' => Property::where('featured', '1')->paginate($this->paginate),
+            'page' => 'featured'
+        ]);
+    }
+
+    /**
+     * Display the specified Property.
+     * @param  int  $id
+     */
+    public function show($id)
+    {
+        return view('property')->with([
+            'property' => Property::find($id)
+        ]);
+    }
+
+    /**
+     * Display properties for buy only
+     */
+    public function buy(){
+        return view("properties")->with([
+            'properties' => Property::where("for", "buy")->paginate($this->paginate),
+            'page' => 'buy'
+        ]);
+    }
+
+    /**
+     * Display properties for rent only
+     */
+    public function rent(){
+        return view("properties")->with([
+            'properties' => Property::where("for", "rent"),
+            'page' => 'rent'
+        ]);
+    }
+
+
+    /********************* END READ METHODS *********************
+    *************************************************************
+    *************************************************
+    *************************************/
+
+
+
+
+    /**
+     * Show the form for creating a new Property.
      */
     public function create()
     {
         return view("admin.new_property");
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -35,17 +94,7 @@ class PropertyController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     */
-    public function show($id)
-    {
-        return view('property')->with([
-            'property' => Property::find($id)
-        ]);
-    }
+
 
     /**
      * Show the form for editing the specified resource.
