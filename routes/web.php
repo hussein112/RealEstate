@@ -5,7 +5,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ValuationController;
+use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
+
+
+require __DIR__ . '/admin.php';
+require __DIR__ . '/employee.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -18,19 +23,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name("home");
+Route::get('', [WebsiteController::class, 'home'])->name("home");
+Route::get('contact', [WebsiteController::class, 'contact'])->name("contact");
+Route::get('about', [WebsiteController::class, 'about'])->name("about");
+Route::get('terms/partner', [WebsiteController::class, 'partnerTerms'])->name("partnerTerms");
+Route::get('policy', [WebsiteController::class, 'policy'])->name("policy");
+Route::get('services', [WebsiteController::class, 'services'])->name("services");
+Route::get('team', [WebsiteController::class, 'team'])->name("team");
+Route::get('terms', [WebsiteController::class, 'terms'])->name("terms");
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+//
+//Route::middleware('auth')->group(function () {
+//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//});
 
 require __DIR__.'/auth.php';
 
@@ -70,12 +80,4 @@ Route::prefix('posts')->group(function(){
 /**
  * Company Routes
  */
-
-//Route::get("contact", );
-//Route::get("partner/terms", );
-//Route::get("policy", );
-//Route::get("services", );
-//Route::get("team", );
-//Route::get("terms", );
-//Route::get("about", );
 
