@@ -10,6 +10,7 @@ class Property extends Model
     use HasFactory;
 
     protected $table = 'property';
+    public $timestamps = false;
 
     public function propertyGroup(){
         return $this->hasMany(User::class);
@@ -19,12 +20,12 @@ class Property extends Model
         return $this->belongsTo(Type::class);
     }
 
-    public function customer(){
-        return $this->belongsTo(Customer::class);
+    public function owner(){
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
     public function features(){
-        return $this->belongsToMany(Feature::class, 'property_feature', 'property_id', 'feature_id');
+        return $this->belongsToMany(Feature::class, 'property_features', 'property_id', 'feature_id');
     }
 
     public function images(){
@@ -32,7 +33,7 @@ class Property extends Model
     }
 
     public function addedBy(){
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class, 'admin_id', 'id');
     }
 
     public function appointements(){

@@ -67,5 +67,4 @@
             </section>
         @endisset
     </x-slot>
-
 </x-user-layout>

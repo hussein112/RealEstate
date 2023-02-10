@@ -4,6 +4,7 @@
 namespace App\Custom;
 
 use App\Providers\RouteServiceProvider;
+use PhpParser\Node\Scalar\String_;
 
 trait getAuthRedirectUrl{
 
@@ -20,5 +21,4 @@ trait getAuthRedirectUrl{
                 return RouteServiceProvider::HOME;
         }
     }
-
 }

@@ -11,7 +11,8 @@ use App\Http\Controllers\BranchesController;
 use App\Http\Controllers\EnquiriesController;
 use App\Http\Controllers\ValuationController;
 
-Route::prefix('/admin')->group(function(){
+require __DIR__ . '/adminauth.php';
+Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     /**
      *  View Routes
      */
@@ -20,28 +21,29 @@ Route::prefix('/admin')->group(function(){
 
     Route::get("admins", [AdminController::class, 'admins'])->name('a-admins');
 
-    Route::get("appointements", [AppointementController::class, 'index'])->name('a-appointements');
+    Route::get("appointements", [AppointementController::class, 'adminIndex'])->name('a-appointements');
     Route::get("appointement/{id}", [AppointementController::class, 'details'])->name('a-appointementDetails');
 
-    Route::get("branches", [BranchesController::class, 'index'])->name('a-branches');
+    Route::get("branches", [BranchesController::class, 'adminIndex'])->name('a-branches');
 
     Route::get("customers", [CustomerController::class, 'index'])->name('a-customers');
 
     Route::get("employees", [EmployeeController::class, 'index'])->name("a-employees");
 
-    Route::get("enquiries", [EnquiriesController::class, 'index'])->name('a-enquiries');
+    Route::get("enquiries", [EnquiriesController::class, 'adminIndex'])->name('a-enquiries');
     Route::get("enquiry/{id}", [EnquiriesController::class, 'show'])->name('a-enquiryDetails');
 
-    Route::get("properties", [PropertyController::class, 'index'])->name('a-properties');
+    Route::get("properties", [PropertyController::class, 'getProperties'])->name('a-properties');
+    Route::get("property/{id}", [PropertyController::class, 'getProperty'])->name('a-property');
 
-    Route::get("users", [UserController::class, 'index'])->name('a-users');
+    Route::get("users", [UserController::class, 'adminDisplayUsers'])->name('a-users');
 
-    Route::get("valuations", [ValuationController::class, 'index'])->name("a-valuations");
+    Route::get("valuations", [ValuationController::class, 'adminIndex'])->name("a-valuations");
 
-    Route::get("valuation/{id}", [ValuationController::class, 'show'])->name("a-valuationDetails");
+    Route::get("valuation/{id}", [ValuationController::class, 'adminShow'])->name("a-valuationDetails");
 
     // Edit & index will return the same form
-    Route::get("profile", [AdminController::class, 'edit'])->name('a-profile');
+    Route::get("profile/{id}", [AdminController::class, 'edit'])->name('a-profile');
 
 
     /**
@@ -82,7 +84,7 @@ Route::prefix('/admin')->group(function(){
         Route::get("admin/{id}", [AdminController::class, 'edit'])->name('a-editAdmin');
         Route::patch("admin/{id}", [AdminController::class, 'update'])->name('a-editAdmin');
 
-        Route::get("appointement/{id}", [AppointementController::class, 'edit'])->name("a-editAppointemtn");
+        Route::get("appointement/{id}", [AppointementController::class, 'edit'])->name("a-editAppointement");
         Route::patch("appointement/{id}", [AppointementController::class, 'update'])->name("a-editAppointemtn");
 
         Route::get("employee/{id}", [EmployeeController::class, 'edit'])->name("a-editEmployee");
@@ -91,10 +93,10 @@ Route::prefix('/admin')->group(function(){
         Route::get("property/{id}", [PropertyController::class, 'edit'])->name("a-editProperty");
         Route::patch("property/{id}", [PropertyController::class, 'update'])->name("a-editProperty");
 
-        Route::get("user/{id}", [UserController::class, 'edit'])->name("a-editUser");
+        Route::get("user/{id}", [UserController::class, 'adminEdit'])->name("a-editUser");
         Route::patch("user/{id}", [UserController::class, 'update'])->name("a-editUser");
 
-        Route::get("valuation/{id}", [ValuationController::class, 'edit'])->name("a-editValuation");
+        Route::get("valuation/{id}", [ValuationController::class, 'adminEdit'])->name("a-editValuation");
         Route::patch("valuation/{id}", [ValuationController::class, 'update'])->name("a-editValuation");
 
         Route::get("customers/{id}", [CustomerController::class, 'edit'])->name("a-editCustomer");
@@ -102,6 +104,8 @@ Route::prefix('/admin')->group(function(){
 
         Route::get("enquiries/{id}", [EnquiriesController::class, 'edit'])->name("a-editEnquiry");
         Route::patch("enquiries/{id}", [EnquiriesController::class, 'update'])->name("a-editEnquiry");
+
+        Route::patch("profile/{id}", [AdminController::class, 'update'])->name('a-profile');
     });
 
 
@@ -125,4 +129,4 @@ Route::prefix('/admin')->group(function(){
 
         Route::delete("enquiries/{id}", [EnquiriesController::class, 'destroy'])->name("a-deleteEnquiry");
     });
-})->middleware("auth:admin");
+});

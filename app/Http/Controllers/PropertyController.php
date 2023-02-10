@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Property;
+use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PropertyController extends Controller
 {
 
     protected int $paginate = 12;
 
-    /********************* START READ METHODS *********************/
+    /********************* START READ METHODS (USER) *********************/
 
     /**
      * Display all Properties
@@ -22,6 +25,7 @@ class PropertyController extends Controller
             'page' => 'all'
         ]);
     }
+
 
     /**
      * Display all Featured Properties
@@ -65,10 +69,31 @@ class PropertyController extends Controller
     }
 
 
-    /********************* END READ METHODS *********************
+    /********************* END READ METHODS (USER) *********************
     *************************************************************
     *************************************************
     *************************************/
+
+
+
+
+    /********************* START READ METHODS (ADMIN) *********************/
+
+    public function getProperties(){
+        return view("admin.properties")->with([
+            'properties' => Property::paginate($this->paginate)
+        ]);
+    }
+
+    public function getProperty($id){
+        return view("admin.property")->with([
+            'property' => Property::find($id)
+        ]);
+    }
+    /********************* END READ METHODS (ADMIN) *********************
+     *************************************************************
+     *************************************************
+     *************************************/
 
 
 
@@ -103,7 +128,10 @@ class PropertyController extends Controller
      */
     public function edit($id)
     {
-        return view("admin.edit_property");
+        return view("admin.editProperty")->with([
+            'property' => Property::find($id),
+            'types' => Type::all()
+        ]);
     }
 
     /**
@@ -111,21 +139,54 @@ class PropertyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'fname' => 'max:255',
+            'mname' => '',
+            'lname' => '',
+            'email' => '',
+            'phone' => ''
+        ]);
+
+        $property = Property::find($id);
+        $property->customer_id = DB::table('customer')
+                                    ->select("id")
+                                    ->where('full_name', $request->ownerfname)
+                                    ->get()[0]->id;
+        $property->title = $request->title;
+        $property->size = $request->size;
+        $property->price = $request->price;
+        dd($request->featured);
+        $property->featured = $request->featured;
+        $property->bedrooms_nb = $request->bedrooms;
+        $property->bathrooms_nb = $request->bathrooms;
+        $property->type_id = $request->type;
+
+        if($property->isDirty()){
+            $property->save();
+            return redirect()->back()->with([
+                'success_msg' => $property->title . " Updated Successfully",
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'error_msg' => 'Nothing to Update!'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        dd($id);
+        Property::destroy($id);
+        return redirect()->back()->with([
+            'success_msg' => 'Property ' . $id . ' Deleted Successfully'
+        ]);
     }
 }

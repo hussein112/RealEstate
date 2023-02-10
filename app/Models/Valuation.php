@@ -14,4 +14,8 @@ class Valuation extends Model
     public function requestedForValuation(){
         return $this->hasMany(Valuation::class);
     }
+
+    public function assignedBy(){
+        return $this->belongsTo(Admin::class);
+    }
 }

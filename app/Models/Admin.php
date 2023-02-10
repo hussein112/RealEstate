@@ -11,6 +11,7 @@ class Admin extends Authenticatable
     use Notifiable;
 
     protected $table = 'admin';
+    public $timestamps = false;
 
 
     public function avatar(){

@@ -2,10 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointement;
 use Illuminate\Http\Request;
 
 class AppointementController extends Controller
 {
+    public function adminIndex(){
+        return view('admin.appointements')->with([
+            'appointements' => Appointement::paginate(9)
+        ]);
+    }
+
+    public function adminShow($id){
+        return view("admin.appointement")->with([
+            'appointement' => Appointement::find($id)
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *

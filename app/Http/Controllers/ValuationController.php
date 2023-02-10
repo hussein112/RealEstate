@@ -2,10 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Valuation;
 use Illuminate\Http\Request;
 
 class ValuationController extends Controller
 {
+    public function adminIndex(){
+        return view('admin.valuations')->with([
+            'valuations' => Valuation::paginate(9)
+        ]);
+    }
+
+    public function adminShow($id){
+        return view('admin.valuation')->with([
+            'valuation' => Valuation::find($id)
+        ]);
+    }
+
+    public function adminEdit($id){
+        return view("admin.editValuation")->with([
+            'valuation' => Valuation::find($id)
+        ]);
+    }
     /**
      * Display all the valuations
      */

@@ -7,7 +7,7 @@
             <div class="navigation navbar-nav">
                 <!-- Logo -->
                 <div class="nav-link">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('a-dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
@@ -22,8 +22,10 @@
                 <a href="{{ route("propertiesForRent") }}" class="nav-link">Rent</a>
                 <a href="advertise.html" class="nav-link">Sell</a>
                 <a href="contact.html" class="nav-link">Contact Us</a>
-                <a href="{{ route("login") }}" class="nav-link">Sign-in</a>
-                <a href="{{ route("register") }}" class="nav-link">Register</a>
+                @guest
+                    <a href="{{ route("login") }}" class="nav-link">Sign-in</a>
+                    <a href="{{ route("register") }}" class="nav-link">Register</a>
+                @endguest
                 <a href="{{ route("newValuation") }}" class="nav-link">Get a Valuation</a>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

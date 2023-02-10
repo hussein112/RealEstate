@@ -15,6 +15,7 @@ class User extends Authenticatable
 
     protected $table = "user";
 
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -52,8 +53,8 @@ class User extends Authenticatable
         return $this->belongsTo(Image::class);
     }
 
-    public function added_by(){
-        return $this->belongsTo(Admin::class);
+    public function addedBy(){
+        return $this->belongsTo(Admin::class, 'admin_id', 'id');
     }
 
 

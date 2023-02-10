@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Enquiry;
 use Illuminate\Http\Request;
 
 class EnquiriesController extends Controller
 {
+    public function adminIndex(){
+        return view("admin.enquiries")->with([
+            'enquiries' => Enquiry::paginate(9)
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
