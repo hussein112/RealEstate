@@ -2,6 +2,7 @@
     <x-slot name="main">
         <main class="enquiries-admin container">
             <h4 class="title my-2 center">Enquiries</h4>
+
             <div class="container my-5">
                 <hr>
                 <table class="table table-bordered caption-top">
@@ -22,10 +23,6 @@
                         </th>
                         <th scope="col" class="text-primary">
                             <a href="#">Issuer Message</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
-                        </th>
-                        <th scope="col" class="text-primary">
-                            <a href="#">Assigned To</a>
                             <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                         </th>
                         <th scope="col" class="text-primary">

@@ -9,7 +9,7 @@
                 </div>
             </div>
             <hr>
-            <hr>
+            <x-create-button target="a-newProperty" title="Property"></x-create-button>
             @if(session('error_msg') != null)
                 <div class="container">
                     <strong class="bg-danger text-light">{{ session('error_msg') }}</strong>

@@ -31,7 +31,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::get("employees", [EmployeeController::class, 'adminIndex'])->name("a-employees");
 
     Route::get("enquiries", [EnquiriesController::class, 'adminIndex'])->name('a-enquiries');
-    Route::get("enquiry/{id}", [EnquiriesController::class, 'show'])->name('a-enquiryDetails');
+    Route::get("enquiry/{id}", [EnquiriesController::class, 'adminShow'])->name('a-enquiryDetails');
 
     Route::get("properties", [PropertyController::class, 'getProperties'])->name('a-properties');
     Route::get("property/{id}", [PropertyController::class, 'getProperty'])->name('a-property');
@@ -62,7 +62,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("employee", [EmployeeController::class, 'create'])->name("a-newEmployee");
         Route::post("employee", [EmployeeController::class, 'store'])->name("a-newEmployee");
 
-        Route::get("property", [PropertyController::class, 'create'])->name("a-newProperty");
+        Route::get("property", [PropertyController::class, 'createAdmin'])->name("a-newProperty");
         Route::post("property", [PropertyController::class, 'store'])->name("a-newProperty");
 
         Route::get("user", [UserController::class, 'create'])->name("a-newUser");
@@ -70,9 +70,6 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::get("valuation", [ValuationController::class, 'create'])->name("a-newValuation");
         Route::post("valuation", [ValuationController::class, 'store'])->name("a-newValuation");
-
-        Route::get("enquiries", [EnquiriesController::class, 'create'])->name("a-newEnquiry");
-        Route::post("enquiries", [EnquiriesController::class, 'store'])->name("a-newEnquiry");
     });
 
 

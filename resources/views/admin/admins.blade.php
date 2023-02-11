@@ -8,6 +8,7 @@
                 </div>
             </div>
             <hr>
+            <x-create-button target="a-newAdmin" title="Admin"></x-create-button>
             <table class="table table-bordered caption-top">
                 <caption>List of All Admins</caption>
                 <thead class="bg-dark">

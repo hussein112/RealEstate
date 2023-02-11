@@ -96,6 +96,12 @@ class PropertyController extends Controller
      *************************************/
 
 
+    public function createAdmin(){
+        return view('admin.newProperty')->with([
+            'types' => Type::all(),
+            'customers' => Customer::all(),
+        ]);
+    }
 
 
     /**
@@ -103,7 +109,6 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view("admin.new_property");
     }
 
 
@@ -112,7 +117,6 @@ class PropertyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {

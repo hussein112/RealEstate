@@ -13,6 +13,8 @@ class Admin extends Authenticatable
     protected $table = 'admin';
     public $timestamps = false;
 
+    protected $guarded = ['id'];
+
 
     public function avatar(){
         return $this->belongsTo(Image::class);

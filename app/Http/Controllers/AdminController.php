@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Valuation;
 use App\Custom\DateQueries;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -57,22 +58,39 @@ class AdminController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view("admin.newAdmin");
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'fname' => 'max:1',
+            'mname' => '',
+            'lname' => '',
+            'email' => '',
+            'phone' => ''
+        ]);
+
+        Admin::create([
+            'f_name' => $request->fname,
+            'm_name' => $request->mname,
+            'l_name' => $request->lname,
+            'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->back()->with([
+            'success_msg' => $request->fname . ' ' . $request->lname . " Added Successfully",
+        ]);
     }
 
     /**

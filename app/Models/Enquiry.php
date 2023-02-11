@@ -14,6 +14,6 @@ class Enquiry extends Model
     public $timestamps = false;
 
     public function purpose(){
-        return $this->belongsTo(Property::class);
+        return $this->belongsTo(Property::class, 'property_id', 'id');
     }
 }

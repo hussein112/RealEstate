@@ -1,8 +1,7 @@
-<x-amdin-layout>
-
+<x-admin-layout>
     <x-slot name="main">
         <main class="valuation-details container">
-            <h4 class="title my-2">Enquiry #4343</h4>
+            <h4 class="title my-2">Enquiry #{{ $enquiry->id }}</h4>
             <div class="remainders">
                 <div class="alert alert-danger">
                     <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
@@ -12,7 +11,6 @@
                 <hr>
                 <table class="table mt-5">
                     <tbody class="table-group-divider">
-                    @isset($enquiry)
                         <tr>
                             <th>ID</th>
                             <td>{{ $enquiry->id }}</td>
@@ -37,7 +35,26 @@
                             <th>Issuer Phone</th>
                             <td><a href="tel:+{{ $enquiry->issuer_phone }}">{{ $enquiry->issuer_phone }}</a></td>
                         </tr>
-                    @endisset
+
+
+                        <tr>
+                            <th>Furnishing Status</th>
+                            <td>
+                                @switch($enquiry->furnishing_status)
+                                    @case(2)
+                                        Fully Furnished
+                                    @break
+                                    @case(1)
+                                        Partly Furnished
+                                    @break
+                                    @case(0)
+                                         Not Furnished
+                                    @break
+                                    @default
+                                        -
+                                @endswitch
+                            </td>
+                        </tr>
                     </tbody>
 
                 </table>
@@ -45,41 +62,62 @@
                     <table class="table w-100 m-1">
                         <caption class="caption-top">Property Details</caption>
                         <tbody>
+                        @php($property = $enquiry->purpose)
 
-                            <tr>
-                                <th>Postal Code</th>
-                                <td>{{ $enquiry->purpose->postal_code }}</td>
-                            </tr>
+                        <tr>
+                            <th>For</th>
+                            <td>{{ $property->for }}</td>
+                        </tr>
 
-                            <tr>
-                                <th>Furnishing Status</th>
-                                <td>{{  }}</td>
-                            </tr>
+                        <tr>
+                            <th>Featured</th>
+                            <td>{{ ($property->featured == 1) ? "Yes" : "No" }}</td>
+                        </tr>
 
-                            <tr>
-                                <th>Includes Garage</th>
-                                <td>{{  }}</td>
-                            </tr>
+                        <tr>
+                            <th>Price</th>
+                            <td>{{ $property->price }}</td>
+                        </tr>
 
-                            <tr>
-                                <th>Bedrooms Number</th>
-                                <td>{{ $enquiry->purpose->bedrooms_nb }}</td>
-                            </tr>
+                        <tr>
+                            <th>Location</th>
+                            <td>{{ $property->location }}</td>
+                        </tr>
 
-                            <tr>
-                                <th>Bathrooms Number</th>
-                                <td>{{ $enquiry->purpose->bathrooms_nb }}</td>
-                            </tr>
+                        <tr>
+                            <th>Added By</th>
+                            <td>{{ $property->addedBy->f_name . ' ' . $property->addedBy->l_name }}</td>
+                        </tr>
 
-                            <tr>
-                                <th>Property Type</th>
-                                <td>{{ $enquiry->purpose->type->type }}</td>
-                            </tr>
+                        <tr>
+                            <th>Customer</th>
+                            <td>{{ $property->owner->full_name }}</td>
+                        </tr>
 
-                            <tr>
-                                <th>Description</th>
-                                <td>{{ $enquiry->purpose->description }}</td>
-                            </tr>
+                        <tr>
+                            <th>Includes Garage</th>
+                            <td>{{ ($property->garage == 0) ? "Yes" : "No" }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Bedrooms Number</th>
+                            <td>{{ $property->bedrooms_nb }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Bathrooms Number</th>
+                            <td>{{ $property->bathrooms_nb }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Property Type</th>
+                            <td>{{ $property->type->type }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ $property->description }}</td>
+                        </tr>
                         </tbody>
                         <tfoot class="d-flex papers-specific">
                         <td><button class="btn btn-primary">Save CSV</button></td>
@@ -118,18 +156,19 @@
                         </div>
 
                         <div class="features grid-text">
-                            @isset($features)
-                                @foreach($features as $feature)
+                            @if(sizeof($property->features) > 1)
+                                @foreach($property->features as $feature)
                                     <div class="feature">{{ $feature }}</div>
                                 @endforeach
-                            @endisset
+                            @else
+                                <div class="feature">No Features</div>
+                            @endif
                         </div>
                     </div>
 
                 </div>
 
             </div>
-
         </main>
     </x-slot>
-</x-amdin-layout>
+</x-admin-layout>

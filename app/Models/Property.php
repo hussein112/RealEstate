@@ -39,4 +39,8 @@ class Property extends Model
     public function appointements(){
         return $this->hasMany(Appointement::class);
     }
+
+    public function enquiries(){
+        return $this->hasMany(Enquiry::class);
+    }
 }
