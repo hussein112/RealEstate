@@ -42,4 +42,8 @@ class Admin extends Authenticatable
     public function assignedValuations(){
         return $this->hasMany(Valuation::class);
     }
+
+    public function addedEmployees(){
+        return $this->hasMany(Employee::class);
+    }
 }

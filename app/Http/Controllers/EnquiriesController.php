@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enquiry;
+use App\Models\Property;
 use Illuminate\Http\Request;
 
 class EnquiriesController extends Controller
@@ -12,6 +13,13 @@ class EnquiriesController extends Controller
             'enquiries' => Enquiry::paginate(9)
         ]);
     }
+
+    public function adminShow($id){
+        return view("admin.enquiry")->with([
+            'enquiry' => Enquiry::find($id),
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *

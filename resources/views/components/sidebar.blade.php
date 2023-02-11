@@ -5,37 +5,42 @@
             <br>
             <br>
             <li class="nav-item">
-                <a href="{{ route("a-dashboard") }}" class="nav-link {{ ( request()->is('admin')) ? 'active' : '' }}">
+                <a href="{{ route("a-dashboard") }}" class="nav-link {{ ( request()->is('admin') || request()->is('admin/dashboard')) ? 'active' : '' }}">
                     Home
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-admins") }}" class="nav-link  {{ ( request()->is('admin/admins')) ? 'active' : '' }}">
+                <a href="{{ route("a-admins") }}" class="nav-link  {{ ( request()->is('admin/admins') || request()->is('admin/*/admin/*')) ? 'active' : '' }}">
                     Admins
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-properties") }}" class="nav-link {{ ( request()->is('admin/properties')) ? 'active' : '' }}">
+                <a href="{{ route("a-properties") }}" class="nav-link {{ ( request()->is('admin/properties') || request()->is('admin/*/property/*')) ? 'active' : '' }}">
                     Properties
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-users") }}" class="nav-link {{ ( request()->is('admin/users')) ? 'active' : '' }}">
+                <a href="{{ route("a-users") }}" class="nav-link {{ ( request()->is('admin/users') || request()->is('admin/*/user/*')) ? 'active' : '' }}">
                     Users
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-valuations") }}" class="nav-link {{ ( request()->is('admin/valuations')) ? 'active' : '' }}">
+                <a href="{{ route("a-employees") }}" class="nav-link {{ ( request()->is('admin/employees') || request()->is('admin/*/employee/*')) ? 'active' : '' }}">
+                    Employees
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route("a-valuations") }}" class="nav-link {{ ( request()->is('admin/valuations') || request()->is('admin/valuation/*')) ? 'active' : '' }}">
                     Valuations
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-appointements") }}" class="nav-link {{ ( request()->is('admin/appointements')) ? 'active' : '' }}">
+                <a href="{{ route("a-appointements") }}" class="nav-link {{ ( request()->is('admin/appointements') || request()->is('admin/*/appointement/*')) ? 'active' : '' }}">
                     Appointements
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-enquiries") }}" class="nav-link {{ ( request()->is('admin/enquiries')) ? 'active' : '' }}">
+                <a href="{{ route("a-enquiries") }}" class="nav-link {{ ( request()->is('admin/enquiries') || request()->is('admin/*/enquiry/*')) ? 'active' : '' }}">
                     Enquiries
                 </a>
             </li>
@@ -60,7 +65,7 @@
                 <strong>John Doe</strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="{{ route('a-profile', ['id' => 1]) }}">Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('a-profileShow', ['id' => Auth::guard('admin')->id()]) }}">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <a class="dropdown-item">

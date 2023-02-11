@@ -10,6 +10,7 @@ class Customer extends Model
     use HasFactory;
 
     protected $table = 'customer';
+    public $timestamps = false;
 
     public function properties(){
         return $this->hasMany(Property::class);

@@ -11,6 +11,8 @@ class Appointement extends Model
 
     protected $table = 'appointement';
 
+    public $timestamps = false;
+
     public function assignedTo(){
         return $this->belongsTo(Employee::class);
     }

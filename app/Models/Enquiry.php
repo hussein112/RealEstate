@@ -10,4 +10,10 @@ class Enquiry extends Model
     use HasFactory;
 
     protected $table = 'enquiry';
+
+    public $timestamps = false;
+
+    public function purpose(){
+        return $this->belongsTo(Property::class);
+    }
 }

@@ -10,6 +10,7 @@ class Valuation extends Model
     use HasFactory;
 
     protected $table = 'valuation';
+    public $timestamps = false;
 
     public function requestedForValuation(){
         return $this->hasMany(Valuation::class);

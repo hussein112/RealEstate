@@ -28,7 +28,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
     Route::get("customers", [CustomerController::class, 'index'])->name('a-customers');
 
-    Route::get("employees", [EmployeeController::class, 'index'])->name("a-employees");
+    Route::get("employees", [EmployeeController::class, 'adminIndex'])->name("a-employees");
 
     Route::get("enquiries", [EnquiriesController::class, 'adminIndex'])->name('a-enquiries');
     Route::get("enquiry/{id}", [EnquiriesController::class, 'show'])->name('a-enquiryDetails');
@@ -43,7 +43,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::get("valuation/{id}", [ValuationController::class, 'adminShow'])->name("a-valuationDetails");
 
     // Edit & index will return the same form
-    Route::get("profile/{id}", [AdminController::class, 'edit'])->name('a-profile');
+    Route::get("profile/{id}", [AdminController::class, 'edit'])->name('a-profileShow');
 
 
     /**
@@ -87,7 +87,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("appointement/{id}", [AppointementController::class, 'edit'])->name("a-editAppointement");
         Route::patch("appointement/{id}", [AppointementController::class, 'update'])->name("a-editAppointemtn");
 
-        Route::get("employee/{id}", [EmployeeController::class, 'edit'])->name("a-editEmployee");
+        Route::get("employee/{id}", [EmployeeController::class, 'adminEdit'])->name("a-editEmployee");
         Route::patch("employee/{id}", [EmployeeController::class, 'update'])->name("a-editEmployee");
 
         Route::get("property/{id}", [PropertyController::class, 'edit'])->name("a-editProperty");
