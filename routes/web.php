@@ -67,7 +67,7 @@ Route::prefix("properties")->group(function(){
  */
 Route::prefix('posts')->group(function(){
     Route::get('/all', [PostController::class, 'index'])->name('blog');
-    Route::get('{id}', [PostController::class, 'show'])->name('post');
+    Route::get('/post/{id}', [PostController::class, 'show'])->name('post');
     Route::get("/date/{date}", [PostController::class, 'getByDate'])->name('post_dates');
     Route::get("/author/{id}", [AdminController::class, 'posts'])->name('author_posts');
     Route::get("/category/category", [PostController::class, 'getByCategory'])->name('category_posts');

@@ -2,10 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Category;
+use App\Models\Employee;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function adminIndex(){
+        return view("admin.posts")->with([
+            'posts' => Post::paginate(10),
+        ]);
+    }
+
+    public function adminEdit($id){
+        return view("admin.editPost")->with([
+            'post' => Post::find($id),
+            'categories' => Category::all(),
+            'authors' => [Admin::all(), Employee::all()]
+        ]);
+    }
+
+    public function adminCreate(){
+        return view('admin.newPost');
+    }
     /**
      * Display a listing of the resource.
      *

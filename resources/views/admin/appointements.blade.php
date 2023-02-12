@@ -4,6 +4,8 @@
             <h4 class="title my-2">Appointements</h4>
             <div class="container my-5">
                 <hr>
+                <x-create-button target="a-newAppointement" title="Appointement"></x-create-button>
+
                 <table class="table table-bordered caption-top">
                     <caption>List of All Appointements</caption>
                     <thead class="bg-dark">

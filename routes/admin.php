@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,9 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::get("dashboard", [AdminController::class, 'index'])->name('a-dashboard');
 
     Route::get("admins", [AdminController::class, 'admins'])->name('a-admins');
+
+    Route::get("posts", [PostController::class, 'adminIndex'])->name('a-posts');
+
 
     Route::get("appointements", [AppointementController::class, 'adminIndex'])->name('a-appointements');
     Route::get("appointement/{id}", [AppointementController::class, 'details'])->name('a-appointementDetails');
@@ -53,8 +57,11 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("admin", [AdminController::class, 'create'])->name('a-newAdmin');
         Route::post("admin", [AdminController::class, 'store'])->name('a-newAdmin');
 
-        Route::get("appointement", [AppointementController::class, 'create'])->name("a-newAppointemtn");
-        Route::post("appointement", [AppointementController::class, 'store'])->name("a-newAppointemtn");
+        Route::get("post", [PostController::class, 'adminCreate'])->name("a-newPost");
+        Route::post("post", [PostController::class, 'adminCreate'])->name("a-newPost");
+
+        Route::get("appointement", [AppointementController::class, 'create'])->name("a-newAppointement");
+        Route::post("appointement", [AppointementController::class, 'store'])->name("a-newAppointement");
 
         Route::get("customer", [CustomerController::class, 'create'])->name("a-newCustomer");
         Route::post("customer", [CustomerController::class, 'store'])->name("a-newCustomer");
@@ -80,6 +87,10 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::prefix("edit")->group(function(){
         Route::get("admin/{id}", [AdminController::class, 'edit'])->name('a-editAdmin');
         Route::patch("admin/{id}", [AdminController::class, 'update'])->name('a-editAdmin');
+
+        Route::get("post/{id}", [PostController::class, 'adminEdit'])->name('a-editPost');
+        Route::patch("post/{id}", [PostController::class, 'update'])->name('a-editPost');
+
 
         Route::get("appointement/{id}", [AppointementController::class, 'edit'])->name("a-editAppointement");
         Route::patch("appointement/{id}", [AppointementController::class, 'update'])->name("a-editAppointemtn");

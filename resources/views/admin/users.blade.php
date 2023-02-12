@@ -53,7 +53,7 @@
                                 <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                             </td>
                             <td><img src="https://picsum.photos/200/300" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
-                            <td>{{ $user->addedBy->f_name . ' ' . $user->addedBy->l_name }}</td>
+                            <td>{{ ($user->addedBy->f_name) ? $user->addedBy->f_name . ' ' . $user->addedBy->l_name : "None"}}</td>
                             <td class="bg-success">
                                 <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
                             </td>

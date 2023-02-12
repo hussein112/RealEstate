@@ -1,8 +1,7 @@
 <x-admin-layout>
-
     <x-slot name="main">
         <main class="users-admin container">
-            <h4 class="title my-2">Employees</h4>
+            <h4 class="title my-2">Users</h4>
 
             <div class="remainders">
                 <div class="alert alert-danger">
@@ -10,10 +9,10 @@
                 </div>
             </div>
             <hr>
-            <x-create-button target="a-newEmployee" title="Employee"></x-create-button>
+            <x-create-button target="a-newPost" title="Post"></x-create-button>
 
             <table class="table table-bordered caption-top">
-                <caption>List of All Employees</caption>
+                <caption>List of All Posts</caption>
                 <thead class="bg-dark">
                 <tr>
                     <th scope="col" class="text-primary">
@@ -21,76 +20,74 @@
                         <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Full Name</a>
+                        <a href="#">Title</a>
                         <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Phone</a>
+                        <a href="#">Date Posted</a>
                         <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Email</a>
+                        <a href="#">Content</a>
                         <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Statement</a>
+                        <a href="#">Category</a>
                         <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                     </th>
-                    <th scope="col" class="text-primary"><a href="#">Avatar</a></th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Added By</a>
+                        <a href="#">Posted By</a>
                         <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                     </th>
+                    <th>Details</th>
                     <th scope="col" class="text-primary">Actions</th>
                 </tr>
                 </thead>
-                @isset($employees)
-                    <tbody>
-                    @foreach($employees as $employee)
+                <tbody>
+                @isset($posts)
+                    @foreach($posts as $post)
                         <tr>
-                            <th scope="row">{{ $employee->id }}</th>
-                            <td>{{ $employee->full_name }}</td>
-                            <td>
-                                <a href="tel:+{{ $employee->phone }}">{{ $employee->phone }}</a>
-                            </td>
-                            <td>
-                                <a href="mailto:{{ $employee->email }}">{{ $employee->email }}</a>
-                            </td>
-                            <td class="td-long">
-                                {{ $employee->statement }}
-                            </td>
-                            <td><img src="https://picsum.photos/200/300" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
-                            <td>{{ $employee->addedBy->f_name . ' ' . $employee->addedBy->l_name }}</td>
+                            <th scope="row">{{ $post->id }}</th>
+                            <td>{{ $post->title }}</td>
+                            <td>{{ $post->date_posted }}</td>
+                            <td class="td-long">{{ $post->content }}</td>
+                            <td>{{ $post->category->category }}</td>
+                            <td>{{ ($post->author != null) ? $post->author->f_name . ' ' . $post->author->l_name : 'None' }}</td>
+                            <td><a href="{{ route('post', ['id' => $post->id]) }}">></a></td>
                             <td class="action-btns">
-                                <a href="{{ route('a-editEmployee', ['id' => $employee->id]) }}" class="btn btn-primary m-1">Edit</a>
+                                <a href="{{ route('a-editPost', ['id' => $post->id]) }}" class="btn btn-primary m-1">Edit</a>
                                 <a href="#" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
                             </td>
                         </tr>
                     @endforeach
-                    </tbody>
+
                 @endisset
+                </tbody>
             </table>
 
-            <!-- Start Show Image Modal -->
+            <div class="center">
+                {{ $posts->links() }}
+            </div>
 
-            <div class="modal fade" tabindex="-1" id="imageModal">
+            <!-- Start Delete Modal -->
+            <div class="modal" tabindex="-1" id="deleteModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Hussein's Avatar</h5>
+                            <h5 class="modal-title">Delete User Ali Hammoud?</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="https://picsum.photos/200/300">
+                            <p class="text-capitalize">Are You Sure You want to delete <strong>Ali Hammoud?</strong></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-danger">Yes</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- End Show Image Modal -->
-
-            <x-delete-modal target="property" targetId="1"></x-delete-modal>
+            <!-- End Delete Modal -->
         </main>
     </x-slot>
-
 </x-admin-layout>

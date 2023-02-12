@@ -15,6 +15,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route("a-posts") }}" class="nav-link  {{ ( request()->is('admin/posts') || request()->is('admin/*/admin/*')) ? 'active' : '' }}">
+                    Blog
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route("a-properties") }}" class="nav-link {{ ( request()->is('admin/properties') || request()->is('admin/*/property/*')) ? 'active' : '' }}">
                     Properties
                 </a>

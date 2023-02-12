@@ -6,10 +6,12 @@
             <hr>
 
             <form action="" method="post" class="w-100 m-1">
+                @method("POST")
+                @csrf
                 <input class="form-control my-2" type="text" placeholder="Title" name="title">
                 <input type="number" class="form-control my-2" placeholder="Size" name="size">
                 <div class="form-check d-flex">
-                    <input class="form-check-input" type="checkbox" id="featured">
+                    <input class="form-check-input" type="checkbox" id="featured" name="featured" value="">
                     <label class="form-check-label mx-2" for="featured">
                         Featured?
                     </label>
@@ -28,8 +30,8 @@
                 </select>
                 <select name="for" class="form-select my-2">
                     <option selected disabled>-- For --</option>
-                    <option value="">Rent</option>
-                    <option value="">Buy</option>
+                    <option value="rent">Rent</option>
+                    <option value="buy">Buy</option>
                 </select>
                 <select name="owner" class="form-select my-2">
                     <option selected disabled>-- Owner --</option>
@@ -40,7 +42,11 @@
                     @endisset
                 </select>
                 <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description"></textarea>
-                <input type="text" class="form-control my-2" placeholder="Add Features Separated By Comma" name="features[]">
+                <input type="text" class="form-control my-2" placeholder="Add Features Separated By Comma" name="features[]" multiple>
+                <div class="mb-3">
+                    <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+                    <input class="form-control" type="file" id="formFileMultiple" name="images" multiple>
+                </div>
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
