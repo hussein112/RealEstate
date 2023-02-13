@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddPropertyRequest;
 use App\Models\Customer;
+use App\Models\Image;
 use App\Models\Property;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -115,12 +120,37 @@ class PropertyController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
      */
-    public function store(Request $request)
+    public function store(AddPropertyRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $property = Property::create([
+            'size' => $request->size,
+            'title' => $request->title,
+            'description' => $request->description,
+            'featured' => 0,
+            'price' => $request->price,
+            'location' => $request->location,
+            'bedrooms_nb' => $request->bedrooms,
+            'bathrooms_nb' => $request->bathrooms,
+            'date_posted' => Date::now(),
+            'admin_id' => Auth::guard('admin')->id(),
+            'type_id' => $request->type,
+            'for' => $request->for,
+            'customer_id' => $request->owner
+        ]);
+
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $file){
+                $path = $file->store('public' . $request->owner);
+                $img = Image::create([
+                    'image' => $path
+                ]);
+                $property->images()->attach($property->id, ['image' => $img->id]);
+            }
+        }
+
+
     }
 
 

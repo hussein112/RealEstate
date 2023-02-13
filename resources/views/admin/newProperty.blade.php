@@ -4,14 +4,17 @@
         <h4 class="title my-2 center">Add New Property</h4>
         <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
             <hr>
-
-            <form action="" method="post" class="w-100 m-1">
-                @method("POST")
+            @if($errors->any)
+                @foreach($errors->all() as $error)
+                    <strong class="bg-danger text-primary">{{ $error }}</strong>
+                @endforeach
+            @endif
+            <form action="{{ route('a-newProperty') }}" method="post" class="w-100 m-1" enctype="multipart/form-data">
                 @csrf
                 <input class="form-control my-2" type="text" placeholder="Title" name="title">
                 <input type="number" class="form-control my-2" placeholder="Size" name="size">
                 <div class="form-check d-flex">
-                    <input class="form-check-input" type="checkbox" id="featured" name="featured" value="">
+                    <input class="form-check-input" type="checkbox" id="featured" name="featured" value="0">
                     <label class="form-check-label mx-2" for="featured">
                         Featured?
                     </label>
@@ -44,8 +47,8 @@
                 <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description"></textarea>
                 <input type="text" class="form-control my-2" placeholder="Add Features Separated By Comma" name="features[]" multiple>
                 <div class="mb-3">
-                    <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-                    <input class="form-control" type="file" id="formFileMultiple" name="images" multiple>
+                    <label for="images" class="form-label">Choose Property Images</label>
+                    <input class="form-control" type="file" id="images" name="images[]" accept="jpg,png,jpeg" multiple>
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>
