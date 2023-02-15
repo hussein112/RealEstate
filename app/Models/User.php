@@ -14,19 +14,8 @@ class User extends Authenticatable
 
 
     protected $table = "user";
-
+    protected $guarded = ['id'];
     public $timestamps = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
     /**
      * The attributes that should be hidden for serialization.

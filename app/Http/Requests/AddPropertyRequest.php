@@ -27,9 +27,9 @@ class AddPropertyRequest extends FormRequest
     {
         return [
             'size' => ['required', 'integer', ''],
-            'title' => ['required', 'max:300', 'alpha_num'],
+            'title' => ['required', 'unique', 'max:300', 'alpha_num'],
             'description' => ['required', 'max:450', 'alpha_num'],
-//            'featured' => ['required' ,'integer', ''],
+            'featured' => ['required' ,'integer', ''],
             'price' => ['required', 'integer', ''],
             'location' => ['required', 'alpha_num', 'max:120'],
             'bedrooms' => ['required', 'integer', ''],
@@ -37,7 +37,7 @@ class AddPropertyRequest extends FormRequest
             'type' => ['required', 'integer'],
             'for' => ['required', 'string', 'max:20'],
             'owner' => ['required', 'integer'],
-            'features' => [],
+            'features' => ['required'],
             // 1024 -> 1MB
 //            'images' => ['image', 'mimes:jpeg,png,jpg', 'size:1024', 'dimensions:min_width=200,max_width=1000,min_height=100,max_height=100']
             'images' => ['required']

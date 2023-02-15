@@ -8,6 +8,7 @@
                 </div>
             </div>
             <hr>
+            <x-create-button target="a-newUser" title="User"></x-create-button>
             <table class="table table-bordered caption-top">
                 <caption>List of All Users</caption>
                 <thead class="bg-dark">
@@ -37,6 +38,7 @@
                         <a href="#">Verified Email</a>
                         <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                     </th>
+                    <th>Joined At</th>
                     <th scope="col" class="text-primary">Actions</th>
                 </tr>
                 </thead>
@@ -52,11 +54,18 @@
                             <td>
                                 <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                             </td>
-                            <td><img src="https://picsum.photos/200/300" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
+                            <td><img src="{{ asset('storage/' . $user->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
                             <td>{{ ($user->addedBy->f_name) ? $user->addedBy->f_name . ' ' . $user->addedBy->l_name : "None"}}</td>
-                            <td class="bg-success">
-                                <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
-                            </td>
+                            @if($user->email_verified_at != null)
+                                <td class="bg-success">
+                                    <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
+                                </td>
+                            @else
+                                <td class="bg-danger">
+                                    {{ "Failure icon" }}
+                                </td>
+                            @endif
+                            <td>{{ $user->joined_at }}</td>
                             <td class="action-btns">
                                 <a href="{{ route('a-editUser', ['id' => $user->id]) }}" class="btn btn-primary m-1">Edit</a>
                                 <a href="#" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>

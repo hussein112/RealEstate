@@ -21,15 +21,15 @@
             @endif
             <div class="data">
                 @isset($admin)
-                    <form action="{{ route("a-profile", ['id' => 1]) }}" method="post" class="d-flex flex-column flex-lg-row">
+                    <form action="{{ route("a-profile", ['id' => Auth::guard('admin')->id()]) }}" method="post" class="d-flex flex-column flex-lg-row" enctype="multipart/form-data">
                         @method("PATCH")
                         @csrf
                         <div class="image w-20 m-2">
                             <!-- <iconify-icon icon="material-symbols:edit-square-outline"></iconify-icon> -->
                             <div class="mb-3">
-                                <img src="https://picsum.photos/200/300" alt="" loading="lazy">
+                                <img src="{{ asset('storage/' . $admin->avatar->image) }}" alt="Admin Profile" loading="lazy">
                                 <label for="newavatar" class="form-label">New Avatar</label>
-                                <input class="form-control" type="file" id="newavatar">
+                                <input class="form-control" type="file" id="newavatar" name="avatar">
                             </div>
                         </div>
                         <div class="other w-75 m-2">

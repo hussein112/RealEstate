@@ -72,11 +72,8 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("property", [PropertyController::class, 'createAdmin'])->name("a-newProperty");
         Route::post("property", [PropertyController::class, 'store'])->name("a-newProperty");
 
-        Route::get("user", [UserController::class, 'create'])->name("a-newUser");
+        Route::get("user", [UserController::class, 'adminCreate'])->name("a-newUser");
         Route::post("user", [UserController::class, 'store'])->name("a-newUser");
-
-        Route::get("valuation", [ValuationController::class, 'create'])->name("a-newValuation");
-        Route::post("valuation", [ValuationController::class, 'store'])->name("a-newValuation");
     });
 
 

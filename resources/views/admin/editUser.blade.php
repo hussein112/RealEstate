@@ -17,7 +17,7 @@
                     <hr>
                 @endif
                 @isset($user)
-                    <form action="{{ route('a-editUser', ['id' => $user->id]) }}" method="post">
+                    <form action="{{ route('a-editUser', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
                         @method("PATCH")
                         @csrf
                         <input name="fname" class="form-control my-2" type="text" placeholder="First Name" value="{{ $user->f_name }}">
@@ -33,11 +33,11 @@
                         <input name="phone" class="form-control my-2" type="tel" placeholder="Phone Number" value="{{ $user->phone }}">
                         <div class="d-flex flex-column flex-lg-row my-2">
                             <div class="previous-avatar w-100 my-2">
-                                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="change-user-image">
+                                <img src="{{ asset('storage/' . $user->avatar->image) }}" alt="Avatar" class="change-user-image">
                             </div>
                             <div class="new-avatar w-100 my-2">
                                 <label for="avatar" class="form-label">New Avatar</label>
-                                <input class="form-control form-control-lg" id="avatar" type="file">
+                                <input class="form-control form-control-lg" id="avatar" type="file" name="avatar">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>

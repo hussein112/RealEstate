@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -21,6 +24,10 @@ class UserController extends Controller
         //
     }
 
+    public function adminCreate(){
+        return view("admin.newUser");
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,11 +42,30 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+
+        ]);
+
+        $img = Image::create([
+            'image' => $request->file('avatar')->store('avatars/users', 'public')
+        ]);
+
+        User::create([
+            'f_name' => $request->fname,
+            'm_name' => $request->mname,
+            'l_name' => $request->lname,
+            'password' => $request->password,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'avatar_id' => $img->id,
+            'admin_id' => (Auth::guard('admin')->id()) ?? NULL,
+            'joined_at' => Date::now()
+        ]);
+
+        return redirect()->back()->with(['success_msg' => 'User Added Succesfully']);
     }
 
     /**
@@ -83,7 +109,12 @@ class UserController extends Controller
             'mname' => '',
             'lname' => '',
             'email' => '',
-            'phone' => ''
+            'phone' => '',
+            'avatar' => ''
+        ]);
+
+        $img = Image::create([
+            'image' => $request->file('avatar')->store('avatars/users', 'public')
         ]);
 
         $user = User::find($id);
@@ -93,7 +124,7 @@ class UserController extends Controller
 //        $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->phone = $request->phone;
-
+        $user->avatar_id = $img->id;
 
 
         if($user->isDirty()){

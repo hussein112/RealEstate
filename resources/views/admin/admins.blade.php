@@ -49,7 +49,7 @@
                             <td data-bs-toggle="tooltip" data-bs-title="Send Email to Hussein">
                                 <a href="mailto:{{ $admin->email }}">{{ $admin->email }}</a>
                             </td>
-                            <td><img src="https://picsum.photos/200/300" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
+                            <td><img src="{{ ($admin->avatar->image) ? asset('storage/' . $admin->avatar->image) : "kd" }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
                             @if($admin->email_verified_at != null)
                                 <td class="bg-success">
                                     <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
@@ -80,7 +80,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="https://picsum.photos/200/300">
+                            <img src="adfasdfasdf">
                         </div>
                     </div>
                 </div>
@@ -89,27 +89,6 @@
             <!-- End Show Image Modal -->
 
             <!-- Start Delete Modal -->
-            <div class="modal" tabindex="-1" id="deleteModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Delete Admin Ali Hammoud?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-capitalize">Are You Sure You want to delete <strong>Ali Hammoud?</strong></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
-                            <form action="{{ route('a-deleteAdmin', ['id' => $admin->id]) }}" method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Yes</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- End Delete Modal -->
         </main>
     </x-slot>

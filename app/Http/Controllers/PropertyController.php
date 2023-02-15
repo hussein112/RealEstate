@@ -146,11 +146,9 @@ class PropertyController extends Controller
                 $img = Image::create([
                     'image' => $path
                 ]);
-                $property->images()->attach($property->id, ['image' => $img->id]);
+                $property->images()->attach($property->id, ['image_id' => $img->id]);
             }
         }
-
-
     }
 
 

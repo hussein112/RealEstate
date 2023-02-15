@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Appointement;
+use App\Models\Image;
 use App\Models\Property;
 use App\Models\User;
 use App\Models\Valuation;
@@ -72,13 +73,19 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fname' => 'max:1',
-            'mname' => '',
-            'lname' => '',
-            'email' => '',
-            'phone' => ''
+            'fname' => ['required'],
+            'mname' => ['required'],
+            'lname' => ['required'],
+            'email' => ['required'],
+            'phone' => ['required'],
+            'image' => ['']
         ]);
-
+        if($request->hasFile('image')){
+            $path = $request->file('image')->store('avatars/admin', 'public');
+            $img = Image::create([
+                'image' => $path
+            ]);
+        }
         Admin::create([
             'f_name' => $request->fname,
             'm_name' => $request->mname,
@@ -86,7 +93,10 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
             'email' => $request->email,
+            'avatar_id' => $img->id
         ]);
+
+
 
         return redirect()->back()->with([
             'success_msg' => $request->fname . ' ' . $request->lname . " Added Successfully",
@@ -139,6 +149,14 @@ class AdminController extends Controller
 //        $admin->password = Hash::make($request->password);
         $admin->email = $request->email;
         $admin->phone = $request->phone;
+
+        if(isset($request->avatar)){
+            $img = Image::create([
+                'image' => $request->file('avatar')->store('avatars/admin', 'public')
+            ]);
+        }
+
+        $admin->avatar_id = $img->id;
 
         if($admin->isDirty()){
             $admin->save();

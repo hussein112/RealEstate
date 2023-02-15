@@ -17,10 +17,6 @@
                             <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Assigned To</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
-                        </th>
-                        <th scope="col" class="text-primary">
                             <a href="#">Date Issued</a>
                             <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
                         </th>
@@ -63,11 +59,15 @@
                                 <td>{{ isset($valuation->assignedBy->f_name) ? $valuation->assignedBy->f_name . ' ' . $valuation->assignedBy->l_name : "None" }}</td>
                                 <td>{{ $valuation->date_issued }}</td>
                                 <td>{{ $valuation->address_one }}</td>
-                                <td>{{ $valuation->address_two }}</td>
+                                <td>{{ $valuation->city }}</td>
                                 <td>{{ $valuation->postal_code }}</td>
                                 <td>{{ $valuation->valuation_type }}</td>
                                 <td class="td-long">{{ $valuation->description }}</td>
-                                <td>{{ $valuation->status }}</td>
+                                @if($valuation->valuation_status == 1)
+                                    <td class="bg-success text-light">Finished</td>
+                                @else
+                                    <td class="bg-danger text-light">Pending</td>
+                                @endif
                                 <td class="bg-danger text-light">{{ $valuation->due_date }}</td>
                                 <td><a class="btn btn-primary" href="{{ route("a-valuationDetails", ['id' => $valuation->id]) }}">></a></td>
                             </tr>
