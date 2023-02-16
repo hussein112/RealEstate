@@ -1,4 +1,5 @@
 <!-- Start Sidebar -->
+@php($admin = App\Models\Admin::find(Auth::guard('admin')->id()))
 <div class="sidebar-wrapper collapse collapse-horizontal" id="sidebar">
     <aside class="d-flex flex-column flex-shrink-0 p-3">
         <ul class="nav nav-pills mb-auto">
@@ -35,6 +36,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route("a-customers") }}" class="nav-link {{ ( request()->is('admin/customers') || request()->is('admin/*/customers/*')) ? 'active' : '' }}">
+                    Customers
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route("a-valuations") }}" class="nav-link {{ ( request()->is('admin/valuations') || request()->is('admin/valuation/*')) ? 'active' : '' }}">
                     Valuations
                 </a>
@@ -66,8 +72,8 @@
         <hr>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center  text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ asset('storage/' . App\Models\Admin::find(Auth::guard('admin')->id())->avatar->image) }}" alt="Avatar" width="32" height="32" class="rounded-circle me-2">
-                <strong>John Doe</strong>
+                <img src="{{ asset('storage/' . $admin->avatar->image) }}" alt="Avatar" width="32" height="32" class="rounded-circle me-2">
+                <strong>{{ $admin->f_name . " " . $admin->l_name }}</strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="{{ route('a-profileShow', ['id' => Auth::guard('admin')->id()]) }}">Profile</a></li>

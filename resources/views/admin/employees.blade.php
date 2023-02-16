@@ -59,7 +59,7 @@
                             <td class="td-long">
                                 {{ $employee->statement }}
                             </td>
-                            <td><img src="https://picsum.photos/200/300" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
+                            <td><img src="{{ asset('storage/' . $employee->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
                             <td>{{ $employee->addedBy->f_name . ' ' . $employee->addedBy->l_name }}</td>
                             <td class="action-btns">
                                 <a href="{{ route('a-editEmployee', ['id' => $employee->id]) }}" class="btn btn-primary m-1">Edit</a>

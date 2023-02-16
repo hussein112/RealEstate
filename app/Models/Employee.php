@@ -12,9 +12,14 @@ class Employee extends Authenticatable
 
     protected $table = 'team_member';
     public $timestamps = false;
+    protected $guarded = ['id'];
 
     public function addedBy(){
         return $this->belongsTo(Admin::class, 'admin_id', 'id');
+    }
+
+    public function avatar(){
+        return $this->belongsTo(Image::class);
     }
 
     public function appointements(){

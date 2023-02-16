@@ -2,7 +2,6 @@
 
     <x-slot name="main">
         <main class="admin-property container">
-            @isset($employee)
                 <h4 class="title my-2 center">New Employee</h4>
                 <div class="container my-5">
                     <hr>
@@ -11,7 +10,7 @@
                     @elseif(session('success_msg' != null))
                         <strong class="bg-success p-5 text-dark">{{ session("success_msg") }}</strong>
                     @endif
-                    <form action="{{ route('a-editEmployee', ['id' => $employee->id]) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('a-newEmployee') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="fname" class="col-form-label col-sm-2">Full Name</label>
@@ -47,14 +46,13 @@
                         </div>
                         <div class="d-flex flex-column flex-lg-row my-2">
                             <div class="new-avatar w-100 my-2">
-                                <label for="avatar" class="form-label">New Avatar</label>
+                                <label for="avatar" class="form-label">Avatar</label>
                                 <input class="form-control form-control-lg" id="avatar" type="file" name="avatar">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Add</button>
                     </form>
                 </div>
-            @endisset
         </main>
     </x-slot>
 

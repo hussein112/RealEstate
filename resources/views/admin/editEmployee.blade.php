@@ -47,7 +47,7 @@
                         </div>
                         <div class="d-flex flex-column flex-lg-row my-2">
                             <div class="previous-avatar w-100 my-2">
-                                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="change-user-image">
+                                <img src="{{ asset("storage/" . $employee->avatar->image) }}" alt="Avatar" class="change-user-image">
                             </div>
                             <div class="new-avatar w-100 my-2">
                                 <label for="avatar" class="form-label">New Avatar</label>

@@ -28,4 +28,8 @@ class Image extends Model
     public function propertyImage(){
         return $this->belongsToMany(Property::class, 'property_image', 'image_id', 'property_id');
     }
+
+    public function employeeAvatar(){
+        return $this->hasOne(Employee::class);
+    }
 }

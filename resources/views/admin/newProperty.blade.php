@@ -36,14 +36,19 @@
                     <option value="rent">Rent</option>
                     <option value="buy">Buy</option>
                 </select>
-                <select name="owner" class="form-select my-2">
-                    <option selected disabled>-- Owner --</option>
-                    @isset($customers)
+                <div class="input-group">
+                    <select name="owner" class="form-select" aria-describedby="test">
+                        @if(sizeof($customers) > 0)
+                            <option selected disabled>-- Owner --</option>
                         @foreach($customers as $customer)
-                            <option value="{{ $customer->id }}">{{ $customer->full_name }}</option>
-                        @endforeach
-                    @endisset
-                </select>
+                                <option value="{{ $customer->id }}">{{ $customer->full_name }}</option>
+                            @endforeach
+                        @else
+                            <option disabled selected>-- No Customers, Yet --</option>
+                        @endif
+                    </select>
+                    <a href="{{ route('a-newCustomer') }}" id="test" class="btn btn-outline-primary">New</a>
+                </div>
                 <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description"></textarea>
                 <input type="text" class="form-control my-2" placeholder="Add Features Separated By Comma" name="features[]" multiple>
                 <div class="mb-3">

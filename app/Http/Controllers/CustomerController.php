@@ -2,10 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use Cassandra\Custom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
+    public function adminIndex(){
+        return view("admin.customers")->with([
+            'customers' => Customer::paginate(9)
+        ]);
+    }
+    public function adminCreate(){
+        return view('admin.newCustomer');
+    }
+
+    public function adminEdit($id){
+        return view("admin.editCustomer")->with([
+            'customer' => Customer::find($id)
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,11 +47,28 @@ class CustomerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'fullname' => [],
+            'email' => [],
+            'phone' => []
+        ]);
+
+
+
+        Customer::create([
+            'full_name' => $request->fullname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            // To be changed if the employee is authorized to add customers
+            'admin_id' => Auth::guard('admin')->id()
+        ]);
+
+        return redirect()->intended()->with([
+            'success_msg' => "Customer " . $request->fullname . " Addedd Successfully."
+        ]);
     }
 
     /**
@@ -64,11 +98,27 @@ class CustomerController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'fullname' => [],
+            'email' => [],
+            'phone' => []
+        ]);
+
+        $customer = Customer::find($id);
+        $customer->full_name = $request->fullname;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
+
+
+        if($customer->isDirty()){
+            $customer->save();
+            return redirect()->back()->with([
+                'success_msg' => $customer->full_name . '  Updated Successfully',
+            ]);
+        }
     }
 
     /**

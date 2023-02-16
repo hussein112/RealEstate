@@ -30,7 +30,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
     Route::get("branches", [BranchesController::class, 'adminIndex'])->name('a-branches');
 
-    Route::get("customers", [CustomerController::class, 'index'])->name('a-customers');
+    Route::get("customers", [CustomerController::class, 'adminIndex'])->name('a-customers');
 
     Route::get("employees", [EmployeeController::class, 'adminIndex'])->name("a-employees");
 
@@ -63,7 +63,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("appointement", [AppointementController::class, 'create'])->name("a-newAppointement");
         Route::post("appointement", [AppointementController::class, 'store'])->name("a-newAppointement");
 
-        Route::get("customer", [CustomerController::class, 'create'])->name("a-newCustomer");
+        Route::get("customer", [CustomerController::class, 'adminCreate'])->name("a-newCustomer");
         Route::post("customer", [CustomerController::class, 'store'])->name("a-newCustomer");
 
         Route::get("employee", [EmployeeController::class, 'create'])->name("a-newEmployee");
@@ -104,7 +104,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("valuation/{id}", [ValuationController::class, 'adminEdit'])->name("a-editValuation");
         Route::patch("valuation/{id}", [ValuationController::class, 'update'])->name("a-editValuation");
 
-        Route::get("customers/{id}", [CustomerController::class, 'edit'])->name("a-editCustomer");
+        Route::get("customers/{id}", [CustomerController::class, 'adminEdit'])->name("a-editCustomer");
         Route::patch("customers/{id}", [CustomerController::class, 'update'])->name("a-editCustomer");
 
         Route::get("enquiries/{id}", [EnquiriesController::class, 'edit'])->name("a-editEnquiry");
