@@ -26,21 +26,20 @@ class AddPropertyRequest extends FormRequest
     public function rules()
     {
         return [
-            'size' => ['required', 'integer', ''],
-            'title' => ['required', 'unique', 'max:300', 'alpha_num'],
-            'description' => ['required', 'max:450', 'alpha_num'],
-            'featured' => ['required' ,'integer', ''],
-            'price' => ['required', 'integer', ''],
-            'location' => ['required', 'alpha_num', 'max:120'],
-            'bedrooms' => ['required', 'integer', ''],
-            'bathrooms' => ['required', 'integer', ''],
-            'type' => ['required', 'integer'],
+            'size' => ['required', 'numeric', 'max_digits:4'],
+            'title' => ['required', 'unique:property', 'max:300', 'regex:/[\s\Wa-zA-z0-9]/'],
+            'description' => ['required', 'max:450', 'regex:/[\s\Wa-zA-z0-9]/'],
+            'price' => ['required', 'numeric', 'max_digits:6'],
+            'location' => ['required', 'regex:/[\s\Wa-zA-z0-9]/', 'max:120'],
+            'bedrooms' => ['required', 'numeric', 'max_digits:2'],
+            'bathrooms' => ['required', 'numeric', 'max_digits:2'],
+            'type' => ['required', 'numeric', 'max_digits:1'],
             'for' => ['required', 'string', 'max:20'],
-            'owner' => ['required', 'integer'],
-            'features' => ['required'],
+            'owner' => ['required', 'numeric', 'max_digits:4'],
             // 1024 -> 1MB
 //            'images' => ['image', 'mimes:jpeg,png,jpg', 'size:1024', 'dimensions:min_width=200,max_width=1000,min_height=100,max_height=100']
-            'images' => ['required']
+            'images.image' => ['required'],
+            'images.image.*' => 'image'
         ];
     }
 }

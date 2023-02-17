@@ -18,6 +18,7 @@ export default defineConfig({
                 'resources/js/admin/tooltips.js',
                 'resources/js/admin/settings.js',
                 'resources/js/admin/charts.js',
+                'resources/js/admin/features.js',
 
             ],
             refresh: true,

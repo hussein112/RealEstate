@@ -9,6 +9,8 @@ class Feature extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+    public $timestamps = false;
     protected $table = 'feature';
 
     public function property(){

@@ -2,20 +2,26 @@
 <x-slot name="main">
     <main class="admin-property container">
         <h4 class="title my-2 center">Add New Property</h4>
+        <div class="container d-flex flex-column">
+            @if($errors->any())
+                    <h3>Error Inserting Property</h3>
+                    @foreach($errors->all() as $error)
+                        <strong class="bg-success text-light m-1 p-1">{{ $error }}</strong>
+                    @endforeach
+            @elseif(session('success_msg'))
+                <strong class="bg-success text-danger m-1 p-1">{{ session('success_msg') }}</strong>
+            @endif
+        </div>
         <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
             <hr>
-            @if($errors->any)
-                @foreach($errors->all() as $error)
-                    <strong class="bg-danger text-primary">{{ $error }}</strong>
-                @endforeach
-            @endif
             <form action="{{ route('a-newProperty') }}" method="post" class="w-100 m-1" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" value="{{ (\App\Models\Property::latest("id")->first()->id + 1) }}" id="pr-id">
                 <input class="form-control my-2" type="text" placeholder="Title" name="title">
                 <input type="number" class="form-control my-2" placeholder="Size" name="size">
-                <div class="form-check d-flex">
-                    <input class="form-check-input" type="checkbox" id="featured" name="featured" value="0">
-                    <label class="form-check-label mx-2" for="featured">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="featured" value="1" id="featuredCheck">
+                    <label class="form-check-label" for="featuredCheck">
                         Featured?
                     </label>
                 </div>
@@ -50,12 +56,24 @@
                     <a href="{{ route('a-newCustomer') }}" id="test" class="btn btn-outline-primary">New</a>
                 </div>
                 <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description"></textarea>
-                <input type="text" class="form-control my-2" placeholder="Add Features Separated By Comma" name="features[]" multiple>
+                @vite('resources/js/admin/features.js')
+                <select name="features" class="form-select" aria-describedby="test" onchange="window.csvinput.manualTag(this)">
+                    @if(sizeof($features) > 0)
+                        <option selected disabled>-- Features --</option>
+                        @foreach($features as $feature)
+                            <option value="{{ $feature->id }}">{{ $feature->feature }}</option>
+                        @endforeach
+                    @else
+                        <option disabled selected>-- No Customers, Yet --</option>
+                    @endif
+                </select>
+                <div id="hk-input-csv"></div>
+
                 <div class="mb-3">
                     <label for="images" class="form-label">Choose Property Images</label>
-                    <input class="form-control" type="file" id="images" name="images[]" accept="jpg,png,jpeg" multiple>
+                    <input class="form-control" type="file" id="images" name="images[image][]" accept="jpg,png,jpeg" multiple>
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary add-product">Add</button>
             </form>
         </div>
     </main>

@@ -60,12 +60,19 @@
                     Branches
                 </a>
             </li>
-            <div class="flex-center my-2">
+
+            <div class="d-flex flex-column my-2">
                 <li class="nav-item colors mx-2">
-                    <input autocomplete="off" type="checkbox" id="theme" checked data-toggle="toggle">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="theme">
+                        <label class="form-check-label" for="theme">Color</label>
+                    </div>
                 </li>
                 <li class="nav-item lang mx-2">
-                    <input autocomplete="off" type="checkbox" id="language" checked data-toggle="toggle">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="language">
+                        <label class="form-check-label" for="language">Language</label>
+                    </div>
                 </li>
             </div>
         </ul>

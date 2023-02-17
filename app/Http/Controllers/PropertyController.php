@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddPropertyRequest;
 use App\Models\Customer;
+use App\Models\Feature;
 use App\Models\Image;
 use App\Models\Property;
 use App\Models\Type;
@@ -105,6 +106,7 @@ class PropertyController extends Controller
         return view('admin.newProperty')->with([
             'types' => Type::all(),
             'customers' => Customer::all(),
+            'features' => Feature::all(),
         ]);
     }
 
@@ -128,7 +130,7 @@ class PropertyController extends Controller
             'size' => $request->size,
             'title' => $request->title,
             'description' => $request->description,
-            'featured' => 0,
+            'featured' => ($request->has('featured') ? $request->featured : 0),
             'price' => $request->price,
             'location' => $request->location,
             'bedrooms_nb' => $request->bedrooms,
@@ -140,16 +142,18 @@ class PropertyController extends Controller
             'customer_id' => $request->owner
         ]);
 
-        if($request->hasFile('images')){
-            foreach($request->file('images') as $file){
-                $path = $file->store('public' . $request->owner);
+        if($request->hasFile('images.image')){
+            foreach($request->file('images.image.*') as $file){
                 $img = Image::create([
-                    'image' => $path
+                    'image' => $file->store('property/' . $property->id, 'public')
                 ]);
                 $property->images()->attach($property->id, ['image_id' => $img->id]);
             }
         }
+
+        return redirect()->back()->with(['success_msg' => 'Property Inserted Successfully']);
     }
+
 
 
 
@@ -175,11 +179,19 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'fname' => 'max:255',
-            'mname' => '',
-            'lname' => '',
-            'email' => '',
-            'phone' => ''
+            'size' => ['numeric', 'max_digits:4'],
+            'title' => ['max:300', 'regex:/[\s\Wa-zA-z0-9]/'],
+            'description' => ['max:450', 'regex:/[\s\Wa-zA-z0-9]/'],
+            'price' => ['numeric', 'max_digits:6'],
+            'location' => ['regex:/[\s\Wa-zA-z0-9]/', 'max:120'],
+            'bedrooms' => ['numeric', 'max_digits:2'],
+            'bathrooms' => ['numeric', 'max_digits:2'],
+            'type' => ['numeric', 'max_digits:1'],
+            'for' => ['string', 'max:20'],
+            'owner' => ['numeric', 'max_digits:4'],
+            // 1024 -> 1MB
+//            'images' => ['image', 'mimes:jpeg,png,jpg', 'size:1024', 'dimensions:min_width=200,max_width=1000,min_height=100,max_height=100']
+            'images.image.*' => 'image'
         ]);
 
         $property = Property::find($id);
@@ -190,8 +202,7 @@ class PropertyController extends Controller
         $property->title = $request->title;
         $property->size = $request->size;
         $property->price = $request->price;
-        dd($request->featured);
-        $property->featured = $request->featured;
+        $property->featured = ($request->featured) ?? 0;
         $property->bedrooms_nb = $request->bedrooms;
         $property->bathrooms_nb = $request->bathrooms;
         $property->type_id = $request->type;

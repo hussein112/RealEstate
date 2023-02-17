@@ -3,22 +3,31 @@
         <main class="admin-property container">
             @isset($property)
                 <h4 class="title my-2 center">Edit Property <strong class="d-">#{{ $property->id }}</strong></h4>
+                <div class="container d-flex flex-column">
+
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                            <strong class="bg-danger text-light p-2 m-1">{{ $error  }}</strong>
+                    @endforeach
+                @elseif(session('success_msg'))
+                    <strong class="bg-success text-light p-2 m-1">{{ session('success_msg') }}</strong>
+                @endif
+                </div>
+
                 <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                     <hr>
-                    @if(session('success_msg'))
-                        <div class="strong bg-danger text-light">{{ session('success_message') }}</div>
-                    @endif
+
                     <form action="" method="post" class="w-100 m-1">
                         @method("PATCH")
                         @csrf
                         <input name="ownerfname" class="form-control my-2" type="text" placeholder="Owner Name" value="{{ $property->owner->full_name }}">
                         <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}">
                         <input name="size" class="form-control my-2" type="number" placeholder="Size" value="{{ $property->size }}">
-                        <textarea name="description" id="" cols="30" rows="10" class="form-control my-2" placeholder="Description">{{ $property->description }}</textarea>
+                        <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description">{{ $property->description }}</textarea>
                         <input name="price" class="form-control my-2" type="number" placeholder="Price" value="{{ $property->price }}">
-                        <div class="form-check d-flex">
-                            <input class="form-check-input" type="checkbox" id="featured" value="">
-                            <label class="form-check-label mx-2" for="featured" name="featured">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="featured" value="1" id="featuredCheck" @checked($property->featured == 1)>
+                            <label class="form-check-label" for="featuredCheck">
                                 Featured?
                             </label>
                         </div>
@@ -33,51 +42,39 @@
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
 
-                    <div class="right-side-wrapper w-100 m-1">
-                        <div id="property1" class="carousel slide property-slides" data-bs-ride="true">
 
-
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#property1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#property1" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#property1" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="https://picsum.photos/200/300" class="d-block w-100" alt="..." loading="lazy">
-                                    <div class="carousel-btns">
-                                        <iconify-icon icon="material-symbols:edit-sharp" type="button" data-bs-toggle="modal" data-bs-target="#editModal"></iconify-icon>
-                                        <iconify-icon icon="ic:round-delete" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal"></iconify-icon>
+                        <div class="right-side-wrapper w-100 m-1">
+                            @isset($property->images)
+                                <div id="property" class="carousel slide property-slides" data-bs-ride="true">
+                                    <div class="carousel-indicators">
+                                        @for($i = 0; $i < sizeof($property->images); $i++)
+                                            <button type="button" data-bs-target="#property" data-bs-slide-to="{{ $i }}" class="{{ ($i == 0) ? 'active' : '' }}" aria-current="{{ ($i == 0) ? 'true' : '' }}" aria-label="Slide {{ $i }}"></button>
+                                        @endfor
                                     </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://picsum.photos/200/300" class="d-block w-100" alt="..." loading="lazy">
-                                    <div class="carousel-btns">
-                                        <iconify-icon icon="material-symbols:edit-sharp" type="button" data-bs-toggle="modal" data-bs-target="#editModal"></iconify-icon>
-                                        <iconify-icon icon="ic:round-delete" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal"></iconify-icon>
+
+                                    <div class="carousel-inner">
+                                        @foreach($property->images as $key)
+                                            <div class="carousel-item @if($loop->first) active @endif">
+                                                <img src="{{ asset('storage/' . $key->image) }}" class="d-block w-100" style="height: 250px; max-height: 300px" alt="{{ $property->title }}" loading="lazy">
+                                                <div class="carousel-btns">
+                                                    <iconify-icon icon="material-symbols:edit-sharp" type="button" data-bs-toggle="modal" data-bs-target="#editModal"></iconify-icon>
+                                                    <iconify-icon icon="ic:round-delete" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal"></iconify-icon>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
+
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#property" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+
+                                    <button class="carousel-control-next" type="button" data-bs-target="#property" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="https://picsum.photos/200/300" class="d-block w-100" alt="..." loading="lazy">
-                                    <div class="carousel-btns">
-                                        <iconify-icon icon="material-symbols:edit-sharp" type="button" data-bs-toggle="modal" data-bs-target="#editModal"></iconify-icon>
-                                        <iconify-icon icon="ic:round-delete" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal"></iconify-icon>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button class="carousel-control-prev" type="button" data-bs-target="#property1" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-
-                            <button class="carousel-control-next" type="button" data-bs-target="#property1" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-
-                        </div>
+                            @endisset
 
                         <div class="features grid-text">
                             @isset($property->features)

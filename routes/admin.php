@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
@@ -14,6 +15,12 @@ use App\Http\Controllers\ValuationController;
 
 require __DIR__ . '/adminauth.php';
 Route::prefix('/admin')->middleware("auth:admin")->group(function(){
+    /**
+     * AJax Routes
+     *
+     */
+    Route::post("add/feature", [FeatureController::class, 'store']);
+
     /**
      *  View Routes
      */

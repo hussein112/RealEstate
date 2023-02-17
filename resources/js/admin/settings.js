@@ -1,3 +1,11 @@
+const theme = document.getElementById("theme");
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+theme.addEventListener("change", () => {
+    toggleTheme();
+});
+
 const light = {
     primary: "#ffffff",
     secondary: "#79ffd7",
@@ -7,49 +15,25 @@ const light = {
 }
 
 const dark = {
-    primary: "#03001C",
+    // primary: "#03001C",
+    primary: "#121212",
     secondary: "#5e6e82",
     tertiary: "rgb(91, 143, 185)",
     rgbtertiary: "255, 255, 255",
     fourth: "#ffffff",
 }
+colorize();
 
-if($('#theme')[0] != null){
-    $('#theme').bootstrapToggle({
-        on: '<iconify-icon icon="material-symbols:mode-night-rounded" flip="horizontal"></iconify-icon>',
-        off: '<iconify-icon icon="material-symbols:clear-day" flip="horizontal"></iconify-icon>',
-        onstyle: 'dark',
-        offstyle: 'success' 
-    });
 
-    if(localStorage.getItem("theme") == "light"){ 
-        $('#theme').bootstrapToggle('off');
-    }
 
-    $('#language').bootstrapToggle({
-        on: 'EN',
-        off: 'AR',
-        onstyle: 'success',
-        offstyle: 'success', 
-    });
-}
-$(document).ready(function(){
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    
-    if(localStorage.getItem("pr") == light.primary){
+function colorize(){
+    console.log("Run");
+    if(localStorage.getItem("pr") === light.primary){
         setLight();
     }else{
         setDark();
     }
-});
-
-$(function() {
-    $('#theme').change(function() {
-        toggleTheme();
-    })
-});
-
+}
 
 function toggleTheme(){
     if(localStorage.getItem("theme") == "dark"){
