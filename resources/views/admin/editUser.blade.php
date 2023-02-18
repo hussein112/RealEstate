@@ -3,19 +3,9 @@
         <main class="admin-property container">
             <h4 class="title my-2 center">Edit User <strong>Hassan Khalil</strong></h4>
             <div class="container my-5">
+                <x-messages msg="error_msg" type="danger"></x-messages>
+                <x-messages msg="success_msg" type="success"></x-messages>
                 <hr>
-                @if(session('error_msg') != null)
-                    <div class="bg-danger p-5">
-                        <strong class="text-light">{{ session('error_msg') }}</strong>
-                    </div>
-                    <hr>
-                @endif
-                @if(session('success_msg') != null)
-                    <div class="bg-success p-5">
-                        <strong class="text-dark">{{ session('success_msg') }}</strong>
-                    </div>
-                    <hr>
-                @endif
                 @isset($user)
                     <form action="{{ route('a-editUser', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
                         @method("PATCH")

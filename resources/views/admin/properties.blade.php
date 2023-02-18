@@ -8,14 +8,13 @@
                     <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
                 </div>
             </div>
-            <hr>
-            <x-create-button target="a-newProperty" title="Property"></x-create-button>
-            @if(session('error_msg') != null)
+            @if(session('success_msg') != null)
                 <div class="container">
-                    <strong class="bg-danger text-light">{{ session('error_msg') }}</strong>
+                    <strong class="bg-success text-light p-2 m-1">{{ session('success_msg') }}</strong>
                 </div>
             @endif
-
+            <hr>
+            <x-create-button target="a-newProperty" title="Property"></x-create-button>
 
             <table class="table table-bordered caption-top">
                 <caption>List of All Properties</caption>
@@ -109,7 +108,7 @@
                             <td>{{ $property->for }}</td>
                             <td class="action-btns">
                                 <a href="{{ route("a-editProperty", ['id' => $property->id]) }}" class="btn btn-primary m-1">Edit</a>
-                                <button id="delete" name="{{ $property->id }}" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                                <button id="delete" id="{{ $property->id }}" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$property->id}}">Delete</button>
                             </td>
                             <td><a href="{{ route("a-property", ['id' => $property->id]) }}" class="btn btn-primary">></a></td>
                         </tr>
@@ -127,8 +126,10 @@
 
 
             <!-- Start Delete Modal -->
-            <x-delete-modal target="property" targetId="1">
-            </x-delete-modal>
+            @foreach($properties as $property)
+                <x-delete-modal target="property" targetId="{{ $property->id }}">
+                </x-delete-modal>
+            @endforeach
             <!-- End Delete Modal -->
 
         </main>

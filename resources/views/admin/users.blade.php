@@ -7,6 +7,8 @@
                     <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
                 </div>
             </div>
+            <x-messages msg="error_msg" type="danger"></x-messages>
+            <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
             <x-create-button target="a-newUser" title="User"></x-create-button>
             <table class="table table-bordered caption-top">
@@ -68,7 +70,7 @@
                             <td>{{ $user->joined_at }}</td>
                             <td class="action-btns">
                                 <a href="{{ route('a-editUser', ['id' => $user->id]) }}" class="btn btn-primary m-1">Edit</a>
-                                <a href="#" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$user->id}}">Delete</button>
                             </td>
                         </tr>
                     @endforeach
@@ -94,25 +96,10 @@
 
             <!-- End Show Image Modal -->
 
-            <!-- Start Delete Modal -->
-            <div class="modal" tabindex="-1" id="deleteModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Delete User Ali Hammoud?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-capitalize">Are You Sure You want to delete <strong>Ali Hammoud?</strong></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-danger">Yes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Delete Modal -->
+            @foreach($users as $user)
+                <x-delete-modal target="user" targetId="{{ $user->id }}">
+                </x-delete-modal>
+            @endforeach
         </main>
     </x-slot>
 </x-admin-layout>

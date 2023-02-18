@@ -8,6 +8,8 @@
                     <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
                 </div>
             </div>
+            <x-messages msg="error_msg" type="danger"></x-messages>
+            <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
             <x-create-button target="a-newCustomer" title="Customer"></x-create-button>
         <table class="table table-bordered caption-top">
@@ -48,7 +50,7 @@
                         <td>{{ $customer->addedBy->f_name . " " . $customer->addedBy->l_name }}</td>
                         <td class="action-btns">
                             <a href="{{ route("a-editCustomer", ['id' => $customer->id]) }}" class="btn btn-primary m-1">Edit</a>
-                            <button id="delete" name="{{ $customer->id }}" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                            <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$customer->id}}">Delete</button>
                         </td>
                     </tr>
                 @endforeach
@@ -64,8 +66,10 @@
 
 
         <!-- Start Delete Modal -->
-        <x-delete-modal target="property" targetId="1">
-        </x-delete-modal>
+            @foreach($customers as $customer)
+                <x-delete-modal target="customer" targetId="{{ $customer->id }}">
+                </x-delete-modal>
+            @endforeach
         <!-- End Delete Modal -->
         </main>
 

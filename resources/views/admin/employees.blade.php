@@ -9,6 +9,8 @@
                     <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
                 </div>
             </div>
+            <x-messages msg="error_msg" type="danger"></x-messages>
+            <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
             <x-create-button target="a-newEmployee" title="Employee"></x-create-button>
 
@@ -63,7 +65,7 @@
                             <td>{{ $employee->addedBy->f_name . ' ' . $employee->addedBy->l_name }}</td>
                             <td class="action-btns">
                                 <a href="{{ route('a-editEmployee', ['id' => $employee->id]) }}" class="btn btn-primary m-1">Edit</a>
-                                <a href="#" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$employee->id}}">Delete</button>
                             </td>
                         </tr>
                     @endforeach
@@ -89,7 +91,10 @@
 
             <!-- End Show Image Modal -->
 
-            <x-delete-modal target="property" targetId="1"></x-delete-modal>
+            @foreach($employees as $employee)
+                <x-delete-modal target="employee" targetId="{{ $employee->id }}">
+                </x-delete-modal>
+            @endforeach
         </main>
     </x-slot>
 

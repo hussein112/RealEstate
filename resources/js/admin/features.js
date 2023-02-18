@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 class inputFactory{
 
     /**
@@ -13,11 +11,27 @@ class inputFactory{
         const container = document.createElement("div");
         container.setAttribute("class", "container hk-wrapper");
 
+        this.prototype.createHidden(container);
+
         this.prototype.createTitle(container, title);
 
         this.prototype.createContent(container, inputPlaceHolder);
 
         this.prototype.createDetails(container, max);
+    }
+
+    /**
+     * Create the input that will hold the data for the backend.
+     *
+     * @param {HtmlDivElement} container
+     */
+    createHidden(container){
+        const hidden = document.createElement("input");
+        hidden.setAttribute("type", "hidden");
+        hidden.setAttribute("id", "hk-csv-array");
+        hidden.setAttribute("name", "hks");
+
+        container.appendChild(hidden);
     }
 
 
@@ -130,6 +144,7 @@ class inputFactory{
     createRemoveAllButton(container){
         const remove = document.createElement("button");
         remove.setAttribute("class", "btn btn-primary");
+        remove.setAttribute("type","button");
         remove.innerText = "Remove All";
 
         container.appendChild(remove);
@@ -137,7 +152,7 @@ class inputFactory{
 }
 
 class CSVInput{
-    constructor(inputPlaceHolder, trigger, max, placeHolder, sendListener, url, data){
+    constructor(inputPlaceHolder, trigger, max, placeHolder, url, data){
         window.that = this;
 
         this.max = max;
@@ -156,15 +171,16 @@ class CSVInput{
             window.that.container = document.querySelector(".hk-csv-list");
             window.that.tagNumber = document.getElementById("hk-max");
             window.that.input = document.getElementById("hk-input");
+            window.that.hidden = document.getElementById("hk-csv-array");
             that.initialize();
             that.countTags();
             that.createTag();
         }, 500);
 
 
-        sendListener.addEventListener("click", function(){
-            that.sendData(that.url, document.getElementById("pr-id").value);
-        });
+        // sendListener.addEventListener("click", function(){
+        //     that.sendData(that.url, document.getElementById("pr-id").value);
+        // });
     }
 
     /**
@@ -180,6 +196,7 @@ class CSVInput{
             this.countTags();
             this.addPlaceHolder();
             this.input.value = "";
+            this.hidden.value = "";
             Errors.removePreviousErrors();
         });
     }
@@ -208,10 +225,12 @@ class CSVInput{
      */
     createTag(tag = null){
         this.container.querySelectorAll("li").forEach(li => li.remove());
+        this.hidden.value = "";
         this.tags.slice().reverse().forEach(tag =>{
             const icon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"> <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/> </svg>';
             let liTag = `<li class="hk-v m-1 border border-secondary p-1 rounded d-flex align-items-center justify-content-center">${tag} <i class="d-flex align-items-center mx-1" onclick="window.that.remove(this, '${tag}')">${icon}</i></li>`;
             this.container.insertAdjacentHTML("afterbegin", liTag);
+            this.hidden.value += tag + ', ';
         });
         this.countTags();
     }
@@ -233,6 +252,17 @@ class CSVInput{
         if(this.input.disabled){
             this.input.disabled = false;
         }
+
+        this.removeHidden(tag);
+    }
+
+    /**
+     * Remove the element from the backend input (hidden input)
+     *
+     * @param {String} tag
+     */
+    removeHidden(tag){
+        this.hidden.value = this.hidden.value.replace(tag, '');
     }
 
     /**
@@ -272,6 +302,11 @@ class CSVInput{
     }
 
 
+    /**
+     * Add manual tag. i.e., from DB.
+     *
+     * @param {String} tag
+     */
     manualTag(tag){
         let e = document.getElementById("hk-input");
         const that = window.that;
@@ -297,6 +332,7 @@ class CSVInput{
                 tag.trim();
                 that.tags.push(tag);
                 that.createTag();
+                that.hidden.value += tag + ', ';
             });
         }
         e.value = "";
@@ -305,43 +341,43 @@ class CSVInput{
             firstElement.remove();
         }
     }
-    /**
-     * Send Data Through POST axios HTTP Request (JSON)
-     *
-     * @param {String} url
-     */
-    sendData(url, id){
-        const values = Array.from(document.querySelectorAll(".hk-v"));
-        const jsonData = {
-            "id": id
-        };
-        for(let i = 0; i < values.length; i++){
-            jsonData[i] = values[i].innerText;
-        }
-        this.sendDataTo(url, JSON.stringify(jsonData));
-    }
+    // /**
+    //  * Send Data Through POST axios HTTP Request (JSON)
+    //  *
+    //  * @param {String} url
+    //  */
+    // sendData(url, id){
+    //     const values = Array.from(document.querySelectorAll(".hk-v"));
+    //     const jsonData = {
+    //         "id": id
+    //     };
+    //     for(let i = 0; i < values.length; i++){
+    //         jsonData[i] = values[i].innerText;
+    //     }
+    //     this.sendDataTo(url, JSON.stringify(jsonData));
+    // }
 
-    /**
-     * Send data to a backend enpoint through axios
-     * @param {String} url
-     * @param {JSONString} jsonData
-     */
-    sendDataTo(url, jsonData){
-       axios.post(url, {
-           data: jsonData
-       },{
-           headers: {
-               'Content-Type': 'application/json'
-           }
-       })
-       .then(function (response) {
-           console.log(response);
-       })
-       .catch(function (error) {
-           console.log(error);
-           Errors.httpError(error.response.data);
-       });
-    }
+    // /**
+    //  * Send data to a backend enpoint through axios
+    //  * @param {String} url
+    //  * @param {JSONString} jsonData
+    //  */
+    // sendDataTo(url, jsonData){
+    //    axios.post(url, {
+    //        data: jsonData
+    //    },{
+    //        headers: {
+    //            'Content-Type': 'application/json'
+    //        }
+    //    })
+    //    .then(function (response) {
+    //        console.log(response);
+    //    })
+    //    .catch(function (error) {
+    //        console.log(error);
+    //        Errors.httpError(error.response.data);
+    //    });
+    // }
 
 }
 
@@ -423,5 +459,4 @@ class Errors{
 
 
 // CSVInput("inputPlaceHolder", "Trigger", Max, Tags[], "formPlaceHolder")
-const send = document.querySelector(".add-product");
-window.csvinput = new CSVInput("Input Place Holder", ',', 3, "Form Place Holder", send, '/admin/add/feature');
+window.csvinput = new CSVInput("Input Place Holder", ',', 3, "Form Place Holder",'/admin/add/feature');

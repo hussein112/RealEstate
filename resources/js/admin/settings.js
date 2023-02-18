@@ -27,7 +27,6 @@ colorize();
 
 
 function colorize(){
-    console.log("Run");
     if(localStorage.getItem("pr") === light.primary){
         setLight();
     }else{

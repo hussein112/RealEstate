@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class AppointementController extends Controller
 {
@@ -87,10 +88,12 @@ class AppointementController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        Appointement::destroy($id);
+        return redirect()->back()->with([
+            'success_msg' => 'Appointement ' . $id . ' Deleted Successfully'
+        ]);
     }
 }

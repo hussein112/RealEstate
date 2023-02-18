@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddUserRequest;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -41,17 +42,17 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\AddUserRequest  $request
      */
-    public function store(Request $request)
+    public function store(AddUserRequest $request)
     {
-        $validated = $request->validate([
+        $validated = $request->validated();
 
-        ]);
-
-        $img = Image::create([
-            'image' => $request->file('avatar')->store('avatars/users', 'public')
-        ]);
+        if($request->hasFile('avatar')){
+            $img = Image::create([
+                'image' => $request->file('avatar')->store('avatars/users', 'public')
+            ]);
+        }
 
         User::create([
             'f_name' => $request->fname,
@@ -60,12 +61,12 @@ class UserController extends Controller
             'password' => $request->password,
             'phone' => $request->phone,
             'email' => $request->email,
-            'avatar_id' => $img->id,
+            'avatar_id' => ($img->id) ?? 'default.jpg',
             'admin_id' => (Auth::guard('admin')->id()) ?? NULL,
             'joined_at' => Date::now()
         ]);
 
-        return redirect()->back()->with(['success_msg' => 'User Added Succesfully']);
+        return redirect()->back()->with(['success_msg' => 'User Added Successfully']);
     }
 
     /**
@@ -143,10 +144,12 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return redirect()->back()->with([
+            'success_msg' => 'User ' . $id . ' Deleted Successfully'
+        ]);
     }
 }

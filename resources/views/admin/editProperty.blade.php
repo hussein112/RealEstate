@@ -77,12 +77,13 @@
                             @endisset
 
                         <div class="features grid-text">
-                            @isset($property->features)
+                            @if(sizeof($property->features) > 0)
                                 @foreach($property->features as $feature)
-                                    <div class="feature">{{ $feature }}</div>
+                                    <div class="feature">{{ $feature->feature }}</div>
                                 @endforeach
+                            @else
                                 <div class="feature">No Features</div>
-                            @endisset
+                            @endif
                         </div>
                     </div>
 

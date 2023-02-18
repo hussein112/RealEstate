@@ -4,8 +4,11 @@
             <h4 class="title my-2 center">New User</h4>
             <div class="container my-5">
                 <hr>
-                @if(session('success_msg') != null)
-                    {{ session('success_msg') }}
+                <x-messages msg="success_msg" type="success"></x-messages>
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        <x-error error="{{$error}}"></x-error>
+                    @endforeach
                 @endif
                 <form action="{{ route('a-newUser') }}" method="post" enctype="multipart/form-data">
                     @csrf

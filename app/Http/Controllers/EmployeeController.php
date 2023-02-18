@@ -137,10 +137,12 @@ class EmployeeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        Employee::destroy($id);
+        return redirect()->back()->with([
+            'success_msg' => 'Employee ' . $id . ' Deleted Successfully'
+        ]);
     }
 }

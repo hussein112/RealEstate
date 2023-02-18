@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class PropertyController extends Controller
 {
@@ -151,6 +152,23 @@ class PropertyController extends Controller
             }
         }
 
+        if(isset($request->hks)){
+            $features = explode(',', $request->hks);
+            foreach($features as $feature){
+                if(strlen($feature) > 2){
+                    $old = Feature::where('feature', $feature)->first();
+                    if($old == null){
+                        $newF = Feature::create([
+                            'feature' => trim($feature)
+                        ]);
+                        $property->features()->attach($property->id, ['feature_id' => $newF->id]);
+                    }else{
+                        $property->features()->attach($property->id, ['feature_id' => $old->id]);
+                    }
+                }
+            }
+        }
+
         return redirect()->back()->with(['success_msg' => 'Property Inserted Successfully']);
     }
 
@@ -226,7 +244,6 @@ class PropertyController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
         Property::destroy($id);
         return redirect()->back()->with([
             'success_msg' => 'Property ' . $id . ' Deleted Successfully'

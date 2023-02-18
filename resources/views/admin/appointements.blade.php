@@ -3,6 +3,8 @@
         <main class="admin-valuations container">
             <h4 class="title my-2">Appointements</h4>
             <div class="container my-5">
+                <x-messages msg="error_msg" type="danger"></x-messages>
+                <x-messages msg="success_msg" type="success"></x-messages>
                 <hr>
                 <x-create-button target="a-newAppointement" title="Appointement"></x-create-button>
 
@@ -55,7 +57,7 @@
                                 <td>{{ $appointement->assignedTo->f_name }}</td>
                                 <td class="action-btns">
                                     <a href="{{ route('a-editAppointement', ['id' => $appointement->id]) }}" class="btn btn-primary m-1">Edit</a>
-                                    <a href="#" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                    <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$appointement->id}}">Delete</button>
                                 </td>
                                 <td><a href="{{ route("appointementDetails", ['id' => $appointement->id]) }}" class="btn btn-primary">></a></td>
                             </tr>
@@ -71,7 +73,12 @@
             </div>
             <!-- End Pagination -->
 
-            <x-delete-modal target="property" targetId="5"></x-delete-modal>
+            <!-- Start Delete Modal -->
+            @foreach($appointements as $appoin)
+                <x-delete-modal target="appointement" targetId="{{ $appoin->id }}">
+                </x-delete-modal>
+            @endforeach
+            <!-- End Delete Modal -->
         </main>
     </x-slot>
 </x-admin-layout>

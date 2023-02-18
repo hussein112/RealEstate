@@ -40,24 +40,7 @@ class FeatureController extends Controller
      */
     public function store(Request $request)
     {
-        $propertyId = 0;
-        foreach (json_decode($request->data) as $feature){
-            if($feature == 'id'){
-                $propertyId = $feature;
-            }
-            $_feature = Feature::where('feature', $feature)->first();
-            if(! isset($_feature)){
-                $newFeature = Feature::create([
-                    'feature' => $feature
-                ]);
-                $featureId = $newFeature->id;
-            }else{
-                $featureId = $_feature->id;
-            }
-            $property = Property::find($propertyId);
 
-            $property->features()->attach($featureId, ['property_id' => $propertyId]);
-        }
     }
 
     /**

@@ -14,6 +14,6 @@ class Feature extends Model
     protected $table = 'feature';
 
     public function property(){
-        return $this->belongsToMany(Property::class, 'property_feature', 'feature_id', 'property_id');
+        return $this->belongsToMany(Property::class, 'property_features', 'feature_id', 'property_id');
     }
 }

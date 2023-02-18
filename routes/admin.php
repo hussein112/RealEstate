@@ -19,7 +19,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
      * AJax Routes
      *
      */
-    Route::post("add/feature", [FeatureController::class, 'store']);
+
 
     /**
      *  View Routes
@@ -131,7 +131,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::delete("employee/{id}", [EmployeeController::class, 'destroy'])->name("a-deleteEmployee");
 
-        Route::delete("property/{id}", [PropertyController::class, 'destroy'])->name("a-deleteProperty");
+        Route::delete("property/{id}", [PropertyController::class, 'destroy'])->name('a-deleteProperty');
 
         Route::delete("user/{id}", [UserController::class, 'destroy'])->name("a-deleteUser");
 

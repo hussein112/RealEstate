@@ -1,4 +1,4 @@
-<div class="modal" tabindex="-1" id="deleteModal">
+<div class="modal" tabindex="-1" id="deleteModal{{$targetId}}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

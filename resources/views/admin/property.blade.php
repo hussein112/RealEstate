@@ -84,38 +84,42 @@
 
 
                 <div class="right-side-wrapper w-100 m-1">
-                    <div id="property1" class="carousel slide property-slides" data-bs-ride="true">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#property1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#property1" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#property1" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/200/300" class="d-block w-100" alt="..." loading="lazy">
+                    @isset($property->images)
+                        <div id="property" class="carousel slide property-slides" data-bs-ride="true">
+                            <div class="carousel-indicators">
+                                @for($i = 0; $i < sizeof($property->images); $i++)
+                                    <button type="button" data-bs-target="#property" data-bs-slide-to="{{ $i }}" class="{{ ($i == 0) ? 'active' : '' }}" aria-current="{{ ($i == 0) ? 'true' : '' }}" aria-label="Slide {{ $i }}"></button>
+                                @endfor
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/200/300" class="d-block w-100" alt="..." loading="lazy">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/200/300" class="d-block w-100" alt="..." loading="lazy">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#property1" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#property1" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
 
-                    </div>
+                            <div class="carousel-inner">
+                                @foreach($property->images as $key)
+                                    <div class="carousel-item @if($loop->first) active @endif">
+                                        <img src="{{ asset('storage/' . $key->image) }}" class="d-block w-100" style="height: 250px; max-height: 300px" alt="{{ $property->title }}" loading="lazy">
+                                        <div class="carousel-btns">
+                                            <iconify-icon icon="material-symbols:edit-sharp" type="button" data-bs-toggle="modal" data-bs-target="#editModal"></iconify-icon>
+                                            <iconify-icon icon="ic:round-delete" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal"></iconify-icon>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <button class="carousel-control-prev" type="button" data-bs-target="#property" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+
+                            <button class="carousel-control-next" type="button" data-bs-target="#property" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    @endisset
 
                     <div class="features grid-text">
                         @if(sizeof($property->features) > 0)
                             @foreach($property->features as $feature)
-                                <div class="feature">{{ $feature }}</div>
+                                <div class="feature">{{ $feature->feature }}</div>
                             @endforeach
                         @else
                             <div class="feature">No Features</div>
