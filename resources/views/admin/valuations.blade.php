@@ -1,9 +1,9 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="admin-valuations container">
-            <h4 class="title my-2">Valuations</h4>
+            <x-page-title title="valuations"></x-page-title>
+            <hr>
             <div class="container my-5">
-                <hr>
                 <table class="table table-bordered caption-top">
                     <caption>List of All Valuation</caption>
                     <thead class="bg-dark">

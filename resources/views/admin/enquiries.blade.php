@@ -1,10 +1,10 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="enquiries-admin container">
-            <h4 class="title my-2 center">Enquiries</h4>
+            <x-page-title title="enquiries"></x-page-title>
+            <hr>
 
             <div class="container my-5">
-                <hr>
                 <table class="table table-bordered caption-top">
                     <caption>List of All Enquiries</caption>
                     <thead class="bg-dark">

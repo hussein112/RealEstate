@@ -1,13 +1,8 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="users-admin container">
-            <h4 class="title my-2">Posts</h4>
+            <x-page-title title="posts"></x-page-title>
 
-            <div class="remainders">
-                <div class="alert alert-danger">
-                    <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
-                </div>
-            </div>
             <hr>
             <x-create-button target="a-newPost" title="Post"></x-create-button>
 

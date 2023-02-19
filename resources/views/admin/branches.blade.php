@@ -1,9 +1,9 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="branches-admin container">
-                <h4 class="title my-2 center">Branches</h4>
-                <div class="container my-5">
-                    <hr>
+            <x-page-title title="branches"></x-page-title>
+            <hr>
+            <div class="container my-5">
                     <table class="table table-bordered caption-top">
                         <caption>List of All Branches</caption>
                         <thead class="bg-dark">

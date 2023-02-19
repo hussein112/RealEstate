@@ -1,12 +1,8 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="users-admin container">
-            <h4 class="title my-2">Users</h4>
-            <div class="remainders">
-                <div class="alert alert-danger">
-                    <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
-                </div>
-            </div>
+            <x-page-title title="users"></x-page-title>
+
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
