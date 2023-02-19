@@ -4,10 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Property extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
+
+    public $sortable = [
+        'id',
+        'size',
+        'title',
+        'description',
+        'featured',
+        'price',
+        'location',
+        'bedrooms_nb',
+        'bathrooms_nb',
+        'date_posted',
+        'admin_id',
+        'type_id',
+        'for',
+        'customer_id'
+    ];
 
     protected $table = 'property';
     public $timestamps = false;

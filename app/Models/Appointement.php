@@ -4,10 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Appointement extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
+
+    public $sortable = [
+        'id',
+        'title',
+        'date',
+        'issuer_name',
+        'issuer_phone',
+        'admin_id',
+        'employee_id',
+        'property_id'
+    ];
 
     protected $table = 'appointement';
 

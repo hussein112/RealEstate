@@ -13,35 +13,31 @@
                     <thead class="bg-dark">
                     <tr>
                         <th scope="col" class="text-primary">
-                            <a href="#">ID</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink('id', "ID")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Title</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("title", "Title")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Date</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("date", "Date")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Issuer</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("issuer_name", "Issuer")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Issuer Message</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            Issuer Message
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Planned By</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("admin_id", "Planned By")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Assigned To</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("property_id", "For Property")
+                        </th>
+                        <th scope="col" class="text-primary">
+                            @sortablelink("employee_id", "Assigned To")
                         </th>
                         <th scope="col" class="text-primary">Actions</th>
-                        <th scope="col" class="text-primary"><a href="#">Details</a></th>
+                        <th scope="col" class="text-primary">Details</th>
                     </tr>
                     </thead>
                     @isset($appointements)
@@ -54,6 +50,7 @@
                                 <td>{{ $appointement->issuer_name }}</td>
                                 <td class="td-long">{{ $appointement->issuer_message }}</td>
                                 <td>{{ $appointement->assignedBy->f_name . ' ' . $appointement->assignedBy->l_name }}</td>
+                                <td><a href="{{ route("a-property", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
                                 <td>{{ $appointement->assignedTo->f_name }}</td>
                                 <td class="action-btns">
                                     <a href="{{ route('a-editAppointement', ['id' => $appointement->id]) }}" class="btn btn-primary m-1">Edit</a>

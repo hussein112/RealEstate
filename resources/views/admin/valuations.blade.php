@@ -9,46 +9,36 @@
                     <thead class="bg-dark">
                     <tr>
                         <th scope="col" class="text-primary">
-                            <a href="#">ID</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("id", "ID")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Assigned By</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("assigned_by", "Assigned By")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Date Issued</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("date_issued", "Date Issued")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Address 1</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            Address 1
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">City</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("city", "City")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Postal Code</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            Postal Code
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Type</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("valuation_type", "Type")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Description</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            Description
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Status</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("valuation_status", "Status")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Due</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("due_date", "Due")
                         </th>
-                        <th scope="col" class="text-primary"><a href="#">Details</a></th>
+                        <th scope="col" class="text-primary">Details</th>
                     </tr>
                     </thead>
                     @isset($valuations)

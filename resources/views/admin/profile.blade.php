@@ -9,18 +9,12 @@
                 </div>
             </div>
 
-            <h2 class="title">Edit Profile</h2>
-            @if(session('success_msg') != null)
-                <div class="bg-success m-2 p-5">
-                    <strong class="text-dark">{{ session("success_msg") }}</strong>
-                </div>
-            @elseif(session('error_msg') != null)
-                <div class="bg-danger m-2 p-5">
-                    <strong class="text-light">{{ session("error_msg") }}</strong>
-                </div>
-            @endif
+            <h2 class="title">Edit</h2>
+            <x-messages msg="error_msg" type="danger"></x-messages>
+            <x-messages msg="success_msg" type="success"></x-messages>
             <div class="data">
                 @isset($admin)
+                    @vite('resources/js/admin/passwords.js')
                     <form action="{{ route("a-profile", ['id' => Auth::guard('admin')->id()]) }}" method="post" class="d-flex flex-column flex-lg-row" enctype="multipart/form-data">
                         @method("PATCH")
                         @csrf

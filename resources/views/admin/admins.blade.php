@@ -16,25 +16,20 @@
                 <thead class="bg-dark">
                 <tr>
                     <th scope="col" class="text-primary">
-                        <a href="#">ID</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('id', 'ID')
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Full Name</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('f_name', "Full Name")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Phone</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('phone', "Phone")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Email</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('email', "Email")
                     </th>
-                    <th scope="col" class="text-primary"><a href="#">Avatar</a></th>
+                    <th scope="col" class="text-primary">Avatar</th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Verified Email</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('email_verified_at', "Verified Email")
                     </th>
                     <th scope="col" class="text-primary">Actions</th>
                 </tr>
@@ -51,7 +46,7 @@
                             <td data-bs-toggle="tooltip" data-bs-title="Send Email to Hussein">
                                 <a href="mailto:{{ $admin->email }}">{{ $admin->email }}</a>
                             </td>
-                            <td><img src="{{ ($admin->avatar->image) ? asset('storage/' . $admin->avatar->image) : "kd" }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
+                            <td><img src="{{ ($admin->avatar->image) ? asset('storage/' . $admin->avatar->image) : "kd" }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal{{$admin->id}}"></td>
                             @if($admin->email_verified_at != null)
                                 <td class="bg-success">
                                     <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
@@ -74,19 +69,6 @@
 
             <!-- Start Show Image Modal -->
 
-            <div class="modal fade" tabindex="-1" id="imageModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Hussein's Avatar</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="adfasdfasdf">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- End Show Image Modal -->
 
@@ -94,6 +76,8 @@
             @foreach($admins as $admin)
                 <x-delete-modal target="admin" targetId="{{ $admin->id }}">
                 </x-delete-modal>
+                <x-image-modal modalTitle="{{ $admin->f_name }}'s Avatar" img="{{ $admin->avatar->image }}" targetId="{{ $admin->id }}">
+                </x-image-modal>
             @endforeach
             <!-- End Delete Modal -->
         </main>

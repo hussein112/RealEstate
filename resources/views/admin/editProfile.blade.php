@@ -1,25 +1,10 @@
 <x-admin-layout>
-    @vite('resources/js/admin/passwords.js');
-
     <x-slot name="main">
         <main class="admin-property container">
-            @isset($error_message)
-                {{--        Nothing to Update--}}
-                <div class="bg-errors">
-                    <strong>{{ $error_message }}</strong>
-                </div>
-            @endisset
-
-            @isset($sucess_message)
-                {{--        Nothing to Update--}}
-                <div class="bg-success">
-                    <strong>{{ $sucess_message }}</strong>
-                </div>
-            @endisset
-
-
             <h4 class="title my-2 center">Edit Admin <strong>{{ $admin->f_name . ' ' . $admin->l_name }}</strong></h4>
             <div class="container my-5">
+                <x-messages msg="error_msg" type="danger"></x-messages>
+                <x-messages msg="success_msg" type="success"></x-messages>
                 <hr>
                 <form action="{{ route("a-editAdmin", ['id' => $admin->id]) }}" method="post">
                     @method("PATCH")

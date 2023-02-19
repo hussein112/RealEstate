@@ -156,7 +156,7 @@ class AdminController extends Controller
             ]);
         }
 
-        $admin->avatar_id = $img->id;
+        $admin->avatar_id = ($img->id) ?? $admin->avatar_id;
 
         if($admin->isDirty()){
             $admin->save();

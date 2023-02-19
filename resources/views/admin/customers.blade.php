@@ -17,24 +17,19 @@
             <thead class="bg-dark">
             <tr>
                 <th scope="col" class="text-primary">
-                    <a href="#">ID</a>
-                    <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>                    </a>
+                    @sortablelink("id", "ID")
                 </th>
                 <th scope="col" class="text-primary">
-                    <a href="#">Full Name</a>
-                    <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                    @sortablelink("full_name", "Full Name")
                 </th>
                 <th scope="col" class="text-primary">
-                    <a href="#">Email</a>
-                    <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                    @sortablelink("email", "Email")
                 </th>
                 <th scope="col" class="text-primary">
-                    <a href="#">Phone</a>
-                    <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                    @sortablelink("phone", "Phone")
                 </th>
                 <th scope="col" class="text-primary">
-                    <a href="#">Added By</a>
-                    <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                    @sortablelink("admin_id", "Added By")
                 </th>
                 <th scope="col" class="text-primary">Actions</th>
             </tr>

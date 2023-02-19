@@ -9,34 +9,29 @@
                         <thead class="bg-dark">
                         <tr>
                             <th scope="col" class="text-primary">
-                                <a href="#">ID</a>
-                                <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                                ID
                             </th>
                             <th scope="col" class="text-primary">
-                                <a href="#">Phone</a>
-                                <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                                Phone
                             </th>
                             <th scope="col" class="text-primary">
-                                <a href="#">Email</a>
-                                <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                                Email
                             </th>
                             <th scope="col" class="text-primary">
-                                <a href="#">Location</a>
-                                <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                                Location
                             </th>
                             <th scope="col" class="text-primary">
-                                <a href="#">Working hours</a>
-                                <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                                Working Hours
                             </th>
                             <th scope="col" class="text-primary">
-                                <a href="#">from</a>
-                                <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                                From
                             </th>
                             <th scope="col" class="text-primary">
-                                <a href="#">To</a>
-                                <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                                To
                             </th>
-                            <th scope="col" class="text-primary"><a href="#">Request a New Branch From Developper</a></th>
+                            <th scope="col" class="text-primary">
+                                Request a New Branch From Developer
+                            </th>
                         </tr>
                         </thead>
                         @isset($branches)

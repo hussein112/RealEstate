@@ -1,5 +1,11 @@
 @use "master";
 
+.fa-sort{
+    background: url('https://api.iconify.design/uil/sort-amount-down.svg?color=%233c8aff') no-repeat center center / contain;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+}
 
 /* Start Home Page */
 .home-admin{

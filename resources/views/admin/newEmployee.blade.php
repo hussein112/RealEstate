@@ -5,13 +5,11 @@
                 <h4 class="title my-2 center">New Employee</h4>
                 <div class="container my-5">
                     <hr>
-                    @if(session('error_msg') != null)
-                        <strong class="bg-danger p-5 text-light">{{ session("error_msg") }}</strong>
-                    @elseif(session('success_msg' != null))
-                        <strong class="bg-success p-5 text-dark">{{ session("success_msg") }}</strong>
-                    @endif
+                    <x-messages msg="error_msg" type="danger"></x-messages>
+                    <x-messages msg="success_msg" type="success"></x-messages>
                     <form action="{{ route('a-newEmployee') }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @vite('resources/js/admin/passwords.js')
                         <div class="mb-3 row">
                             <label for="fname" class="col-form-label col-sm-2">Full Name</label>
                             <div class="col-sm-10">

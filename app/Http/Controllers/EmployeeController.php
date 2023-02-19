@@ -57,9 +57,12 @@ class EmployeeController extends Controller
         ]);
 
 
-        $img = Image::create([
-            'image' => $request->file('avatar')->store('avatars/employee', 'public')
-        ]);
+        if($request->hasFile('avatar')){
+            $img = Image::create([
+                'image' => $request->file('avatar')->store('avatars/employee', 'public')
+            ]);
+        }
+
 
         Employee::create([
             'full_name' => $request->fullname,
@@ -68,10 +71,10 @@ class EmployeeController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'admin_id' => Auth::guard('admin')->id(),
-            'avatar_id' => $img->id
+            'avatar_id' => ($img->id) ?? 'default.jpg'
         ]);
 
-        return redirect()->intended()->back()->with([
+        return redirect()->back()->with([
             'success_msg' => $request->fullname . " Added Successfully",
         ]);
     }

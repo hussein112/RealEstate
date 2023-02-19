@@ -9,7 +9,7 @@ class ValuationController extends Controller
 {
     public function adminIndex(){
         return view('admin.valuations')->with([
-            'valuations' => Valuation::paginate(9)
+            'valuations' => Valuation::sortable()->paginate(9)
         ]);
     }
 

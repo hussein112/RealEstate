@@ -19,29 +19,23 @@
                 <thead class="bg-dark">
                 <tr>
                     <th scope="col" class="text-primary">
-                        <a href="#">ID</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("id", "ID")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Full Name</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("full_name", "Full Name")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Phone</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("phone", "Phone")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Email</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("email", "Email")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Statement</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("statement", "Statement")
                     </th>
-                    <th scope="col" class="text-primary"><a href="#">Avatar</a></th>
+                    <th scope="col" class="text-primary">Avatar</th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Added By</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("admin_id", "Added By")
                     </th>
                     <th scope="col" class="text-primary">Actions</th>
                 </tr>
@@ -61,7 +55,7 @@
                             <td class="td-long">
                                 {{ $employee->statement }}
                             </td>
-                            <td><img src="{{ asset('storage/' . $employee->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal"></td>
+                            <td><img src="{{ asset('storage/' . $employee->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal{{$employee->id}}"></td>
                             <td>{{ $employee->addedBy->f_name . ' ' . $employee->addedBy->l_name }}</td>
                             <td class="action-btns">
                                 <a href="{{ route('a-editEmployee', ['id' => $employee->id]) }}" class="btn btn-primary m-1">Edit</a>
@@ -73,27 +67,12 @@
                 @endisset
             </table>
 
-            <!-- Start Show Image Modal -->
-
-            <div class="modal fade" tabindex="-1" id="imageModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Hussein's Avatar</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="https://picsum.photos/200/300">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- End Show Image Modal -->
 
             @foreach($employees as $employee)
                 <x-delete-modal target="employee" targetId="{{ $employee->id }}">
                 </x-delete-modal>
+                <x-image-modal modalTitle="{{ $employee->full_name }}'s Avatar" img="{{ $employee->avatar->image }}" targetId="{{ $employee->id }}">
+                </x-image-modal>
             @endforeach
         </main>
     </x-slot>

@@ -10,7 +10,7 @@ class AppointementController extends Controller
 {
     public function adminIndex(){
         return view('admin.appointements')->with([
-            'appointements' => Appointement::paginate(9)
+            'appointements' => Appointement::sortable()->paginate(9)
         ]);
     }
 

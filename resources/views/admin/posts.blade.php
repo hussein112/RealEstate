@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="users-admin container">
-            <h4 class="title my-2">Users</h4>
+            <h4 class="title my-2">Posts</h4>
 
             <div class="remainders">
                 <div class="alert alert-danger">
@@ -16,28 +16,22 @@
                 <thead class="bg-dark">
                 <tr>
                     <th scope="col" class="text-primary">
-                        <a href="#">ID</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('id', "ID")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Title</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('title', "Title")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Date Posted</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('date_posted', "Date Posted")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Content</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('content', "Content")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Category</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('category_id', "Category")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Posted By</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('admin_id', "Author")
                     </th>
                     <th>Details</th>
                     <th scope="col" class="text-primary">Actions</th>

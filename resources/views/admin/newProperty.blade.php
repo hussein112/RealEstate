@@ -8,15 +8,14 @@
                     @foreach($errors->all() as $error)
                         <strong class="bg-success text-light m-1 p-1">{{ $error }}</strong>
                     @endforeach
-            @elseif(session('success_msg'))
-                <strong class="bg-success text-danger m-1 p-1">{{ session('success_msg') }}</strong>
+            @else
+                <x-messages msg="success_msg" type="success"></x-messages>
             @endif
         </div>
         <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
             <hr>
             <form action="{{ route('a-newProperty') }}" method="post" class="w-100 m-1" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" value="{{ (\App\Models\Property::latest("id")->first()->id + 1) }}" id="pr-id">
                 <input class="form-control my-2" type="text" placeholder="Title" name="title">
                 <input type="number" class="form-control my-2" placeholder="Size" name="size">
                 <div class="form-check">

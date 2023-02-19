@@ -8,13 +8,12 @@
                     @foreach($errors->all() as $error)
                         <strong class="bg-danger text-primary p-3 m-1">{{ $error }}</strong>
                     @endforeach
-                @elseif(session('success_message'))
-                    @foreach($errors->all() as $error)
-                        <strong class="bg-light text-dark p-3 m-1">{{ session('success_message') }}</strong>
-                    @endforeach
+                @else
+                    <x-messages msg="success_msg" type="success"></x-messages>
                 @endif
                 <form action="{{ route('a-newAdmin') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @vite('resources/js/admin/passwords.js')
                     <input class="form-control my-2" type="text" placeholder="First Name" name="fname" required>
                     <input class="form-control my-2" type="text" placeholder="Middle Name" name="mname" required>
                     <input class="form-control my-2" type="text" placeholder="Last Name" name="lname" required>

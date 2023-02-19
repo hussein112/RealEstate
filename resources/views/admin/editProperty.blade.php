@@ -9,8 +9,8 @@
                     @foreach($errors->all() as $error)
                             <strong class="bg-danger text-light p-2 m-1">{{ $error  }}</strong>
                     @endforeach
-                @elseif(session('success_msg'))
-                    <strong class="bg-success text-light p-2 m-1">{{ session('success_msg') }}</strong>
+                @else
+                        <x-messages msg="success_msg" type="success"></x-messages>
                 @endif
                 </div>
 

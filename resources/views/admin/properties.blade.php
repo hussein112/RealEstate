@@ -8,11 +8,8 @@
                     <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
                 </div>
             </div>
-            @if(session('success_msg') != null)
-                <div class="container">
-                    <strong class="bg-success text-light p-2 m-1">{{ session('success_msg') }}</strong>
-                </div>
-            @endif
+            <x-messages msg="error_msg" type="danger"></x-messages>
+            <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
             <x-create-button target="a-newProperty" title="Property"></x-create-button>
 
@@ -21,60 +18,46 @@
                 <thead class="bg-dark">
                 <tr>
                     <th scope="col" class="text-primary">
-                        <a href="#">ID</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>                    </a>
+                        @sortablelink('id', 'ID')
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Size</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('size', 'Size')
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Title</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('title', 'Title')
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Description</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('description', "Description")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Featured</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('featured', 'Featured')
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Price</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("price", "Price")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Location</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("location", "Location")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#"># Bedrooms</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("bedrooms_nb", "Bedrooms")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#"># Bathrooms</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink('bathrooms_nb', 'Bathrooms')
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Date Posted</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("date_posted", "Date Posted")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Posted By</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("admin_id", "Posted By")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Type</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("type_id", "Type")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">Owner</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("customer_id", "Owner")
                     </th>
                     <th scope="col" class="text-primary">
-                        <a href="#">for</a>
-                        <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                        @sortablelink("for", "For")
                     </th>
                     <th scope="col" class="text-primary">Actions</th>
                     <th scope="col" class="text-primary">Details</th>
@@ -108,7 +91,7 @@
                             <td>{{ $property->for }}</td>
                             <td class="action-btns">
                                 <a href="{{ route("a-editProperty", ['id' => $property->id]) }}" class="btn btn-primary m-1">Edit</a>
-                                <button id="delete" id="{{ $property->id }}" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$property->id}}">Delete</button>
+                                <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$property->id}}">Delete</button>
                             </td>
                             <td><a href="{{ route("a-property", ['id' => $property->id]) }}" class="btn btn-primary">></a></td>
                         </tr>

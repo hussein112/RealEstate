@@ -10,27 +10,25 @@
                     <thead class="bg-dark">
                     <tr>
                         <th scope="col" class="text-primary">
-                            <a href="#">ID</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("id", "ID")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Date</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("date_issued", "Date")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Issuer Name</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("issuer_name", "Issuer Name")
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">Issuer Message</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            Issuer Message
                         </th>
                         <th scope="col" class="text-primary">
-                            <a href="#">For Property</a>
-                            <a href="#" class="sort"><iconify-icon icon="uil:sort"></iconify-icon></a>
+                            @sortablelink("property_id", "For")
                         </th>
-                        <th scope="col" class="text-primary"><a href="#">Reply</a></th>
-                        <th scope="col" class="text-primary"><a href="#">Details</a></th>
+{{--                        <th scope="col" class="text-primary">--}}
+{{--                            @sortablelink("employee_id", "Assigned To")--}}
+{{--                        </th>--}}
+                        <th scope="col" class="text-primary">Reply</th>
+                        <th scope="col" class="text-primary">Details</th>
                     </tr>
                     </thead>
                     @isset($enquiries)

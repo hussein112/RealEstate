@@ -5,11 +5,18 @@ namespace App\Models;
 use Cassandra\Custom;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Kyslik\ColumnSortable\Sortable;
 
 class Admin extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Sortable;
 
+    public $sortable = [
+        'id',
+        'f_name',
+        'email',
+        'email_verified_at'
+    ];
     protected $table = 'admin';
     public $timestamps = false;
 
