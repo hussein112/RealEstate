@@ -1,47 +1,35 @@
-<x-user-layout>
+<x-auth-layout>
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    {{--    <x-auth-session-status class="mb-4" :status="session('status')" />--}}
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <x-slot name="form">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
+        <form action="{{ route('u-login') }}" method="post" class="container flex flex-column flex-wrap">
+            @csrf
+            <div class="form-floating mb-3">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required autofocus>
+                <label for="email">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                <label for="password">Password</label>
+            </div>
+            <div class="form-check mb-3">
+                <input name="remember" class="form-check-input" type="checkbox" id="remember">
+                <label class="form-check-label" for="remember">
+                    Remember Me
+                </label>
+            </div>
+            @if($errors->any)
+                <x-login-errors>
+                    <x-slot name="errors">
+                        @foreach($errors->all() as $error)
+                            <strong class="text-danger">* {{ $error }}</strong>
+                        @endforeach
+                    </x-slot>
+                </x-login-errors>
             @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-user-layout>
+            <button type="submit" class="btn btn-primary m-2">Login</button>
+        </form>
+    </x-slot>
+</x-auth-layout>

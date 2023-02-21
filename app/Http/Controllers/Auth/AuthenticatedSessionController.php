@@ -20,8 +20,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(String $guard = ""): View
     {
-        if(!empty($guard)){
-            return view($guard . '.auth.' . $guard . '.login');
+        if(! empty($guard)){
+            return view($guard . '.auth.' . '.login');
         }
         // User Login
         return view('auth.login');
@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request, String $guard)
+    public function store(LoginRequest $request, String $guard = 'web')
     {
         $request->authenticate($guard);
 
@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request, String $guard): RedirectResponse
+    public function destroy(Request $request, String $guard = 'web'): RedirectResponse
     {
         Auth::guard($guard)->logout();
 

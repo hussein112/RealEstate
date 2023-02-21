@@ -1,10 +1,10 @@
 <x-auth-layout>
     <!-- Session Status -->
-{{--    <x-auth-session-status class="mb-4" :status="session('status')" />--}}
+    {{--    <x-auth-session-status class="mb-4" :status="session('status')" />--}}
 
     <x-slot name="form">
 
-        <form action="{{ route('a-login') }}" method="post" class="container flex flex-column flex-wrap">
+        <form action="{{ route('e-login') }}" method="post" class="container flex flex-column flex-wrap">
             @csrf
             <div class="form-floating mb-3">
                 <input type="email" name="email" id="email" class="form-control" placeholder="Email" required autofocus>

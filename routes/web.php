@@ -73,6 +73,7 @@ Route::prefix('posts')->group(function(){
     Route::get("/category/category", [PostController::class, 'getByCategory'])->name('category_posts');
 });
 
+require __DIR__ .'/user.php';
 
 /**
  * Company Routes
