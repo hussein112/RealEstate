@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Cassandra\Custom;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;

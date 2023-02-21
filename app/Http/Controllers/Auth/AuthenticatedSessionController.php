@@ -20,7 +20,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(String $guard = ""): View
     {
-        if($guard != ""){
+        if(!empty($guard)){
             return view($guard . '.auth.' . $guard . '.login');
         }
         // User Login
@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request, String $guard): RedirectResponse
+    public function store(LoginRequest $request, String $guard)
     {
         $request->authenticate($guard);
 

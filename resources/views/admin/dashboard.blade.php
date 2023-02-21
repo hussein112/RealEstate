@@ -80,89 +80,11 @@
                 @endisset
 
 
-                <script src="https://cdn.jsdelivr.net/gh/hussein112/AdminNotes@1.0/admin-note.min.js" type="module"></script>
+                <script src="https://cdn.jsdelivr.net/gh/hussein112/AdminNotes/admin-note.js" type="module"></script>
                 <div id="an-notes">
 
                 </div>
             </div>
-
-            <div class="statistics admin-cards my-5">
-                <h3 class="title">Statistics</h3>
-                <div class="grid-4">
-                    <div class="monthly-visitors">
-                        <div class="card">
-                            <div class="card-body">
-                                <iconify-icon icon="fluent:people-audience-20-filled" class="card-image"></iconify-icon>
-                                <div class="wrapper flex-center">
-                                    <p class="card-text badge bg-success">10200</p>
-                                    <a href="/admin/valuations.html" class="card-title">Visitors Monthly</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="monthly-marketing">
-                        <div class="card">
-                            <div class="card-body">
-                                <iconify-icon icon="icon-park-solid:market-analysis" class="card-image"></iconify-icon>
-                                <div class="wrapper flex-center">
-                                    <p class="card-text badge bg-success">1200</p>
-{{--                                    Avg Month = (Markerting for 1 year / 12months) / 12--}}
-                                    <a href="/admin/valuations.html" class="card-title">Properties Marketed Monthly </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="charts grid-4">
-                <div class="total-marketing chart-table">
-                    <div class="options d-flex align-items-center justify-content-between">
-                        <select name="" id="" class="form-select">
-                            <option value="jan">Jan</option>
-                        </select>
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                ...
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Save PDF</a></li>
-                                <li><a class="dropdown-item" href="#">Save CSV</a></li>
-                                <li><a class="dropdown-item" href="#">Print</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="chart">
-                        <canvas id="totalMarketing"></canvas>
-                    </div>
-                </div>
-
-                <div class="top-properties chart-table">
-                    <div class="options d-flex align-items-center justify-content-between">
-                        <select name="" id="" class="form-select">
-                            <option value="jan">Jan</option>
-                        </select>
-
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                ...
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Save PDF</a></li>
-                                <li><a class="dropdown-item" href="#">Save CSV</a></li>
-                                <li><a class="dropdown-item" href="#">Print</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="chart">
-                        <canvas id="topProperties"></canvas>
-                    </div>
-                </div>
-            </div>
-
         </main>
     </x-slot>
 </x-admin-layout>
