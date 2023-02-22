@@ -20,6 +20,12 @@ export default defineConfig({
                 'resources/js/admin/charts.js',
                 'resources/js/admin/features.js',
 
+
+
+                'resources/css/employee/style.css',
+                'resources/js/employee/settings.js',
+                'resources/js/employee/sidebar.js',
+
             ],
             refresh: true,
         }),

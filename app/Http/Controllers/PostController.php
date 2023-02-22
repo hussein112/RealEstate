@@ -27,6 +27,17 @@ class PostController extends Controller
     public function adminCreate(){
         return view('admin.newPost');
     }
+
+
+    public function employeeIndex(){
+        return view('employee.posts')->with([
+            'posts' => Post::paginate(10),
+        ]);
+    }
+
+    public function employeeCreate(){
+        return view('employee.newPost');
+    }
     /**
      * Display a listing of the resource.
      *

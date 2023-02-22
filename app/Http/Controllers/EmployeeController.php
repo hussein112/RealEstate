@@ -143,7 +143,7 @@ class EmployeeController extends Controller
     {
         Employee::destroy($id);
         return redirect()->back()->with([
-            'success_msg' => 'Employee ' . $id . ' Deleted Successfully'
+            'success_msg' => 'Layout ' . $id . ' Deleted Successfully'
         ]);
     }
 }

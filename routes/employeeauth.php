@@ -55,6 +55,6 @@ Route::prefix("employee")->middleware('auth:employee')->group(function () {
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
     Route::post('logout', function(){
-        return App::call('App\Http\Controllers\Auth\AuthenticatedSessionController@destroy', ['guard' => 'admin']);
-    })->name('a-logout');
+        return App::call('App\Http\Controllers\Auth\AuthenticatedSessionController@destroy', ['guard' => 'employee']);
+    })->name('e-logout');
 });
