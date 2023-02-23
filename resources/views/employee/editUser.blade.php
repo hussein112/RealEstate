@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-employee.layout>
     <x-slot name="main">
         @vite('resources/js/admin/passwords.js')
         <main class="admin-property container">
@@ -7,7 +7,8 @@
                 <x-messages msg="error_msg" type="danger"></x-messages>
                 <x-messages msg="success_msg" type="success"></x-messages>
                 <hr>
-                <form action="{{ route('a-editUser', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
+                @isset($user)
+                    <form action="{{ route('e-editUser', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
                         @method("PATCH")
                         @csrf
                         <input name="fname" class="form-control my-2" type="text" placeholder="First Name" value="{{ $user->f_name }}">
@@ -32,7 +33,8 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
+                @endisset
             </div>
         </main>
     </x-slot>
-</x-admin-layout>
+</x-employee.layout>

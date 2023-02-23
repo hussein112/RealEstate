@@ -50,6 +50,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect($this->getAuthRedirectUrl($guard));
+        return redirect($this->getLogoutRedirectUrl($guard));
     }
 }

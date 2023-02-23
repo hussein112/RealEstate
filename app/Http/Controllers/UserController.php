@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function adminDisplayUsers(){
+    public function employeeIndex(){
+        return view("employee.users")->with([
+            'users' => User::paginate(9)
+        ]);
+    }
+    public function adminIndex(){
         return view("admin.users")->with([
             'users' => User::all()
         ]);
@@ -93,7 +98,13 @@ class UserController extends Controller
 
     public function adminEdit($id){
         return view("admin.editUser")->with([
-            'user' => User::find($id)
+            'user' => User::findOrFail($id)
+        ]);
+    }
+
+    public function employeeEdit($id){
+        return view("employee.editUser")->with([
+            'user' => User::findOrFail($id)
         ]);
     }
 

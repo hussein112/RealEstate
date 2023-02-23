@@ -10,7 +10,13 @@ class EnquiriesController extends Controller
 {
     public function adminIndex(){
         return view("admin.enquiries")->with([
-            'enquiries' => Enquiry::paginate(9)
+            'enquiries' => Enquiry::sortable()->paginate(9)
+        ]);
+    }
+
+    public function employeeIndex(){
+        return view("employee.enquiries")->with([
+            'enquiries' => Enquiry::sortable()->paginate(9)
         ]);
     }
 

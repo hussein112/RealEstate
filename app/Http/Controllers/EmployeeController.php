@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\DateQueries;
+use App\Models\Appointement;
 use App\Models\Employee;
 use App\Models\Image;
+use App\Models\Property;
+use App\Models\User;
+use App\Models\Valuation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
+    use DateQueries;
+
     public function adminIndex(){
         return view("admin.employees")->with([
             'employees' => Employee::all()
@@ -27,7 +34,31 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view("employee.dashboard");
+        return view("employee.dashboard")->with([
+            'valuations' => Valuation::all()->count(),
+            'latest_valuations' => Valuation::where([
+                ['date_issued', '<', now()],
+                ['date_issued', '>', $this->pastWeek()]
+            ])->count(),
+            'appointement' => Appointement::all()->count(),
+            'latest_appointement' => Appointement::where([
+                ['date', '<', now()],
+                ['date', '>', $this->pastWeek()]
+            ])->count(),
+//            'enquiries' => Enquiry::all()->count(),
+
+            'properties' => Property::all()->count(),
+            'latest_properties' => Property::where([
+                ['date_posted', '<', now()],
+                ['date_posted', '>', $this->pastWeek()]
+            ])->count(),
+
+            'users' => User::all()->count(),
+            'latest_users' => User::where([
+                ['joined_at', '<', now()],
+                ['joined_at', '>', $this->pastWeek()]
+            ])->count(),
+        ]);
     }
 
     /**
@@ -92,11 +123,12 @@ class EmployeeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        return view("employee.editProfile")->with([
+            'employee' => Employee::findOrFail($id)
+        ]);
     }
 
     /**

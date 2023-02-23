@@ -12,8 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\View;
 
 class PropertyController extends Controller
 {
@@ -82,17 +80,36 @@ class PropertyController extends Controller
     *************************************/
 
 
+    public function employeeIndex(){
+        return view("employee.properties")->with([
+            'properties' => Property::paginate($this->paginate)
+        ]);
+    }
+
+    public function employeeProperty($id){
+        return view("employee.property")->with([
+            'property' => Property::findOrFail($id)
+        ]);
+    }
+
+    public function employeeCreate(){
+        return view("employee.newProperty")->with([
+            'types' => Type::all(),
+            'customers' => Customer::all(),
+            'features' => Feature::all(),
+        ]);
+    }
 
 
     /********************* START READ METHODS (ADMIN) *********************/
 
-    public function getProperties(){
+    public function adminIndex(){
         return view("admin.properties")->with([
             'properties' => Property::paginate($this->paginate)
         ]);
     }
 
-    public function getProperty($id){
+    public function adminProperty($id){
         return view("admin.property")->with([
             'property' => Property::find($id)
         ]);

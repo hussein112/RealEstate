@@ -1,16 +1,13 @@
-<x-admin-layout>
+<x-employee.layout>
     <x-slot name="main">
-        @vite('resources/js/admin/passwords.js')
+        @vite('resources/js/employee/passwords.js')
         <main class="admin-property container">
             <h4 class="title my-2 center">Edit Employee <strong>{{ $employee->full_name }}</strong></h4>
             <div class="container my-5">
                 <hr>
-                @if(session('error_msg') != null)
-                    <strong class="bg-danger p-5 text-light">{{ session("error_msg") }}</strong>
-                @elseif(session('success_msg' != null))
-                    <strong class="bg-success p-5 text-dark">{{ session("success_msg") }}</strong>
-                @endif
-                <form action="{{ route('a-editEmployee', ['id' => $employee->id]) }}" method="post">
+                <x-messages msg="error_msg" type="danger"></x-messages>
+                <x-messages msg="success_msg" type="success"></x-messages>
+                <form action="{{ route('e-editEmployee', ['id' => $employee->id]) }}" method="post">
                     @method('PATCH')
                     @csrf
                     <div class="mb-3 row">
@@ -59,4 +56,4 @@
             </div>
         </main>
     </x-slot>
-</x-admin-layout>
+</x-employee.layout>

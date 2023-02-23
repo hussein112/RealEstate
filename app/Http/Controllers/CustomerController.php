@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddCustomerRequest;
 use App\Models\Customer;
 use App\Models\Employee;
 use Cassandra\Custom;
@@ -15,8 +16,20 @@ class CustomerController extends Controller
             'customers' => Customer::paginate(9)
         ]);
     }
+
+
+    public function employeeIndex(){
+        return view("employee.customers")->with([
+            'customers' => Customer::paginate(9)
+        ]);
+    }
+
     public function adminCreate(){
         return view('admin.newCustomer');
+    }
+
+    public function employeeCreate(){
+        return view("employee.newCustomer");
     }
 
     public function adminEdit($id){
@@ -49,13 +62,9 @@ class CustomerController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function store(Request $request)
+    public function store(AddCustomerRequest $request)
     {
-        $validate = $request->validate([
-            'fullname' => [],
-            'email' => [],
-            'phone' => []
-        ]);
+        $validated = $request->validated();
 
 
 

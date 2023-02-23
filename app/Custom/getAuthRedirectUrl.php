@@ -21,4 +21,17 @@ trait getAuthRedirectUrl{
                 return RouteServiceProvider::HOME;
         }
     }
+
+    public function getLogoutRedirectUrl($guard){
+        switch($guard){
+            case "admin":
+                return '/admin/login';
+                break;
+            case "employee":
+                return '/employee/login';
+                break;
+            default:
+                return RouteServiceProvider::HOME;
+        }
+    }
 }

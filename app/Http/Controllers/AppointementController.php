@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Appointement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class AppointementController extends Controller
 {
     public function adminIndex(){
         return view('admin.appointements')->with([
             'appointements' => Appointement::sortable()->paginate(9)
+        ]);
+    }
+
+    public function employeeIndex(){
+        return view("employee.appointements")->with([
+            'appointements' => Appointement::where('employee_id', Auth::guard("employee")->id())->sortable()->paginate(9)
         ]);
     }
 
@@ -31,12 +38,10 @@ class AppointementController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view("employee.newAppointement");
     }
 
     /**

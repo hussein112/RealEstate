@@ -25,6 +25,7 @@ export default defineConfig({
                 'resources/css/employee/style.css',
                 'resources/js/employee/settings.js',
                 'resources/js/employee/sidebar.js',
+                'resources/js/employee/passwords.js',
 
             ],
             refresh: true,

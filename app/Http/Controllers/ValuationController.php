@@ -13,6 +13,12 @@ class ValuationController extends Controller
         ]);
     }
 
+    public function employeeIndex(){
+        return view("employee.valuations")->with([
+            'valuations' => Valuation::sortable()->paginate(9)
+        ]);
+    }
+
     public function adminShow($id){
         return view('admin.valuation')->with([
             'valuation' => Valuation::find($id)

@@ -44,10 +44,10 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::get("enquiries", [EnquiriesController::class, 'adminIndex'])->name('a-enquiries');
     Route::get("enquiry/{id}", [EnquiriesController::class, 'adminShow'])->name('a-enquiryDetails');
 
-    Route::get("properties", [PropertyController::class, 'getProperties'])->name('a-properties');
-    Route::get("property/{id}", [PropertyController::class, 'getProperty'])->name('a-property');
+    Route::get("properties", [PropertyController::class, 'adminIndex'])->name('a-properties');
+    Route::get("property/{id}", [PropertyController::class, 'adminProperty'])->name('a-property');
 
-    Route::get("users", [UserController::class, 'adminDisplayUsers'])->name('a-users');
+    Route::get("users", [UserController::class, 'adminIndex'])->name('a-users');
 
     Route::get("valuations", [ValuationController::class, 'adminIndex'])->name("a-valuations");
 
