@@ -21,15 +21,17 @@ class Post extends Model
 
     protected $table = 'post';
 
+    protected $guarded = ['id'];
+
     public function category(){
         return $this->belongsTo(Category::class);
     }
 
     public function author(){
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class, 'admin_id', 'id');
     }
 
     public function images(){
-        return $this->belongsToMany(Image::class, 'post_images', 'post_id', 'image_id');
+        return $this->belongsToMany(Image::class, 'post_image', 'post_id', 'image_id');
     }
 }

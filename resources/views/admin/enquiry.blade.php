@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="valuation-details container">
-            <h4 class="title my-2">Enquiry #{{ $enquiry->id }}</h4>
+            <x-page-title title="Enquiry #{{$enquiry->id}}"></x-page-title>
             <div class="remainders">
                 <div class="alert alert-danger">
                     <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000

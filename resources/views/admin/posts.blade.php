@@ -28,7 +28,7 @@
                     <th scope="col" class="text-primary">
                         @sortablelink('admin_id', "Author")
                     </th>
-                    <th>Details</th>
+                    <th>View</th>
                     <th scope="col" class="text-primary">Actions</th>
                 </tr>
                 </thead>
@@ -39,13 +39,13 @@
                             <th scope="row">{{ $post->id }}</th>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->date_posted }}</td>
-                            <td class="td-long">{{ $post->content }}</td>
-                            <td>{{ $post->category->category }}</td>
-                            <td>{{ ($post->author != null) ? $post->author->f_name . ' ' . $post->author->l_name : 'None' }}</td>
+                            <td class="td-long">{{ strip_tags($post->content) }}</td>
+                            <td>{{ ($post->category->category) ?? "Uncategorized" }}</td>
+                            <td>{{ $post->author->f_name . ' ' . $post->author->l_name }}</td>
                             <td><a href="{{ route('post', ['id' => $post->id]) }}">></a></td>
                             <td class="action-btns">
                                 <a href="{{ route('a-editPost', ['id' => $post->id]) }}" class="btn btn-primary m-1">Edit</a>
-                                <a href="#" class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
                             </td>
                         </tr>
                     @endforeach

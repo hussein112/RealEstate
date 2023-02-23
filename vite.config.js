@@ -27,6 +27,9 @@ export default defineConfig({
                 'resources/js/employee/sidebar.js',
                 'resources/js/employee/passwords.js',
 
+
+                'resources/js/editorScaffolding.js'
+
             ],
             refresh: true,
         }),

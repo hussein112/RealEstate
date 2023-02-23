@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -64,8 +65,10 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("admin", [AdminController::class, 'create'])->name('a-newAdmin');
         Route::post("admin", [AdminController::class, 'store'])->name('a-newAdmin');
 
+        Route::post("image", [PostImagesController::class, 'store'])->name('a-newPostImage');
+
         Route::get("post", [PostController::class, 'adminCreate'])->name("a-newPost");
-        Route::post("post", [PostController::class, 'adminCreate'])->name("a-newPost");
+        Route::post("post", [PostController::class, 'store'])->name("a-newPost");
 
         Route::get("appointement", [AppointementController::class, 'create'])->name("a-newAppointement");
         Route::post("appointement", [AppointementController::class, 'store'])->name("a-newAppointement");
