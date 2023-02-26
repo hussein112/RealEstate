@@ -1,11 +1,11 @@
 <x-employee.layout>
     <x-slot name="main">
-        <x-page-title title="Insert new post"></x-page-title>
-        <x-messages msg="error_msg" type="danger"></x-messages>
-        <x-messages msg="success_msg" type="success"></x-messages>
         <script src="https://cdn.tiny.cloud/1/kpum9hwkqbfk4jh8byr2k70m6lgh669bbqxig4cblr9e8gc5/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-        <hr>
         <div class="container">
+            <x-page-title title="Insert new post"></x-page-title>
+            <x-messages msg="error_msg" type="danger"></x-messages>
+            <x-messages msg="success_msg" type="success"></x-messages>
+            <hr>
             <form action="{{ route("e-newPost") }}" method="post" class="new-post" enctype="multipart/form-data">
                 @csrf
                 <input class="form-control my-2" type="text" name="title" placeholder="Title">

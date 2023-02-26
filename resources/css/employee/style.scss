@@ -6,3 +6,21 @@
     width: 100%;
     overflow: hidden;
 }
+
+
+/** Start Home Page */
+.home-employee{
+    .employee-cards{
+        text-align: center;
+    }
+
+    .card-image{
+        font-size: 70px;
+        color: var(--fo);
+        border-radius: 50%;
+        border: 2px solid var(--fo);
+        padding: 20px;
+    }
+}
+
+/** End Home Page */

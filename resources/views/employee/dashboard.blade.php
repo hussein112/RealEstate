@@ -1,12 +1,12 @@
 <x-employee.layout>
     <x-slot name="main">
-        <main class="home-admin container">
+        <main class="home-employee container">
 
             <x-page-title title="dashboard"></x-page-title>
             <hr>
 
             <h3 class="title">Overview</h3>
-            <div class="mt-5 grid-3 admin-cards">
+            <div class="mt-5 grid-3 employee-cards">
                 @isset($valuations)
                     <div class="card">
                         <div class="card-body">

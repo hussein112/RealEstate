@@ -9,10 +9,8 @@ use App\Models\Employee;
 use App\Models\Post;
 use HTMLPurifier;
 use HTMLPurifier_Config;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use MongoDB\Driver\Session;
 
 class PostController extends Controller
 {
@@ -44,7 +42,9 @@ class PostController extends Controller
     }
 
     public function employeeCreate(){
-        return view('employee.newPost');
+        return view('employee.newPost')->with([
+            'categories' => Category::all(),
+        ]);
     }
     /**
      * Display a listing of the resource.

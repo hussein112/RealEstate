@@ -35,7 +35,12 @@
                         <li><a class="dropdown-item" href="#">AR</a></li>
                     </ul>
                 </li>
-                <input type="checkbox" class="nav-link" id="theme" checked data-toggle="toggle">
+                <li class="nav-item colors mx-2">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="theme">
+                        <label class="form-check-label" for="theme">Theme</label>
+                    </div>
+                </li>
             </div>
         </div>
     </div>

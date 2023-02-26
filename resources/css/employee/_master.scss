@@ -15,16 +15,7 @@
 }
 
 /* Start Bootstrap Fixes */
-input,
-textarea{
-    background: var(--se) !important;
-    border-color: var(--pr) !important;
 
-    &::placeholder{
-        color: var(--fo) !important;
-        opacity: 0.2 !important;
-    }
-}
 .navbar-toggler{
     background-color: var(--te);
 }

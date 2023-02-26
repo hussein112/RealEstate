@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Property;
 
 class WebsiteController extends Controller
 {
     public function home(){
-        return view("home");
+        return view("home")->with([
+            'featured_properties' => Property::where('featured', 1)->get(),
+            'latest_properties' => Property::select('*')->take(10)->get(),
+            'posts' => Post::select('*')->take(10)->get()
+
+        ]);
     }
 
     public function about(){

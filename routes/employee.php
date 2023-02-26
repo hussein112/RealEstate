@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,8 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
     Route::prefix("add")->group(function(){
         Route::get("post", [PostController::class, 'employeeCreate'])->name("e-newPost");
         Route::post("post", [PostController::class, 'store'])->name("e-newPost");
+
+        Route::post("image", [PostImagesController::class, 'store'])->name('e-newPostImage');
 
         Route::get("property", [PropertyController::class, 'employeeCreate'])->name("e-newProperty");
         Route::post("property", [PropertyController::class, 'store'])->name("e-newProperty");

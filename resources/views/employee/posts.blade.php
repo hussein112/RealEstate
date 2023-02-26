@@ -39,8 +39,8 @@
                             <th scope="row">{{ $post->id }}</th>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->date_posted }}</td>
-                            <td class="td-long">{{ $post->content }}</td>
-                            <td>{{ $post->category->category }}</td>
+                            <td class="td-long">{{ strip_tags($post->content) }}</td>
+                            <td>{{ ($post->category->category) ?? "Uncategorized" }}</td>
                             <td>{{ ($post->author != null) ? $post->author->f_name . ' ' . $post->author->l_name : 'None' }}</td>
                             <td><a href="{{ route('post', ['id' => $post->id]) }}">></a></td>
                             <td class="action-btns">
