@@ -1,7 +1,5 @@
 <header class="{{ $page }}-header">
-    @include('layouts.navigation');
-    @include('layouts.advanced_search');
-
+    @include('layouts.navigation')
     @guest
     <div class="cta container center">
         <a href="signup.html" class="btn btn-primary my-1">

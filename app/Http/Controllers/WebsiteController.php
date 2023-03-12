@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Property;
+use App\Models\Type;
 
 class WebsiteController extends Controller
 {
@@ -11,8 +12,13 @@ class WebsiteController extends Controller
         return view("home")->with([
             'featured_properties' => Property::where('featured', 1)->get(),
             'latest_properties' => Property::select('*')->take(10)->get(),
-            'posts' => Post::select('*')->take(10)->get()
+            'posts' => Post::select('*')->take(10)->get(),
 
+//            For search
+//            'locations' => Property::sele
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
         ]);
     }
 
