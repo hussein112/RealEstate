@@ -13,13 +13,21 @@ class Header extends Component
      */
     public string $page;
 
+    public $fors;
+    public $wheres;
+    public $types;
+
+
     /**
      * Create a new component instance.
      * @return void
      */
-    public function __construct(string $page)
+    public function __construct(string $page, $fors, $wheres, $types)
     {
         $this->page = $page;
+        $this->fors = $fors;
+        $this->wheres = $wheres;
+        $this->types = $types;
     }
 
     /**

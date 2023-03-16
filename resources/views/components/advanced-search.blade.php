@@ -8,7 +8,7 @@
                     <select name="dealtype" id="searchfor" class="form-select m-2">
                         @isset($fors)
                             @foreach($fors as $for)
-                                <option value="rent">Rent</option>
+                                <option value="{{ $for->for }}">{{ ucfirst($for->for) }}</option>
                             @endforeach
                         @endisset
                     </select>
@@ -19,7 +19,7 @@
                     <select name="location" id="location" class="form-select m-2">
                         @isset($wheres)
                             @foreach($wheres as $where)
-                                <option value="{{ $where->city }}">{{ $where->city }}</option>
+                                <option value="{{ $where->city }}">{{ ucfirst($where->city) }}</option>
                             @endforeach
                         @endisset
                     </select>

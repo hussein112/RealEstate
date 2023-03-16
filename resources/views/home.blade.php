@@ -1,8 +1,7 @@
 @php($recordPerGrid = 9)
 <x-user-layout>
     <x-slot name="header">
-        <x-header page="page"></x-header>
-        <x-advanced-search :types="$types" :fors="$fors" :wheres="$wheres"></x-advanced-search>
+        <x-header page="page" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>
     </x-slot>
     <x-slot name="main">
         <!-- Featured Properties -->
@@ -58,68 +57,69 @@
         <section id="latest-properties">
             <h2 class="section-title center">Latest Properties</h2>
             <div class="container cards d-flex flex-wrap align-items-center">
-{{--                @isset($latest_properties)--}}
-{{--                    @foreach($latest_properties as $lproperty)--}}
-{{--                        <div class="card m-2">--}}
-{{--                            <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">--}}
-{{--                                <div class="carousel-inner">--}}
-{{--                                    @foreach($lproperty->images->image as $path)--}}
-{{--                                        <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">--}}
-{{--                                            <img src="{{ asset("storage") . $path }}" class="d-block w-100" alt="Property" loading="lazy">--}}
-{{--                                        </div>--}}
-{{--                                    @endforeach--}}
-{{--                                </div>--}}
-{{--                                <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">--}}
-{{--                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--                                    <span class="visually-hidden">Previous</span>--}}
-{{--                                </button>--}}
-{{--                                <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">--}}
-{{--                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--                                    <span class="visually-hidden">Next</span>--}}
-{{--                                </button>--}}
-{{--                            </div>--}}
-{{--                            <div class="card-body">--}}
-{{--                                <header class="card-head">--}}
-{{--                                    <a href="{{ route('property', ['id' => $lproperty->id]) }}" class="card-title">{{ $lproperty->title }}</a>--}}
-{{--                                    <div class="d-flex w-100 justify-content-between flex-wrap">--}}
-{{--                                        <h6 class="card-subtitle">--}}
-{{--                                            <a href="{{ route('property', ['id' => $lproperty->id]) }}" class="text-capitalize text-muted flex-center">--}}
-{{--                                                <iconify-icon icon="material-symbols:location-on"></iconify-icon>--}}
-{{--                                                {{ $lproperty->location }}--}}
-{{--                                            </a>--}}
-{{--                                        </h6>--}}
-{{--                                        <h6 class="card-subtitle">--}}
-{{--                                            <a href="#" class="text-capitalize text-muted flex-center">--}}
-{{--                                                <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>--}}
-{{--                                                {{ $lproperty->price }}--}}
-{{--                                            </a>--}}
-{{--                                        </h6>--}}
-{{--                                        <h6 class="card-subtitle">--}}
-{{--                                            <a href="#" class="text-capitalize text-muted flex-center">--}}
-{{--                                                <iconify-icon icon="ic:sharp-meeting-room"></iconify-icon>--}}
-{{--                                                {{ $lproperty->bedrooms_nb }}--}}
-{{--                                            </a>--}}
-{{--                                        </h6>--}}
-{{--                                    </div>--}}
-{{--                                </header>--}}
-{{--                                <p class="card-text">{{ $lproperty->description }}</p>--}}
-{{--                                <div class="links d-flex w-100 justify-content-between flex-wrap">--}}
-{{--                                    <a href="#" class="card-link ">--}}
-{{--                                        <iconify-icon icon="mdi:content-save-plus-outline"></iconify-icon>--}}
-{{--                                    </a>--}}
-{{--                                    <a href="#" class="card-link">--}}
-{{--                                        <iconify-icon icon="gis:search-poi"></iconify-icon>--}}
-{{--                                    </a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-{{--                    @if(sizeof($latest_properties) > 10)--}}
-{{--                        <div class="v-m center">--}}
-{{--                            <a href="{{ route("properties") }}" class="btn btn-primary view-more">View More</a>--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-{{--                @endisset--}}
+                @isset($latest_properties)
+                    @foreach($latest_properties as $lproperty)
+                        <div class="card m-2">
+                            <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
+                                <div class="carousel-inner">
+                                    @foreach($lproperty->images as $image)
+                                        <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
+                                            <img src="{{ asset("storage") . $image->image }}" class="d-block w-100" alt="Property" loading="lazy">
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+
+                                <header class="card-head">
+                                    <a href="{{ route('property', ['id' => $lproperty->id]) }}" class="card-title">{{ $lproperty->title }}</a>
+                                    <div class="d-flex w-100 justify-content-between flex-wrap">
+                                        <h6 class="card-subtitle">
+                                            <a href="{{ route('property', ['id' => $lproperty->id]) }}" class="text-capitalize text-muted flex-center">
+                                                <iconify-icon icon="material-symbols:location-on"></iconify-icon>
+                                                {{ $lproperty->location }}
+                                            </a>
+                                        </h6>
+                                        <h6 class="card-subtitle">
+                                            <a href="#" class="text-capitalize text-muted flex-center">
+                                                <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
+                                                {{ $lproperty->price }}
+                                            </a>
+                                        </h6>
+                                        <h6 class="card-subtitle">
+                                            <a href="#" class="text-capitalize text-muted flex-center">
+                                                <iconify-icon icon="ic:sharp-meeting-room"></iconify-icon>
+                                                {{ $lproperty->bedrooms_nb }}
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </header>
+                                <p class="card-text">{{ $lproperty->description }}</p>
+                                <div class="links d-flex w-100 justify-content-between flex-wrap">
+                                    <a href="#" class="card-link ">
+                                        <iconify-icon icon="mdi:content-save-plus-outline"></iconify-icon>
+                                    </a>
+                                    <a href="#" class="card-link">
+                                        <iconify-icon icon="gis:search-poi"></iconify-icon>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if(sizeof($latest_properties) > 10)
+                        <div class="v-m center">
+                            <a href="{{ route("properties") }}" class="btn btn-primary view-more">View More</a>
+                        </div>
+                    @endif
+                @endisset
             </div>
         </section>
 
