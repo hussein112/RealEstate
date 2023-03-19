@@ -8,10 +8,13 @@
         "php": "^8.0.2",
         "ezyang/htmlpurifier": "^4.16",
         "guzzlehttp/guzzle": "^7.2",
+        "http-interop/http-factory-guzzle": "^1.2",
         "kyslik/column-sortable": "^6.5",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/scout": "^10.0",
+        "laravel/tinker": "^2.7",
+        "meilisearch/meilisearch-php": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "*",
@@ -61,7 +64,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "stable",

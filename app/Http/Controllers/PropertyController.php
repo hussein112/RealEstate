@@ -114,6 +114,17 @@ class PropertyController extends Controller
             'property' => Property::find($id)
         ]);
     }
+
+    public function search(Request $request){
+        return view("properties")->with([
+//            'properties' => Property::paginate($this->paginate), Search query
+//            'search_results' => Property::query()
+//                                        ->where('name', 'LIKE', $request->test)
+//                                        ->orWhere('')
+//                                        ->get(),
+            'page' => 'all'
+        ]);
+    }
     /********************* END READ METHODS (ADMIN) *********************
      *************************************************************
      *************************************************
