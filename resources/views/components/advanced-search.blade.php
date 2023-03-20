@@ -1,6 +1,6 @@
 <div class="search">
     <div class="container">
-        <form action="" method="get" class="p-2 w-100">
+        <form action="{{ route("propertiesSearch") }}" method="get" class="p-2 w-100">
             <!-- Basic Search -->
             <div class="basic-search d-flex flex-column flex-lg-row p-2">
                 <div class="search-for flex flex-column flex-lg-row">
@@ -39,7 +39,7 @@
                 <div class="flex flex-column flex-lg-row">
                     <div class="flex flex-column flex-lg-row">
                         <label for="propertyType" class="form-label m-2">Type</label>
-                        <select name="property-type" id="propertyType" class="form-select m-2">
+                        <select name="propertyType" id="propertyType" class="form-select m-2">
                             @isset($types)
                                 @foreach($types as $type)
                                     <option value="{{ $type->id }}">{{ $type->type }}</option>

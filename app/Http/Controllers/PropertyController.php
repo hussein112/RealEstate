@@ -117,12 +117,19 @@ class PropertyController extends Controller
 
     public function search(Request $request){
         return view("properties")->with([
-//            'properties' => Property::paginate($this->paginate), Search query
-//            'search_results' => Property::query()
-//                                        ->where('name', 'LIKE', $request->test)
-//                                        ->orWhere('')
-//                                        ->get(),
-            'page' => 'all'
+            'properties' => Property::query()
+                                        ->where('for', 'LIKE', '%'.$request->dealtype.'%')
+                                        ->orWhere('city', 'LIKE', '%'. $request->location .'%')
+                                        ->orWhere('type_id', 'LIKE', '%'. $request->propertyType .'%')
+                                        ->orWhere('bedrooms_nb', '>', '%'. $request->minbedrooms .'%')
+                                        ->orWhere('bedrooms_nb', '<', '%'. $request->maxbedrooms .'%')
+                                        ->orWhere('price', '>', '%'. $request->minprice .'%')
+                                        ->orWhere('price', '<', '%'. $request->maxprice .'%')
+                                        ->paginate(10),
+            'page' => 'all',
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
         ]);
     }
     /********************* END READ METHODS (ADMIN) *********************

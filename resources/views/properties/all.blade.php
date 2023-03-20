@@ -1,11 +1,12 @@
 <x-user-layout>
     <x-slot name="header">
-        <x-header page="home"></x-header>
+        <x-header page="page" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>
     </x-slot>
     <x-slot name="main">
+
         @isset($properties)
             <section id="all-properties">
-                <h2 class="section-title center">All Properties</h2>
+                <h2 class="section-title center">{{ (Route::current()->getName() == "propertiesSearch") ? "Best Matches" : "All Properties" }}</h2>
                 <div class="container cards d-flex flex-wrap align-items-center">
                     @foreach($properties as $property)
                         <div class="card m-2">
@@ -72,7 +73,6 @@
         <div class="container flex-center paginator">
             {{ $properties->links() }}
         </div>
-
     </x-slot>
 
 </x-user-layout>
