@@ -27,10 +27,10 @@
 
 
                 <div class="btns flex flex-wrap">
-                    <button class="btn btn-danger m-2" type="button" data-bs-toggle="collapse" data-bs-target="#filters" aria-controls="filters" aria-expanded="false" aria-label="Toggle Advanced Search">
+                    <button id="filter-search" class="btn btn-danger m-2" type="button" data-bs-toggle="collapse" data-bs-target="#filters" aria-controls="filters" aria-expanded="false" aria-label="Toggle Advanced Search">
                         Filter
                     </button>
-                    <button type="submit" class="btn btn-primary mx-2">Search</button>
+                    <button id="search-btn" type="submit" class="btn btn-primary mx-2">Search</button>
                 </div>
             </div>
 
@@ -51,14 +51,14 @@
                         <label for="minBedRooms" class="form-label m-2">Min Bedrooms</label>
                         <div class="range-wrap center">
                             <div class="range-value" id="rangeMin"></div>
-                            <input type="range" name="minbedrooms" id="minBedRooms" class="form-range m-2"  value="1" min="1" max="30" step="1">
+                            <input type="range" name="minbedrooms" id="minBedRooms" class="form-range m-2"  value="1" min="0" max="30" step="1">
                         </div>
                     </div>
                     <div class="flex flex-column flex-lg-row m-2">
                         <label for="maxbedrooms" class="form-label m-2">Max Bedrooms</label>
                         <div class="range-wrap center">
                             <div class="range-value" id="rangeMax"></div>
-                            <input type="range" name="maxbedrooms" id="maxbedrooms" class="form-range m-2" value="1" min="1" max="30" step="1">
+                            <input type="range" name="maxbedrooms" id="maxbedrooms" class="form-range m-2" value="1" min="0" max="30" step="1">
                         </div>
                     </div>
                     <div class="flex flex-column flex-lg-row m-2">
@@ -69,7 +69,20 @@
                     </div>
                 </div>
             </div>
-
+            <script>
+                // For easness, add default values
+                const searchButton = document.getElementById("search-btn");
+                const advancedSearch = document.getElementById("filters");
+                searchButton.addEventListener("click", function(){
+                   if(! advancedSearch.classList.contains("show")){ // No filters applied
+                       document.getElementById("maxPrice").value = -1;
+                       document.getElementById("minPrice").value = -1;
+                       document.getElementById("maxbedrooms").value = 0;
+                       document.getElementById("minBedRooms").value = 0;
+                       document.getElementById("propertyType").value = 0;
+                   }
+                });
+            </script>
         </form>
     </div>
 </div>

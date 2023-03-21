@@ -116,16 +116,24 @@ class PropertyController extends Controller
     }
 
     public function search(Request $request){
+        if($request->minprice == -1 && $request->maxprice == -1 && $request->minbedrooms == 0 && $request->maxbedrooms == 0){
+            $search_results = Property::query()
+                                ->where('for', 'LIKE', '%'.$request->dealtype.'%')
+                                ->orWhere('city', 'LIKE', '%'. $request->location .'%')
+                                ->paginate(10);
+        }else{
+            $search_results = Property::query()
+                ->where('for', 'LIKE', '%'.$request->dealtype.'%')
+                ->orWhere('city', 'LIKE', '%'. $request->location .'%')
+                ->orWhere('type_id', 'LIKE', '%'. $request->propertyType .'%')
+                ->orWhere('bedrooms_nb', '>', '%'. $request->minbedrooms .'%')
+                ->orWhere('bedrooms_nb', '<', '%'. $request->maxbedrooms .'%')
+                ->orWhere('price', '>', '%'. $request->minprice .'%')
+                ->orWhere('price', '<', '%'. $request->maxprice .'%')
+                ->paginate(10);
+        }
         return view("properties")->with([
-            'properties' => Property::query()
-                                        ->where('for', 'LIKE', '%'.$request->dealtype.'%')
-                                        ->orWhere('city', 'LIKE', '%'. $request->location .'%')
-                                        ->orWhere('type_id', 'LIKE', '%'. $request->propertyType .'%')
-                                        ->orWhere('bedrooms_nb', '>', '%'. $request->minbedrooms .'%')
-                                        ->orWhere('bedrooms_nb', '<', '%'. $request->maxbedrooms .'%')
-                                        ->orWhere('price', '>', '%'. $request->minprice .'%')
-                                        ->orWhere('price', '<', '%'. $request->maxprice .'%')
-                                        ->paginate(10),
+            'properties' => $search_results,
             'page' => 'all',
             'fors' => Property::select('for')->get(),
             'wheres' => Property::select('city')->get(),
