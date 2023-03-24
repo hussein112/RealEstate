@@ -3,34 +3,34 @@
         <x-header page="page" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>
     </x-slot>
     <x-slot name="main">
-
         @isset($properties)
             <section id="all-properties">
                 <h2 class="section-title center">{{ (Route::current()->getName() == "propertiesSearch") ? "Best Matches" : "All Properties" }}</h2>
                 <div class="container cards d-flex flex-wrap align-items-center">
                     @foreach($properties as $property)
                         <div class="card m-2">
-                            <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="https://picsum.photos/seed/picsum/300/300?random=1" class="d-block w-100" alt="Property 1" loading="lazy">
+                            @if(sizeof($property->images) > 1)
+                                    <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
+                                        <div class="carousel-inner">
+                                            @foreach($property->images->image as $path)
+                                                <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
+                                                    <img src="{{ asset('storage/' . $path) }}" alt="{{ $property->title }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src="https://picsum.photos/seed/picsum/300/300?random=2" class="d-block w-100" alt="..." loading="lazy">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://picsum.photos/seed/picsum/300/300?random=3" class="d-block w-100" alt="..." loading="lazy">
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
+                            @else
+                                <img src="{{ asset('storage/' . $property->images[0]->image) }}" class="d-block w-100" alt="{{ $property->title }}" loading="lazy">
+                            @endif
+
                             <div class="card-body">
                                 <header class="card-head">
                                     <a href="#" class="card-title">{{ $property->title }}</a>

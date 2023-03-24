@@ -1,4 +1,7 @@
 <x-user-layout>
+    <x-slot name="header">
+{{--        <x-header page="page" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>--}}
+    </x-slot>
     <x-slot name="main">
         @isset($property)
             <section id="property">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Property;
+use App\Models\Type;
 use App\Models\Valuation;
 use Illuminate\Http\Request;
 
@@ -43,7 +45,11 @@ class ValuationController extends Controller
      */
     public function create()
     {
-        return view("newValuation");
+        return view("newValuation")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
     }
 
     /**

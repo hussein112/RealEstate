@@ -1,73 +1,27 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- First Name -->
-        <div>
-            <x-input-label for="fname" :value="__('Name')" />
-            <x-text-input id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('name')" required autofocus />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Middle Name -->
-        <div>
-            <x-input-label for="mname" :value="__('Name')" />
-            <x-text-input id="mname" class="block mt-1 w-full" type="text" name="mname" :value="old('name')" required autofocus />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Last Name -->
-        <div>
-            <x-input-label for="lname" :value="__('Name')" />
-            <x-text-input id="lname" class="block mt-1 w-full" type="text" name="lname" :value="old('name')" required autofocus />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Phone -->
-        <div class="mt-4">
-            <x-input-label for="phone" :value="__('Email')" />
-            <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('email')" required />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+<x-user-layout>
+    <x-slot name="header">
+        <x-navbar page="register"></x-navbar>
+    </x-slot>
+    <x-slot name="main">
+        <form action="" method="post" class="container flex flex-column flex-wrap">
+            <div class="form-floating mb-3">
+                <input type="text" name="fullname" id="fullname" class="form-control" placeholder="Full Name" required>
+                <label for="fullname">Full Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                <label for="email">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                <label for="password">Password</label>
+            </div>
+            <small class="form-text text-muted law-notice">By Clicking Sign Up You Agree to our <a href="{{ route("terms") }}">Terms of Service</a></small>
+            <button type="submit" class="btn btn-primary m-2">Sign Up</button>
+        </form>
+    </x-slot>
+</x-user-layout>

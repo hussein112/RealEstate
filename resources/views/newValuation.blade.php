@@ -1,7 +1,7 @@
 <x-user-layout>
 
     <x-slot name="header">
-        <x-header page="valuation"></x-header>
+        <x-header page="valuation" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>
     </x-slot>
 
     <x-slot name="main">

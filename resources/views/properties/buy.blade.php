@@ -1,6 +1,6 @@
 <x-user-layout>
     <x-slot name="header">
-        <x-header page="buy"></x-header>
+        <x-header page="buy" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>
     </x-slot>
     <x-slot name="main">
         @isset($properties)

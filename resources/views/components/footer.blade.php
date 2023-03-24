@@ -22,21 +22,21 @@
         <div class="s-n grid">
             <ul class="site-map custom-list m-1">
                 <li class="l-item">Company</li>
-                <li class="l-item"><a href="/about.html">About</a></li>
-                <li class="l-item"><a href="/services.html">Our Services</a></li>
+                <li class="l-item"><a href="{{ route("about") }}">About</a></li>
+                <li class="l-item"><a href="{{ route("services") }}">Our Services</a></li>
                 <li class="l-item"><a href="/blog.html">Blog</a></li>
-                <li class="l-item"><a href="/team.html">Team</a></li>
-                <li class="l-item"><a href="/policy.html">Privacy Policy</a></li>
-                <li class="l-item"><a href="/terms.html">Terms & Conditions</a></li>
+                <li class="l-item"><a href="{{ route("team") }}">Team</a></li>
+                <li class="l-item"><a href="{{ route("policy") }}">Privacy Policy</a></li>
+                <li class="l-item"><a href="{{ route("terms") }}">Terms & Conditions</a></li>
             </ul>
 
 
             <ul class="site-map custom-list m-1">
                 <li class="l-item">Navigate to</li>
-                <li class="l-item"><a href="user/login.html">Login</a></li>
-                <li class="l-item"><a href="user/signup.html">Register</a></li>
-                <li class="l-item"><a href="/buy.html">Buy Property</a></li>
-                <li class="l-item"><a href="/rent.html">Rent Property</a></li>
+                <li class="l-item"><a href="{{ route("login") }}">Login</a></li>
+                <li class="l-item"><a href="{{ route("register") }}">Register</a></li>
+                <li class="l-item"><a href="{{ route("propertiesForBuy") }}">Buy Property</a></li>
+                <li class="l-item"><a href="{{ route("propertiesForRent") }}">Rent Property</a></li>
                 <li class="l-item"><a href="/user/advertise.html">Sell Property</a></li>
             </ul>
 
@@ -45,7 +45,7 @@
                 <li class="l-item">Contact Us</li>
                 <li class="l-item"><a href="tel:+9611234565"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> 0096103123456</a></li>
                 <li class="l-item"><a href="mailto:1@2.com"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> info@company.com</a></li>
-                <li class="l-item"><a href="contact.html"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> Contact</a></li>
+                <li class="l-item"><a href="{{ route("contact") }}"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> Contact</a></li>
             </ul>
 
             <div class="newsletter m-1 p-2">

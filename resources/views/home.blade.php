@@ -11,11 +11,10 @@
                 @isset($featured_properties)
                     <div id="f-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
                         <div class="carousel-indicators">
-                        @for($i = 0; $i < sizeof($featured_properties); $i++)
-                            <button type="button" data-bs-target="#f-p-carousel1" data-bs-slide-to="{{$i}}" class="active" aria-current="true" aria-label="Slide {{$i}}"></button>
-                        @endfor
+                            @for($i = 0; $i < sizeof($featured_properties); $i++)
+                                <button type="button" data-bs-target="#f-p-carousel1" data-bs-slide-to="{{$i}}" class="active" aria-current="true" aria-label="Slide {{$i}}"></button>
+                            @endfor
                         </div>
-
                         <div class="carousel-inner">
                             @foreach($featured_properties as $fproperty)
                                 <div class="carousel-item {{($loop->first) ? "active" : ""}}">
@@ -60,23 +59,27 @@
                 @isset($latest_properties)
                     @foreach($latest_properties as $lproperty)
                         <div class="card m-2">
-                            <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
-                                <div class="carousel-inner">
-                                    @foreach($lproperty->images as $image)
-                                        <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
-                                            <img src="{{ asset("storage") . $image->image }}" class="d-block w-100" alt="Property" loading="lazy">
-                                        </div>
-                                    @endforeach
+                            @if(sizeof($lproperty->images) > 1)
+                                <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
+                                    <div class="carousel-inner">
+                                        @foreach($lproperty->images as $image)
+                                            <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
+                                                <img src="{{ asset("storage/" . $image->image) }}" class="d-block w-100" alt="Property" loading="lazy">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
+                            @else
+                                <img src="{{ asset("storage/" . $lproperty->images[0]->image) }}">
+                            @endif
                             <div class="card-body">
 
                                 <header class="card-head">
@@ -137,7 +140,7 @@
                         <div class="card m-2">
                             @isset($post->images->image)
                                 @foreach($post->images->image as $path)
-                                    <img src="{{ asset("storage/") . $path }}" class="card-img-top" alt="Blog Post" loading="lazy">
+                                    <img src="{{ asset("storage/" . $path) }}" class="card-img-top" alt="Blog Post" loading="lazy">
                                 @endforeach
                             @endisset
                             <div class="card-body">

@@ -23,31 +23,59 @@ class WebsiteController extends Controller
     }
 
     public function about(){
-        return view("static.about");
+        return view("static.about")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all()
+        ]);
     }
 
 
     public function contact(){
-        return view("static.contact");
+        return view("static.contact")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
     }
 
     public function terms(){
-        return view("static.terms");
+        return view("static.terms")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
     }
 
     public function partnerTerms(){
-        return view("static.partnerTerms");
+        return view("static.partnerTerms")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all()
+        ]);
     }
 
     public function policy(){
-        return view("static.policy");
+        return view("static.policy")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all()
+        ]);
     }
 
     public function services(){
-        return view("static.services");
+        return view("static.services")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all()
+        ]);
     }
 
     public function team(){
-        return view("static.team");
+        return view("static.team")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all()
+        ]);
     }
 }

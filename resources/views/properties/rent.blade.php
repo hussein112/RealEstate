@@ -1,6 +1,6 @@
 <x-user-layout>
     <x-slot name="header">
-        <x-header page="rent"></x-header>
+        <x-header page="rent" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>
     </x-slot>
     <x-slot name="main">
         @isset($properties)
@@ -9,27 +9,27 @@
                 <div class="container cards d-flex flex-wrap align-items-center">
                     @foreach($properties as $property)
                         <div class="card m-2">
-                            <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="https://picsum.photos/seed/picsum/300/300?random=1" class="d-block w-100" alt="Property 1" loading="lazy">
+                            @if(sizeof($property->images) > 1)
+                                <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
+                                    <div class="carousel-inner">
+                                        @foreach($property->images as $image)
+                                            <div class="carousel-item active">
+                                                <img src="{{ asset('storage/' . $image) }}" class="d-block w-100" alt="Property 1" loading="lazy">
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src="https://picsum.photos/seed/picsum/300/300?random=2" class="d-block w-100" alt="..." loading="lazy">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://picsum.photos/seed/picsum/300/300?random=3" class="d-block w-100" alt="..." loading="lazy">
-                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
+                            @else
+                                <img src="{{ asset('storage/' . $property->images[0]->image) }}" alt="">
+                            @endif
                             <div class="card-body">
                                 <header class="card-head">
                                     <a href="#" class="card-title">{{ $property->title }}</a>
