@@ -327,7 +327,32 @@ aside{
     background-color: var(--se);
     ul{
         flex-direction: column;
-        // margin-top: 30px;
+        .notifications{
+            height: 35px;
+            padding: 20px 0;
+
+            iconify-icon{
+                color: var(--fo);
+                cursor: pointer;
+                font-size: 35px;
+
+                position: relative;
+
+                &::before{
+                    content: "3";
+                    font-size: 13px;
+                    text-align: center;
+                    position: absolute;
+                    background-color: red;
+                    color: blue;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    right: -5px;
+                    top: 0;
+                }
+            }
+        }
     }
 
     a{

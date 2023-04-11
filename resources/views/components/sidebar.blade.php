@@ -4,6 +4,36 @@
     <aside class="d-flex flex-column flex-shrink-0 p-3">
         <ul class="nav nav-pills mb-auto">
             <br>
+            <div class="notifications admin-notifications flex-center">
+                <!-- Start Notifications List -->
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#notifications" aria-controls="notifications">
+                    <iconify-icon icon="ion:notifications-sharp"></iconify-icon>
+                </button>
+
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="notifications" aria-labelledby="notifications">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="notifications">Notifications</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div>
+                            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+                        </div>
+                        <div class="dropdown mt-3">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                Dropdown button
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Notifications List -->
+            </div>
+
             <br>
             <li class="nav-item">
                 <a href="{{ route("a-dashboard") }}" class="nav-link {{ ( request()->is('admin') || request()->is('admin/dashboard')) ? 'active' : '' }}">
