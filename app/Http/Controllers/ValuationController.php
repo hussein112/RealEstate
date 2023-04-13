@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Property;
 use App\Models\Type;
 use App\Models\Valuation;
 use Illuminate\Http\Request;
+use App\Notifications\ValuationRequested;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Notification;
 
 class ValuationController extends Controller
 {
@@ -60,7 +64,61 @@ class ValuationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fullname' => ['required'],
+            'email' => ['required'],
+            'phone' => ['required'],
+            'addressone' => ['required'],
+            'addresstwo' => ['required'],
+            'state' => ['required'],
+            'postalcode' => ['required'],
+            'city' => ['required'],
+            'forsell' => ['required'],
+            'fullyfurnished' => ['required'],
+            'bedrooms' => ['required'],
+            'bathrooms' => ['required'],
+            'propertytype' => ['required'],
+            'garage' => ['required'],
+            'description' => ['required'],
+        ]);
+
+        $for = 0;
+        if(isset($request->forsell)){
+            $for = 1; // sell
+        }else{
+            $for = 2;
+        }
+
+        $furnishing_status = 0;
+        if(isset($request->fullyfurnished)){
+            $furnishing_status = 2;
+        }else if(isset($request->partiallyfurnished)){
+            $furnishing_status = 1;
+        }else{
+            $furnishing_status = 0;
+        }
+
+        $valuation = Valuation::create([
+            'full_name' => $request->fullname,
+            'date_issued' => Date::now(),
+            'issuer_email' => $request->email,
+            'issuer_phone' => $request->phone,
+            'address_one' => $request->addressone,
+            'address_two' => $request->addresstwo,
+            'city' => $request->city,
+            'postal_code' => $request->postalcode,
+            'furnishing_status' => $furnishing_status,
+            'garage' => ($request->garage == 'on') ? 1 : 0,
+            'bedrooms_nb' => $request->bedrooms,
+            'bathrooms_nb' => $request->bathrooms,
+            'for' => $for,
+            'description' => $request->description,
+            'valuation_status' => 0,
+            'due_date' => null
+        ]);
+
+        $admins = Admin::all();
+        Notification::send($admins, new ValuationRequested($valuation));
     }
 
     /**

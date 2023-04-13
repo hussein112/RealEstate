@@ -9,30 +9,40 @@
             <h2 class="section-title flex-center">
                 Fill in your details below to request a valuation from one of our specialities
             </h2>
-            <form action="" method="post">
-                <input type="text" class="form-control my-3 mx-1" placeholder="Full Name">
-                <input type="text" class="form-control my-3 mx-1" placeholder="Email Address">
-                <input type="text" class="form-control my-3 mx-1" placeholder="Telephone Number">
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <strong class="bg-danger">{{ $error }}</strong>
+                @endforeach
+            @else
+                @if(session('success_msg') != null)
+                    <strong class="bg-success">{{ session('success_msg') }}</strong>
+                @endif
+            @endif
+            <form action="{{ route("createValuation") }}" method="post">
+                @csrf
+                <input name="fullname" type="text" class="form-control my-3 mx-1" placeholder="Full Name">
+                <input name="email" type="text" class="form-control my-3 mx-1" placeholder="Email Address">
+                <input name="phone" type="text" class="form-control my-3 mx-1" placeholder="Telephone Number">
                 <h2>Adress Details</h2>
                 <div class="address grid">
-                    <input type="text" class="form-control" name="" id="" placeholder="Address Line 1">
-                    <input type="text" class="form-control" name="" id="" placeholder="Address Line 2">
-                    <input type="text" class="form-control" name="" id="" placeholder="State">
-                    <input type="text" class="form-control" name="" id="" placeholder="Postal/Zip Code">
-                    <input type="text" class="form-control" name="" id="" placeholder="Town/City">
+                    <input name="addressone" type="text" class="form-control" placeholder="Address Line 1">
+                    <input name="addresstwo" type="text" class="form-control" placeholder="Address Line 2">
+                    <input name="state" type="text" class="form-control" placeholder="State">
+                    <input name="postalcode" type="text" class="form-control" placeholder="Postal/Zip Code">
+                    <input name="city" type="text" class="form-control" placeholder="Town/City">
                 </div>
                 <h2 class="center">Property Details</h2>
                 <h3>is this property for:</h3>
                 <div class="for-options px-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="forradio" id="forsellradio">
+                        <input class="form-check-input" type="radio" name="forsell" id="forsellradio" value="sell">
                         <label class="form-check-label" for="forsellradio">
                             Sell
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="forradio" id="forrentradio">
+                        <input class="form-check-input" type="radio" name="forrent" id="forrentradio" value="rent">
                         <label class="form-check-label" for="forrentradio">
                             Rent
                         </label>
@@ -40,25 +50,25 @@
                 </div>
 
 
-                <h3>is it: </h2>
+                <h3>is it: </h3>
                     <div class="furnishing-options px-5">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="furnishradio" id="fullyfurnishedradio">
+                            <input class="form-check-input" type="radio" name="fullyfurnished" id="fullyfurnishedradio">
                             <label class="form-check-label" for="fullyfurnishedradio">
                                 Fully Furnished
                             </label>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="furnishradio" id="partlyfurnishedradio">
+                            <input class="form-check-input" type="radio" name="partiallyfurnished" id="partlyfurnishedradio">
                             <label class="form-check-label" for="partlyfurnishedradio">
-                                Partly Furnished
+                                Partially Furnished
                             </label>
                         </div>
 
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="furnishradio" id="notfurnishedradio">
+                            <input class="form-check-input" type="radio" name="notfurnished" id="notfurnishedradio">
                             <label class="form-check-label" for="notfurnishedradio">
                                 Not Furnished
                             </label>
@@ -68,28 +78,31 @@
 
                     <h3>number of bedrooms</h3>
                     <div class="center my-3">
-                        <input type="number" name="bedrooms" id="bedrooms" class="form-control m-2" placeholder="Number of Bedrooms">
+                        <input name="bedrooms" type="number" class="form-control m-2" placeholder="Number of Bedrooms">
                     </div>
 
                     <h3>number of bathrooms</h3>
                     <div class="center my-3">
-                        <input type="number" name="bedrooms" id="bedrooms" class="form-control m-2" placeholder="Number of Bathrooms">
+                        <input name="bathrooms" type="number" class="form-control m-2" placeholder="Number of Bathrooms">
                     </div>
 
                     <h3>Property Type</h3>
-                    <select name="property-type" id="propertyType" class="form-select m-2">
-                        <option value="appartement">Appartment</option>
-                        <option value="villa">Villa</option>
-                        <option value="chalet">Chalet</option>
+
+                    <select name="propertytype" id="propertyType" class="form-select m-2">
+                        @foreach($types as $type)
+                            <option value="{{ $type->type }}">{{ $type->type }}</option>
+                        @endforeach
                     </select>
 
                     <div class="garage my-2">
                         <label class="form-check-label" for="garage">Includes Garage</label>
-                        <input type="checkbox" class="nav-link" id="garage" checked data-toggle="toggle">
+                        <input type="checkbox" class="nav-link" id="garage" checked data-toggle="toggle" name="garage">
                     </div>
 
+                <h3>Description</h3>
+                <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
                     <div class="v-m center mt-3">
-                        <button class="btn btn-primary view-more" type="button">Submit</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
             </form>
         </section>

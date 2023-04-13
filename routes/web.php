@@ -43,7 +43,7 @@ require __DIR__.'/auth.php';
 
 
 Route::get("valuation", [ValuationController::class, 'create'])->name("newValuation");
-
+Route::post("valuation/new", [ValuationController::class, 'store'])->name("createValuation");
 
 /**
  *
@@ -82,4 +82,3 @@ require __DIR__ .'/user.php';
 require __DIR__ . '/employee.php';
 
 require __DIR__ . '/admin.php';
-

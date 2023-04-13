@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;
+use App\Notifications\ValuationRequested;
 
 class Valuation extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory, Sortable, Notifiable;
 
     public $sortable = [
         'id',
