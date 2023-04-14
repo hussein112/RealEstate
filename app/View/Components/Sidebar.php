@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Notifications\ValuationRequested;
 use Illuminate\View\Component;
 
 class Sidebar extends Component
@@ -13,7 +14,6 @@ class Sidebar extends Component
      */
     public function __construct()
     {
-        //
     }
 
     /**

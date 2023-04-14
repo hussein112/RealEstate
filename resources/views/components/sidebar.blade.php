@@ -8,29 +8,62 @@
                 <!-- Start Notifications List -->
                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#notifications" aria-controls="notifications">
                     <iconify-icon icon="ion:notifications-sharp"></iconify-icon>
+                    <span class="position-absolute top-0 start-10 translate-middle badge rounded-pill bg-danger">
+                        99+
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
                 </button>
-
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="notifications" aria-labelledby="notifications">
                     <div class="offcanvas-header">
                         <h3 class="offcanvas-title" id="notifications">Notifications</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div class="notifications-btns container">
-                        <a href="#" class="link-primary">Clear All</a>
-                        <a href="#" class="link-primary">Mark as Read</a>
+                    <div class="notifications-btns flex-center">
+                        <form action="{{ route("deleteNotifications") }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-link">Delete All</button>
+                        </form>
+                        <form action="{{ route("readNotifications") }}" method="POST">
+                            @csrf
+                            <button class="btn btn-link">Mark All As Read</button>
+                        </form>
                         <hr>
                     </div>
+
                     <div class="offcanvas-body">
                         <div>
                             <!-- Start Notification -->
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">Notification 1</h5>
-                                        <small>5 Seconds Ago</small>
-                                    </div>
-                                    <p class="mb-1">A new valuation request was added.</p>
-                                </a>
+                                @if(! empty(auth()->user()->notifications))
+                                    @foreach(auth()->user()->unreadNotifications as $notification)
+                                        <a href="#" class="list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation
+                                                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                                        <span class="visually-hidden">New alerts</span>
+                                                     </span>
+                                                </h5>
+                                                <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                            </div>
+                                            <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
+                                        </a>
+                                    @endforeach
+
+                                    @foreach(auth()->user()->readNotifications as $notification)
+                                        <a href="#" class="list-group-item list-group-item-action text-muted" aria-current="true">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation</h5>
+                                                <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                            </div>
+                                            <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
+                                        </a>
+                                    @endforeach
+
+                                @else
+                                    <p>No Notifications</p>
+                                @endif
+
                             </div>
                             <!-- End Notification -->
                         </div>

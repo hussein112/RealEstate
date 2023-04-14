@@ -182,4 +182,15 @@ class AdminController extends Controller
             'success_msg' => 'Admin ' . $id . ' Deleted Successfully'
         ]);
     }
+
+    public function deleteNotifications(){
+        auth()->user()->notifications()->delete();
+        return redirect()->back();
+    }
+
+    public function readNotifications(){
+        auth()->user()->unreadNotifications()->markAsRead();
+        return redirect()->back();
+    }
+
 }

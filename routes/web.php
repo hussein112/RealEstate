@@ -44,7 +44,6 @@ require __DIR__.'/auth.php';
 
 Route::get("valuation", [ValuationController::class, 'create'])->name("newValuation");
 Route::post("valuation/new", [ValuationController::class, 'store'])->name("createValuation");
-
 /**
  *
  * Properties Routes

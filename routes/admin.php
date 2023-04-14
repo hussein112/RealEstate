@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ValuationApprovalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointementController;
@@ -53,6 +54,8 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::get("valuations", [ValuationController::class, 'adminIndex'])->name("a-valuations");
 
     Route::get("valuation/{id}", [ValuationController::class, 'adminShow'])->name("a-valuationDetails");
+    // Review the valuation
+    Route::get("valuation/request/{id}/{notification_id}", [ValuationApprovalController::class, 'index'])->name("valuationRequest");
 
     // Edit & index will return the same form
     Route::get("profile/{id}", [AdminController::class, 'edit'])->name('a-profileShow');
@@ -144,4 +147,12 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::delete("enquiries/{id}", [EnquiriesController::class, 'destroy'])->name("a-deleteEnquiry");
     });
+
+
+
+    /**
+     * Notifications Routes
+     */
+    Route::delete("notifications/delete", [AdminController::class, 'deleteNotifications'])->name("deleteNotifications");
+    Route::post("notifications/mark_as_read", [AdminController::class, 'readNotifications'])->name("readNotifications");
 });
