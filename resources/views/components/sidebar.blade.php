@@ -6,12 +6,15 @@
             <br>
             <div class="notifications admin-notifications flex-center">
                 <!-- Start Notifications List -->
-                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#notifications" aria-controls="notifications">
-                    <iconify-icon icon="ion:notifications-sharp"></iconify-icon>
-                    <span class="position-absolute top-0 start-10 translate-middle badge rounded-pill bg-danger">
-                        99+
-                        <span class="visually-hidden">unread messages</span>
+                <button class="btn btn-primary position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#notifications" aria-controls="notifications">
+                    <iconify-icon class="display-6" icon="ion:notifications-sharp"></iconify-icon>
+                    @if(auth()->user()->unreadNotifications()->count() > 0)
+                        <span class="position-absolute top-0 start-10 translate-middle badge rounded-pill bg-danger">
+                            {{ auth()->user()->unreadNotifications()->count() }}
+                        <span class="visually-hidden">Unread Notifications</span>
                     </span>
+                    @endif
+
                 </button>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="notifications" aria-labelledby="notifications">
                     <div class="offcanvas-header">
@@ -37,7 +40,7 @@
                             <div class="list-group">
                                 @if(! empty(auth()->user()->notifications))
                                     @foreach(auth()->user()->unreadNotifications as $notification)
-                                        <a href="#" class="list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                        <a href="{{ route("valuationRequest", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="list-group-item list-group-item-action list-group-item-primary" aria-current="true">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation
                                                     <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
@@ -51,13 +54,13 @@
                                     @endforeach
 
                                     @foreach(auth()->user()->readNotifications as $notification)
-                                        <a href="#" class="list-group-item list-group-item-action text-muted" aria-current="true">
+                                        <div class="list-group-item list-group-item-action text-muted" aria-current="true">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation</h5>
                                                 <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
                                             </div>
                                             <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
-                                        </a>
+                                        </div>
                                     @endforeach
 
                                 @else

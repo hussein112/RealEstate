@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Property;
 use App\Models\Type;
 use App\Models\Valuation;
+use App\Models\ValuationApproval;
 use Illuminate\Http\Request;
 use App\Notifications\ValuationRequested;
 use Illuminate\Support\Facades\Date;
@@ -78,7 +79,6 @@ class ValuationController extends Controller
             'bedrooms' => ['required'],
             'bathrooms' => ['required'],
             'propertytype' => ['required'],
-            'garage' => ['required'],
             'description' => ['required'],
         ]);
 
@@ -118,7 +118,16 @@ class ValuationController extends Controller
         ]);
 
         $admins = Admin::all();
+        // Insert into pending table
+        ValuationApproval::create([
+            'status' => 1,
+            'valuation_id' => $valuation->id,
+            'admin_id' => null
+        ]);
         Notification::send($admins, new ValuationRequested($valuation));
+        return redirect()->back()->with([
+            'success_msg' => 'Valuation Added Successfully, Wait an email from us.'
+        ]);
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationApprovalController;
+use App\Http\Controllers\ValuationRequestedController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointementController;
@@ -124,6 +125,9 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::patch("enquiries/{id}", [EnquiriesController::class, 'update'])->name("a-editEnquiry");
 
         Route::patch("profile/{id}", [AdminController::class, 'update'])->name('a-profile');
+
+        // Approve a Valuation Request
+        Route::patch("valuation/request/approve/{id}", [ValuationApprovalController::class, 'approve'])->name('a-approveValuation');
     });
 
 
@@ -146,6 +150,9 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::delete("customers/{id}", [CustomerController::class, 'destroy'])->name("a-deleteCustomer");
 
         Route::delete("enquiries/{id}", [EnquiriesController::class, 'destroy'])->name("a-deleteEnquiry");
+
+        // Reject a Valuation Request
+        Route::delete("valuation/request/reject/{id}", [ValuationApprovalController::class, 'reject'])->name('a-rejectRequest');
     });
 
 
