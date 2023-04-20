@@ -11,6 +11,8 @@ class Assign extends Model
 
     protected $table = 'assign';
 
+    protected $guarded = ['id'];
+
     public function assignedTo(){
         return $this->belongsTo(Employee::class);
     }

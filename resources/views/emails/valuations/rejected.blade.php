@@ -5,7 +5,7 @@
     <title>Information Email</title>
 </head>
 <body>
-<h1>Your Request Was Approved</h1>
+<h1>Your Request Was Rejected</h1>
 <p>Hello </p>
 <p>{{ $description }}</p>
 <p>Thank you for using our service!</p>

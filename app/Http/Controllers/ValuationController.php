@@ -16,7 +16,9 @@ class ValuationController extends Controller
 {
     public function adminIndex(){
         return view('admin.valuations')->with([
-            'valuations' => Valuation::sortable()->paginate(9)
+            // Sort According to approval status
+            'valuations' => Valuation::sortable()->paginate(9),
+            'approval_status' => ValuationApproval::all()
         ]);
     }
 
@@ -61,7 +63,6 @@ class ValuationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -74,29 +75,13 @@ class ValuationController extends Controller
             'state' => ['required'],
             'postalcode' => ['required'],
             'city' => ['required'],
-            'forsell' => ['required'],
-            'fullyfurnished' => ['required'],
             'bedrooms' => ['required'],
             'bathrooms' => ['required'],
-            'propertytype' => ['required'],
+            'type' => ['required'],
             'description' => ['required'],
         ]);
 
-        $for = 0;
-        if(isset($request->forsell)){
-            $for = 1; // sell
-        }else{
-            $for = 2;
-        }
 
-        $furnishing_status = 0;
-        if(isset($request->fullyfurnished)){
-            $furnishing_status = 2;
-        }else if(isset($request->partiallyfurnished)){
-            $furnishing_status = 1;
-        }else{
-            $furnishing_status = 0;
-        }
 
         $valuation = Valuation::create([
             'full_name' => $request->fullname,
@@ -105,16 +90,18 @@ class ValuationController extends Controller
             'issuer_phone' => $request->phone,
             'address_one' => $request->addressone,
             'address_two' => $request->addresstwo,
+            'state' => $request->state,
             'city' => $request->city,
             'postal_code' => $request->postalcode,
-            'furnishing_status' => $furnishing_status,
+            'furnishing_status' => $request->furnishing,
             'garage' => ($request->garage == 'on') ? 1 : 0,
             'bedrooms_nb' => $request->bedrooms,
             'bathrooms_nb' => $request->bathrooms,
-            'for' => $for,
+            'for' => $request->for,
+            'type' => $request->type,
             'description' => $request->description,
             'valuation_status' => 0,
-            'due_date' => null
+            'due_date' => null,
         ]);
 
         $admins = Admin::all();

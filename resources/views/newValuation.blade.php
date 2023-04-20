@@ -35,14 +35,14 @@
                 <h3>is this property for:</h3>
                 <div class="for-options px-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="forsell" id="forsellradio" value="sell">
+                        <input class="form-check-input" type="radio" name="for" id="forsellradio" checked value="1">
                         <label class="form-check-label" for="forsellradio">
                             Sell
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="forrent" id="forrentradio" value="rent">
+                        <input class="form-check-input" type="radio" name="for" id="forrentradio" value="2">
                         <label class="form-check-label" for="forrentradio">
                             Rent
                         </label>
@@ -53,14 +53,14 @@
                 <h3>is it: </h3>
                     <div class="furnishing-options px-5">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="fullyfurnished" id="fullyfurnishedradio">
+                            <input class="form-check-input" type="radio" name="furnishing" id="fullyfurnishedradio" value="2" checked>
                             <label class="form-check-label" for="fullyfurnishedradio">
                                 Fully Furnished
                             </label>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="partiallyfurnished" id="partlyfurnishedradio">
+                            <input class="form-check-input" type="radio" name="furnishing" id="partlyfurnishedradio" value="1">
                             <label class="form-check-label" for="partlyfurnishedradio">
                                 Partially Furnished
                             </label>
@@ -68,7 +68,7 @@
 
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="notfurnished" id="notfurnishedradio">
+                            <input class="form-check-input" type="radio" name="furnishing" id="notfurnishedradio" value="0">
                             <label class="form-check-label" for="notfurnishedradio">
                                 Not Furnished
                             </label>
@@ -88,7 +88,7 @@
 
                     <h3>Property Type</h3>
 
-                    <select name="propertytype" id="propertyType" class="form-select m-2">
+                    <select name="type" id="propertyType" class="form-select m-2">
                         @foreach($types as $type)
                             <option value="{{ $type->type }}">{{ $type->type }}</option>
                         @endforeach

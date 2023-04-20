@@ -2,13 +2,14 @@
 
 namespace App\Notifications;
 
+use App\Models\Admin;
 use App\Models\Valuation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ValuationRequested extends Notification
+class NewValuation extends Notification
 {
     use Queueable;
 
@@ -18,7 +19,8 @@ class ValuationRequested extends Notification
      * @return void
      */
     public function __construct(
-        public Valuation $valuation
+        public Valuation $valuation,
+        public int $adminId
     )
     {
         //
@@ -57,11 +59,9 @@ class ValuationRequested extends Notification
      */
     public function toArray($notifiable)
     {
+        $admin = Admin::findOrFail($this->adminId);
         return [
-            'valuation_id' => $this->valuation->id,
-            'full_name' => $this->valuation->full_name,
-            'for' => $this->valuation->for,
-            'type' => $this->valuation->type
+            'message' => "A " . $this->valuation->type . " For Valuation in " . $this->valuation->city . " Assigned to You By " . $admin->f_name . " " . $admin->lname,
         ];
     }
 }

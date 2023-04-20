@@ -7,7 +7,7 @@
                     <hr>
                     <div>
                         <a href="{{ route("a-approveValuation", ['id' => $valuation->id]) }}" class="btn btn-primary">Approve</a>
-                        <a href="#" class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</a>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</a>
                         <small>Issued @ {{ $valuation->date_issued }}</small>
                     </div>
                     <table class="table mt-5">
@@ -19,7 +19,25 @@
 
                         <tr>
                             <th class="bg-danger">Valuation Status</th>
-                            <td class="bg-danger text-light">{{ ($valuation->valuation_status == 0) ? "Pending" : "Finished" }}</td>
+                            @isset($approval_status)
+                                @php
+                                    $status = "";
+                                    switch($approval_status[0]->status){
+                                        case 0:
+                                            $status = "Rejected";
+                                            break;
+                                        case 1:
+                                            $status = "Waiting Approval";
+                                            break;
+                                        case 2:
+                                            $status = "Approved";
+                                            break;
+                                        default:
+                                            $status = "Unknown";
+                                    }
+                                @endphp
+                            @endisset
+                            <td class="bg-danger text-light">{{ $status }}</td>
                         </tr>
 
                         <tr>

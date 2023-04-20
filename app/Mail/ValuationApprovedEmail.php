@@ -13,16 +13,15 @@ class ValuationApprovedEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $valuation;
-
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($valuation)
+    public function __construct(
+        public Valuation $valuation
+    )
     {
-        $valuation = $this->valuation;
     }
 
     /**

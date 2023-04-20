@@ -27,13 +27,13 @@
                             Postal Code
                         </th>
                         <th scope="col" class="text-primary">
-                            @sortablelink("valuation_type", "Type")
+                            @sortablelink("type", "Property Type")
                         </th>
                         <th scope="col" class="text-primary">
                             Description
                         </th>
                         <th scope="col" class="text-primary">
-                            @sortablelink("valuation_status", "Status")
+                            @sortablelink("status", "Status")
                         </th>
                         <th scope="col" class="text-primary">
                             @sortablelink("due_date", "Due")
@@ -51,12 +51,41 @@
                                 <td>{{ $valuation->address_one }}</td>
                                 <td>{{ $valuation->city }}</td>
                                 <td>{{ $valuation->postal_code }}</td>
-                                <td>{{ $valuation->valuation_type }}</td>
+                                <td>{{ $valuation->type }}</td>
                                 <td class="td-long">{{ $valuation->description }}</td>
-                                @if($valuation->valuation_status == 1)
-                                    <td class="bg-success text-light">Finished</td>
+                                @php
+                                    if(isset($approval_status)){
+                                        $status = "";
+                                        $approval = $approval_status->where('valuation_id', $valuation->id)->first();
+                                            if(isset($approval->status)){
+                                                switch($approval->status){
+                                                case 0:
+                                                    $status = "Rejected";
+                                                    break;
+                                                case 1:
+                                                    $status = "Waiting Approval";
+                                                    break;
+                                                case 2:
+                                                    $status = "Approved";
+                                                    break;
+                                                default:
+                                                    $status = "Unknown";
+                                            }
+                                        }
+                                    }
+                                @endphp
+                                @if($status == "Approved")
+                                    @if($valuation->status == 1)
+                                        <td class="bg-success text-light">Done</td>
+                                    @else
+                                        <td class="bg-info text-light">In Progress</td>
+                                    @endif
                                 @else
-                                    <td class="bg-danger text-light">Pending</td>
+                                    @if(!empty($status))
+                                        <td class="bg-danger text-light">{{ $status }}</td>
+                                    @else
+                                        <td class="bg-warning text-dark">Unknown</td>
+                                    @endif
                                 @endif
                                 <td class="bg-danger text-light">{{ $valuation->due_date }}</td>
                                 <td><a class="btn btn-primary" href="{{ route("a-valuationDetails", ['id' => $valuation->id]) }}">></a></td>

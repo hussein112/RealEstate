@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Valuation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -18,9 +19,10 @@ class ValuationRejectedEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(
+        public Valuation $valuation
+    )
     {
-        //
     }
 
     /**
@@ -31,6 +33,7 @@ class ValuationRejectedEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
+            from: "company@email.com",
             subject: 'Valuation Rejected Email',
         );
     }
@@ -43,7 +46,11 @@ class ValuationRejectedEmail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.valuations.rejected',
+            with: [
+                'id' => $this->valuation->id,
+                'description' => $this->valuation->description
+            ]
         );
     }
 

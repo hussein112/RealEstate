@@ -88,6 +88,9 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::get("user", [UserController::class, 'adminCreate'])->name("a-newUser");
         Route::post("user", [UserController::class, 'store'])->name("a-newUser");
+
+        // Assign Valuation to an Employee
+        Route::post("valuation/request/assign/{valuation_id}/{employee_id}", [ValuationApprovalController::class, 'assign'])->name('a-assignValuationTo');
     });
 
 
@@ -127,7 +130,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::patch("profile/{id}", [AdminController::class, 'update'])->name('a-profile');
 
         // Approve a Valuation Request
-        Route::patch("valuation/request/approve/{id}", [ValuationApprovalController::class, 'approve'])->name('a-approveValuation');
+        Route::get("valuation/request/approve/{id}", [ValuationApprovalController::class, 'approve'])->name('a-approveValuation');
     });
 
 
