@@ -16,6 +16,10 @@
         @case('buy')
             @include('properties.buy')
         @break
+
+        @case('sell')
+            @include('properties.advertise')
+        @break
     @endswitch
 @endisset
 

@@ -79,6 +79,19 @@ class PropertyController extends Controller
         ]);
     }
 
+    /**
+     * Fill a form in order to add the customer property on the website
+     *
+     */
+    public function sell(){
+        return view("properties.advertise")->with([
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+            'page' => 'sell'
+        ]);
+    }
+
 
     /********************* END READ METHODS (USER) *********************
     *************************************************************

@@ -20,7 +20,7 @@
             <div class="cta navbar-nav">
                 <a href="{{ route("propertiesForBuy") }}" class="nav-link">Buy</a>
                 <a href="{{ route("propertiesForRent") }}" class="nav-link">Rent</a>
-                <a href="advertise.html" class="nav-link">Sell</a>
+                <a href="{{ route("sell") }}" class="nav-link">Sell</a>
                 <a href="{{ route("contact") }}" class="nav-link">Contact Us</a>
                 @guest
                     <a href="{{ route("login") }}" class="nav-link">Sign-in</a>
