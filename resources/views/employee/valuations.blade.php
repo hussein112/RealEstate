@@ -58,7 +58,7 @@
                                 <td class="bg-danger text-light">Pending</td>
                             @endif
                             <td class="bg-danger text-light">{{ $valuation->due_date }}</td>
-                            <td><a class="btn btn-primary" href="{{ route("a-valuationDetails", ['id' => $valuation->id]) }}">></a></td>
+                            <td><a class="btn btn-primary" href="{{ route("e-valuationDetails", ['id' => $valuation->id]) }}">></a></td>
                         </tr>
                     @endforeach
                     </tbody>

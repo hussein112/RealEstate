@@ -18,10 +18,6 @@ use App\Http\Controllers\ValuationController;
 
 require __DIR__ . '/adminauth.php';
 Route::prefix('/admin')->middleware("auth:admin")->group(function(){
-    /**
-     * AJax Routes
-     *
-     */
 
 
     /**
@@ -163,6 +159,6 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     /**
      * Notifications Routes
      */
-    Route::delete("notifications/delete", [AdminController::class, 'deleteNotifications'])->name("deleteNotifications");
-    Route::post("notifications/mark_as_read", [AdminController::class, 'readNotifications'])->name("readNotifications");
+    Route::delete("notifications/delete", [AdminController::class, 'deleteNotifications'])->name("a-deleteNotifications");
+    Route::post("notifications/mark_as_read", [AdminController::class, 'readNotifications'])->name("a-readNotifications");
 });

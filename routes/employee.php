@@ -78,6 +78,9 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         Route::get("user/{id}", [UserController::class, 'employeeEdit'])->name("e-editUser");
         Route::patch("user/{id}", [UserController::class, 'update'])->name("e-editUser");
 
+        Route::get("customer/{id}", [CustomerController::class, 'edit'])->name("e-editCustomer");
+        Route::patch("customer/{id}", [CustomerController::class, 'update'])->name("e-editCustomer");
+
         Route::get("valuation/{id}", [ValuationController::class, 'employeeEdit'])->name("e-editValuation");
         Route::patch("valuation/{id}", [ValuationController::class, 'update'])->name("e-editValuation");
 
@@ -101,4 +104,10 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
         Route::delete("enquiries/{id}", [EnquiriesController::class, 'destroy'])->name("e-deleteEnquiry");
     });
+
+    /**
+     * Notifications Routes
+     */
+    Route::delete("notifications/delete", [AdminController::class, 'deleteNotifications'])->name("e-deleteNotifications");
+    Route::post("notifications/mark_as_read", [AdminController::class, 'readNotifications'])->name("e-readNotifications");
 });

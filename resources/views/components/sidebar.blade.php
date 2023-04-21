@@ -22,12 +22,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="notifications-btns flex-center">
-                        <form action="{{ route("deleteNotifications") }}" method="POST">
+                        <form action="{{ route("a-deleteNotifications") }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-link">Delete All</button>
                         </form>
-                        <form action="{{ route("readNotifications") }}" method="POST">
+                        <form action="{{ route("a-readNotifications") }}" method="POST">
                             @csrf
                             <button class="btn btn-link">Mark All As Read</button>
                         </form>
@@ -40,7 +40,7 @@
                             <div class="list-group">
                                 @if(! empty(auth()->user()->notifications))
                                     @foreach(auth()->user()->unreadNotifications as $notification)
-                                        <a href="{{ route("valuationRequest", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                        <a href="{{ route("valuationRequest", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation
                                                     <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">

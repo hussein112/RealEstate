@@ -1,7 +1,6 @@
 <x-employee.layout>
     <x-slot name="main">
         <main class="home-employee container">
-
             <x-page-title title="dashboard"></x-page-title>
             <hr>
 

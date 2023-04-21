@@ -34,6 +34,18 @@ class ValuationController extends Controller
         ]);
     }
 
+    /**
+     * Display Only the Assigned Valuations
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function employeeShow($id){
+        return view('employee.valuation')->with([
+            'valuation' => Valuation::find($id)
+        ]);
+    }
+
     public function adminEdit($id){
         return view("admin.editValuation")->with([
             'valuation' => Valuation::find($id)
