@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PropertyController;
@@ -44,6 +45,10 @@ require __DIR__.'/auth.php';
 
 Route::get("valuation", [ValuationController::class, 'create'])->name("newValuation");
 Route::post("valuation/new", [ValuationController::class, 'store'])->name("createValuation");
+
+Route::post("enquiry/new/{propertyId}", [EnquiryController::class, 'store'])->name("createEnquiry");
+// Assign enquiry to an employee
+Route::patch("enquiry/assign/{enquiry_id}/{employee_id}", [EnquiryController::class, 'assign'])->name("assignEnquiry");
 /**
  *
  * Properties Routes

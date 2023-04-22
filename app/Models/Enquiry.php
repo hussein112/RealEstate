@@ -19,9 +19,11 @@ class Enquiry extends Model
         'employee_id',
         'property_id'
     ];
+
     protected $table = 'enquiry';
 
-    public $timestamps = false;
+    protected $guarded = ['id'];
+
 
     public function purpose(){
         return $this->belongsTo(Property::class, 'property_id', 'id');

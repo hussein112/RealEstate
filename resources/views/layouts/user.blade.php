@@ -16,6 +16,25 @@
     @vite(['resources/css/style.css', 'resources/js/app.js', 'resources/js/ranges.js', 'resources/js/settings.js'])
 </head>
 <body>
+<div id="fb-root"></div>
+<script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0"
+        nonce="KfygOOvz"></script>
+<script>window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));</script>
 {{ $header }}
 
 <main>

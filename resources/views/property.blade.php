@@ -1,72 +1,197 @@
 <x-user-layout>
     <x-slot name="header">
-{{--        <x-header page="page" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>--}}
+        <x-half-header></x-half-header>
     </x-slot>
     <x-slot name="main">
         @isset($property)
             <section id="property">
-                <article class="container">
-                    <div id="p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#p-carousel1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#p-carousel1" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#p-carousel1" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/200/300?random=1" class="d-block w-100" alt="Property 1">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>First slide label</h5>
-                                    <p>Some representative placeholder content for the first slide.</p>
-                                </div>
+                <!-- Start Slide Show -->
+                <div class="container">
+                    @if(sizeof($property->images) > 1)
+                        <div id="p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
+                            <div class="carousel-indicators">
+                                @for($i = 0; $i < sizeof($property->images); $i++)
+                                    <button type="button" data-bs-target="#p-carousel1" data-bs-slide-to="{{$i}}" class="active" aria-current="true" aria-label="Slide"></button>
+                                @endfor
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/200/300?random=2" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>First slide label</h5>
-                                    <p>Some representative placeholder content for the first slide.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/200/300?random=3" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>First slide label</h5>
-                                    <p>Some representative placeholder content for the first slide.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#p-carousel1" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#p-carousel1" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                    <div class="meta p-5">
-                        <h2 class="post-title">{{ $property->title }}</h2>
-                        <div class="flex">
-                            <a href="#" class="price">{{ $property->price }}</a>
-                            <a href="#" class="date">{{ $property->date_posted }}</a>
-                            <a href="#" class="type">{{ "sdf" }}</a>
-                            <a href="#" class="bednum">{{ $property->bedrooms_nb }}</a>
-                            <a href="#" class="bathnum">{{ $property->bathrooms_nb }}</a>
-                            <a href="#" class="space">{{ $property->size }}<sup>2</sup></a>
-                        </div>
-                    </div>
-                    <p class="description">
-                        {{ $property->description }}
-                    </p>
 
-                    <h3>Features</h3>
-                    <ul class="grid custom-list">
-                        <li class="list-item">A/c</li>
-                        <li class="list-item">River View</li>
-                        <li class="list-item">Something Cool</li>
-                        <li class="list-item">Anoth Something Cool</li>
-                    </ul>
+                            <div class="carousel-inner">
+                                @foreach($property->images as $image)
+                                    <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
+                                        <img class="d-block w-100" src="{{ asset("storage/" . $image->image) }}" alt="{{ $property->title }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#p-carousel1" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#p-carousel1" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    @elseif(sizeof($property->images) == 1)
+                        <img class="d-block w-100" src="{{ asset("storage/" . $property->images[0]->image) }}" alt="{{ $property->title }}">
+                    @else
+                        <img class="d-block w-100" src="{{ asset("storage/defaults/property.jpg") }}" alt="{{ $property->title }}">
+                    @endif
+
+                </div>
+                <!-- End Slide Show -->
+
+
+                <article class="container flex">
+                    <div class="property">
+                        <h1 class="price text-primary">{{ $property->price }} $</h1>
+                        <div class="meta p-5">
+                            <h2 class="property-title">{{ $property->title }}</h2>
+                            <div class="">
+                                <a href="#" class="date">
+                                    <iconify-icon icon="ic:baseline-calendar-month"></iconify-icon>
+                                    {{ $property->date_posted }}
+                                </a>
+                                <a href="#" class="type">
+                                    <iconify-icon icon="mdi:tag"></iconify-icon>
+                                    {{ $property->type->type }}
+                                </a>
+                                <a href="#" class="bednum">
+                                    <iconify-icon icon="mdi:guest-room"></iconify-icon
+                                    {{ $property->bedrooms_nb }}
+                                </a>
+                                <a href="#" class="bathnum">
+                                    <iconify-icon icon="mdi:bathroom"></iconify-icon>
+                                    {{ $property->bathrooms_nb }}
+                                </a>
+                                <a href="#" class="space">
+                                    <iconify-icon icon="icons8:resize-four-directions"></iconify-icon>
+                                    {{ $property->size }}m<sup>2</sup></a>
+                            </div>
+                        </div>
+                        <p class="description">
+                            {{ $property->description }}
+                        </p>
+                        <h3>Features</h3>
+                        <ul class="grid custom-list">
+                            @if(isset($property->features))
+                                @foreach($property->features as $feature)
+                                    <li class="list-item">{{ $feature->feature }}</li>
+                                @endforeach
+                            @else
+                                <li class="list-item">No Features</li>
+                            @endif
+                        </ul>
+                    </div>
+                    <form action="{{ route("createEnquiry", ['propertyId' => $property->id]) }}" method="post">
+                        @csrf
+                        <h2>Enquire About This Property</h2>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="name" name="fullname" placeholder="John Doe">
+                            <label for="name">Full Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                            <label for="email">Email address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="03 / 123 456">
+                            <label for="phone">Phone Number</label>
+                        </div>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="message" style="height: 100px" name="message"></textarea>
+                            <label for="message">Message</label>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary" type="submit">Enquire</button>
+                        </div>
+                    </form>
                 </article>
+
+                <div class="container">
+                    <h2>Share this property</h2>
+                    <ul>
+                        <li>
+                            <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                        </li>
+                        <li>
+                            <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet">Tweet</a>
+                        </li>
+                        <li>
+                            <a href="whatsapp://send?text={{ url()->current() }}">Whatsapp</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr>
+                <!-- Start Similar Properties -->
+                <div class="similar-properties">
+                    <div class="container cards d-flex flex-wrap align-items-center">
+                        <h2>Similar Properties</h2>
+                        @isset($similar_properties)
+                            @foreach($similar_properties as $property)
+                                <div class="card m-2">
+                                    @if(sizeof($property->images) > 1)
+                                        <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
+                                            <div class="carousel-inner">
+                                                @foreach($property->images->image as $path)
+                                                    <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
+                                                        <img src="{{ asset('storage/' . $path) }}" alt="{{ $property->title }}">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                    @else
+                                        <img src="{{ asset('storage/' . $property->images[0]->image) }}" class="d-block w-100" alt="{{ $property->title }}" loading="lazy">
+                                    @endif
+
+                                    <div class="card-body">
+                                        <header class="card-head">
+                                            <a href="#" class="card-title">{{ $property->title }}</a>
+                                            <div class="d-flex w-100 justify-content-between flex-wrap">
+                                                <h6 class="card-subtitle">
+                                                    <a href="#" class="text-capitalize text-muted flex-center">
+                                                        <iconify-icon icon="material-symbols:location-on"></iconify-icon>
+                                                        {{ $property->location }}
+                                                    </a>
+                                                </h6>
+                                                <h6 class="card-subtitle">
+                                                    <a href="#" class="text-capitalize text-muted flex-center">
+                                                        <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
+                                                        {{ $property->price }}
+                                                    </a>
+                                                </h6>
+                                                <h6 class="card-subtitle">
+                                                    <a href="#" class="text-capitalize text-muted flex-center">
+                                                        <iconify-icon icon="ic:sharp-meeting-room"></iconify-icon>
+                                                        {{ $property->bedrooms_nb }}
+                                                    </a>
+                                                </h6>
+                                            </div>
+                                        </header>
+                                        <p class="card-text">{{ $property->description }}</p>
+                                        <div class="links d-flex w-100 justify-content-between flex-wrap">
+                                            <a href="#" class="card-link ">
+                                                <iconify-icon icon="mdi:content-save-plus-outline"></iconify-icon>
+                                            </a>
+                                            <a href="#" class="card-link">
+                                                <iconify-icon icon="gis:search-poi"></iconify-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endisset
+                    </div>
+                </div>
+                <!-- End Similar Properties -->
             </section>
         @endisset
     </x-slot>
