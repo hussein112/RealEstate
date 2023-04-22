@@ -9,7 +9,8 @@
                 <div class="container cards d-flex flex-wrap align-items-center">
                     @foreach($properties as $property)
                         <div class="card m-2">
-                            @if(sizeof($property->images) > 1)
+                            @isset($property->images)
+                                @if(sizeof($property->images) > 1)
                                     <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
                                         <div class="carousel-inner">
                                             @foreach($property->images->image as $path)
@@ -27,9 +28,11 @@
                                             <span class="visually-hidden">Next</span>
                                         </button>
                                     </div>
-                            @else
-                                <img src="{{ asset('storage/' . $property->images[0]->image) }}" class="d-block w-100" alt="{{ $property->title }}" loading="lazy">
-                            @endif
+                                @else
+                                    <img src="{{ asset('storage/' . $property->images[0]->image) }}" class="d-block w-100" alt="{{ $property->title }}" loading="lazy">
+                                @endif
+                            @endisset
+
 
                             <div class="card-body">
                                 <header class="card-head">

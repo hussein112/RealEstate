@@ -3,7 +3,6 @@
         <main class="home-employee container">
             <x-page-title title="dashboard"></x-page-title>
             <hr>
-
             <h3 class="title">Overview</h3>
             <div class="mt-5 grid-3 employee-cards">
                 @isset($valuations)

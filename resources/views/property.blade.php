@@ -3,6 +3,9 @@
         <x-half-header></x-half-header>
     </x-slot>
     <x-slot name="main">
+        @isset($success_msg)
+            <h1>{{ $success_msg }}</h1>
+        @endisset
         @isset($property)
             <section id="property">
                 <!-- Start Slide Show -->

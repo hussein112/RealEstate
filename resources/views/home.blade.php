@@ -19,10 +19,10 @@
                             @foreach($featured_properties as $fproperty)
                                 <div class="carousel-item {{($loop->first) ? "active" : ""}}">
                                     @foreach($fproperty->images->image as $path)
-                                        @if($loop->first)
-                                            <img src="{{ asset("storage/" . $path) }}" class="d-block w-100" alt="Property 1" loading="lazy">
-                                        @endif
-                                    @endforeach
+                                    @if($loop->first)
+                                        <img src="{{ asset("storage/" . $path) }}" class="d-block w-100" alt="Property 1" loading="lazy">
+                                    @endif
+                                   @endforeach
                                     <div class="carousel-caption d-none d-md-block">
                                         <h4><a href="{{ route('property', ['id' => $fproperty->id]) }}">{{ $fproperty->title }}</a></h4>
                                         <p>{{ $fproperty->description }}</p>
@@ -56,32 +56,33 @@
         <section id="latest-properties">
             <h2 class="section-title center">Latest Properties</h2>
             <div class="container cards d-flex flex-wrap align-items-center">
-                @isset($latest_properties)
                     @foreach($latest_properties as $lproperty)
                         <div class="card m-2">
-                            @if(sizeof($lproperty->images) > 1)
-                                <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
-                                    <div class="carousel-inner">
-                                        @foreach($lproperty->images as $image)
-                                            <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
-                                                <img src="{{ asset("storage/" . $image->image) }}" class="d-block w-100" alt="Property" loading="lazy">
-                                            </div>
-                                        @endforeach
+                            @if(sizeof($lproperty->images) > 0)
+                                @if(sizeof($lproperty->images) > 1)
+                                    <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
+                                        <div class="carousel-inner">
+                                            @foreach($lproperty->images as $image)
+                                                <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
+                                                    <img src="{{ asset("storage/" . $image->image) }}" class="d-block w-100" alt="Property" loading="lazy">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#l-p-carousel1" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
-                                </div>
-                            @else
-                                <img src="{{ asset("storage/" . $lproperty->images[0]->image) }}">
+                                @else
+                                    <img src="{{ asset("storage/" . $lproperty->images[0]->image) }}">
+                                @endif
                             @endif
-                            <div class="card-body">
 
+                            <div class="card-body">
                                 <header class="card-head">
                                     <a href="{{ route('property', ['id' => $lproperty->id]) }}" class="card-title">{{ $lproperty->title }}</a>
                                     <div class="d-flex w-100 justify-content-between flex-wrap">
@@ -122,7 +123,6 @@
                             <a href="{{ route("properties") }}" class="btn btn-primary view-more">View More</a>
                         </div>
                     @endif
-                @endisset
             </div>
         </section>
 

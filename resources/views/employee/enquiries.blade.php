@@ -6,7 +6,7 @@
 
             <div class="container my-5">
                 <table class="table table-bordered caption-top">
-                    <caption>List of All Enquiries</caption>
+                    <caption>{{ sizeof($enquiries) }} Enquiries Assigned to You</caption>
                     <thead class="bg-dark">
                     <tr>
                         <th scope="col" class="text-primary">
@@ -29,6 +29,7 @@
                         {{--                        </th>--}}
                         <th scope="col" class="text-primary">Reply</th>
                         <th scope="col" class="text-primary">Details</th>
+                        <th scope="col" class="text-primary">Action</th>
                     </tr>
                     </thead>
                     @isset($enquiries)
@@ -40,8 +41,18 @@
                                 <td>{{ $enquiry->issuer_name }}</td>
                                 <td class="td-long">{{ $enquiry->issuer_message }}</td>
                                 <td><a href="{{ route('e-property', ['id' => $enquiry->property_id]) }}">{{ $enquiry->property_id }}</a></td>
-                                <td><a href="mailto:{{ $enquiry->issuer_email }}">{{ $enquiry->issuer_email }}</a></td>
+                                <td>
+                                    <a href="mailto:{{ $enquiry->issuer_email }}">{{ $enquiry->issuer_email }}</a> <br>
+                                    <a href="tel:{{ $enquiry->issuer_phone }}">{{ $enquiry->issuer_phone }}</a>
+                                </td>
                                 <td><a class="btn btn-primary" href="{{ route('e-enquiryDetails', ['id' => $enquiry->id]) }}">></a></td>
+                                <td>
+                                    <form method="post" action="{{ route("e-markAsDone", ['id' => $enquiry->id]) }}">
+                                        @csrf
+                                        @method("PATCH")
+                                        <button type="submit" class="btn btn-primary">Mark As Done</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -49,11 +60,6 @@
                 </table>
             </div>
 
-            <!-- Start Pagination -->
-            <div class="center">
-                {{ $enquiries->links() }}
-            </div>
-            <!-- End Pagination -->
         </main>
     </x-slot>
 </x-employee.layout>

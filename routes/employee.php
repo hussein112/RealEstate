@@ -88,6 +88,8 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         Route::patch("enquiries/{id}", [EnquiriesController::class, 'update'])->name("e-editEnquiry");
 
         Route::patch("profile/{id}", [EmployeeController::class, 'update'])->name('e-editEmployee');
+
+        Route::patch("enquiries/done/{id}", [EnquiriesController::class, 'markAsDone'])->name("e-markAsDone");
     });
 
 

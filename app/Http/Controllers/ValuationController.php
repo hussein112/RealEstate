@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Assign;
 use App\Models\Property;
 use App\Models\Type;
 use App\Models\Valuation;
@@ -24,7 +25,9 @@ class ValuationController extends Controller
 
     public function employeeIndex(){
         return view("employee.valuations")->with([
-            'valuations' => Valuation::sortable()->paginate(9)
+            'valuations' => Valuation::join('assign', 'valuation.id', '=', 'assign.valuation_id')
+                                    ->select('valuation.*')
+                                    ->get()
         ]);
     }
 

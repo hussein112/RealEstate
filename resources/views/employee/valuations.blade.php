@@ -5,7 +5,7 @@
             <hr>
             <div class="container my-5">
                 <table class="table table-bordered caption-top">
-                    <caption>List of All Valuation</caption>
+                    <caption>{{ sizeof($valuations) }} Valuations Assigned to You</caption>
                     <thead class="bg-dark">
                     <tr>
                         <th scope="col" class="text-primary">
@@ -63,11 +63,6 @@
                     @endforeach
                     </tbody>
                 </table>
-            </div>
-
-            <!-- Start Pagination -->
-            <div class="center">
-                {{ $valuations->links() }}
             </div>
         </main>
     </x-slot>

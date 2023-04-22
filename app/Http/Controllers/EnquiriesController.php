@@ -16,13 +16,30 @@ class EnquiriesController extends Controller
 
     public function employeeIndex(){
         return view("employee.enquiries")->with([
-            'enquiries' => Enquiry::sortable()->paginate(9)
+            'enquiries' => Enquiry::sortable()->where('employee_id', auth()->user()->id)->get()
         ]);
     }
 
     public function adminShow($id){
         return view("admin.enquiry")->with([
             'enquiry' => Enquiry::find($id),
+        ]);
+    }
+
+    public function employeeShow($id){
+        return view('employee.enquiry')->with([
+            'enquiry' => Enquiry::findOrFail($id)
+        ]);
+    }
+
+
+    public function markAsDone($id){
+        $enquiry = Enquiry::findOrFail($id);
+        $enquiry->status = 1;
+        $enquiry->employee_id = null;
+        $enquiry->save();
+        return redirect()->back()->with([
+            'success_msg' => "Enquiry Marked As Done"
         ]);
     }
 
