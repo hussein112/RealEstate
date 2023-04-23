@@ -62,6 +62,7 @@ class NewValuation extends Notification
         $admin = Admin::findOrFail($this->adminId);
         return [
             'message' => "A " . $this->valuation->type . " For Valuation in " . $this->valuation->city . " Assigned to You By " . $admin->f_name . " " . $admin->lname,
+            'valuation_id' => $this->valuation->id
         ];
     }
 }

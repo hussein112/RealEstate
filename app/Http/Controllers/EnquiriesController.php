@@ -26,7 +26,10 @@ class EnquiriesController extends Controller
         ]);
     }
 
-    public function employeeShow($id){
+    public function employeeShow($id, $notificationId = null){
+        if(isset($notificationId)){
+            auth()->user()->notifications()->findOrFail($notificationId)->markAsRead();
+        }
         return view('employee.enquiry')->with([
             'enquiry' => Enquiry::findOrFail($id)
         ]);

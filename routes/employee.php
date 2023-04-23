@@ -31,7 +31,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
     Route::get("customers", [CustomerController::class, 'employeeIndex'])->name('e-customers');
 
     Route::get("enquiries", [EnquiriesController::class, 'employeeIndex'])->name('e-enquiries');
-    Route::get("enquiry/{id}", [EnquiriesController::class, 'employeeShow'])->name('e-enquiryDetails');
+    Route::get("enquiry/{id}/{notification_id?}", [EnquiriesController::class, 'employeeShow'])->name('e-enquiryDetails');
 
     Route::get("properties", [PropertyController::class, 'employeeIndex'])->name('e-properties');
     Route::get("property/{id}", [PropertyController::class, 'employeeProperty'])->name('e-property');
@@ -40,7 +40,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
     Route::get("valuations", [ValuationController::class, 'employeeIndex'])->name("e-valuations");
 
-    Route::get("valuation/{id}", [ValuationController::class, 'employeeShow'])->name("e-valuationDetails");
+    Route::get("valuation/{id}/{notification_id?}", [ValuationController::class, 'employeeShow'])->name("e-valuationDetails");
 
     // Edit & index will return the same form
     Route::get("profile/{id}", [EmployeeController::class, 'edit'])->name('e-profileShow');
@@ -82,6 +82,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         Route::patch("customer/{id}", [CustomerController::class, 'update'])->name("e-editCustomer");
 
         Route::get("valuation/{id}", [ValuationController::class, 'employeeEdit'])->name("e-editValuation");
+        // Mark Valuation As done
         Route::patch("valuation/{id}", [ValuationController::class, 'update'])->name("e-editValuation");
 
         Route::get("enquiries/{id}", [EnquiriesController::class, 'edit'])->name("e-editEnquiry");

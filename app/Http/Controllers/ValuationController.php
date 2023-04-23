@@ -43,15 +43,18 @@ class ValuationController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function employeeShow($id){
+    public function employeeShow($id, $notificationId = null){
+        if(isset($notificationId)){
+            auth()->user()->notifications()->findOrFail($notificationId)->markAsRead();
+        }
         return view('employee.valuation')->with([
-            'valuation' => Valuation::find($id)
+            'valuation' => Valuation::findOrFail($id)
         ]);
     }
 
     public function adminEdit($id){
         return view("admin.editValuation")->with([
-            'valuation' => Valuation::find($id)
+            'valuation' => Valuation::findOrFail($id)
         ]);
     }
     /**
@@ -155,15 +158,20 @@ class ValuationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mark Valuation as Done.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+         $valuation = Valuation::findOrFail($id);
+         $valuation->status = 1;
+         $valuation->save();
+
+         return redirect()->back()->with([
+             'success_msg' => "Valuation Marked As Done"
+         ]);
     }
 
     /**

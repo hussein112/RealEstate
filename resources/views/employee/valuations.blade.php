@@ -39,6 +39,7 @@
                             @sortablelink("due_date", "Due")
                         </th>
                         <th scope="col" class="text-primary">Details</th>
+                        <th scope="col" class="text-primary">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -59,6 +60,7 @@
                             @endif
                             <td class="bg-danger text-light">{{ $valuation->due_date }}</td>
                             <td><a class="btn btn-primary" href="{{ route("e-valuationDetails", ['id' => $valuation->id]) }}">></a></td>
+                            <td><a class="btn btn-primary" href="">Mark As Done</a></td>
                         </tr>
                     @endforeach
                     </tbody>

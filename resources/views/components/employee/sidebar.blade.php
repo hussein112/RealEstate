@@ -40,7 +40,9 @@
                             <div class="list-group">
                                 @if(! empty(auth()->user()->notifications))
                                     @foreach(auth()->user()->unreadNotifications as $notification)
-                                        <a href="" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                        @php($types = explode("\\", $notification->type))
+                                        @php($notification_type = end($types))
+                                        <a href="{{ ($notification_type == "NewValuation") ? route("e-valuationDetails", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) : route("e-enquiryDetails", ['id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">{{ $notification->data['message'] }}
                                                     <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">

@@ -57,7 +57,8 @@ class AssignedEnquiry extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => "The enquiry id " . $this->enquiry->id . " is assigned for you."
+            'message' => "The enquiry id " . $this->enquiry->id . " is assigned for you.",
+            'enquiry_id' => $this->enquiry->id
         ];
     }
 }
