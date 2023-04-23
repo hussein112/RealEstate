@@ -20,25 +20,18 @@
                             @sortablelink("title", "Title")
                         </th>
                         <th scope="col" class="text-primary">
-                            @sortablelink("date", "Date")
+                            @sortablelink("notes", "Notes")
                         </th>
                         <th scope="col" class="text-primary">
-                            @sortablelink("issuer_name", "Issuer")
+                            @sortablelink("created_at", "Date")
                         </th>
                         <th scope="col" class="text-primary">
-                            Issuer Message
-                        </th>
-                        <th scope="col" class="text-primary">
-                            @sortablelink("admin_id", "Planned By")
+                            @sortablelink("admin_id", "By")
                         </th>
                         <th scope="col" class="text-primary">
                             @sortablelink("property_id", "For Property")
                         </th>
-                        <th scope="col" class="text-primary">
-                            @sortablelink("employee_id", "Assigned To")
-                        </th>
                         <th scope="col" class="text-primary">Actions</th>
-                        <th scope="col" class="text-primary">Details</th>
                     </tr>
                     </thead>
                     @isset($appointements)
@@ -47,17 +40,14 @@
                             <tr>
                                 <th scope="row">{{ $appointement->id }}</th>
                                 <td>{{ $appointement->title }}</td>
-                                <td>{{ $appointement->date }}</td>
-                                <td>{{ $appointement->issuer_name }}</td>
-                                <td class="td-long">{{ $appointement->issuer_message }}</td>
-                                <td>{{ $appointement->assignedBy->f_name . ' ' . $appointement->assignedBy->l_name }}</td>
+                                <td>{{ $appointement->notes }}</td>
+                                <td>{{ $appointement->created_at }}</td>
+                                <td class="td-long">{{ $appointement->forAdmin->f_name . ' ' . $appointement->forAdmin->l_name }}</td>
                                 <td><a href="{{ route("a-property", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
-                                <td>{{ $appointement->assignedTo->f_name }}</td>
                                 <td class="action-btns">
                                     <a href="{{ route('a-editAppointement', ['id' => $appointement->id]) }}" class="btn btn-primary m-1">Edit</a>
                                     <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$appointement->id}}">Delete</button>
                                 </td>
-                                <td><a href="{{ route("appointementDetails", ['id' => $appointement->id]) }}" class="btn btn-primary">></a></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -73,7 +63,7 @@
 
             <!-- Start Delete Modal -->
             @foreach($appointements as $appoin)
-                <x-delete-modal target="appointement" targetId="{{ $appoin->id }}">
+                <x-delete-modal target="appointement" targetId="{{ $appoin->id }}" auth="a">
                 </x-delete-modal>
             @endforeach
             <!-- End Delete Modal -->

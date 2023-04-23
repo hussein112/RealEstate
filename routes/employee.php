@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
+use App\Models\Appointement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointementController;
@@ -23,7 +24,6 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
     Route::get("", [EmployeeController::class, 'index'])->name('e-dashboard');
     Route::get("dashboard", [EmployeeController::class, 'index'])->name('e-dashboard');
 
-    Route::get("posts", [PostController::class, 'employeeIndex'])->name('e-posts');
 
     Route::get("appointements", [AppointementController::class, 'employeeIndex'])->name('e-appointements');
     Route::get("appointement/{id}", [AppointementController::class, 'details'])->name('e-appointementDetails');
@@ -50,9 +50,6 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
      * Insert Routes
      */
     Route::prefix("add")->group(function(){
-        Route::get("post", [PostController::class, 'employeeCreate'])->name("e-newPost");
-        Route::post("post", [PostController::class, 'store'])->name("e-newPost");
-
         Route::post("image", [PostImagesController::class, 'store'])->name('e-newPostImage');
 
         Route::get("property", [PropertyController::class, 'employeeCreate'])->name("e-newProperty");
@@ -60,6 +57,9 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
         Route::get("user", [UserController::class, 'employeeCreate'])->name("e-newUser");
         Route::post("user", [UserController::class, 'store'])->name("e-newUser");
+
+        Route::get("appointement", [AppointementController::class, 'employeeCreate'])->name("e-newAppointement");
+        Route::post("appointement", [AppointementController::class, 'employeeStore'])->name("e-newAppointement");
     });
 
 
@@ -68,10 +68,6 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
      * Edit Routes
      */
     Route::prefix("edit")->group(function(){
-        Route::get("post/{id}", [PostController::class, 'employeeEdit'])->name('e-editPost');
-        Route::patch("post/{id}", [PostController::class, 'update'])->name('e-editPost');
-
-
         Route::get("property/{id}", [PropertyController::class, 'edit'])->name("e-editProperty");
         Route::patch("property/{id}", [PropertyController::class, 'update'])->name("e-editProperty");
 
@@ -81,16 +77,21 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         Route::get("customer/{id}", [CustomerController::class, 'edit'])->name("e-editCustomer");
         Route::patch("customer/{id}", [CustomerController::class, 'update'])->name("e-editCustomer");
 
-        Route::get("valuation/{id}", [ValuationController::class, 'employeeEdit'])->name("e-editValuation");
+//        Route::get("valuation/{id}", [ValuationController::class, 'employeeEdit'])->name("e-editValuation");
         // Mark Valuation As done
         Route::patch("valuation/{id}", [ValuationController::class, 'update'])->name("e-editValuation");
 
         Route::get("enquiries/{id}", [EnquiriesController::class, 'edit'])->name("e-editEnquiry");
+        // Mark Enquiry As done
         Route::patch("enquiries/{id}", [EnquiriesController::class, 'update'])->name("e-editEnquiry");
 
         Route::patch("profile/{id}", [EmployeeController::class, 'update'])->name('e-editEmployee');
 
         Route::patch("enquiries/done/{id}", [EnquiriesController::class, 'markAsDone'])->name("e-markAsDone");
+
+
+        Route::get("appointement/{id}", [AppointementController::class, 'employeeEdit'])->name("e-editAppointement");
+        Route::patch("appointement/{id}", [AppointementController::class, 'employeeUpdate'])->name("e-editAppointement");
     });
 
 
@@ -106,6 +107,10 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         Route::delete("valuation/{id}", [ValuationController::class, 'destroy'])->name("e-deleteValuation");
 
         Route::delete("enquiries/{id}", [EnquiriesController::class, 'destroy'])->name("e-deleteEnquiry");
+
+        Route::delete("customer/{id}", [CustomerController::class, 'destroy'])->name("e-deleteCustomer");
+
+        Route::delete("appointement/{id}", [AppointementController::class, 'destroy'])->name("e-deleteAppointement");
     });
 
     /**

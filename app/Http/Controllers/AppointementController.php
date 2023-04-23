@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointement;
+use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -11,13 +12,20 @@ class AppointementController extends Controller
 {
     public function adminIndex(){
         return view('admin.appointements')->with([
-            'appointements' => Appointement::sortable()->paginate(9)
+            'appointements' => Appointement::where('admin_id', Auth::guard("admin")->id())->sortable()->paginate(9)
         ]);
     }
 
     public function employeeIndex(){
         return view("employee.appointements")->with([
             'appointements' => Appointement::where('employee_id', Auth::guard("employee")->id())->sortable()->paginate(9)
+        ]);
+    }
+
+    public function employeeEdit($id){
+        return view("employee.editAppointement")->with([
+            'appointement' => Appointement::findOrFail($id),
+            'properties' => Property::all()
         ]);
     }
 
@@ -41,18 +49,59 @@ class AppointementController extends Controller
      */
     public function create()
     {
-        return view("employee.newAppointement");
+        return view("admin.newAppointement")->with([
+            'properties' => Property::all()
+        ]);
+    }
+
+    public function employeeCreate(){
+        return view("employee.newAppointement")->with([
+            'properties' => Property::all()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required'],
+            'notes' => ['required'],
+            'property' => ['required']
+        ]);
+
+        $appointement = Appointement::create([
+            'title' => $request->title,
+            'notes' => $request->notes,
+            'property_id' => $request->property,
+            'admin_id' => auth()->user()->id
+        ]);
+
+        return redirect()->back()->with([
+            'success_msg' => "Appointement Added Successfully"
+        ]);
+    }
+
+    public function employeeStore(Request $request){
+        $request->validate([
+            'title' => ['required'],
+            'notes' => ['required'],
+            'property' => ['required']
+        ]);
+
+        $appointement = Appointement::create([
+            'title' => $request->title,
+            'notes' => $request->notes,
+            'property_id' => $request->property,
+            'employee_id' => auth()->user()->id
+        ]);
+
+        return redirect()->back()->with([
+            'success_msg' => "Appointement Added Successfully"
+        ]);
     }
 
     /**
@@ -70,11 +119,13 @@ class AppointementController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        return view("admin.editAppointement")->with([
+            'appointement' => Appointement::findOrFail($id),
+            'properties' => Property::all()
+        ]);
     }
 
     /**
@@ -82,12 +133,59 @@ class AppointementController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required'],
+            'notes' => ['required'],
+            'property' => ['required']
+        ]);
+
+        $appointement = Appointement::findOrFail($id);
+        $appointement->title = $request->title;
+        $appointement->notes = $request->notes;
+        $appointement->property_id = $request->property;
+
+        if($appointement->isDirty()){
+            $appointement->save();
+            return redirect()->back()->with([
+                'success_msg' => $appointement->title . " Updated Successfully",
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'error_msg' => 'Nothing to Update!'
+        ]);
     }
+
+
+
+    public function employeeUpdate(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'title' => ['required'],
+            'notes' => ['required'],
+            'property' => ['required']
+        ]);
+
+        $appointement = Appointement::findOrFail($id);
+        $appointement->title = $request->title;
+        $appointement->notes = $request->notes;
+        $appointement->property_id = $request->property;
+
+        if($appointement->isDirty()){
+            $appointement->save();
+            return redirect()->back()->with([
+                'success_msg' => $appointement->title . " Updated Successfully",
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'error_msg' => 'Nothing to Update!'
+        ]);
+    }
+
 
     /**
      * Remove the specified resource from storage.

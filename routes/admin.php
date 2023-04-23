@@ -103,7 +103,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
 
         Route::get("appointement/{id}", [AppointementController::class, 'edit'])->name("a-editAppointement");
-        Route::patch("appointement/{id}", [AppointementController::class, 'update'])->name("a-editAppointemtn");
+        Route::patch("appointement/{id}", [AppointementController::class, 'update'])->name("a-editAppointement");
 
         Route::get("employee/{id}", [EmployeeController::class, 'adminEdit'])->name("a-editEmployee");
         Route::patch("employee/{id}", [EmployeeController::class, 'update'])->name("a-editEmployee");
@@ -136,13 +136,15 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::prefix("delete")->group(function(){
         Route::delete("admin/{id}", [AdminController::class, 'destroy'])->name('a-deleteAdmin');
 
-        Route::delete("appointement/{id}", [AppointementController::class, 'destroy'])->name("a-deleteAppointemtn");
+        Route::delete("appointement/{id}", [AppointementController::class, 'destroy'])->name("a-deleteAppointement");
 
         Route::delete("employee/{id}", [EmployeeController::class, 'destroy'])->name("a-deleteEmployee");
 
         Route::delete("property/{id}", [PropertyController::class, 'destroy'])->name('a-deleteProperty');
 
         Route::delete("user/{id}", [UserController::class, 'destroy'])->name("a-deleteUser");
+
+        Route::delete("post/{id}", [PostController::class, 'destroy'])->name("a-deletePost");
 
         Route::delete("valuation/{id}", [ValuationController::class, 'destroy'])->name("a-deleteValuation");
 

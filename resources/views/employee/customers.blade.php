@@ -56,7 +56,7 @@
 
             <!-- Start Delete Modal -->
             @foreach($customers as $customer)
-                <x-delete-modal target="customer" targetId="{{ $customer->id }}">
+                <x-delete-modal target="customer" targetId="{{ $customer->id }}" auth="e">
                 </x-delete-modal>
             @endforeach
             <!-- End Delete Modal -->

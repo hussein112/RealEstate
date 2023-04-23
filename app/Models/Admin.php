@@ -42,7 +42,7 @@ class Admin extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
-    public function assignedAppointements(){
+    public function Appointements(){
         return $this->hasMany(Appointement::class);
     }
 

@@ -27,6 +27,7 @@ class ValuationController extends Controller
         return view("employee.valuations")->with([
             'valuations' => Valuation::join('assign', 'valuation.id', '=', 'assign.valuation_id')
                                     ->select('valuation.*')
+                                    ->where('valuation.status', 0)
                                     ->get()
         ]);
     }
@@ -163,7 +164,7 @@ class ValuationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
          $valuation = Valuation::findOrFail($id);
          $valuation->status = 1;

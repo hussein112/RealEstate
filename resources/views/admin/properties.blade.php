@@ -105,7 +105,7 @@
 
             <!-- Start Delete Modal -->
             @foreach($properties as $property)
-                <x-delete-modal target="property" targetId="{{ $property->id }}">
+                <x-delete-modal target="property" targetId="{{ $property->id }}" auth="a">
                 </x-delete-modal>
             @endforeach
             <!-- End Delete Modal -->

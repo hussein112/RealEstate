@@ -28,24 +28,13 @@ class PostController extends Controller
         ]);
     }
 
-    public function adminCreate(){
+    public function adminCreate()
+    {
         return view('admin.newPost')->with([
             'categories' => Category::all()
         ]);
     }
 
-
-    public function employeeIndex(){
-        return view('employee.posts')->with([
-            'posts' => Post::paginate(10),
-        ]);
-    }
-
-    public function employeeCreate(){
-        return view('employee.newPost')->with([
-            'categories' => Category::all(),
-        ]);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -153,10 +142,12 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        return redirect()->back()->with([
+            'success_msg' => 'Post ' . $id . ' Deleted Successfully'
+        ]);
     }
 }

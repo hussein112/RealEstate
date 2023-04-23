@@ -71,7 +71,7 @@
             </table>
 
             @foreach($users as $user)
-                <x-delete-modal target="user" targetId="{{ $user->id }}">
+                <x-delete-modal target="user" targetId="{{ $user->id }}" auth="a">
                 </x-delete-modal>
                 <x-image-modal modalTitle="{{ $user->f_name }}'s Avatar" img="{{ $user->avatar->image }}" targetId="{{ $user->id }}">
                 </x-image-modal>

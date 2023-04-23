@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <p class="text-capitalize">Are You Sure You want to delete <strong>{{$target}} #{{ $targetId }}?</strong></p>
             </div>
-            <form method="post" action="{{ route('a-delete' . ucfirst($target), ['id' => $targetId]) }}" class="modal-footer">
+            <form method="post" action="{{ route($auth . '-delete' . ucfirst($target), ['id' => $targetId]) }}" class="modal-footer">
                 @method('DELETE')
                 @csrf
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>

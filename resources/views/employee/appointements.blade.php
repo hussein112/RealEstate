@@ -2,6 +2,7 @@
     <x-slot name="main">
         <main class="admin-valuations container">
             <x-page-title title="appointements"></x-page-title>
+            <x-create-button target="e-newAppointement" title="Appointement"></x-create-button>
 
             <div class="container my-5">
                 <x-messages msg="error_msg" type="danger"></x-messages>
@@ -9,7 +10,7 @@
                 <hr>
 
                 <table class="table table-bordered caption-top">
-                    <caption>List of Appointements Assigned to You</caption>
+                    <caption>List of Appointements</caption>
                     <thead class="bg-dark">
                     <tr>
                         <th scope="col" class="text-primary">
@@ -19,25 +20,18 @@
                             @sortablelink("title", "Title")
                         </th>
                         <th scope="col" class="text-primary">
-                            @sortablelink("date", "Date")
+                            @sortablelink("notes", "Notes")
                         </th>
                         <th scope="col" class="text-primary">
-                            @sortablelink("issuer_name", "Issuer")
+                            @sortablelink("created_at", "Date")
                         </th>
                         <th scope="col" class="text-primary">
-                            Issuer Message
-                        </th>
-                        <th scope="col" class="text-primary">
-                            @sortablelink("admin_id", "Planned By")
+                            @sortablelink("admin_id", "By")
                         </th>
                         <th scope="col" class="text-primary">
                             @sortablelink("property_id", "For Property")
                         </th>
-                        <th scope="col" class="text-primary">
-                            @sortablelink("employee_id", "Assigned To")
-                        </th>
                         <th scope="col" class="text-primary">Actions</th>
-                        <th scope="col" class="text-primary">Details</th>
                     </tr>
                     </thead>
                     @isset($appointements)
@@ -46,17 +40,14 @@
                             <tr>
                                 <th scope="row">{{ $appointement->id }}</th>
                                 <td>{{ $appointement->title }}</td>
-                                <td>{{ $appointement->date }}</td>
-                                <td>{{ $appointement->issuer_name }}</td>
-                                <td class="td-long">{{ $appointement->issuer_message }}</td>
-                                <td>{{ $appointement->assignedBy->f_name . ' ' . $appointement->assignedBy->l_name }}</td>
-                                <td><a href="{{ route("e-property", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
-                                <td>{{ $appointement->assignedTo->f_name }}</td>
+                                <td>{{ $appointement->notes }}</td>
+                                <td>{{ $appointement->created_at }}</td>
+                                <td class="td-long">{{ $appointement->forEmployee->full_name }}</td>
+                                <td><a href="{{ route("a-property", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
                                 <td class="action-btns">
                                     <a href="{{ route('e-editAppointement', ['id' => $appointement->id]) }}" class="btn btn-primary m-1">Edit</a>
                                     <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$appointement->id}}">Delete</button>
                                 </td>
-                                <td><a href="{{ route("appointementDetails", ['id' => $appointement->id]) }}" class="btn btn-primary">></a></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -72,7 +63,7 @@
 
             <!-- Start Delete Modal -->
             @foreach($appointements as $appoin)
-                <x-delete-modal target="appointement" targetId="{{ $appoin->id }}">
+                <x-delete-modal target="appointement" targetId="{{ $appoin->id }}" auth="e">
                 </x-delete-modal>
             @endforeach
             <!-- End Delete Modal -->

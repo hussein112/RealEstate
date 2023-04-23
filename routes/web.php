@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationController;
 use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,11 @@ Route::get('policy', [WebsiteController::class, 'policy'])->name("policy");
 Route::get('services', [WebsiteController::class, 'services'])->name("services");
 Route::get('team', [WebsiteController::class, 'team'])->name("team");
 Route::get('terms', [WebsiteController::class, 'terms'])->name("terms");
+
+
+Route::get('createAccount', [UserController::class, 'create'])->name("createAccount");
+Route::post('createAccount', [UserController::class, 'store'])->name("createAccount");
+
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');

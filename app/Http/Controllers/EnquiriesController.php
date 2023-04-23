@@ -16,7 +16,7 @@ class EnquiriesController extends Controller
 
     public function employeeIndex(){
         return view("employee.enquiries")->with([
-            'enquiries' => Enquiry::sortable()->where('employee_id', auth()->user()->id)->get()
+            'enquiries' => Enquiry::sortable()->where('employee_id', auth()->user()->id)->where('status', 0)->get()
         ]);
     }
 
@@ -105,11 +105,16 @@ class EnquiriesController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $enquiry = Enquiry::findOrFail($id);
+        $enquiry->status = 1;
+        $enquiry->save();
+
+        return redirect()->back()->with([
+            'success_msg' => "Enquiry Marked As Done"
+        ]);
     }
 
     /**

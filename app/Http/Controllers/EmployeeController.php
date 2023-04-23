@@ -42,8 +42,8 @@ class EmployeeController extends Controller
             ])->count(),
             'appointement' => Appointement::all()->count(),
             'latest_appointement' => Appointement::where([
-                ['date', '<', now()],
-                ['date', '>', $this->pastWeek()]
+                ['created_at', '<', now()],
+                ['created_at', '>', $this->pastWeek()]
             ])->count(),
 //            'enquiries' => Enquiry::all()->count(),
 

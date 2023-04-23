@@ -8,6 +8,7 @@ class DeleteModal extends Component
 {
     public $target;
 
+    public $auth; // a -> admin, e -> employee
 
     public $targetId;
 
@@ -16,10 +17,11 @@ class DeleteModal extends Component
      *
      * @return void
      */
-    public function __construct($target, $targetId)
+    public function __construct($target, $targetId, $auth)
     {
         $this->target = $target;
         $this->targetId = $targetId;
+        $this->auth = $auth;
     }
 
     /**

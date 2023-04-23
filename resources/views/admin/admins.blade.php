@@ -70,7 +70,7 @@
 
             <!-- Start Delete Modal -->
             @foreach($admins as $admin)
-                <x-delete-modal target="admin" targetId="{{ $admin->id }}">
+                <x-delete-modal target="admin" targetId="{{ $admin->id }}" auth="a">
                 </x-delete-modal>
                 <x-image-modal modalTitle="{{ $admin->f_name }}'s Avatar" img="{{ $admin->avatar->image }}" targetId="{{ $admin->id }}">
                 </x-image-modal>

@@ -64,7 +64,7 @@
 
 
             @foreach($employees as $employee)
-                <x-delete-modal target="employee" targetId="{{ $employee->id }}">
+                <x-delete-modal target="employee" targetId="{{ $employee->id }}" auth="a">
                 </x-delete-modal>
                 <x-image-modal modalTitle="{{ $employee->full_name }}'s Avatar" img="{{ $employee->avatar->image }}" targetId="{{ $employee->id }}">
                 </x-image-modal>

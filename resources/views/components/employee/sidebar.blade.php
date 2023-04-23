@@ -80,11 +80,7 @@
                     Home
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route("e-posts") }}" class="nav-link  {{ ( request()->is('employee/posts') || request()->is('employee/*/employee/*')) ? 'active' : '' }}">
-                    Blog
-                </a>
-            </li>
+
             <li class="nav-item">
                 <a href="{{ route("e-properties") }}" class="nav-link {{ ( request()->is('employee/properties') || request()->is('employee/*/property/*')) ? 'active' : '' }}">
                     Properties

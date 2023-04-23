@@ -60,7 +60,13 @@
                             @endif
                             <td class="bg-danger text-light">{{ $valuation->due_date }}</td>
                             <td><a class="btn btn-primary" href="{{ route("e-valuationDetails", ['id' => $valuation->id]) }}">></a></td>
-                            <td><a class="btn btn-primary" href="">Mark As Done</a></td>
+                            <td>
+                                <form action="{{ route("e-editValuation", ['id' => $valuation->id]) }}" method="post">
+                                    @csrf
+                                    @method("PATCH")
+                                    <button class="btn btn-primary" type="submit">Mark As Done</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

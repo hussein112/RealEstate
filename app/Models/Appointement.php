@@ -23,18 +23,18 @@ class Appointement extends Model
 
     protected $table = 'appointement';
 
-    public $timestamps = false;
+    public $guarded = ['id'];
 
-    public function assignedTo(){
-        return $this->belongsTo(Employee::class);
+    public function forEmployee(){
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
-    public function assignedBy(){
-        return $this->belongsTo(Admin::class);
+    public function forAdmin(){
+        return $this->belongsTo(Admin::class, 'admin_id', 'id');
     }
 
     public function purpose(){
-        return $this->belongsTo(Property::class);
+        return $this->belongsTo(Property::class, 'property_id', 'id');
     }
 
 }

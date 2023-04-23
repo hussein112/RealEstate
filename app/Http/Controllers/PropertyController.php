@@ -274,7 +274,7 @@ class PropertyController extends Controller
             'images.image.*' => 'image'
         ]);
 
-        $property = Property::find($id);
+        $property = Property::findOrFail($id);
         $property->customer_id = DB::table('customer')
                                     ->select("id")
                                     ->where('full_name', $request->ownerfname)

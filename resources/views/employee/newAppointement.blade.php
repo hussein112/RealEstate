@@ -1,5 +1,4 @@
-<x-admin-layout>
-
+<x-employee.layout>
     <x-slot name="main">
         <main class="admin-property container">
             <h4 class="title my-2 center">New Appointement</h4>
@@ -7,7 +6,7 @@
                 <hr>
                 <x-messages msg="error_msg" type="danger"></x-messages>
                 <x-messages msg="success_msg" type="success"></x-messages>
-                <form action="{{ route('a-newAppointement') }}" method="post">
+                <form action="{{ route('e-newAppointement') }}" method="post">
                     @csrf
                     <div class="mb-3 row">
                         <label for="title" class="col-form-label col-sm-2">Title</label>
@@ -42,4 +41,4 @@
         </main>
     </x-slot>
 
-</x-admin-layout>
+</x-employee.layout>
