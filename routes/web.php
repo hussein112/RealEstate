@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\EnquiryController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PostController;
@@ -32,22 +32,11 @@ Route::get('team', [WebsiteController::class, 'team'])->name("team");
 Route::get('terms', [WebsiteController::class, 'terms'])->name("terms");
 
 
-Route::get('createAccount', [UserController::class, 'create'])->name("createAccount");
-Route::post('createAccount', [UserController::class, 'store'])->name("createAccount");
-
-
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-//
-//Route::middleware('auth')->group(function () {
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//});
+Route::get('register', [UserController::class, 'create'])->name('register');
+Route::post("register", [UserController::class, 'store'])->name("register");
+Route::get("logout", [AuthenticatedSessionController::class, 'destroy'])->name("logout");
 
 require __DIR__.'/auth.php';
-
 
 Route::get("valuation", [ValuationController::class, 'create'])->name("newValuation");
 Route::post("valuation/new", [ValuationController::class, 'store'])->name("createValuation");

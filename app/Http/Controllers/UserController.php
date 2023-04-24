@@ -41,17 +41,18 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view("register");
+        return view('auth.register');
     }
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \App\Http\Requests\AddUserRequest  $request
      */
-    public function store(AddUserRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
+        $request->validate([
+
+        ]);
 
         if($request->hasFile('avatar')){
             $img = Image::create([
@@ -59,19 +60,20 @@ class UserController extends Controller
             ]);
         }
 
-        User::create([
+        $user = User::create([
             'f_name' => $request->fname,
             'm_name' => $request->mname,
             'l_name' => $request->lname,
             'password' => $request->password,
             'phone' => $request->phone,
             'email' => $request->email,
-            'avatar_id' => ($img->id) ?? 'default.jpg',
+            'avatar_id' => ($img->id) ?? 1, // 1 -> Default.jpg
             'admin_id' => (Auth::guard('admin')->id()) ?? NULL,
-            'joined_at' => Date::now()
         ]);
 
-        return redirect()->back()->with(['success_msg' => 'User Added Successfully']);
+        Auth::login($user);
+
+        return redirect()->intended()->with(['success_msg' => 'User Added Successfully']);
     }
 
     /**

@@ -19,7 +19,6 @@ use App\Http\Controllers\ValuationController;
 require __DIR__ . '/adminauth.php';
 Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
-
     /**
      *  View Routes
      */

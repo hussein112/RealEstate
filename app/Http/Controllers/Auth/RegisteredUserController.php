@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -28,24 +30,42 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, $guard)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        if ($guard === "web") {
+            $validated = $request->validate([
+                'fname' => [],
+                'mname' => [],
+                'lname' => [],
+                'email' => [],
+                'phone' => [],
+                'password' => []
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+            if ($request->hasFile('avatar')) {
+                $img = Image::create([
+                    'image' => $request->file('avatar')->store('avatars/users', 'public')
+                ]);
+            }
 
-        event(new Registered($user));
+            $user = User::create([
+                'f_name' => $request->fname,
+                'm_name' => $request->mname,
+                'l_name' => $request->lname,
+                'password' => $request->password,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'avatar_id' => ($img->id) ?? 'default.jpg',
+                'admin_id' => (Auth::guard('admin')->id()) ?? NULL,
+            ]);
 
-        Auth::login($user);
+            event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+            Auth::login($user);
+
+            return redirect(RouteServiceProvider::HOME);
+        }else{
+
+        }
     }
 }

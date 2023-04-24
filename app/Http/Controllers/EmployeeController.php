@@ -55,8 +55,8 @@ class EmployeeController extends Controller
 
             'users' => User::all()->count(),
             'latest_users' => User::where([
-                ['joined_at', '<', now()],
-                ['joined_at', '>', $this->pastWeek()]
+                ['created_at', '<', now()],
+                ['created_at', '>', $this->pastWeek()]
             ])->count(),
         ]);
     }

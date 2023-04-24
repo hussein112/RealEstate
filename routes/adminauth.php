@@ -13,13 +13,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function(){
-        Route::get('register', [RegisteredUserController::class, 'create'])
-            ->name('register');
-
-        Route::post('register', function() {
-            return App::call('App\Http\Controllers\Auth\RegisteredUserController@create', ['guard' => 'admin']);
-        });
-
         Route::get('login', function(){
             return App::call('App\Http\Controllers\Auth\AuthenticatedSessionController@create', ['guard' => 'admin']);
         })->name('a-login');

@@ -13,10 +13,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Sortable;
 
-
     protected $table = "user";
     protected $guarded = ['id'];
-    public $timestamps = false;
     public $sortable = [
         'id',
         'f_name',

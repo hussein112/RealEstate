@@ -26,6 +26,9 @@
                     <a href="{{ route("login") }}" class="nav-link">Sign-in</a>
                     <a href="{{ route("register") }}" class="nav-link">Register</a>
                 @endguest
+                @auth
+                    <a href="{{ route("logout") }}" class="nav-link">Log Out</a>
+                @endauth
                 <a href="{{ route("newValuation") }}" class="nav-link">Get a Valuation</a>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
