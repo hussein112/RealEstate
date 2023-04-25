@@ -33,8 +33,10 @@
 
             <ul class="site-map custom-list m-1">
                 <li class="l-item">Navigate to</li>
-                <li class="l-item"><a href="{{ route("login") }}">Login</a></li>
-                <li class="l-item"><a href="{{ route("register") }}">Register</a></li>
+                @guest
+                    <li class="l-item"><a href="{{ route("u-login") }}">Login</a></li>
+                    <li class="l-item"><a href="{{ route("register") }}">Register</a></li>
+                @endguest
                 <li class="l-item"><a href="{{ route("propertiesForBuy") }}">Buy Property</a></li>
                 <li class="l-item"><a href="{{ route("propertiesForRent") }}">Rent Property</a></li>
                 <li class="l-item"><a href="/user/advertise.html">Sell Property</a></li>

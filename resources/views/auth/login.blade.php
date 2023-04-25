@@ -3,7 +3,6 @@
     {{--    <x-auth-session-status class="mb-4" :status="session('status')" />--}}
 
     <x-slot name="form">
-
         <form action="{{ route('u-login') }}" method="post" class="container flex flex-column flex-wrap">
             @csrf
             <div class="form-floating mb-3">
@@ -13,6 +12,9 @@
             <div class="form-floating mb-3">
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
                 <label for="password">Password</label>
+            </div>
+            <div class="mb-3">
+                <a href="{{ route("password.request") }}">Forgot Password?</a>
             </div>
             <div class="form-check mb-3">
                 <input name="remember" class="form-check-input" type="checkbox" id="remember">

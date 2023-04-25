@@ -36,7 +36,7 @@ Route::get('register', [UserController::class, 'create'])->name('register');
 Route::post("register", [UserController::class, 'store'])->name("register");
 Route::get("logout", [AuthenticatedSessionController::class, 'destroy'])->name("logout");
 
-require __DIR__.'/auth.php';
+require __DIR__.'/userauth.php';
 
 Route::get("valuation", [ValuationController::class, 'create'])->name("newValuation");
 Route::post("valuation/new", [ValuationController::class, 'store'])->name("createValuation");

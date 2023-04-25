@@ -23,7 +23,7 @@
                 <a href="{{ route("sell") }}" class="nav-link">Sell</a>
                 <a href="{{ route("contact") }}" class="nav-link">Contact Us</a>
                 @guest
-                    <a href="{{ route("login") }}" class="nav-link">Sign-in</a>
+                    <a href="{{ route("u-login") }}" class="nav-link">Sign-in</a>
                     <a href="{{ route("register") }}" class="nav-link">Register</a>
                 @endguest
                 @auth

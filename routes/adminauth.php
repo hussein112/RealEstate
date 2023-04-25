@@ -13,25 +13,21 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function(){
-        Route::get('login', function(){
-            return App::call('App\Http\Controllers\Auth\AuthenticatedSessionController@create', ['guard' => 'admin']);
-        })->name('a-login');
+        Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('a-login');
 
-        Route::post('login', function(){
-            return App::call('App\Http\Controllers\Auth\AuthenticatedSessionController@store', ['guard' => 'admin']);
-        })->name('a-login');
+        Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('a-login');
 
         Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-            ->name('password.request');
+            ->name('a-password.request');
 
         Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-            ->name('password.email');
+            ->name('a-password.email');
 
         Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
             ->name('password.reset');
 
         Route::post('reset-password', [NewPasswordController::class, 'store'])
-            ->name('password.store');
+            ->name('a-password.store');
 });
 
 
