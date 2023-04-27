@@ -77,7 +77,7 @@
                             <td>{{ $property->type->type }}</td>
                             <td>{{ $property->owner->full_name }}</td>
                             <td>{{ $property->for }}</td>
-                            <td><a href="{{ route("e-property", ['id' => $property->id]) }}" class="btn btn-primary">></a></td>
+                            <td><a href="{{ route("e-property", ['id' => $property->id]) }}" class="btn btn-primary flex-center"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
                         </tr>
                     @endforeach
                     </tbody>

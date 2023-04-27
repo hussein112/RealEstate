@@ -27,7 +27,6 @@ class Valuation extends Model
         'due_date'
     ];
     protected $table = 'valuation';
-    public $timestamps = false;
     public $guarded = ['id'];
 
     public function requestedForValuation(){

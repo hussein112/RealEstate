@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Custom\DateQueries;
 use App\Models\Appointement;
 use App\Models\Employee;
+use App\Models\Enquiry;
 use App\Models\Image;
 use App\Models\Property;
 use App\Models\User;
@@ -37,20 +38,20 @@ class EmployeeController extends Controller
         return view("employee.dashboard")->with([
             'valuations' => Valuation::all()->count(),
             'latest_valuations' => Valuation::where([
-                ['date_issued', '<', now()],
-                ['date_issued', '>', $this->pastWeek()]
+                ['created_at', '<', now()],
+                ['created_at', '>', $this->pastWeek()]
             ])->count(),
             'appointement' => Appointement::all()->count(),
             'latest_appointement' => Appointement::where([
                 ['created_at', '<', now()],
                 ['created_at', '>', $this->pastWeek()]
             ])->count(),
-//            'enquiries' => Enquiry::all()->count(),
+            'enquiries' => Enquiry::all()->count(),
 
             'properties' => Property::all()->count(),
             'latest_properties' => Property::where([
-                ['date_posted', '<', now()],
-                ['date_posted', '>', $this->pastWeek()]
+                ['created_at', '<', now()],
+                ['created_at', '>', $this->pastWeek()]
             ])->count(),
 
             'users' => User::all()->count(),

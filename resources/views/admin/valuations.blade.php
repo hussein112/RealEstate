@@ -88,7 +88,7 @@
                                     @endif
                                 @endif
                                 <td class="bg-danger text-light">{{ $valuation->due_date }}</td>
-                                <td><a class="btn btn-primary" href="{{ route("a-valuationDetails", ['id' => $valuation->id]) }}">></a></td>
+                                <td><a class="btn btn-primary flex-center" href="{{ route("a-valuationDetails", ['id' => $valuation->id]) }}"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
                             </tr>
                         @endforeach
                     @endisset

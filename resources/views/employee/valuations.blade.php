@@ -15,7 +15,7 @@
                             @sortablelink("assigned_by", "Assigned By")
                         </th>
                         <th scope="col" class="text-primary">
-                            @sortablelink("date_issued", "Date Issued")
+                            @sortablelink("created_at", "Date Issued")
                         </th>
                         <th scope="col" class="text-primary">
                             Address 1
@@ -27,10 +27,10 @@
                             Postal Code
                         </th>
                         <th scope="col" class="text-primary">
-                            @sortablelink("valuation_type", "Type")
+                            @sortablelink("type", "Property Type")
                         </th>
                         <th scope="col" class="text-primary">
-                            Description
+                            @sortablelink("for", "For")
                         </th>
                         <th scope="col" class="text-primary">
                             @sortablelink("valuation_status", "Status")
@@ -39,7 +39,7 @@
                             @sortablelink("due_date", "Due")
                         </th>
                         <th scope="col" class="text-primary">Details</th>
-                        <th scope="col" class="text-primary">Action</th>
+                        <th scope="col" class="text-primary">Mark As Done</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,24 +47,28 @@
                         <tr>
                             <th scope="row">{{ $valuation->id }}</th>
                             <td>{{ isset($valuation->assignedBy->f_name) ? $valuation->assignedBy->f_name . ' ' . $valuation->assignedBy->l_name : "None" }}</td>
-                            <td>{{ $valuation->date_issued }}</td>
+                            <td>{{ $valuation->created_at }}</td>
                             <td>{{ $valuation->address_one }}</td>
                             <td>{{ $valuation->city }}</td>
                             <td>{{ $valuation->postal_code }}</td>
-                            <td>{{ $valuation->valuation_type }}</td>
-                            <td class="td-long">{{ $valuation->description }}</td>
-                            @if($valuation->valuation_status == 1)
+                            <td>{{ $valuation->type }}</td>
+                            <td class="td-long">{{ ($valuation->for == 1) ? "Sell" : "Rent" }}</td>
+                            @if($valuation->status == 1)
                                 <td class="bg-success text-light">Finished</td>
                             @else
-                                <td class="bg-danger text-light">Pending</td>
+                                <td class="bg-danger text-light">
+                                    <iconify-icon icon="material-symbols:pending-actions-rounded"></iconify-icon>
+                                </td>
                             @endif
                             <td class="bg-danger text-light">{{ $valuation->due_date }}</td>
-                            <td><a class="btn btn-primary" href="{{ route("e-valuationDetails", ['id' => $valuation->id]) }}">></a></td>
+                            <td><a class="btn btn-primary flex-center" href="{{ route("e-valuationDetails", ['id' => $valuation->id]) }}"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
                             <td>
-                                <form action="{{ route("e-editValuation", ['id' => $valuation->id]) }}" method="post">
+                                <form action="{{ route("e-editValuation", ['id' => $valuation->id]) }}" method="post" class="center">
                                     @csrf
                                     @method("PATCH")
-                                    <button class="btn btn-primary" type="submit">Mark As Done</button>
+                                    <button class="btn btn-primary flex-center" type="submit">
+                                        <iconify-icon icon="mdi:coffee-maker-done"></iconify-icon>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

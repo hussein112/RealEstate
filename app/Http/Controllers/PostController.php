@@ -35,14 +35,19 @@ class PostController extends Controller
         ]);
     }
 
+
+    public function searchByDate($date){
+//        return view();
+    }
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view("posts")->with([
+            'posts' => Post::paginate(9)
+        ]);
     }
 
     /**

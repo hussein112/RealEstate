@@ -29,7 +29,6 @@ class Property extends Model
     ];
 
     protected $table = 'property';
-    public $timestamps = false;
     protected $guarded = ['id'];
 
     public function propertyGroup(){

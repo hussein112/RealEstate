@@ -31,7 +31,7 @@
                         @sortablelink('email_verified_at', 'Verfied Email')
                     </th>
                     <th>
-                        @sortablelink("joined_at", "Joined At")
+                        @sortablelink("created_at", "Joined At")
                     </th>
                     <th scope="col" class="text-primary">Actions</th>
                 </tr>
@@ -49,7 +49,11 @@
                                 <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                             </td>
                             <td><img src="{{ asset('storage/' . $user->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal{{$user->id}}"></td>
-                            <td>{{ ($user->addedBy->f_name) ? $user->addedBy->f_name . ' ' . $user->addedBy->l_name : "None"}}</td>
+                            @if(isset($user->admin_id))
+                                <td>{{ ($user->addedBy->f_name) ? $user->addedBy->f_name . ' ' . $user->addedBy->l_name : "None"}}</td>
+                            @else
+                                <td>Manually Registered</td>
+                            @endif
                             @if($user->email_verified_at != null)
                                 <td class="bg-success">
                                     <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
@@ -59,7 +63,7 @@
                                     {{ "Failure icon" }}
                                 </td>
                             @endif
-                            <td>{{ $user->joined_at }}</td>
+                            <td>{{ $user->created_at }}</td>
                             <td class="action-btns">
                                 <a href="{{ route('a-editUser', ['id' => $user->id]) }}" class="btn btn-primary m-1">Edit</a>
                                 <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$user->id}}">Delete</button>

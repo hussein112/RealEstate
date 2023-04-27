@@ -14,7 +14,7 @@
 
                         <tr>
                             <th>Date Issued</th>
-                            <td>{{ $valuation->date_issued }}</td>
+                            <td>{{ $valuation->created_at }}</td>
                         </tr>
 
                         <tr>
@@ -24,12 +24,12 @@
 
                         <tr>
                             <th class="bg-danger">Valuation Status</th>
-                            <td class="bg-danger text-light">{{ $valuation->valuation_status }}</td>
+                            <td class="bg-danger text-light">{{ ($valuation->status == 1) ? "Finished" : "In Progress" }}</td>
                         </tr>
 
                         <tr>
                             <th>Issuer Name</th>
-                            <td>{{ $valuation->issuer_fname . ' ' . $valuation->issuer_mname . ' ' . $valuation->issuer_lname }}</td>
+                            <td>{{ $valuation->full_name }}</td>
                         </tr>
 
                         <tr>

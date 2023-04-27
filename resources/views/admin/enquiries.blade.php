@@ -41,7 +41,7 @@
                                     <td class="td-long">{{ $enquiry->issuer_message }}</td>
                                     <td><a href="{{ route('a-property', ['id' => $enquiry->property_id]) }}">{{ $enquiry->property_id }}</a></td>
                                     <td><a href="mailto:{{ $enquiry->issuer_email }}">{{ $enquiry->issuer_email }}</a></td>
-                                    <td><a class="btn btn-primary" href="{{ route('a-enquiryDetails', ['id' => $enquiry->id]) }}">></a></td>
+                                    <td><a class="btn btn-primary flex-center" href="{{ route('a-enquiryDetails', ['id' => $enquiry->id]) }}"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
                                 </tr>
                             @endforeach
                         </tbody>

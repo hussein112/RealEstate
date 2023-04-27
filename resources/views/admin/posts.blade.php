@@ -28,7 +28,7 @@
                     <th scope="col" class="text-primary">
                         @sortablelink('admin_id', "Author")
                     </th>
-                    <th>View</th>
+                    <th scope="col" class="text-primary">View</th>
                     <th scope="col" class="text-primary">Actions</th>
                 </tr>
                 </thead>
@@ -42,7 +42,7 @@
                             <td class="td-long">{{ strip_tags($post->content) }}</td>
                             <td>{{ ($post->category->category) ?? "Uncategorized" }}</td>
                             <td>{{ $post->author->f_name . ' ' . $post->author->l_name }}</td>
-                            <td><a href="{{ route('post', ['id' => $post->id]) }}">></a></td>
+                            <td><a href="{{ route('post', ['id' => $post->id]) }}" class="flex-center btn btn-primary"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
                             <td class="action-btns">
                                 <a href="{{ route('a-editPost', ['id' => $post->id]) }}" class="btn btn-primary m-1">Edit</a>
                                 <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $post->id }}">Delete</button>

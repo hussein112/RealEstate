@@ -31,7 +31,7 @@
                         @sortablelink('email_verified_at', 'Verfied Email')
                     </th>
                     <th>
-                        @sortablelink("joined_at", "Joined At")
+                        @sortablelink("created_at", "Joined At")
                     </th>
                     <th scope="col" class="text-primary">Actions</th>
                 </tr>
@@ -49,17 +49,23 @@
                                 <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                             </td>
                             <td><img src="{{ asset('storage/' . $user->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal{{$user->id}}"></td>
-                            <td>{{ ($user->addedBy->f_name) ? $user->addedBy->f_name . ' ' . $user->addedBy->l_name : "None"}}</td>
+                            <td>
+                                @if(isset($user->admin_id))
+                                    {{ $user->addedBy->f_name . ' ' . $user->addedBy->l_name }}
+                                @else
+                                    Manually Registered
+                                @endif
+                            </td>
                             @if($user->email_verified_at != null)
                                 <td class="bg-success">
                                     <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
                                 </td>
                             @else
-                                <td class="bg-danger">
-                                    {{ "Failure icon" }}
+                                <td class="bg-warning text-danger">
+                                    <iconify-icon icon="ph:x-circle-fill"></iconify-icon>
                                 </td>
                             @endif
-                            <td>{{ $user->joined_at }}</td>
+                            <td>{{ $user->created_at }}</td>
                             <td class="action-btns">
                                 <a href="{{ route('e-editUser', ['id' => $user->id]) }}" class="btn btn-primary m-1">Edit</a>
                                 <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$user->id}}">Delete</button>

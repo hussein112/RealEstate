@@ -28,6 +28,8 @@
                                             <span class="visually-hidden">Next</span>
                                         </button>
                                     </div>
+                                @elseif(sizeof($property->images) == 0)
+                                    <img src="{{ asset('storage/defaults/property.jpg') }}" class="d-block w-100" alt="{{ $property->title }}" loading="lazy">
                                 @else
                                     <img src="{{ asset('storage/' . $property->images[0]->image) }}" class="d-block w-100" alt="{{ $property->title }}" loading="lazy">
                                 @endif
@@ -36,22 +38,22 @@
 
                             <div class="card-body">
                                 <header class="card-head">
-                                    <a href="#" class="card-title">{{ $property->title }}</a>
+                                    <a href="{{ route("property", ['id' => $property->id]) }}" class="card-title">{{ $property->title }}</a>
                                     <div class="d-flex w-100 justify-content-between flex-wrap">
                                         <h6 class="card-subtitle">
-                                            <a href="#" class="text-capitalize text-muted flex-center">
+                                            <a href="{{ route("searchByLocation", ['city' => $property->city]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="material-symbols:location-on"></iconify-icon>
-                                                {{ $property->location }}
+                                                {{ ucfirst($property->city) }}
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">
-                                            <a href="#" class="text-capitalize text-muted flex-center">
+                                            <a href="{{ route("searchByPrice", ['price' => $property->price]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
                                                 {{ $property->price }}
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">
-                                            <a href="#" class="text-capitalize text-muted flex-center">
+                                            <a href="{{ route("searchByBedroomsNumber", ['nb' => $property->bedrooms_nb]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="ic:sharp-meeting-room"></iconify-icon>
                                                 {{ $property->bedrooms_nb }}
                                             </a>

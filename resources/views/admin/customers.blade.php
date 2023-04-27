@@ -36,7 +36,7 @@
                         <th scope="row">{{ $customer->id }}</th>
                         <td>{{$customer->full_name}}</td>
                         <td> <a href="mailto:{{ $customer->email  }}">{{ $customer->email }}</a> </td>
-                        <td> <a href="tel+{{ $customer->phone }}">{{ $customer->phone }}</a> </td>
+                        <td> <a href="tel:{{ $customer->phone }}">{{ $customer->phone }}</a> </td>
                         <td>{{ $customer->addedBy->f_name . " " . $customer->addedBy->l_name }}</td>
                         <td class="action-btns">
                             <a href="{{ route("a-editCustomer", ['id' => $customer->id]) }}" class="btn btn-primary m-1">Edit</a>

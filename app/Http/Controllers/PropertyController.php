@@ -107,7 +107,8 @@ class PropertyController extends Controller
 
     public function employeeProperty($id){
         return view("employee.property")->with([
-            'property' => Property::findOrFail($id)
+            'property' => Property::findOrFail($id),
+            'features' => Feature::all()
         ]);
     }
 
@@ -133,6 +134,53 @@ class PropertyController extends Controller
             'property' => Property::find($id)
         ]);
     }
+
+
+    /**
+     * City
+     */
+    public function searchByLocation($city){
+        $search_results = Property::query()
+            ->where('city', 'LIKE', '%'. $city .'%')
+            ->paginate(10);
+        return view("properties")->with([
+            'properties' => $search_results,
+            'page' => 'all',
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
+    }
+
+    public function searchByPrice($price){
+        $search_results = Property::query()
+            ->where('price', 'LIKE', '%'. $price .'%')
+            ->paginate(10);
+        return view("properties")->with([
+            'properties' => $search_results,
+            'page' => 'all',
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
+    }
+
+
+
+    public function searchByBedroomsNumber($nb){
+        $search_results = Property::query()
+            ->where('bedrooms_nb', $nb)
+            ->paginate(10);
+
+        return view("properties")->with([
+            'properties' => $search_results,
+            'page' => 'all',
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
+    }
+
 
     public function search(Request $request){
         if($request->minprice == -1 && $request->maxprice == -1 && $request->minbedrooms == 0 && $request->maxbedrooms == 0){
@@ -198,7 +246,6 @@ class PropertyController extends Controller
             'location' => $request->location,
             'bedrooms_nb' => $request->bedrooms,
             'bathrooms_nb' => $request->bathrooms,
-            'date_posted' => Date::now(),
             'admin_id' => Auth::guard('admin')->id(),
             'type_id' => $request->type,
             'for' => $request->for,

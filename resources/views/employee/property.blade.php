@@ -34,7 +34,7 @@
 
                     <tr>
                         <th>Location</th>
-                        <td>{{ $property->location }}</td>
+                        <td>{{ $property->city }}</td>
                     </tr>
 
                     <tr>
@@ -50,7 +50,7 @@
 
                     <tr>
                         <th>Date Posted</th>
-                        <td>{{ $property->date_posted }}</td>
+                        <td>{{ $property->created_at }}</td>
                     </tr>
 
                     <tr>
@@ -117,11 +117,17 @@
 
                     </div>
 
-                    <div class="features grid-text">
-                        <div class="feature">Feature 1</div>
-                        <div class="feature">Feature 2</div>
-                        <div class="feature">Feature 3</div>
-                        <div class="feature">Feature 4</div>
+                    <div class="features">
+                        <ul class="grid custom-list">
+                            @if(isset($property->features))
+                                @foreach($property->features as $feature)
+                                    <li class="list-item">{{ $feature->feature }}</li>
+                                @endforeach
+                            @else
+                                <li class="list-item">No Features</li>
+                            @endif
+                        </ul>
+
                     </div>
                 </div>
             </div>

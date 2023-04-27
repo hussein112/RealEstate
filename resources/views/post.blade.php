@@ -1,7 +1,7 @@
 <x-user-layout>
 
     <x-slot name="header">
-        <x-header page="post"></x-header>
+        <x-half-header></x-half-header>
     </x-slot>
 
     <x-slot name="main">

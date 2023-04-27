@@ -48,7 +48,11 @@
                                 <a href="mailto:{{ $employee->email }}">{{ $employee->email }}</a>
                             </td>
                             <td class="td-long">
-                                {{ $employee->statement }}
+                                @if(isset($employee->statement))
+                                    {{ $employee->statement }}
+                                @else
+                                    No Statement
+                                @endif
                             </td>
                             <td><img src="{{ asset('storage/' . $employee->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal{{$employee->id}}"></td>
                             <td>{{ $employee->addedBy->f_name . ' ' . $employee->addedBy->l_name }}</td>

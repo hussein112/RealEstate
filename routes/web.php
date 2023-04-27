@@ -56,6 +56,9 @@ Route::prefix("properties")->group(function(){
     Route::get("buy", [PropertyController::class, 'buy'])->name('propertiesForBuy');
     Route::get("rent", [PropertyController::class, 'rent'])->name('propertiesForRent');
     Route::get("s", [PropertyController::class, 'search'])->name('propertiesSearch');
+    Route::get("s/location/{city}", [PropertyController::class, 'searchByLocation'])->name('searchByLocation');
+    Route::get("s/price/{price}", [PropertyController::class, 'searchByPrice'])->name('searchByPrice');
+    Route::get("s/bedrooms-nb/{nb}", [PropertyController::class, 'searchByBedroomsNumber'])->name('searchByBedroomsNumber');
     Route::get("/sell", [PropertyController::class, 'sell'])->name("sell");
 });
 

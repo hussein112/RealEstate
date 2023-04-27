@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Appointement;
+use App\Models\Enquiry;
 use App\Models\Image;
 use App\Models\Property;
 use App\Models\User;
@@ -34,7 +35,7 @@ class AdminController extends Controller
                 ['created_at', '<', now()],
                 ['created_at', '>', $this->pastWeek()]
             ])->count(),
-//            'enquiries' => Enquiry::all()->count(),
+            'enquiries' => Enquiry::all()->count(),
 
             'properties' => Property::all()->count(),
             'latest_properties' => Property::where([

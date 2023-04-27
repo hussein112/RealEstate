@@ -87,20 +87,21 @@
                                     <a href="{{ route('property', ['id' => $lproperty->id]) }}" class="card-title">{{ $lproperty->title }}</a>
                                     <div class="d-flex w-100 justify-content-between flex-wrap">
                                         <h6 class="card-subtitle">
-                                            <a href="{{ route('property', ['id' => $lproperty->id]) }}" class="text-capitalize text-muted flex-center">
+                                            <a href="{{ route("searchByLocation", ['city' => $lproperty->city]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="material-symbols:location-on"></iconify-icon>
-                                                {{ $lproperty->location }}
+                                                {{ ucfirst($lproperty->city) }}
                                             </a>
+
                                         </h6>
                                         <h6 class="card-subtitle">
-                                            <a href="#" class="text-capitalize text-muted flex-center">
+                                            <a href="{{ route("searchByPrice", ['price' => $lproperty->price]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
                                                 {{ $lproperty->price }}
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">
-                                            <a href="#" class="text-capitalize text-muted flex-center">
-                                                <iconify-icon icon="ic:sharp-meeting-room"></iconify-icon>
+                                            <a href="{{ route("searchByBedroomsNumber", ['nb' => $lproperty->bedrooms_nb]) }}" class="text-capitalize text-muted flex-center">
+                                                <iconify-icon icon="mdi:guest-room"></iconify-icon>
                                                 {{ $lproperty->bedrooms_nb }}
                                             </a>
                                         </h6>
@@ -110,9 +111,6 @@
                                 <div class="links d-flex w-100 justify-content-between flex-wrap">
                                     <a href="#" class="card-link ">
                                         <iconify-icon icon="mdi:content-save-plus-outline"></iconify-icon>
-                                    </a>
-                                    <a href="#" class="card-link">
-                                        <iconify-icon icon="gis:search-poi"></iconify-icon>
                                     </a>
                                 </div>
                             </div>
@@ -153,7 +151,7 @@
                                         <iconify-icon icon="mdi:read-more"></iconify-icon>
                                     </a>
                                     <a href="#" class="date">
-                                        {{ $post->date_posted }}
+                                        {{ $post->created_at }}
                                     </a>
                                 </div>
                             </div>
