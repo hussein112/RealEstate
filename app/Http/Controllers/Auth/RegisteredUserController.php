@@ -32,40 +32,36 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request, $guard)
     {
-        if ($guard === "web") {
-            $validated = $request->validate([
-                'fname' => [],
-                'mname' => [],
-                'lname' => [],
-                'email' => [],
-                'phone' => [],
-                'password' => []
+        $validated = $request->validate([
+            'fname' => [],
+            'mname' => [],
+            'lname' => [],
+            'email' => [],
+            'phone' => [],
+            'password' => []
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $img = Image::create([
+                'image' => $request->file('avatar')->store('avatars/users', 'public')
             ]);
-
-            if ($request->hasFile('avatar')) {
-                $img = Image::create([
-                    'image' => $request->file('avatar')->store('avatars/users', 'public')
-                ]);
-            }
-
-            $user = User::create([
-                'f_name' => $request->fname,
-                'm_name' => $request->mname,
-                'l_name' => $request->lname,
-                'password' => $request->password,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'avatar_id' => ($img->id) ?? 'default.jpg',
-                'admin_id' => (Auth::guard('admin')->id()) ?? NULL,
-            ]);
-
-            event(new Registered($user));
-
-            Auth::login($user);
-
-            return redirect(RouteServiceProvider::HOME);
-        }else{
-
         }
+
+        $user = User::create([
+            'f_name' => $request->fname,
+            'm_name' => $request->mname,
+            'l_name' => $request->lname,
+            'password' => $request->password,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'avatar_id' => ($img->id) ?? 'default.jpg',
+            'admin_id' => (Auth::guard('admin')->id()) ?? NULL,
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(RouteServiceProvider::HOME);
     }
 }

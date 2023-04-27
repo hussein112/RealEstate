@@ -47,12 +47,12 @@
                             <tr>
                                 <th scope="row">{{ $valuation->id }}</th>
                                 <td>{{ isset($valuation->assignedBy->f_name) ? $valuation->assignedBy->f_name . ' ' . $valuation->assignedBy->l_name : "None" }}</td>
-                                <td>{{ $valuation->date_issued }}</td>
+                                <td>{{ $valuation->created_at }}</td>
                                 <td>{{ $valuation->address_one }}</td>
                                 <td>{{ $valuation->city }}</td>
                                 <td>{{ $valuation->postal_code }}</td>
                                 <td>{{ $valuation->type }}</td>
-                                <td class="td-long">{{ $valuation->description }}</td>
+                                <td class="td-long">{{ ($valuation->description) ?? "None" }}</td>
                                 @php
                                     if(isset($approval_status)){
                                         $status = "";

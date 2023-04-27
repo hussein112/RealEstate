@@ -55,12 +55,12 @@
                                 <td>Manually Registered</td>
                             @endif
                             @if($user->email_verified_at != null)
-                                <td class="bg-success">
+                                <td class="bg-info">
                                     <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
                                 </td>
                             @else
-                                <td class="bg-danger">
-                                    {{ "Failure icon" }}
+                                <td class="bg-warning text-danger">
+                                    <iconify-icon icon="ph:x-circle-fill"></iconify-icon>
                                 </td>
                             @endif
                             <td>{{ $user->created_at }}</td>

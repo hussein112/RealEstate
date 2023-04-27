@@ -76,10 +76,10 @@
                                 </td>
                             @endif
                             <td>{{ $property->price }} $</td>
-                            <td>{{ $property->location }}</td>
+                            <td>{{ $property->city }}</td>
                             <td>{{ $property->bedrooms_nb }}</td>
                             <td>{{ $property->bathrooms_nb }}</td>
-                            <td>{{ $property->date_posted }}</td>
+                            <td>{{ $property->created_at }}</td>
                             <td>{{ isset($property->addedBy->f_name) ? $property->addedBy->f_name . '  ' . $property->addedBy->l_name : "no admin!"}}</td>
                             <td>{{ ($property->type->type) ?? "no type" }}</td>
                             <td>{{ ($property->owner->full_name) ?? 'no owner' }}</td>

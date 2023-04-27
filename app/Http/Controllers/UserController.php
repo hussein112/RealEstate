@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Property;
 use App\Models\Type;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -73,7 +74,9 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended()->with(['success_msg' => 'User Added Successfully']);
+        // Send "Email Verification" Email
+        event(new Registered($user));
+        return view('auth.verify-email');
     }
 
     /**

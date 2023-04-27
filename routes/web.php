@@ -34,7 +34,6 @@ Route::get('terms', [WebsiteController::class, 'terms'])->name("terms");
 
 Route::get('register', [UserController::class, 'create'])->name('register');
 Route::post("register", [UserController::class, 'store'])->name("register");
-Route::get("logout", [AuthenticatedSessionController::class, 'destroy'])->name("logout");
 
 require __DIR__.'/userauth.php';
 
@@ -71,6 +70,9 @@ Route::prefix("properties")->group(function(){
  */
 Route::prefix('posts')->group(function(){
     Route::get('/all', [PostController::class, 'index'])->name('blog');
+    Route::get("s/date/{date}", [PostController::class, 'searchByDate'])->name("searchByDate");
+    Route::get("s/author/{id}", [PostController::class, 'searchByAuthor'])->name("searchByAuthor");
+    Route::get("s/category/{id}", [PostController::class, 'searchByCategory'])->name("searchByCategory");
     Route::get('/post/{id}', [PostController::class, 'show'])->name('post');
     Route::get("/date/{date}", [PostController::class, 'getByDate'])->name('post_dates');
     Route::get("/author/{id}", [AdminController::class, 'posts'])->name('author_posts');

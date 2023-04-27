@@ -150,7 +150,7 @@
                                     <a href="{{ route('post', ['id' => $post->id]) }}" class="card-link ">
                                         <iconify-icon icon="mdi:read-more"></iconify-icon>
                                     </a>
-                                    <a href="#" class="date">
+                                    <a href="{{ route("searchByDate", ['date' => $post->created_at]) }}" class="date">
                                         {{ $post->created_at }}
                                     </a>
                                 </div>

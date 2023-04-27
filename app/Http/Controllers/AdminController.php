@@ -27,8 +27,8 @@ class AdminController extends Controller
         return view("admin.dashboard")->with([
             'valuations' => Valuation::all()->count(),
             'latest_valuations' => Valuation::where([
-                ['date_issued', '<', now()],
-                ['date_issued', '>', $this->pastWeek()]
+                ['created_at', '<', now()],
+                ['created_at', '>', $this->pastWeek()]
             ])->count(),
             'appointement' => Appointement::all()->count(),
             'latest_appointement' => Appointement::where([
@@ -39,8 +39,8 @@ class AdminController extends Controller
 
             'properties' => Property::all()->count(),
             'latest_properties' => Property::where([
-                ['date_posted', '<', now()],
-                ['date_posted', '>', $this->pastWeek()]
+                ['created_at', '<', now()],
+                ['created_at', '>', $this->pastWeek()]
             ])->count(),
 
             'users' => User::all()->count(),

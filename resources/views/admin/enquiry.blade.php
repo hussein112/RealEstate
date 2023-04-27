@@ -2,11 +2,6 @@
     <x-slot name="main">
         <main class="valuation-details container">
             <x-page-title title="Enquiry #{{$enquiry->id}}"></x-page-title>
-            <div class="remainders">
-                <div class="alert alert-danger">
-                    <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
-                </div>
-            </div>
             <div class="container">
                 <hr>
                 <table class="table mt-5">
@@ -18,7 +13,7 @@
 
                         <tr>
                             <th>Date Issued</th>
-                            <td>{{ $enquiry->date_issued }}</td>
+                            <td>{{ $enquiry->created_at }}</td>
                         </tr>
 
                         <tr>
@@ -81,7 +76,7 @@
 
                         <tr>
                             <th>Location</th>
-                            <td>{{ $property->location }}</td>
+                            <td>{{ $property->city }}</td>
                         </tr>
 
                         <tr>
@@ -158,7 +153,7 @@
                         <div class="features grid-text">
                             @if(sizeof($property->features) > 1)
                                 @foreach($property->features as $feature)
-                                    <div class="feature">{{ $feature }}</div>
+                                    <div class="feature">{{ $feature->feature }}</div>
                                 @endforeach
                             @else
                                 <div class="feature">No Features</div>

@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, Sortable;
 

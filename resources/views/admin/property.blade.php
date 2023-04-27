@@ -1,11 +1,10 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="admin-property container">
-            <h4 class="title my-2 center">Property <strong class="d-">#3245</strong> Details</h4>
+            <h4 class="title my-2 center">Property <strong class="d-">#{{$property->id}}</strong> Details</h4>
             <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                 <hr>
-                @isset($property)
-                    <table class="table table-bordered w-100">
+                <table class="table table-bordered w-100">
                         <tbody>
                         <tr>
                             <th>ID</th>
@@ -49,7 +48,7 @@
 
                         <tr>
                             <th>Date Posted</th>
-                            <td>{{ $property->date_posted }}</td>
+                            <td>{{ $property->created_at }}</td>
                         </tr>
 
                         <tr>
@@ -80,9 +79,6 @@
                         </th>
                         </tfoot>
                     </table>
-                @endisset
-
-
                 <div class="right-side-wrapper w-100 m-1">
                     @isset($property->images)
                         <div id="property" class="carousel slide property-slides" data-bs-ride="true">

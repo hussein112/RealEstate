@@ -37,7 +37,23 @@ class PostController extends Controller
 
 
     public function searchByDate($date){
-//        return view();
+        return view("posts")->with([
+            'posts' => Post::where("created_at", $date)->paginate(9)
+        ]);
+    }
+
+
+    public function searchByAuthor($id){
+        return view("posts")->with([
+            'posts' => Post::where("admin_id", $id)->paginate(9)
+        ]);
+    }
+
+
+    public function searchByCategory($id){
+        return view("posts")->with([
+            'posts' => Post::where("category_id", $id)->paginate(9)
+        ]);
     }
 
     /**
@@ -46,7 +62,8 @@ class PostController extends Controller
     public function index()
     {
         return view("posts")->with([
-            'posts' => Post::paginate(9)
+            'posts' => Post::paginate(9
+            )
         ]);
     }
 

@@ -57,7 +57,7 @@
                                 @endif
                             </td>
                             @if($user->email_verified_at != null)
-                                <td class="bg-success">
+                                <td class="bg-info">
                                     <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
                                 </td>
                             @else

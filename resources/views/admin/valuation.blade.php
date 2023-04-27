@@ -3,11 +3,6 @@
         <main class="valuation-details container">
             @isset($valuation)
                 <h4 class="title my-2">Valuation #{{ $valuation->id }}</h4>
-                <div class="remainders">
-                    <div class="alert alert-danger">
-                        <a href="#"><strong>Property #34234</strong></a>, Should be Valuated by Mon, 21/10/2000
-                    </div>
-                </div>
                 <div class="container">
                     <hr>
                     <table class="table mt-5">
@@ -19,7 +14,7 @@
 
                         <tr>
                             <th>Date Issued</th>
-                            <td>{{ $valuation->date_issued }}</td>
+                            <td>{{ $valuation->created_at }}</td>
                         </tr>
 
                         <tr>
@@ -29,12 +24,12 @@
 
                         <tr>
                             <th class="bg-danger">Valuation Status</th>
-                            <td class="bg-danger text-light">{{ $valuation->valuation_status }}</td>
+                            <td class="bg-danger text-light">{{ ($valuation->status == 0) ? "In Progress" : "Done" }}</td>
                         </tr>
 
                         <tr>
                             <th>Issuer Name</th>
-                            <td>{{ $valuation->issuer_fname . ' ' . $valuation->issuer_mname . ' ' . $valuation->issuer_lname }}</td>
+                            <td>{{ $valuation->full_name }}</td>
                         </tr>
 
                         <tr>
@@ -94,7 +89,7 @@
 
                         <tr>
                             <th>Description</th>
-                            <td>{{ $valuation->description }}</td>
+                            <td>{{ ($valuation->description) ?? "-" }}</td>
                         </tr>
                         </tbody>
                         <tfoot class="d-flex papers-specific">

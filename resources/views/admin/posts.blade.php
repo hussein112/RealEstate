@@ -38,7 +38,7 @@
                         <tr>
                             <th scope="row">{{ $post->id }}</th>
                             <td>{{ $post->title }}</td>
-                            <td>{{ $post->date_posted }}</td>
+                            <td>{{ $post->created_at }}</td>
                             <td class="td-long">{{ strip_tags($post->content) }}</td>
                             <td>{{ ($post->category->category) ?? "Uncategorized" }}</td>
                             <td>{{ $post->author->f_name . ' ' . $post->author->l_name }}</td>

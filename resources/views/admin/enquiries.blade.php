@@ -24,9 +24,6 @@
                         <th scope="col" class="text-primary">
                             @sortablelink("property_id", "For")
                         </th>
-{{--                        <th scope="col" class="text-primary">--}}
-{{--                            @sortablelink("employee_id", "Assigned To")--}}
-{{--                        </th>--}}
                         <th scope="col" class="text-primary">Reply</th>
                         <th scope="col" class="text-primary">Details</th>
                     </tr>
@@ -36,7 +33,7 @@
                             @foreach($enquiries as $enquiry)
                                 <tr>
                                     <th scope="row">{{ $enquiry->id }}</th>
-                                    <td>{{ $enquiry->date_issued }}</td>
+                                    <td>{{ $enquiry->created_at }}</td>
                                     <td>{{ $enquiry->issuer_name }}</td>
                                     <td class="td-long">{{ $enquiry->issuer_message }}</td>
                                     <td><a href="{{ route('a-property', ['id' => $enquiry->property_id]) }}">{{ $enquiry->property_id }}</a></td>
