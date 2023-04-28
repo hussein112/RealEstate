@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("/test", function(){
+    return view("test");
+});
+
 Route::get('', [WebsiteController::class, 'home'])->name("home");
 Route::get('contact', [WebsiteController::class, 'contact'])->name("contact");
 Route::get('about', [WebsiteController::class, 'about'])->name("about");

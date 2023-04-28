@@ -4,7 +4,12 @@
 
             <x-page-title title="dashboard"></x-page-title>
             <hr>
-
+            <script>
+                window.onload = function(){
+                    window.Echo.channel('events')
+                        .listen('TestingEvent', (e) => console.log(e.message));
+                }
+            </script>
             <h3 class="title">Overview</h3>
             <div class="mt-5 grid-3 admin-cards">
                 @isset($valuations)
@@ -80,7 +85,7 @@
                 @endisset
 
 
-                <script src="https://cdn.jsdelivr.net/gh/hussein112/AdminNotes/admin-note.js" type="module"></script>
+{{--                <script src="https://cdn.jsdelivr.net/gh/hussein112/AdminNotes/admin-note.js" type="module"></script>--}}
                 <div id="an-notes">
 
                 </div>
