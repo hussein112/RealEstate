@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Admin;
+use App\Models\Enquiry;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
-}, ['guards' => ['web', 'admin']]);
+Broadcast::channel('enquiries', function ($user) {
+    return ! is_null($user);
+}, ['guards' => ['employee']]);
+
+
+Broadcast::channel('valuation-request', function ($user) {
+    return ! is_null($user);
+}, ['guards' => ['admin']]);

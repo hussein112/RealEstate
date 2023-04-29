@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EnquiryAssigned;
 use App\Models\Admin;
 use App\Models\Employee;
 use App\Models\Enquiry;
@@ -101,6 +102,6 @@ class EnquiryController extends Controller
         $enquiry->status = 0;
         $enquiry->save();
         $employee = Employee::findOrFail($employeeId);
-        $employee->notify(new AssignedEnquiry($enquiry));
+        event (new EnquiryAssigned($enquiry));
     }
 }

@@ -14,7 +14,6 @@
                         <span class="visually-hidden">Unread Notifications</span>
                     </span>
                     @endif
-
                 </button>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="notifications" aria-labelledby="notifications">
                     <div class="offcanvas-header">
@@ -38,6 +37,49 @@
                         <div>
                             <!-- Start Notification -->
                             <div class="list-group">
+                                <script>
+                                    window.onload = function(){
+                                        window.Echo.private('valuation-request')
+                                            .listen('.val-request', (data) => {
+                                                console.log(data);
+                                                createNewValuationNotification(data.valuation)
+                                            });
+                                    }
+
+                                    function createNewValuationNotification(data){
+                                        const container = document.querySelector(".notifications .offcanvas-body .list-group");
+                                        const notificationContainer = document.createElement("a");
+                                        //  valuation/request/{id}/{notification_id}
+                                        notificationContainer.setAttribute("href", "valuation/request/" + data.id + "/" + data.property_id);
+                                        notificationContainer.setAttribute("class", "my-1 list-group-item list-group-item-action list-group-item-primary");
+
+                                        let notificationDescription = document.createElement("div");
+                                        notificationDescription.setAttribute("class", "d-flex w-100 justify-content-between");
+
+                                        let notificationTitle = document.createElement("h5");
+                                        notificationTitle.setAttribute("class", "mb-1");
+                                        notificationTitle.innerHTML = data.full_name + " Requested a Valuation";
+
+                                        let notificationTime = document.createElement("small");
+                                        notificationTime.innerHTML = data.created_at;
+
+                                        let notificationPurpose = document.createElement("p");
+                                        notificationPurpose.setAttribute("class", "mb-1");
+                                        notificationPurpose.innerHTML = "Property For " + data.for;
+
+                                        notificationDescription.appendChild(notificationTitle);
+                                        notificationDescription.appendChild(notificationTime);
+
+
+                                        notificationContainer.appendChild(notificationDescription);
+                                        notificationContainer.appendChild(notificationPurpose);
+
+
+                                        container.insertBefore(notificationContainer, container.firstChild);
+                                    }
+
+
+                                </script>
                                 @if(! empty(auth()->user()->notifications))
                                     @foreach(auth()->user()->unreadNotifications as $notification)
                                         <a href="{{ route("valuationRequest", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">

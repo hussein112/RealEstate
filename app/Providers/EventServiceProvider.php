@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\EnquiryAssigned;
+use App\Events\NewValuationRequest;
 use App\Events\TestingEvent;
+use App\Listeners\SendEnquiryAssignedNotifications;
+use App\Listeners\SendNewValuationRequestedNotification;
 use App\Listeners\TestingEventListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -20,8 +24,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        TestingEvent::class => [
-            TestingEventListener::class
+        EnquiryAssigned::class => [
+            SendEnquiryAssignedNotifications::class
+        ],
+        NewValuationRequest::class => [
+            SendNewValuationRequestedNotification::class
         ]
     ];
 

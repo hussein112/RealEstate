@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewValuationRequest;
 use App\Models\Admin;
 use App\Models\Assign;
 use App\Models\Property;
@@ -130,7 +131,8 @@ class ValuationController extends Controller
             'valuation_id' => $valuation->id,
             'admin_id' => null
         ]);
-        Notification::send($admins, new ValuationRequested($valuation));
+        event (new NewValuationRequest($valuation));
+//        Notification::send($admins, new ValuationRequested($valuation));
         return redirect()->back()->with([
             'success_msg' => 'Valuation Added Successfully, Wait an email from us.'
         ]);
