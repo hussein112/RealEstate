@@ -42,7 +42,11 @@
                                     window.onload = function(){
                                         window.Echo.private('App.Models.Admin.{{$admin->id}}')
                                             .notification((data) => {
-                                                createNewValuationNotification(data);
+                                                if(data.type.includes("Enquiry")){
+                                                    alert();
+                                                }else{
+                                                    createNewValuationNotification(data);
+                                                }
                                             });
                                     }
 
@@ -97,20 +101,38 @@
                                 </script>
                                 @if(! empty(auth()->user()->notifications))
                                     @foreach(auth()->user()->unreadNotifications as $notification)
-                                        <a href="{{ route("valuationRequest", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation
-                                                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                        @php($types = explode("\\", $notification->type))
+                                        @php($notification_type = end($types))
+                                        @if($notification_type == "ValuationRequested")
+                                            <a href="{{ route("valuationRequest", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation
+                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
                                                         <span class="visually-hidden">New alerts</span>
                                                      </span>
-                                                </h5>
-                                                <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
-                                            </div>
-                                            <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
-                                        </a>
+                                                    </h5>
+                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                </div>
+                                                <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
+                                            </a>
+                                        @else
+                                            <!-- Assign Enquiry Manually -->
+{{--                                            <a href="{{ route("e-", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">--}}
+{{--                                                <div class="d-flex w-100 justify-content-between">--}}
+{{--                                                    <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation--}}
+{{--                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">--}}
+{{--                                                        <span class="visually-hidden">New alerts</span>--}}
+{{--                                                     </span>--}}
+{{--                                                    </h5>--}}
+{{--                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>--}}
+{{--                                                </div>--}}
+{{--                                                <p class="mb-1">Property For {{ $notification->data['for'] }}</p>--}}
+{{--                                            </a>--}}
+                                        @endif
                                     @endforeach
 
                                     @foreach(auth()->user()->readNotifications as $notification)
+
                                         <div class="list-group-item list-group-item-action text-muted" aria-current="true">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation</h5>

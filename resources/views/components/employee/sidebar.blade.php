@@ -1,10 +1,26 @@
 <!-- Start Sidebar -->
 @php($employee = App\Models\Employee::find(Auth::guard('employee')->id()))
+<div id="new-enquiry" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+        A new Enquiry Assigned to You!
+        <div class="mt-2 pt-2 border-top">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
+        </div>
+    </div>
+</div>
 <script>
     window.onload = function(){
+        const toastElList = document.querySelectorAll('.toast')
+        const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
+
+        const newEnquiryToastHtml = document.getElementById('new-enquiry')
+        const newEnquiryToast = new bootstrap.Toast(newEnquiryToastHtml)
+
         window.Echo.private('App.Models.Employee.{{$employee->id}}')
             .notification((data) => {
                 if(data.type.includes("AssignedEnquiry")){
+                    alert();
+                    newEnquiryToast.show();
                     createNewEnquiryNotification(data);
                 }else{
                     createNewValuationNotification(data);

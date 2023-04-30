@@ -4,10 +4,12 @@ namespace App\Notifications;
 
 use App\Models\Enquiry;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UnassignedEnquiry extends Notification
+class UnassignedEnquiry extends Notification implements ShouldBroadcast
 {
     use Queueable;
 
@@ -31,7 +33,7 @@ class UnassignedEnquiry extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -59,5 +61,12 @@ class UnassignedEnquiry extends Notification
         return [
             'message' => "The enquiry id " . $this->enquiry->id . " cannot be assigned to any employee, since they are all at full capacity."
         ];
+    }
+
+
+    public function toBroadcast(){
+        return new BroadcastMessage([
+            'message' => "The enquiry id " . $this->enquiry->id . " cannot be assigned to any employee, since they are all at full capacity."
+        ]);
     }
 }
