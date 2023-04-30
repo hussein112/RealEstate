@@ -2,7 +2,7 @@
     <x-slot name="main">
         @vite('resources/js/employee/passwords.js')
         <main class="admin-property container">
-            <h4 class="title my-2 center">Edit Employee <strong>{{ $employee->full_name }}</strong></h4>
+            <h4 class="title my-2 center">Edit Profile</h4>
             <div class="container my-5">
                 <hr>
                 <x-messages msg="error_msg" type="danger"></x-messages>

@@ -5,6 +5,7 @@
                 <h4 class="title my-2">Valuation #{{ $valuation->id }}</h4>
                 <div class="container">
                     <hr>
+
                     <table class="table mt-5">
                         <tbody class="table-group-divider">
                         <tr>
@@ -24,7 +25,12 @@
 
                         <tr>
                             <th class="bg-danger">Valuation Status</th>
-                            <td class="bg-danger text-light">{{ ($valuation->status == 0) ? "In Progress" : "Done" }}</td>
+                            <td class="bg-danger text-light">
+                                @isset($valuation->status)
+                                    {{ ($valuation->status == 0) ? "In Progress" : "Done" }}
+                                @endisset
+                                <a href="{{ route("valuationRequest", ['id' => $valuation->id]) }}">Waiting Approval</a>
+                            </td>
                         </tr>
 
                         <tr>

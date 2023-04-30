@@ -36,15 +36,9 @@ class ValuationApprovalController extends Controller
     /**
      * Approve a pending Valuation
      *
-     * @param $id Valuation ID
+     * @param $id ValuationID
      */
     public function approve($id){
-        /**
-         *  - give a list of employees with their assigned valuations
-        - choose someone
-        - notify employee
-         */
-
         // Approve Valuation
         $this->markAsApproved($id);
 
@@ -61,12 +55,9 @@ class ValuationApprovalController extends Controller
      * Mark the valuation as approved
      *
      * @param $id ValuationID
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function markAsApproved($id){
         ValuationApproval::where("valuation_id", $id)->update(['status' => 2]);
-
-        return redirect(route('a-valuations'));
     }
 
     /**
@@ -79,7 +70,7 @@ class ValuationApprovalController extends Controller
         $valuation = Valuation::findOrFail($valuationId);
 
         Assign::create([
-            'team_member_id' => $employeeId,
+            'employee_id' => $employeeId,
             'valuation_id' => $valuationId,
             'admin_id' => auth()->user()->id
         ]);
@@ -113,7 +104,6 @@ class ValuationApprovalController extends Controller
      * Reject a pending Valuation
      *
      * @param $id Valuation ID
-     * @return void
      */
     public function reject($id){
         $valuation = Valuation::findOrFail($id);

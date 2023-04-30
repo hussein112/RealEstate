@@ -4,8 +4,11 @@
     window.onload = function(){
         window.Echo.private('App.Models.Employee.{{$employee->id}}')
             .notification((data) => {
-                console.log(data);
-                createNewEnquiryNotification(data);
+                if(data.type.includes("AssignedEnquiry")){
+                    createNewEnquiryNotification(data);
+                }else{
+                    createNewValuationNotification(data);
+                }
             });
 
         function createNewEnquiryNotification(data){
@@ -22,6 +25,10 @@
             notificationTitle.setAttribute("class", "mb-1");
             notificationTitle.innerHTML = data.message;
 
+            let circle = createCircleNotification();
+
+            notificationTitle.appendChild(circle);
+
             let notificationTime = document.createElement("small");
             notificationTime.innerHTML = data.created_at;
 
@@ -33,6 +40,51 @@
 
 
             container.insertBefore(notificationContainer, container.firstChild);
+        }
+
+
+        function createNewValuationNotification(data){
+            const container = document.querySelector(".notifications .offcanvas-body .list-group");
+            const notificationContainer = document.createElement("a");
+            //enquiry/{id}/{notification_id?}
+            notificationContainer.setAttribute("href", "valuation/" + data.valuation_id + "/" + data.id);
+            notificationContainer.setAttribute("class", "my-1 list-group-item list-group-item-action list-group-item-primary");
+
+            let notificationDescription = document.createElement("div");
+            notificationDescription.setAttribute("class", "d-flex w-100 justify-content-between");
+
+            let notificationTitle = document.createElement("h5");
+            notificationTitle.setAttribute("class", "mb-1");
+            notificationTitle.innerHTML = data.message;
+
+            let circle = createCircleNotification();
+
+            notificationTitle.appendChild(circle);
+
+            let notificationTime = document.createElement("small");
+            notificationTime.innerHTML = data.created_at;
+
+
+            notificationDescription.appendChild(notificationTitle);
+            notificationDescription.appendChild(notificationTime);
+
+            notificationContainer.appendChild(notificationDescription);
+
+
+            container.insertBefore(notificationContainer, container.firstChild);
+        }
+
+
+        function createCircleNotification(){
+            let parent = document.createElement("span");
+            parent.setAttribute("class", "position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle");
+            let child = document.createElement("span");
+            child.setAttribute("class", "visually-hidden");
+            child.innerHTML = "New Alerts";
+
+            parent.appendChild(child);
+
+            return parent;
         }
     }
 </script>
@@ -50,7 +102,6 @@
                         <span class="visually-hidden">Unread Notifications</span>
                     </span>
                     @endif
-
                 </button>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="notifications" aria-labelledby="notifications">
                     <div class="offcanvas-header">
@@ -153,12 +204,6 @@
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="theme">
                         <label class="form-check-label" for="theme">Color</label>
-                    </div>
-                </li>
-                <li class="nav-item lang mx-2">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="language">
-                        <label class="form-check-label" for="language">Language</label>
                     </div>
                 </li>
             </div>

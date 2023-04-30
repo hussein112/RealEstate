@@ -24,12 +24,6 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        EnquiryAssigned::class => [
-            SendEnquiryAssignedNotifications::class
-        ],
-        NewValuationRequest::class => [
-            SendNewValuationRequestedNotification::class
-        ]
     ];
 
     /**

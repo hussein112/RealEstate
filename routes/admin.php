@@ -51,7 +51,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
     Route::get("valuation/{id}", [ValuationController::class, 'adminShow'])->name("a-valuationDetails");
     // Review the valuation
-    Route::get("valuation/request/{id}/{notification_id}", [ValuationApprovalController::class, 'index'])->name("valuationRequest");
+    Route::get("valuation/request/{id}/{notification_id?}", [ValuationApprovalController::class, 'index'])->name("valuationRequest");
 
     // Edit & index will return the same form
     Route::get("profile/{id}", [AdminController::class, 'edit'])->name('a-profileShow');

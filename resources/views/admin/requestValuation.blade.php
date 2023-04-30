@@ -8,7 +8,7 @@
                     <div>
                         <a href="{{ route("a-approveValuation", ['id' => $valuation->id]) }}" class="btn btn-primary">Approve</a>
                         <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</a>
-                        <small>Issued @ {{ $valuation->date_issued }}</small>
+                        <small>Issued @ {{ $valuation->created_at }}</small>
                     </div>
                     <table class="table mt-5">
                         <tbody class="table-group-divider">

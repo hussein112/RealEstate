@@ -4,11 +4,13 @@ namespace App\Notifications;
 
 use App\Models\Valuation;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ValuationRequested extends Notification
+class ValuationRequested extends Notification implements ShouldBroadcast
 {
     use Queueable;
 
@@ -32,7 +34,7 @@ class ValuationRequested extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -63,5 +65,14 @@ class ValuationRequested extends Notification
             'for' => $this->valuation->for,
             'type' => $this->valuation->type
         ];
+    }
+
+    public function toBroadcast(){
+        return new BroadcastMessage([
+            'valuation_id' => $this->valuation->id,
+            'full_name' => $this->valuation->full_name,
+            'for' => $this->valuation->for,
+            'type' => $this->valuation->type
+        ]);
     }
 }

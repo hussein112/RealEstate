@@ -37,20 +37,20 @@
                         <div>
                             <!-- Start Notification -->
                             <div class="list-group">
+
                                 <script>
                                     window.onload = function(){
-                                        window.Echo.private('valuation-request')
-                                            .listen('.val-request', (data) => {
-                                                console.log(data);
-                                                createNewValuationNotification(data.valuation)
+                                        window.Echo.private('App.Models.Admin.{{$admin->id}}')
+                                            .notification((data) => {
+                                                createNewValuationNotification(data);
                                             });
                                     }
 
                                     function createNewValuationNotification(data){
                                         const container = document.querySelector(".notifications .offcanvas-body .list-group");
                                         const notificationContainer = document.createElement("a");
-                                        //  valuation/request/{id}/{notification_id}
-                                        notificationContainer.setAttribute("href", "valuation/request/" + data.id + "/" + data.property_id);
+
+                                        notificationContainer.setAttribute("href", "valuation/request/" + data.valuation_id + "/" + data.id);
                                         notificationContainer.setAttribute("class", "my-1 list-group-item list-group-item-action list-group-item-primary");
 
                                         let notificationDescription = document.createElement("div");
@@ -65,7 +65,12 @@
 
                                         let notificationPurpose = document.createElement("p");
                                         notificationPurpose.setAttribute("class", "mb-1");
-                                        notificationPurpose.innerHTML = "Property For " + data.for;
+                                        notificationPurpose.innerText = "Property For " + (data.for === 1) ? "Sell" : "Rent";
+
+
+                                        let circle = createCircleNotification();
+
+                                        notificationPurpose.appendChild(circle);
 
                                         notificationDescription.appendChild(notificationTitle);
                                         notificationDescription.appendChild(notificationTime);
@@ -78,7 +83,17 @@
                                         container.insertBefore(notificationContainer, container.firstChild);
                                     }
 
+                                    function createCircleNotification(){
+                                        let parent = document.createElement("span");
+                                        parent.setAttribute("class", "position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle");
+                                        let child = document.createElement("span");
+                                        child.setAttribute("class", "visually-hidden");
+                                        child.innerHTML = "New Alerts";
 
+                                        parent.appendChild(child);
+
+                                        return parent;
+                                    }
                                 </script>
                                 @if(! empty(auth()->user()->notifications))
                                     @foreach(auth()->user()->unreadNotifications as $notification)
