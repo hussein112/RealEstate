@@ -78,7 +78,7 @@
                 @endisset
 
 
-                <script src="https://cdn.jsdelivr.net/gh/hussein112/AdminNotes/admin-note.js" type="module"></script>
+{{--                <script src="https://cdn.jsdelivr.net/gh/hussein112/AdminNotes/admin-note.js" type="module"></script>--}}
                 <div id="an-notes">
 
                 </div>

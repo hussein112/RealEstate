@@ -4,10 +4,12 @@ namespace App\Notifications;
 
 use App\Models\Enquiry;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AssignedEnquiry extends Notification
+class AssignedEnquiry extends Notification implements ShouldBroadcast
 {
     use Queueable;
 
@@ -31,7 +33,7 @@ class AssignedEnquiry extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -57,8 +59,18 @@ class AssignedEnquiry extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => "The enquiry id " . $this->enquiry->id . " is assigned for you.",
+            'message' => "An enquiry issued by: " . $this->enquiry->issuer_name . " is assigned for you.",
             'enquiry_id' => $this->enquiry->id
         ];
+    }
+
+
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'message' => "An enquiry issued by: " . $this->enquiry->issuer_name . " is assigned for you.",
+            'enquiry_id' => $this->enquiry->id,
+            'created_at' => $this->enquiry->created_at
+        ]);
     }
 }

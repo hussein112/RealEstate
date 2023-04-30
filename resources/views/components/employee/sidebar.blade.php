@@ -1,10 +1,46 @@
 <!-- Start Sidebar -->
 @php($employee = App\Models\Employee::find(Auth::guard('employee')->id()))
+<script>
+    window.onload = function(){
+        window.Echo.private('App.Models.Employee.{{$employee->id}}')
+            .notification((data) => {
+                console.log(data);
+                createNewEnquiryNotification(data);
+            });
+
+        function createNewEnquiryNotification(data){
+            const container = document.querySelector(".notifications .offcanvas-body .list-group");
+            const notificationContainer = document.createElement("a");
+            //enquiry/{id}/{notification_id?}
+            notificationContainer.setAttribute("href", "enquiry/" + data.enquiry_id + "/" + data.id);
+            notificationContainer.setAttribute("class", "my-1 list-group-item list-group-item-action list-group-item-primary");
+
+            let notificationDescription = document.createElement("div");
+            notificationDescription.setAttribute("class", "d-flex w-100 justify-content-between");
+
+            let notificationTitle = document.createElement("h5");
+            notificationTitle.setAttribute("class", "mb-1");
+            notificationTitle.innerHTML = data.message;
+
+            let notificationTime = document.createElement("small");
+            notificationTime.innerHTML = data.created_at;
+
+
+            notificationDescription.appendChild(notificationTitle);
+            notificationDescription.appendChild(notificationTime);
+
+            notificationContainer.appendChild(notificationDescription);
+
+
+            container.insertBefore(notificationContainer, container.firstChild);
+        }
+    }
+</script>
 <div class="sidebar-wrapper collapse collapse-horizontal" id="sidebar">
     <aside class="d-flex flex-column flex-shrink-0 p-3">
         <ul class="nav nav-pills mb-auto">
             <br>
-            <div class="notifications admin-notifications flex-center">
+            <div class="notifications flex-center">
                 <!-- Start Notifications List -->
                 <button class="btn btn-primary position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#notifications" aria-controls="notifications">
                     <iconify-icon class="display-6" icon="ion:notifications-sharp"></iconify-icon>

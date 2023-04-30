@@ -23,3 +23,8 @@ Broadcast::channel('enquiries', function ($user) {
 Broadcast::channel('valuation-request', function ($user) {
     return ! is_null($user);
 }, ['guards' => ['admin']]);
+
+
+Broadcast::channel('App.Models.Employee.{id}', function ($user) {
+    return ! is_null($user);
+}, ['guards' => ['employee']]);

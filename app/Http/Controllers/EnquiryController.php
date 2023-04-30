@@ -102,6 +102,7 @@ class EnquiryController extends Controller
         $enquiry->status = 0;
         $enquiry->save();
         $employee = Employee::findOrFail($employeeId);
-        event (new EnquiryAssigned($enquiry));
+        Notification::send($employee, new AssignedEnquiry($enquiry));
+//        event (new EnquiryAssigned($enquiry));
     }
 }
