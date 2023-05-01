@@ -50,8 +50,12 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::get("valuations", [ValuationController::class, 'adminIndex'])->name("a-valuations");
 
     Route::get("valuation/{id}", [ValuationController::class, 'adminShow'])->name("a-valuationDetails");
+
     // Review the valuation
     Route::get("valuation/request/{id}/{notification_id?}", [ValuationApprovalController::class, 'index'])->name("valuationRequest");
+
+
+
 
     // Edit & index will return the same form
     Route::get("profile/{id}", [AdminController::class, 'edit'])->name('a-profileShow');
@@ -86,6 +90,10 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         // Assign Valuation to an Employee
         Route::post("valuation/request/assign/{valuation_id}/{employee_id}", [ValuationApprovalController::class, 'assign'])->name('a-assignValuationTo');
+        // Manually Assign Enquiry to an Employee
+        // Review the enquiry
+        Route::get("enquiry/assign/{enquiry_id}/{notification_id?}", [EnquiriesController::class, 'review'])->name('a-assignEnquiry');
+        Route::post("enquiry/assign/{enquiry_id}/{employee_id}", [EnquiriesController::class, 'assign'])->name('a-assignEnquiryTo');
     });
 
 

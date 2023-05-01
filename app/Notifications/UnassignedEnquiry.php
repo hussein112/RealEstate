@@ -59,14 +59,16 @@ class UnassignedEnquiry extends Notification implements ShouldBroadcast
     public function toArray($notifiable)
     {
         return [
-            'message' => "The enquiry id " . $this->enquiry->id . " cannot be assigned to any employee, since they are all at full capacity."
+            'message' => "The enquiry id " . $this->enquiry->id . " cannot be assigned to any employee, since they are all at full capacity.",
+            'enquiry_id' => $this->enquiry->id
         ];
     }
 
 
     public function toBroadcast(){
         return new BroadcastMessage([
-            'message' => "The enquiry id " . $this->enquiry->id . " cannot be assigned to any employee, since they are all at full capacity."
+            'message' => "The enquiry id " . $this->enquiry->id . " cannot be assigned to any employee, since they are all at full capacity.",
+            'enquiry_id' => $this->enquiry->id
         ]);
     }
 }

@@ -1,26 +1,17 @@
 <!-- Start Sidebar -->
 @php($employee = App\Models\Employee::find(Auth::guard('employee')->id()))
-<div id="new-enquiry" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-body">
-        A new Enquiry Assigned to You!
-        <div class="mt-2 pt-2 border-top">
-            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
-        </div>
-    </div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
 </div>
+
 <script>
     window.onload = function(){
         const toastElList = document.querySelectorAll('.toast')
         const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
 
-        const newEnquiryToastHtml = document.getElementById('new-enquiry')
-        const newEnquiryToast = new bootstrap.Toast(newEnquiryToastHtml)
-
         window.Echo.private('App.Models.Employee.{{$employee->id}}')
             .notification((data) => {
                 if(data.type.includes("AssignedEnquiry")){
-                    alert();
-                    newEnquiryToast.show();
+                    createNewEnquiryToast(data);
                     createNewEnquiryNotification(data);
                 }else{
                     createNewValuationNotification(data);
@@ -102,6 +93,53 @@
 
             return parent;
         }
+
+
+        function createNewEnquiryToast(data){
+            let container = document.querySelector(".toast-container");
+            let toast = document.createElement("div");
+            toast.setAttribute("class", "toast");
+            toast.setAttribute("role", "alert");
+            toast.setAttribute("aria-live", "assertive");
+            toast.setAttribute("aria-atomic", "true");
+
+
+            let toastHeader = document.createElement("div");
+            toastHeader.setAttribute("class", "toast-header");
+
+
+            let toastTitle = document.createElement("strong");
+            toastTitle.setAttribute("class", "me-auto");
+            toastTitle.innerHTML = "New Enquiry";
+
+
+            let toastDate = document.createElement("small");
+            toastDate.innerHTML = Date.now();
+
+            let toastDismiss = document.createElement("button");
+            toastDismiss.setAttribute("type", "button");
+            toastDismiss.setAttribute("class", "btn-close");
+            toastDismiss.setAttribute("data-bs-dismiss", "toast");
+            toastDismiss.setAttribute("aria-label", "close");
+
+
+            toastHeader.appendChild(toastTitle);
+            toastHeader.appendChild(toastDate);
+            toastHeader.appendChild(toastDismiss);
+
+
+            let toastBody = document.createElement("div");
+            toastBody.setAttribute("class", "toast-body");
+            toastBody.innerHTML = data.message;
+
+            toast.appendChild(toastHeader);
+            toast.appendChild(toastBody);
+            const newEnquiryToast = new bootstrap.Toast(toast)
+
+            container.insertBefore(toast, container.firstChild);
+            newEnquiryToast.show();
+        }
+
     }
 </script>
 <div class="sidebar-wrapper collapse collapse-horizontal" id="sidebar">

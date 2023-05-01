@@ -1,5 +1,7 @@
 <!-- Start Sidebar -->
 @php($admin = App\Models\Admin::find(Auth::guard('admin')->id()))
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+</div>
 <div class="sidebar-wrapper collapse collapse-horizontal" id="sidebar">
     <aside class="d-flex flex-column flex-shrink-0 p-3">
         <ul class="nav nav-pills mb-auto">
@@ -37,15 +39,18 @@
                         <div>
                             <!-- Start Notification -->
                             <div class="list-group">
-
                                 <script>
+                                    const toastElList = document.querySelectorAll('.toast')
+                                    const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
                                     window.onload = function(){
                                         window.Echo.private('App.Models.Admin.{{$admin->id}}')
                                             .notification((data) => {
-                                                if(data.type.includes("Enquiry")){
-                                                    alert();
+                                                if(data.type.includes("UnassignedEnquiry")){
+                                                    createNewUnassignedEnquiryNotification(data);
+                                                    createToast(data, "Enquiry");
                                                 }else{
                                                     createNewValuationNotification(data);
+                                                    createToast(data, "Valuation");
                                                 }
                                             });
                                     }
@@ -65,11 +70,49 @@
                                         notificationTitle.innerHTML = data.full_name + " Requested a Valuation";
 
                                         let notificationTime = document.createElement("small");
-                                        notificationTime.innerHTML = data.created_at;
+                                        notificationTime.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
 
                                         let notificationPurpose = document.createElement("p");
                                         notificationPurpose.setAttribute("class", "mb-1");
                                         notificationPurpose.innerText = "Property For " + (data.for === 1) ? "Sell" : "Rent";
+
+
+                                        let circle = createCircleNotification();
+
+                                        notificationPurpose.appendChild(circle);
+
+                                        notificationDescription.appendChild(notificationTitle);
+                                        notificationDescription.appendChild(notificationTime);
+
+
+                                        notificationContainer.appendChild(notificationDescription);
+                                        notificationContainer.appendChild(notificationPurpose);
+
+
+                                        container.insertBefore(notificationContainer, container.firstChild);
+                                    }
+
+
+                                    function createNewUnassignedEnquiryNotification(data){
+                                        const container = document.querySelector(".notifications .offcanvas-body .list-group");
+                                        const notificationContainer = document.createElement("a");
+
+                                        notificationContainer.setAttribute("href", "enquiry/assign/" + data.enquiry_id + "/" + data.id);
+                                        notificationContainer.setAttribute("class", "my-1 list-group-item list-group-item-action list-group-item-primary");
+
+                                        let notificationDescription = document.createElement("div");
+                                        notificationDescription.setAttribute("class", "d-flex w-100 justify-content-between");
+
+                                        let notificationTitle = document.createElement("h5");
+                                        notificationTitle.setAttribute("class", "mb-1");
+                                        notificationTitle.innerHTML = "Enquiry " + data.enquiry_id + " Cannot Be Assigned";
+
+                                        let notificationTime = document.createElement("small");
+                                        notificationTime.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
+
+                                        let notificationPurpose = document.createElement("p");
+                                        notificationPurpose.setAttribute("class", "mb-1");
+                                        notificationPurpose.innerText = data.message;
 
 
                                         let circle = createCircleNotification();
@@ -98,6 +141,51 @@
 
                                         return parent;
                                     }
+
+                                    function createToast(data, title){
+                                        let container = document.querySelector(".toast-container");
+                                        let toast = document.createElement("div");
+                                        toast.setAttribute("class", "toast");
+                                        toast.setAttribute("role", "alert");
+                                        toast.setAttribute("aria-live", "assertive");
+                                        toast.setAttribute("aria-atomic", "true");
+
+
+                                        let toastHeader = document.createElement("div");
+                                        toastHeader.setAttribute("class", "toast-header");
+
+
+                                        let toastTitle = document.createElement("strong");
+                                        toastTitle.setAttribute("class", "me-auto");
+                                        toastTitle.innerHTML = "New " + title;
+
+
+                                        let toastDate = document.createElement("small");
+                                        toastDate.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
+
+                                        let toastDismiss = document.createElement("button");
+                                        toastDismiss.setAttribute("type", "button");
+                                        toastDismiss.setAttribute("class", "btn-close");
+                                        toastDismiss.setAttribute("data-bs-dismiss", "toast");
+                                        toastDismiss.setAttribute("aria-label", "close");
+
+
+                                        toastHeader.appendChild(toastTitle);
+                                        toastHeader.appendChild(toastDate);
+                                        toastHeader.appendChild(toastDismiss);
+
+
+                                        let toastBody = document.createElement("div");
+                                        toastBody.setAttribute("class", "toast-body");
+                                        toastBody.innerHTML = (title === "Valuation") ? data.full_name + " Requested a Valuation" : data.message;
+
+                                        toast.appendChild(toastHeader);
+                                        toast.appendChild(toastBody);
+                                        const newEnquiryToast = new bootstrap.Toast(toast)
+
+                                        container.insertBefore(toast, container.firstChild);
+                                        newEnquiryToast.show();
+                                    }
                                 </script>
                                 @if(! empty(auth()->user()->notifications))
                                     @foreach(auth()->user()->unreadNotifications as $notification)
@@ -117,29 +205,45 @@
                                             </a>
                                         @else
                                             <!-- Assign Enquiry Manually -->
-{{--                                            <a href="{{ route("e-", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">--}}
-{{--                                                <div class="d-flex w-100 justify-content-between">--}}
-{{--                                                    <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation--}}
-{{--                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">--}}
-{{--                                                        <span class="visually-hidden">New alerts</span>--}}
-{{--                                                     </span>--}}
-{{--                                                    </h5>--}}
-{{--                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>--}}
-{{--                                                </div>--}}
-{{--                                                <p class="mb-1">Property For {{ $notification->data['for'] }}</p>--}}
-{{--                                            </a>--}}
+                                            <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1"> Enquiry Cannot be Assigned
+                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                                        <span class="visually-hidden">New alerts</span>
+                                                     </span>
+                                                    </h5>
+                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                </div>
+                                                <p class="mb-1">{{ $notification->data['message'] }}</p>
+                                            </a>
                                         @endif
                                     @endforeach
 
                                     @foreach(auth()->user()->readNotifications as $notification)
-
-                                        <div class="list-group-item list-group-item-action text-muted" aria-current="true">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation</h5>
-                                                <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                        @php($types = explode("\\", $notification->type))
+                                        @php($notification_type = end($types))
+                                        @if($notification_type == "ValuationRequested")
+                                            <div class="list-group-item list-group-item-action text-muted" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation</h5>
+                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                </div>
+                                                <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
                                             </div>
-                                            <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
-                                        </div>
+                                        @else
+                                            <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1"> Enquiry Cannot be Assigned
+                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                                    <span class="visually-hidden">New alerts</span>
+                                                 </span>
+                                                    </h5>
+                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                </div>
+                                                <p class="mb-1">{{ $notification->data['message'] }}</p>
+                                            </a>
+                                        @endif
+
                                     @endforeach
 
                                 @else
@@ -216,12 +320,6 @@
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="theme">
                         <label class="form-check-label" for="theme">Color</label>
-                    </div>
-                </li>
-                <li class="nav-item lang mx-2">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="language">
-                        <label class="form-check-label" for="language">Language</label>
                     </div>
                 </li>
             </div>

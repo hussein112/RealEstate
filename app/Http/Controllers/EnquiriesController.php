@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Enquiry;
 use App\Models\Property;
+use App\Notifications\AssignedEnquiry;
 use Illuminate\Http\Request;
 
 class EnquiriesController extends Controller
@@ -50,55 +52,18 @@ class EnquiriesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function review($enquiry_id, $notification_id)
     {
-        //
+        if(isset($notification_id)){
+            auth()->user()->notifications()->findOrFail($notification_id)->markAsRead();
+        }
+        return view('admin.assignEnquiry')->with([
+            'employees' => Employee::all(),
+            'enquiry' => Enquiry::findOrFail($enquiry_id)
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -114,6 +79,36 @@ class EnquiriesController extends Controller
 
         return redirect()->back()->with([
             'success_msg' => "Enquiry Marked As Done"
+        ]);
+    }
+
+    /**
+     * @param $enquiryId
+     * @param $employeeId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * $valuation = Valuation::findOrFail($id);
+    if(isset($notification_id)){
+    auth()->user()->notifications()->findOrFail($notification_id)->markAsRead();
+    }
+     *
+     */
+
+    public function assign($enquiryId, $employeeId){
+        $enquiry = Enquiry::findOrFail($enquiryId);
+
+
+        $enquiry->employee_id = $employeeId;
+        $enquiry->save();
+
+
+        // Notify Employee
+        $employee = Employee::findOrFail($employeeId);
+        $employee->notify(new AssignedEnquiry($enquiry));
+
+        return view("admin.assignEnquiry")->with([
+            'enquiry' => $enquiry,
+            'sucess_msg' => "Enquiry Assigned To Employee",
+            'employee' => $employee
         ]);
     }
 
