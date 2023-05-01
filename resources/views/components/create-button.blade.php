@@ -1,2 +1,3 @@
-<a href="{{ route($target) }}" class="btn btn-primary">New {{ $title }}</a>
-<hr>
+<a href="{{ route($target) }}" class="btn btn-primary float-left">
+    New {{ $title }}
+</a>

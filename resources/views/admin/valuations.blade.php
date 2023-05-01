@@ -1,44 +1,45 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="admin-valuations container">
-            <x-page-title title="valuations"></x-page-title>
+            <x-page-title title="valuations" subtitle="all the valuations in the system"></x-page-title>
+
             <hr>
             <div class="container my-5">
                 <table class="table table-bordered caption-top">
                     <caption>List of All Valuation</caption>
-                    <thead class="bg-dark">
+                    <thead>
                     <tr>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("id", "ID")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("assigned_by", "Assigned By")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("date_issued", "Date Issued")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             Address 1
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("city", "City")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             Postal Code
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("type", "Property Type")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             Description
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("status", "Status")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("due_date", "Due")
                         </th>
-                        <th scope="col" class="text-primary">Details</th>
+                        <th scope="col">Details</th>
                     </tr>
                     </thead>
                     @isset($valuations)

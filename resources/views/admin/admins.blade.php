@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="admins-admin container">
-            <x-page-title title="admins"></x-page-title>
+            <x-page-title title="admins" subtitle="all the admins in the system"></x-page-title>
 
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
@@ -9,25 +9,25 @@
             <x-create-button target="a-newAdmin" title="Admin"></x-create-button>
             <table class="table table-bordered caption-top">
                 <caption>List of All Admins</caption>
-                <thead class="bg-dark">
+                <thead>
                 <tr>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('id', 'ID')
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('f_name', "Full Name")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('phone', "Phone")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('email', "Email")
                     </th>
-                    <th scope="col" class="text-primary">Avatar</th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">Avatar</th>
+                    <th scope="col">
                         @sortablelink('email_verified_at', "Verified Email")
                     </th>
-                    <th scope="col" class="text-primary">Actions</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 @isset($admins)

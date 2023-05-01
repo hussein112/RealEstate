@@ -1,35 +1,34 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="users-admin container">
-            <x-page-title title="posts"></x-page-title>
-
+            <x-page-title title="posts" subtitle="all the posts in the system"></x-page-title>
             <hr>
             <x-create-button target="a-newPost" title="Post"></x-create-button>
 
             <table class="table table-bordered caption-top">
                 <caption>List of All Posts</caption>
-                <thead class="bg-dark">
+                <thead>
                 <tr>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('id', "ID")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('title', "Title")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('date_posted', "Date Posted")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('content', "Content")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('category_id', "Category")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('admin_id', "Author")
                     </th>
-                    <th scope="col" class="text-primary">View</th>
-                    <th scope="col" class="text-primary">Actions</th>
+                    <th scope="col">View</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>

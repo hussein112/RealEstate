@@ -1,31 +1,30 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="enquiries-admin container">
-            <x-page-title title="enquiries"></x-page-title>
+            <x-page-title title="enquiries" subtitle="all the enquiries in the system"></x-page-title>
             <hr>
-
             <div class="container my-5">
                 <table class="table table-bordered caption-top">
                     <caption>List of All Enquiries</caption>
-                    <thead class="bg-dark">
+                    <thead>
                     <tr>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("id", "ID")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("date_issued", "Date")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("issuer_name", "Issuer Name")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             Issuer Message
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("property_id", "For")
                         </th>
-                        <th scope="col" class="text-primary">Reply</th>
-                        <th scope="col" class="text-primary">Details</th>
+                        <th scope="col">Reply</th>
+                        <th scope="col">Details</th>
                     </tr>
                     </thead>
                     @isset($enquiries)

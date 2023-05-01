@@ -30,13 +30,16 @@ class AdminController extends Controller
                 ['created_at', '<', now()],
                 ['created_at', '>', $this->pastWeek()]
             ])->count(),
-            'appointement' => Appointement::all()->count(),
-            'latest_appointement' => Appointement::where([
+            'appointements' => Appointement::all()->count(),
+            'latest_appointements' => Appointement::where([
                 ['created_at', '<', now()],
                 ['created_at', '>', $this->pastWeek()]
             ])->count(),
             'enquiries' => Enquiry::all()->count(),
-
+            'latest_enquiries' => Enquiry::where([
+                ['created_at', '<', now()],
+                ['created_at', '>', $this->pastWeek()]
+            ])->count(),
             'properties' => Property::all()->count(),
             'latest_properties' => Property::where([
                 ['created_at', '<', now()],

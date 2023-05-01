@@ -8,7 +8,7 @@
             <br>
             <div class="notifications admin-notifications flex-center">
                 <!-- Start Notifications List -->
-                <button class="btn btn-primary position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#notifications" aria-controls="notifications">
+                <button class="btn btn-notification position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#notifications" aria-controls="notifications">
                     <iconify-icon class="display-6" icon="ion:notifications-sharp"></iconify-icon>
                     @if(auth()->user()->unreadNotifications()->count() > 0)
                         <span class="position-absolute top-0 start-10 translate-middle badge rounded-pill bg-danger">

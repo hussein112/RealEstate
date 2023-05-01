@@ -1,35 +1,35 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="branches-admin container">
-            <x-page-title title="branches"></x-page-title>
+            <x-page-title title="branches" subtitle="all the company branches"></x-page-title>
             <hr>
             <div class="container my-5">
                     <table class="table table-bordered caption-top">
                         <caption>List of All Branches</caption>
-                        <thead class="bg-dark">
+                        <thead>
                         <tr>
-                            <th scope="col" class="text-primary">
+                            <th scope="col">
                                 ID
                             </th>
-                            <th scope="col" class="text-primary">
+                            <th scope="col">
                                 Phone
                             </th>
-                            <th scope="col" class="text-primary">
+                            <th scope="col">
                                 Email
                             </th>
-                            <th scope="col" class="text-primary">
+                            <th scope="col">
                                 Location
                             </th>
-                            <th scope="col" class="text-primary">
+                            <th scope="col">
                                 Working Hours
                             </th>
-                            <th scope="col" class="text-primary">
+                            <th scope="col">
                                 From
                             </th>
-                            <th scope="col" class="text-primary">
+                            <th scope="col">
                                 To
                             </th>
-                            <th scope="col" class="text-primary">
+                            <th scope="col">
                                 Request a New Branch From Developer
                             </th>
                         </tr>

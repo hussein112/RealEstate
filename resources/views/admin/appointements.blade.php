@@ -1,7 +1,8 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="admin-valuations container">
-            <x-page-title title="appointements"></x-page-title>
+            <x-page-title title="appointements" subtitle="all the appointements in the system"></x-page-title>
+
 
             <div class="container my-5">
                 <x-messages msg="error_msg" type="danger"></x-messages>
@@ -11,27 +12,27 @@
 
                 <table class="table table-bordered caption-top">
                     <caption>List of All Appointements</caption>
-                    <thead class="bg-dark">
+                    <thead>
                     <tr>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink('id', "ID")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("title", "Title")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("notes", "Notes")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("created_at", "Date")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("admin_id", "By")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("property_id", "For Property")
                         </th>
-                        <th scope="col" class="text-primary">Actions</th>
+                        <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     @isset($appointements)
