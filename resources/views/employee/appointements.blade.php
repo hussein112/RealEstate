@@ -1,7 +1,7 @@
 <x-employee.layout>
     <x-slot name="main">
         <main class="admin-valuations container">
-            <x-page-title title="appointements"></x-page-title>
+            <x-page-title title="appointements" subtitle="all the appointements you have"></x-page-title>
             <x-create-button target="e-newAppointement" title="Appointement"></x-create-button>
 
             <div class="container my-5">
@@ -11,27 +11,27 @@
 
                 <table class="table table-bordered caption-top">
                     <caption>List of Appointements</caption>
-                    <thead class="bg-dark">
+                    <thead>
                     <tr>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink('id', "ID")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("title", "Title")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("notes", "Notes")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("created_at", "Date")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("admin_id", "By")
                         </th>
-                        <th scope="col" class="text-primary">
+                        <th scope="col">
                             @sortablelink("property_id", "For Property")
                         </th>
-                        <th scope="col" class="text-primary">Actions</th>
+                        <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     @isset($appointements)

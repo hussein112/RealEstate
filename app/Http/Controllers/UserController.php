@@ -37,6 +37,10 @@ class UserController extends Controller
         return view("admin.newUser");
     }
 
+    public function employeeCreate(){
+        return view("employee.newUser");
+    }
+
     /**
      * Show the form for creating a new resource.
      */

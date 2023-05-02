@@ -1,39 +1,39 @@
 <x-employee.layout>
     <x-slot name="main">
         <main class="users-admin container">
-            <x-page-title title="users"></x-page-title>
+            <x-page-title title="users" subtitle="list of all users in the system"></x-page-title>
 
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
-            <x-create-button target="a-newUser" title="User"></x-create-button>
+            <x-create-button target="e-newUser" title="User"></x-create-button>
             <table class="table table-bordered caption-top">
                 <caption>List of All Users</caption>
-                <thead class="bg-dark">
+                <thead>
                 <tr>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("id", "ID")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("f_name", "Full Name")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("phone", "Phone")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("email", "Email")
                     </th>
-                    <th scope="col" class="text-primary">Avatar</th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">Avatar</th>
+                    <th scope="col">
                         @sortablelink('admin_id', 'Added By')
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink('email_verified_at', 'Verfied Email')
                     </th>
-                    <th>
+                    <th scope="col">
                         @sortablelink("created_at", "Joined At")
                     </th>
-                    <th scope="col" class="text-primary">Actions</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 @isset($users)

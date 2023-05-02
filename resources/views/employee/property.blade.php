@@ -1,7 +1,7 @@
 <x-employee.layout>
     <x-slot name="main">
         <main class="admin-property container">
-            <h1 class="title my-2 center">Property <strong class="d-">#{{ $property->id }}</strong> Details</h1>
+            <x-page-title title="Property" subtitle="Property #{{$property->id}} Details"></x-page-title>
             <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                 <hr>
                 <table class="table table-bordered w-100">
@@ -117,17 +117,14 @@
 
                     </div>
 
-                    <div class="features">
-                        <ul class="grid custom-list">
-                            @if(isset($property->features))
-                                @foreach($property->features as $feature)
-                                    <li class="list-item">{{ $feature->feature }}</li>
-                                @endforeach
-                            @else
-                                <li class="list-item">No Features</li>
-                            @endif
-                        </ul>
-
+                    <div class="features grid-text">
+                        @if(sizeof($property->features) > 0)
+                            @foreach($property->features as $feature)
+                                <div class="feature">{{ $feature->feature }}</div>
+                            @endforeach
+                        @else
+                            <div class="feature">No Features</div>
+                        @endif
                     </div>
                 </div>
             </div>

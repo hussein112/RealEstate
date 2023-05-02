@@ -1,31 +1,31 @@
 <x-employee.layout>
     <x-slot name="main">
-        <main class="admins-admin container">
-            <x-page-title title="customers"></x-page-title>
-
+        <main class="container">
+            <x-page-title title="customers" subtitle="list of all customers on the system"></x-page-title>
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
+            <x-create-button target="e-newCustomer" title="Customer"></x-create-button>
             <table class="table table-bordered caption-top">
                 <caption>List of All Customers</caption>
-                <thead class="bg-dark">
+                <thead>
                 <tr>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("id", "ID")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("full_name", "Full Name")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("email", "Email")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("phone", "Phone")
                     </th>
-                    <th scope="col" class="text-primary">
+                    <th scope="col">
                         @sortablelink("admin_id", "Added By")
                     </th>
-                    <th scope="col" class="text-primary">Actions</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 @isset($customers)

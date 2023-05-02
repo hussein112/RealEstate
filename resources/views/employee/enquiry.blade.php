@@ -1,8 +1,8 @@
 <x-employee.layout>
     <x-slot name="main">
-        <main class="valuation-details container">
+        <main class="container">
             @isset($enquiry)
-                <h4 class="title my-2">Enquiry #{{ $enquiry->id }}</h4>
+                <x-page-title title="enquiry" subtitle="enquiry #{{$enquiry->id}} Details"></x-page-title>
                 <div class="container">
                     <hr>
                     <table class="table mt-5">

@@ -58,6 +58,9 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         Route::get("user", [UserController::class, 'employeeCreate'])->name("e-newUser");
         Route::post("user", [UserController::class, 'store'])->name("e-newUser");
 
+        Route::get("customer", [CustomerController::class, 'employeeCreate'])->name("e-newCustomer");
+        Route::post("customer", [CustomerController::class, 'store'])->name("e-newCustomer");
+
         Route::get("appointement", [AppointementController::class, 'employeeCreate'])->name("e-newAppointement");
         Route::post("appointement", [AppointementController::class, 'employeeStore'])->name("e-newAppointement");
     });
@@ -74,7 +77,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         Route::get("user/{id}", [UserController::class, 'employeeEdit'])->name("e-editUser");
         Route::patch("user/{id}", [UserController::class, 'update'])->name("e-editUser");
 
-        Route::get("customer/{id}", [CustomerController::class, 'edit'])->name("e-editCustomer");
+        Route::get("customer/{id}", [CustomerController::class, 'employeeEdit'])->name("e-editCustomer");
         Route::patch("customer/{id}", [CustomerController::class, 'update'])->name("e-editCustomer");
 
 //        Route::get("valuation/{id}", [ValuationController::class, 'employeeEdit'])->name("e-editValuation");

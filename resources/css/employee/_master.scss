@@ -1,18 +1,88 @@
+/* Light Theme by Default */
 :root{
     --transition: .3s;
     --pr: #f1f5f9;
-    --se: #79ffd7;
+    --se: #ff6157;
     --te: rgb(60, 138, 255);
     --rgbte: 60, 138, 255;
     --fo: #292929;
+    --yellow: #f5ff57;
+    --fi: #5acb96;
     --fs: 20px;
     --br: 10px;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau:ital,wght@0,1;0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,1;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+
+*{
+    font-family: 'Ysabeau';
+}
+
+body{
+    background: var(--pr) !important;
+}
 
 .toggle-handle{
     background-color: var(--pr);
 }
+
+
+.previous-avatar img{
+    width: 200px;
+    height: 200px;
+}
+
+
+thead{
+    background-color: var(--fi);
+    th{
+        color: var(--fo) !important;
+    }
+}
+
+form label{
+    color: var(--fo);
+}
+
+caption{
+    color: var(--fo);
+}
+
+input:not(.form-check-input),
+select,
+textarea{
+    background-color: var(--se) !important;
+    color: var(--fo) !important;
+    border: none !important;
+    &:focus{
+        box-shadow: 0 0 3px var(--fo) !important;
+    }
+}
+
+.features{
+    padding: 5px;
+    margin-top: 40px;
+    .feature{
+        color: var(--fo);
+        box-shadow: 0 0 1px var(--te);
+        padding: 20px;
+        text-align: center;
+        font-weight: 900;
+    }
+}
+
+/* Laravel Components */
+
+.page-title,
+.page-subtitle{
+    color: var(--fo);
+}
+
+.page-title{
+    font-weight: 700;
+}
+
 
 /* Start Bootstrap Fixes */
 
@@ -30,15 +100,6 @@
     color: var(--fo) !important;
 }
 
-
-.btn-primary{
-    background-color: var(--pr);
-    color: var(--fo);
-}
-
-.btn-primary:hover{
-    background-color: var(--se);
-}
 
 .carousel-indicators button{
     width: 0 !important;
@@ -69,7 +130,7 @@
 .card{
     width: 350px;
     max-height: 500px;
-    background-color: var(--te);
+    background-color: var(--se);
     box-shadow: 0px 0px 5px #ddd;
 }
 
@@ -329,7 +390,56 @@ aside{
     background-color: var(--se);
     ul{
         flex-direction: column;
-        // margin-top: 30px;
+        .notifications{
+            height: 35px;
+            padding: 20px 0;
+
+            .btn-notification{
+                border-radius: 50%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 8px;
+                background-color: var(--yellow) !important;
+            }
+
+            iconify-icon{
+                color: var(--se);
+                cursor: pointer;
+                font-size: 25px;
+                position: relative;
+            }
+
+
+            .notifications-list{
+                padding: 5px;
+                .notification{
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px;
+                    font-weight: 900;
+                    border-radius: 5px;
+                    margin: 10px 0;
+                    position: relative;
+                    text-display: none;
+                }
+
+
+                .unread-notification{
+                    background-color: var(--se);
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+
+
+                .read-notification{
+                    background-color: var(--pr);
+
+                }
+            }
+        }
     }
 
     a{

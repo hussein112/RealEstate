@@ -37,6 +37,13 @@ class CustomerController extends Controller
             'customer' => Customer::find($id)
         ]);
     }
+
+
+    public function employeeEdit($id){
+        return view("employee.editCustomer")->with([
+            'customer' => Customer::find($id)
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *

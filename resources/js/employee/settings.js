@@ -2,26 +2,16 @@ const theme = document.getElementById("theme");
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+
 theme.addEventListener("change", () => {
     toggleTheme();
 });
 
-const light = {
-    primary: "#ffffff",
-    secondary: "#79ffd7",
-    tertiary: "rgb(60, 138, 255)",
-    rgbtertiary: "60, 138, 255",
-    fourth: "#292929",
-}
+import { colors } from './colors';
 
-const dark = {
-    // primary: "#03001C",
-    primary: "#121212",
-    secondary: "#5e6e82",
-    tertiary: "rgb(91, 143, 185)",
-    rgbtertiary: "255, 255, 255",
-    fourth: "#ffffff",
-}
+const light = colors.light;
+const dark = colors.dark;
+
 colorize();
 
 
@@ -43,6 +33,8 @@ function toggleTheme(){
 }
 
 function setDark(){
+    theme.removeAttribute("checked");
+
     localStorage.setItem("theme", "dark");
 
     localStorage.setItem("pr", dark.primary);
@@ -60,6 +52,7 @@ function setDark(){
 }
 
 function setLight(){
+    theme.setAttribute("checked", "");
     localStorage.setItem("theme", "light");
 
     localStorage.setItem("pr", light.primary);

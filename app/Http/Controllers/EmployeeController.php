@@ -47,7 +47,10 @@ class EmployeeController extends Controller
                 ['created_at', '>', $this->pastWeek()]
             ])->count(),
             'enquiries' => Enquiry::all()->count(),
-
+            'latest_enquiries' => Enquiry::where([
+                ['created_at', '<', now()],
+                ['created_at', '>', $this->pastWeek()]
+            ])->count(),
             'properties' => Property::all()->count(),
             'latest_properties' => Property::where([
                 ['created_at', '<', now()],

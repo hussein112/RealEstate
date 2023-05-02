@@ -38,7 +38,7 @@
                     <div class="offcanvas-body">
                         <div>
                             <!-- Start Notification -->
-                            <div class="list-group">
+                            <div class="notifications-list">
                                 <script>
                                     const toastElList = document.querySelectorAll('.toast')
                                     const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
@@ -60,7 +60,7 @@
                                         const notificationContainer = document.createElement("a");
 
                                         notificationContainer.setAttribute("href", "valuation/request/" + data.valuation_id + "/" + data.id);
-                                        notificationContainer.setAttribute("class", "my-1 list-group-item list-group-item-action list-group-item-primary");
+                                        notificationContainer.setAttribute("class", "notification unread-notification");
 
                                         let notificationDescription = document.createElement("div");
                                         notificationDescription.setAttribute("class", "d-flex w-100 justify-content-between");
@@ -98,7 +98,7 @@
                                         const notificationContainer = document.createElement("a");
 
                                         notificationContainer.setAttribute("href", "enquiry/assign/" + data.enquiry_id + "/" + data.id);
-                                        notificationContainer.setAttribute("class", "my-1 list-group-item list-group-item-action list-group-item-primary");
+                                        notificationContainer.setAttribute("class", "notification unread-notification");
 
                                         let notificationDescription = document.createElement("div");
                                         notificationDescription.setAttribute("class", "d-flex w-100 justify-content-between");
@@ -192,7 +192,7 @@
                                         @php($types = explode("\\", $notification->type))
                                         @php($notification_type = end($types))
                                         @if($notification_type == "ValuationRequested")
-                                            <a href="{{ route("valuationRequest", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                            <a href="{{ route("valuationRequest", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation
                                                         <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
@@ -205,7 +205,7 @@
                                             </a>
                                         @else
                                             <!-- Assign Enquiry Manually -->
-                                            <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
+                                            <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h5 class="mb-1"> Enquiry Cannot be Assigned
                                                         <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
@@ -218,12 +218,12 @@
                                             </a>
                                         @endif
                                     @endforeach
-
+                                    <hr>
                                     @foreach(auth()->user()->readNotifications as $notification)
                                         @php($types = explode("\\", $notification->type))
                                         @php($notification_type = end($types))
                                         @if($notification_type == "ValuationRequested")
-                                            <div class="list-group-item list-group-item-action text-muted" aria-current="true">
+                                            <div class="notification read-notification" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h5 class="mb-1">{{ $notification->data['full_name'] }} Requested a Valuation</h5>
                                                     <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
@@ -231,8 +231,8 @@
                                                 <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
                                             </div>
                                         @else
-                                            <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="my-1 list-group-item list-group-item-action list-group-item-primary" aria-current="true">
-                                                <div class="d-flex w-100 justify-content-between">
+                                            <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification read-notification" aria-current="true">
+                                                <div class="">
                                                     <h5 class="mb-1"> Enquiry Cannot be Assigned
                                                         <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
                                                     <span class="visually-hidden">New alerts</span>

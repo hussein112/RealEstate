@@ -121,6 +121,13 @@ class PropertyController extends Controller
     }
 
 
+    public function employeeEdit($id){
+        return view("employee.editProperty")->with([
+            'property' => Property::findOrFail($id)
+        ]);
+    }
+
+
     /********************* START READ METHODS (ADMIN) *********************/
 
     public function adminIndex(){

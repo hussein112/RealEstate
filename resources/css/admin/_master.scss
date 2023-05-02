@@ -358,6 +358,36 @@ aside{
                 font-size: 25px;
                 position: relative;
             }
+
+            .notifications-list{
+                padding: 5px;
+                .notification{
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px;
+                    font-weight: 900;
+                    border-radius: 5px;
+                    margin: 10px 0;
+                    position: relative;
+                    text-decoration: none;
+                }
+
+
+                .unread-notification{
+                    background-color: var(--se);
+                    &:hover{
+                        text-decoration: underline;
+                    }
+
+                }
+
+
+                .read-notification{
+                    background-color: var(--pr);
+
+                }
+            }
+
         }
     }
 
