@@ -1,8 +1,8 @@
 <x-admin-layout>
     <x-slot name="main">
         @vite('resources/js/admin/passwords.js')
-        <main class="admin-property container">
-            <h4 class="title my-2 center">Edit Employee <strong>{{ $employee->full_name }}</strong></h4>
+        <main class="container">
+            <x-page-title title="employee" subtitle="edit employee #{{ $employee->full_name }}"></x-page-title>
             <div class="container my-5">
                 <hr>
                 @if(session('error_msg') != null)

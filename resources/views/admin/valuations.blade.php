@@ -4,8 +4,7 @@
             <x-page-title title="valuations" subtitle="all the valuations in the system"></x-page-title>
 
             <hr>
-            <div class="container my-5">
-                <table class="table table-bordered caption-top">
+            <table class="table table-bordered caption-top">
                     <caption>List of All Valuation</caption>
                     <thead>
                     <tr>
@@ -95,7 +94,6 @@
                     @endisset
                     </tbody>
                 </table>
-            </div>
 
             <!-- Start Pagination -->
             <div class="center">

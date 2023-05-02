@@ -3,8 +3,7 @@
         <main class="enquiries-admin container">
             <x-page-title title="enquiries" subtitle="all the enquiries in the system"></x-page-title>
             <hr>
-            <div class="container my-5">
-                <table class="table table-bordered caption-top">
+            <table class="table table-bordered caption-top">
                     <caption>List of All Enquiries</caption>
                     <thead>
                     <tr>
@@ -43,7 +42,6 @@
                         </tbody>
                         @endisset
                 </table>
-            </div>
 
             <!-- Start Pagination -->
             <div class="center">

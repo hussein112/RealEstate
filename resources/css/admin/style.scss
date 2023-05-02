@@ -7,6 +7,8 @@
     height: 15px;
 }
 
+
+
 /* Start Home Page */
 .home-admin{
     .admin-cards{
@@ -15,10 +17,10 @@
 
     .card-icon{
         font-size: 100px;
-        color: var(--orange);
+        color: var(--yellow);
         border-radius: 50%;
-        border: 1px solid var(--pr);
-        padding: 20px;
+        border: 2px solid var(--yellow);
+        padding: 25px;
     }
 }
 
@@ -77,14 +79,7 @@
         }
     }
 
-    .features{
-        padding: 5px;
-        margin-top: 40px;
-        .feature{
-            color: var(--se);
-            box-shadow: 0 0 1px var(--te);
-        }
-    }
+
 
     table{
         width: 30%;
@@ -104,6 +99,18 @@
 
 /* End Property Page */
 
+
+.features{
+    padding: 5px;
+    margin-top: 40px;
+    .feature{
+        color: var(--fo);
+        box-shadow: 0 0 1px var(--te);
+        padding: 20px;
+        text-align: center;
+        font-weight: 900;
+    }
+}
 
 /* Start Valuations Page */
 .admin-valuations{

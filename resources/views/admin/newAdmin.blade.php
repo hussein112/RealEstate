@@ -1,8 +1,7 @@
 <x-admin-layout>
     <x-slot name="main">
-        <main class="admin-property container">
-            <h4 class="title my-2 center">Add New Admin</h4>
-            <div class="container my-5">
+        <main class="container">
+            <x-page-title title="admin" subtitle="add new admin"></x-page-title>
                 <hr>
                 @if($errors->any())
                     @foreach($errors->all() as $error)
@@ -29,9 +28,8 @@
                         <label for="image" class="form-label">Choose a Profile</label>
                         <input class="form-control" type="file" id="images" name="image" accept="jpg,png,jpeg">
                     </div>
-                    <button type="submit" class="btn btn-success">Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </form>
-            </div>
         </main>
     </x-slot>
 

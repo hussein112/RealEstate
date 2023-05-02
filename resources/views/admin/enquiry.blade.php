@@ -1,59 +1,58 @@
 <x-admin-layout>
     <x-slot name="main">
-        <main class="valuation-details container">
-            <x-page-title title="Enquiry #{{$enquiry->id}}"></x-page-title>
-            <div class="container">
-                <hr>
-                <table class="table mt-5">
-                    <tbody class="table-group-divider">
-                        <tr>
-                            <th>ID</th>
-                            <td>{{ $enquiry->id }}</td>
-                        </tr>
+        <main class="container">
+            <x-page-title title="enquiry" subtitle="enquiry #{{$enquiry->id}} details"></x-page-title>
+            <hr>
+            <table class="table mt-5">
+                <tbody class="table-group-divider">
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ $enquiry->id }}</td>
+                    </tr>
 
-                        <tr>
-                            <th>Date Issued</th>
-                            <td>{{ $enquiry->created_at }}</td>
-                        </tr>
+                    <tr>
+                        <th>Date Issued</th>
+                        <td>{{ $enquiry->created_at }}</td>
+                    </tr>
 
-                        <tr>
-                            <th>Issuer Name</th>
-                            <td>{{ $enquiry->issuer_name }}</td>
-                        </tr>
+                    <tr>
+                        <th>Issuer Name</th>
+                        <td>{{ $enquiry->issuer_name }}</td>
+                    </tr>
 
-                        <tr>
-                            <th>Issuer Email</th>
-                            <td><a href="mailto:{{ $enquiry->issuer_email }}">{{ $enquiry->issuer_email }}</a></td>
-                        </tr>
+                    <tr>
+                        <th>Issuer Email</th>
+                        <td><a href="mailto:{{ $enquiry->issuer_email }}">{{ $enquiry->issuer_email }}</a></td>
+                    </tr>
 
-                        <tr>
-                            <th>Issuer Phone</th>
-                            <td><a href="tel:+{{ $enquiry->issuer_phone }}">{{ $enquiry->issuer_phone }}</a></td>
-                        </tr>
+                    <tr>
+                        <th>Issuer Phone</th>
+                        <td><a href="tel:+{{ $enquiry->issuer_phone }}">{{ $enquiry->issuer_phone }}</a></td>
+                    </tr>
 
 
-                        <tr>
-                            <th>Furnishing Status</th>
-                            <td>
-                                @switch($enquiry->furnishing_status)
-                                    @case(2)
-                                        Fully Furnished
-                                    @break
-                                    @case(1)
-                                        Partly Furnished
-                                    @break
-                                    @case(0)
-                                         Not Furnished
-                                    @break
-                                    @default
-                                        -
-                                @endswitch
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <th>Furnishing Status</th>
+                        <td>
+                            @switch($enquiry->furnishing_status)
+                                @case(2)
+                                    Fully Furnished
+                                @break
+                                @case(1)
+                                    Partly Furnished
+                                @break
+                                @case(0)
+                                     Not Furnished
+                                @break
+                                @default
+                                    -
+                            @endswitch
+                        </td>
+                    </tr>
+                </tbody>
 
-                </table>
-                <div class="property d-flex flex-column flex-lg-row">
+            </table>
+            <div class="property d-flex flex-column flex-lg-row">
                     <table class="table w-100 m-1">
                         <caption class="caption-top">Property Details</caption>
                         <tbody>
@@ -162,8 +161,6 @@
                     </div>
 
                 </div>
-
-            </div>
         </main>
     </x-slot>
 </x-admin-layout>

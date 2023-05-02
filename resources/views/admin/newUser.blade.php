@@ -1,7 +1,8 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="admin-property container">
-            <h4 class="title my-2 center">New User</h4>
+            <x-page-title title="user" subtitle="add new user"></x-page-title>
+
             <div class="container my-5">
                 <hr>
                 <x-messages msg="success_msg" type="success"></x-messages>

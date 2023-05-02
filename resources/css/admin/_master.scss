@@ -1,18 +1,26 @@
+/* Light Theme by Default */
 :root{
     --transition: .3s;
     --pr: #f1f5f9;
-    --se: #79ffd7;
+    --se: #ff6157;
     --te: rgb(60, 138, 255);
     --rgbte: 60, 138, 255;
     --fo: #292929;
-    --orange: #ffbc00;
+    --yellow: #f5ff57;
     --fi: #5acb96;
     --fs: 20px;
     --br: 10px;
 }
 
+
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau:ital,wght@0,1;0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,1;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+*{
+    font-family: 'ysabeau';
+}
+
 body{
-    background: var(--te);
+    background: var(--pr) !important;
 }
 
 .toggle-handle{
@@ -63,7 +71,7 @@ body{
 .card{
     width: 350px;
     max-height: 500px;
-    background-color: var(--fi);
+    background-color: var(--se);
     box-shadow: 0px 0px 5px #ddd;
 }
 
@@ -148,10 +156,6 @@ body{
 
 
 /* Start General Styles */
-
-body{
-    background-color: var(--pr);
-}
 
 hr{
     color: var(--te);
@@ -288,6 +292,16 @@ section{
     color: var(--se);
 }
 
+form label{
+    color: var(--fo);
+}
+
+
+
+caption{
+    color: var(--fo);
+}
+
 .secondary-header{
     min-height: auto;
 }
@@ -320,7 +334,8 @@ section{
 }
 
 aside{
-    background-color: var(--se);
+    background-color: var(--pr);
+    box-shadow: 0 0 10px #ddd;
     ul{
         flex-direction: column;
         .notifications{
@@ -334,14 +349,13 @@ aside{
                 align-items: center;
                 justify-content: center;
                 padding: 8px;
-                background-color: var(--orange) !important;
+                background-color: var(--yellow) !important;
             }
 
             iconify-icon{
-                color: var(--pr);
+                color: var(--se);
                 cursor: pointer;
                 font-size: 25px;
-
                 position: relative;
             }
         }
@@ -352,7 +366,8 @@ aside{
     }
 
     .nav-link.active{
-        background-color: var(--pr) !important;
+        background-color: var(--te) !important;
+        color: var(--pr) !important;
     }
 }
 
@@ -436,10 +451,10 @@ td img{
 }
 
 thead{
-    background-color: var(--te);
+    background-color: var(--fi);
 
     th{
-        color: var(--se);
+        color: var(--fo) !important;
     }
 }
 
@@ -497,3 +512,15 @@ thead{
 }
 
 /* End User Profile Page */
+
+
+/* Laravel Components */
+
+.page-title,
+.page-subtitle{
+    color: var(--fo);
+}
+
+.page-title{
+    font-weight: 700;
+}

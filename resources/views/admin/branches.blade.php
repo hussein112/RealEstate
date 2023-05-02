@@ -3,8 +3,7 @@
         <main class="branches-admin container">
             <x-page-title title="branches" subtitle="all the company branches"></x-page-title>
             <hr>
-            <div class="container my-5">
-                    <table class="table table-bordered caption-top">
+            <table class="table table-bordered caption-top">
                         <caption>List of All Branches</caption>
                         <thead>
                         <tr>
@@ -51,8 +50,6 @@
                             </tbody>
                         @endisset
                     </table>
-                </div>
-
         </main>
     </x-slot>
 </x-admin-layout>

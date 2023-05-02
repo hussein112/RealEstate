@@ -1,8 +1,8 @@
 <x-admin-layout>
     <x-slot name="main">
-        <main class="admin-property container">
+        <main class="container">
             @isset($property)
-                <h4 class="title my-2 center">Edit Property <strong class="d-">#{{ $property->id }}</strong></h4>
+                <x-page-title title="property" subtitle="edit property #{{$property->id}}"></x-page-title>
                 <div class="container d-flex flex-column">
 
                 @if($errors->any())
@@ -16,7 +16,6 @@
 
                 <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                     <hr>
-
                     <form action="" method="post" class="w-100 m-1">
                         @method("PATCH")
                         @csrf
@@ -86,54 +85,6 @@
                             @endif
                         </div>
                     </div>
-
-
-
-                    <!-- Start Delete Modal -->
-                    <div class="modal" tabindex="-1" id="deleteModal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Delete Image</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="text-capitalize">Are you Sure you want to delete image <strong>924738.jpg</strong>?</p>
-                                    <img src="https://picsum.photos/200/300" class="d-block w-100" alt="..." loading="lazy">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Delete Modal -->
-
-
-                    <!-- Start Edit Modal -->
-                    <div class="modal" tabindex="-1" id="editModal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Change Image</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="">
-                                        <div class="mb-3">
-                                            <input class="form-control form-control-sm" id="newImage" type="file">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-danger">Update</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Edit Modal -->
                 </div>
             @endisset
         </main>

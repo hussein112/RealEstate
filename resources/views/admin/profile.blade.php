@@ -1,8 +1,7 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="admin-edit-profile container">
-            <x->
-            <x-page-title title="edit profile"></x-page-title>
+            <x-page-title title="profile" subtitle="edit profile"></x-page-title>
 
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>

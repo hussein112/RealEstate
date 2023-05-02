@@ -1,60 +1,58 @@
 <x-admin-layout>
     <x-slot name="main">
-        <main class="admin-valuations container">
+        <main class="container">
             <x-page-title title="appointements" subtitle="all the appointements in the system"></x-page-title>
 
 
-            <div class="container my-5">
-                <x-messages msg="error_msg" type="danger"></x-messages>
-                <x-messages msg="success_msg" type="success"></x-messages>
-                <hr>
-                <x-create-button target="a-newAppointement" title="Appointement"></x-create-button>
+            <x-messages msg="error_msg" type="danger"></x-messages>
+            <x-messages msg="success_msg" type="success"></x-messages>
+            <hr>
+            <x-create-button target="a-newAppointement" title="Appointement"></x-create-button>
 
-                <table class="table table-bordered caption-top">
-                    <caption>List of All Appointements</caption>
-                    <thead>
-                    <tr>
-                        <th scope="col">
-                            @sortablelink('id', "ID")
-                        </th>
-                        <th scope="col">
-                            @sortablelink("title", "Title")
-                        </th>
-                        <th scope="col">
-                            @sortablelink("notes", "Notes")
-                        </th>
-                        <th scope="col">
-                            @sortablelink("created_at", "Date")
-                        </th>
-                        <th scope="col">
-                            @sortablelink("admin_id", "By")
-                        </th>
-                        <th scope="col">
-                            @sortablelink("property_id", "For Property")
-                        </th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    @isset($appointements)
-                        <tbody>
-                        @foreach($appointements as $appointement)
-                            <tr>
-                                <th scope="row">{{ $appointement->id }}</th>
-                                <td>{{ $appointement->title }}</td>
-                                <td>{{ $appointement->notes }}</td>
-                                <td>{{ $appointement->created_at }}</td>
-                                <td class="td-long">{{ $appointement->forAdmin->f_name . ' ' . $appointement->forAdmin->l_name }}</td>
-                                <td><a href="{{ route("a-property", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
-                                <td class="action-btns">
-                                    <a href="{{ route('a-editAppointement', ['id' => $appointement->id]) }}" class="btn btn-primary m-1">Edit</a>
-                                    <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$appointement->id}}">Delete</button>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    @endisset
-                </table>
-            </div>
+            <table class="table table-bordered caption-top">
+                <caption>List of All Appointements</caption>
+                <thead>
+                <tr>
+                    <th scope="col">
+                        @sortablelink('id', "ID")
+                    </th>
+                    <th scope="col">
+                        @sortablelink("title", "Title")
+                    </th>
+                    <th scope="col">
+                        @sortablelink("notes", "Notes")
+                    </th>
+                    <th scope="col">
+                        @sortablelink("created_at", "Date")
+                    </th>
+                    <th scope="col">
+                        @sortablelink("admin_id", "By")
+                    </th>
+                    <th scope="col">
+                        @sortablelink("property_id", "For Property")
+                    </th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                @isset($appointements)
+                    <tbody>
+                    @foreach($appointements as $appointement)
+                        <tr>
+                            <th scope="row">{{ $appointement->id }}</th>
+                            <td>{{ $appointement->title }}</td>
+                            <td>{{ $appointement->notes }}</td>
+                            <td>{{ $appointement->created_at }}</td>
+                            <td class="td-long">{{ $appointement->forAdmin->f_name . ' ' . $appointement->forAdmin->l_name }}</td>
+                            <td><a href="{{ route("a-property", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
+                            <td class="action-btns">
+                                <a href="{{ route('a-editAppointement', ['id' => $appointement->id]) }}" class="btn btn-primary m-1">Edit</a>
+                                <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$appointement->id}}">Delete</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                @endisset
+            </table>
 
             <!-- Start Pagination -->
             <div class="center">

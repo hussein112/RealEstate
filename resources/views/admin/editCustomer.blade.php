@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="main">
-        <main class="admin-property container">
-            <h4 class="title my-2 center">Edit Customer <strong>{{ $customer->full_name }}</strong></h4>
+        <main class="container">
+            <x-page-title title="customer" subtitle="edit customer #{{ $customer->full_name }}"></x-page-title>
             <div class="container my-5">
                 @if($errors->any())
                     @foreach($errors->all() as $error)

@@ -2,7 +2,8 @@
     <x-slot name="main">
         <script src="https://cdn.tiny.cloud/1/kpum9hwkqbfk4jh8byr2k70m6lgh669bbqxig4cblr9e8gc5/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
         <div class="container">
-            <x-page-title title="Edit post {{$post->id}}"></x-page-title>
+            <x-page-title title="profile" subtitle="edit post {{ $post->title }}"></x-page-title>
+
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>

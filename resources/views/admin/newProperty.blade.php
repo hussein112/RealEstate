@@ -1,7 +1,8 @@
 <x-admin-layout>
 <x-slot name="main">
-    <main class="admin-property container">
-        <h4 class="title my-2 center">Add New Property</h4>
+    <main class="container">
+        <x-page-title title="property" subtitle="add new property"></x-page-title>
+
         <div class="container d-flex flex-column">
             @if($errors->any())
                     <h3>Error Inserting Property</h3>
@@ -12,7 +13,6 @@
                 <x-messages msg="success_msg" type="success"></x-messages>
             @endif
         </div>
-        <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
             <hr>
             <form action="{{ route('a-newProperty') }}" method="post" class="w-100 m-1" enctype="multipart/form-data">
                 @csrf
@@ -74,7 +74,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary add-product">Add</button>
             </form>
-        </div>
     </main>
 </x-slot>
 </x-admin-layout>

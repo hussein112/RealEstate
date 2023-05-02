@@ -2,7 +2,8 @@
     <x-slot name="main">
         <main class="valuation-details container">
             @isset($valuation)
-                <h4 class="title my-2">Valuation #{{ $valuation->id }}</h4>
+                <x-page-title title="valuations" subtitle="Valuation #{{ $valuation->id }}"></x-page-title>
+
                 <div class="container">
                     <hr>
 

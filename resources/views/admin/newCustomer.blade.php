@@ -1,8 +1,8 @@
 <x-admin-layout>
     <x-slot name="main">
-        <main class="admin-property container">
-                <h4 class="title my-2 center">New Customer</h4>
-                <div class="container my-5">
+        <main class="container">
+            <x-page-title title="customer" subtitle="add new customer"></x-page-title>
+            <div class="container my-5">
                     @if($errors->any())
                         @foreach($errors->all() as $error)
                             <strong class="bg-danger">{{ $error }}</strong>
