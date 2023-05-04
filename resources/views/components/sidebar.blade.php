@@ -43,23 +43,24 @@
                                     const toastElList = document.querySelectorAll('.toast')
                                     const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
                                     window.onload = function(){
-                                        window.Echo.private('App.Models.Admin.{{$admin->id}}')
-                                            .notification((data) => {
-                                                if(data.type.includes("UnassignedEnquiry")){
-                                                    createNewUnassignedEnquiryNotification(data);
-                                                    createToast(data, "Enquiry");
-                                                }else{
-                                                    createNewValuationNotification(data);
-                                                    createToast(data, "Valuation");
-                                                }
+                                        window.Echo.private('admin.valuation.{{$admin->id}}')
+                                            .listen('.valuationRequest', (data) => {
+                                                createNewValuationNotification(data);
+                                                createToast(data, "Valuation");
+                                        });
+                                        window.Echo.private('admin.enquiry')
+                                            .listen('.unAssignedEnquiry', (data) => {
+                                                console.log(data);
+                                                createNewUnassignedEnquiryNotification(data);
+                                                createToast(data, "Enquiry");
                                             });
                                     }
 
                                     function createNewValuationNotification(data){
-                                        const container = document.querySelector(".notifications .offcanvas-body .list-group");
+                                        const container = document.querySelector(".notifications .offcanvas-body .notifications-list");
                                         const notificationContainer = document.createElement("a");
 
-                                        notificationContainer.setAttribute("href", "valuation/request/" + data.valuation_id + "/" + data.id);
+                                        notificationContainer.setAttribute("href", "valuation/request/" + data.valuation.id);
                                         notificationContainer.setAttribute("class", "notification unread-notification");
 
                                         let notificationDescription = document.createElement("div");
@@ -67,7 +68,7 @@
 
                                         let notificationTitle = document.createElement("h5");
                                         notificationTitle.setAttribute("class", "mb-1");
-                                        notificationTitle.innerHTML = data.full_name + " Requested a Valuation";
+                                        notificationTitle.innerHTML = data.valuation.full_name + " Requested a Valuation";
 
                                         let notificationTime = document.createElement("small");
                                         notificationTime.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
@@ -92,12 +93,11 @@
                                         container.insertBefore(notificationContainer, container.firstChild);
                                     }
 
-
                                     function createNewUnassignedEnquiryNotification(data){
-                                        const container = document.querySelector(".notifications .offcanvas-body .list-group");
+                                        const container = document.querySelector(".notifications .offcanvas-body .notifications-list");
                                         const notificationContainer = document.createElement("a");
 
-                                        notificationContainer.setAttribute("href", "enquiry/assign/" + data.enquiry_id + "/" + data.id);
+                                        notificationContainer.setAttribute("href", "enquiry/assign/" + data.enquiry.enquiry_id);
                                         notificationContainer.setAttribute("class", "notification unread-notification");
 
                                         let notificationDescription = document.createElement("div");
@@ -105,7 +105,7 @@
 
                                         let notificationTitle = document.createElement("h5");
                                         notificationTitle.setAttribute("class", "mb-1");
-                                        notificationTitle.innerHTML = "Enquiry " + data.enquiry_id + " Cannot Be Assigned";
+                                        notificationTitle.innerHTML = "Enquiry #" + data.enquiry.id + " Cannot Be Assigned";
 
                                         let notificationTime = document.createElement("small");
                                         notificationTime.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
@@ -177,7 +177,7 @@
 
                                         let toastBody = document.createElement("div");
                                         toastBody.setAttribute("class", "toast-body");
-                                        toastBody.innerHTML = (title === "Valuation") ? data.full_name + " Requested a Valuation" : data.message;
+                                        toastBody.innerHTML = (title === "Valuation") ? data.valuation.full_name + " Requested a Valuation" : data.enquiry.id + " Cannot be assigned to any of the employees, since they are all at full capacity";
 
                                         toast.appendChild(toastHeader);
                                         toast.appendChild(toastBody);

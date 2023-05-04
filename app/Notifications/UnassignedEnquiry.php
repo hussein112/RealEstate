@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UnassignedEnquiry extends Notification implements ShouldBroadcast
+class UnassignedEnquiry extends Notification
 {
     use Queueable;
 
@@ -33,7 +33,7 @@ class UnassignedEnquiry extends Notification implements ShouldBroadcast
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**
@@ -62,13 +62,5 @@ class UnassignedEnquiry extends Notification implements ShouldBroadcast
             'message' => "The enquiry id " . $this->enquiry->id . " cannot be assigned to any employee, since they are all at full capacity.",
             'enquiry_id' => $this->enquiry->id
         ];
-    }
-
-
-    public function toBroadcast(){
-        return new BroadcastMessage([
-            'message' => "The enquiry id " . $this->enquiry->id . " cannot be assigned to any employee, since they are all at full capacity.",
-            'enquiry_id' => $this->enquiry->id
-        ]);
     }
 }

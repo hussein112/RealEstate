@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AssignedEnquiryEvent;
 use App\Events\EnquiryAssigned;
+use App\Events\UnAssignedEnquiryEvent;
 use App\Models\Admin;
 use App\Models\Employee;
 use App\Models\Enquiry;
@@ -10,6 +12,7 @@ use App\Notifications\AssignedEnquiry;
 use App\Notifications\UnassignedEnquiry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Notification;
 
@@ -56,8 +59,7 @@ class EnquiryController extends Controller
     }
 
     public function notifyAdmin($enquiry){
-        $admins = Admin::all();
-        Notification::send($admins, new UnassignedEnquiry($enquiry));
+        event (new UnAssignedEnquiryEvent($enquiry));
     }
 
     /**
@@ -102,7 +104,6 @@ class EnquiryController extends Controller
         $enquiry->status = 0;
         $enquiry->save();
         $employee = Employee::findOrFail($employeeId);
-        Notification::send($employee, new AssignedEnquiry($enquiry));
-//        event (new EnquiryAssigned($enquiry));
+        event (new AssignedEnquiryEvent($enquiry, $employee));
     }
 }

@@ -15,16 +15,20 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('enquiries', function ($user) {
-    return ! is_null($user);
-}, ['guards' => ['employee']]);
+Broadcast::channel('admin.valuation.{id}', function ($admin, $id) {
+    return ! is_null($admin);
+}, ['guards' => ['admin']]);
 
-
-Broadcast::channel('App.Models.Admin.{id}', function ($user) {
-    return ! is_null($user);
+Broadcast::channel('admin.enquiry', function ($admin) {
+    return ! is_null($admin);
 }, ['guards' => ['admin']]);
 
 
-Broadcast::channel('App.Models.Employee.{id}', function ($user) {
-    return ! is_null($user);
+Broadcast::channel('employee.enquiry.{id}', function ($employee, $id) {
+    return ! is_null($employee);
+}, ['guards' => ['employee']]);
+
+
+Broadcast::channel('employee.valuation.{id}', function ($employee, $id) {
+    return ! is_null($employee);
 }, ['guards' => ['employee']]);

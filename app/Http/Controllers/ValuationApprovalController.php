@@ -35,8 +35,6 @@ class ValuationApprovalController extends Controller
 
     /**
      * Approve a pending Valuation
-     *
-     * @param $id ValuationID
      */
     public function approve($id){
         // Approve Valuation
@@ -53,8 +51,6 @@ class ValuationApprovalController extends Controller
 
     /**
      * Mark the valuation as approved
-     *
-     * @param $id ValuationID
      */
     public function markAsApproved($id){
         ValuationApproval::where("valuation_id", $id)->update(['status' => 2]);

@@ -10,7 +10,7 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ValuationRequested extends Notification implements ShouldBroadcast
+class ValuationRequested extends Notification
 {
     use Queueable;
 
@@ -34,7 +34,7 @@ class ValuationRequested extends Notification implements ShouldBroadcast
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**

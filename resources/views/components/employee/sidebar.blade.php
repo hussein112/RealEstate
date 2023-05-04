@@ -1,24 +1,27 @@
 <!-- Start Sidebar -->
 @php($employee = App\Models\Employee::find(Auth::guard('employee')->id()))
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+</div>
 <script>
     window.onload = function(){
         const toastElList = document.querySelectorAll('.toast')
         const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
 
-        window.Echo.private('App.Models.Employee.{{$employee->id}}')
-            .notification((data) => {
-                if(data.type.includes("AssignedEnquiry")){
-                    createNewEnquiryToast(data);
-                    createNewEnquiryNotification(data);
-                }else{
-                    createNewValuationNotification(data);
-                }
+        window.Echo.private('employee.enquiry.{{$employee->id}}')
+            .listen('.newEnquiry', (data) => {
+                createToast(data, "Enquiry");
+                createNewEnquiryNotification(data);
+            });
+        window.Echo.private('employee.valuation.{{$employee->id}}')
+            .listen('.newValuationAssigned', (data) => {
+                createToast(data, "Valuation");
+                createNewValuationNotification(data);
             });
 
         function createNewEnquiryNotification(data){
-            const container = document.querySelector(".notifications .offcanvas-body .list-group");
+            const container = document.querySelector(".notifications .offcanvas-body .notifications-list");
             const notificationContainer = document.createElement("a");
-            notificationContainer.setAttribute("href", "enquiry/" + data.enquiry_id + "/" + data.id);
+            notificationContainer.setAttribute("href", "enquiry/" + data.enquiry.id);
             notificationContainer.setAttribute("class", "notification unread-notification");
 
             let notificationDescription = document.createElement("div");
@@ -26,14 +29,14 @@
 
             let notificationTitle = document.createElement("h5");
             notificationTitle.setAttribute("class", "mb-1");
-            notificationTitle.innerHTML = data.message;
+            notificationTitle.innerHTML = "An Enquiry issued by: " + data.enquiry.issuer_name + " is Assigned for you.";
 
             let circle = createCircleNotification();
 
             notificationTitle.appendChild(circle);
 
             let notificationTime = document.createElement("small");
-            notificationTime.innerHTML = data.created_at;
+            notificationTime.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
 
 
             notificationDescription.appendChild(notificationTitle);
@@ -90,8 +93,7 @@
             return parent;
         }
 
-
-        function createNewEnquiryToast(data){
+        function createToast(data, title){
             let container = document.querySelector(".toast-container");
             let toast = document.createElement("div");
             toast.setAttribute("class", "toast");
@@ -106,11 +108,11 @@
 
             let toastTitle = document.createElement("strong");
             toastTitle.setAttribute("class", "me-auto");
-            toastTitle.innerHTML = "New Enquiry";
+            toastTitle.innerHTML = "New " + title;
 
 
             let toastDate = document.createElement("small");
-            toastDate.innerHTML = Date.now();
+            toastDate.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
 
             let toastDismiss = document.createElement("button");
             toastDismiss.setAttribute("type", "button");
@@ -126,7 +128,7 @@
 
             let toastBody = document.createElement("div");
             toastBody.setAttribute("class", "toast-body");
-            toastBody.innerHTML = data.message;
+            toastBody.innerHTML = (title === "Valuation") ? data.valuation.full_name + " Requested a Valuation" : data.enquiry.id + " Assigned for you.";
 
             toast.appendChild(toastHeader);
             toast.appendChild(toastBody);

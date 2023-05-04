@@ -11,7 +11,7 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewValuation extends Notification implements ShouldBroadcast
+class NewValuation extends Notification
 {
     use Queueable;
 
@@ -36,7 +36,7 @@ class NewValuation extends Notification implements ShouldBroadcast
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**
@@ -66,14 +66,5 @@ class NewValuation extends Notification implements ShouldBroadcast
             'message' => "A " . $this->valuation->type . " For Valuation in " . $this->valuation->city . " Assigned to You By " . $admin->f_name . " " . $admin->lname,
             'valuation_id' => $this->valuation->id
         ];
-    }
-
-
-    public function toBroadcast(){
-        $admin = Admin::findOrFail($this->adminId);
-        return new BroadcastMessage([
-            'message' => "A " . $this->valuation->type . " For Valuation in " . $this->valuation->city . " Assigned to You By " . $admin->f_name . " " . $admin->lname,
-            'valuation_id' => $this->valuation->id
-        ]);
     }
 }

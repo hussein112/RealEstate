@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AssignedEnquiry extends Notification implements ShouldBroadcast
+class AssignedEnquiry extends Notification
 {
     use Queueable;
 
@@ -33,7 +33,7 @@ class AssignedEnquiry extends Notification implements ShouldBroadcast
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**
@@ -62,15 +62,5 @@ class AssignedEnquiry extends Notification implements ShouldBroadcast
             'message' => "An enquiry issued by: " . $this->enquiry->issuer_name . " is assigned for you.",
             'enquiry_id' => $this->enquiry->id
         ];
-    }
-
-
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage([
-            'message' => "An enquiry issued by: " . $this->enquiry->issuer_name . " is assigned for you.",
-            'enquiry_id' => $this->enquiry->id,
-            'created_at' => $this->enquiry->created_at
-        ]);
     }
 }
