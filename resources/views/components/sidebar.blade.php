@@ -308,8 +308,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-branches") }}" class="nav-link {{ ( request()->is('admin/branches')) ? 'active' : '' }}">
-                    Branches
+                <a href="{{ route("settings") }}" class="nav-link {{ ( request()->is('admin/settings')) ? 'active' : '' }}">
+                    Settings
                 </a>
             </li>
 

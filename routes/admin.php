@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationApprovalController;
-use App\Http\Controllers\ValuationRequestedController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointementController;
@@ -24,6 +23,8 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
      */
     Route::get("", [AdminController::class, 'index'])->name('a-dashboard');
     Route::get("dashboard", [AdminController::class, 'index'])->name('a-dashboard');
+
+    Route::get("settings", [SettingsController::class, 'index'])->name('settings');
 
     Route::get("admins", [AdminController::class, 'admins'])->name('a-admins');
 
@@ -139,6 +140,20 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         // Approve a Valuation Request
         Route::get("valuation/request/approve/{id}", [ValuationApprovalController::class, 'approve'])->name('a-approveValuation');
+
+
+        // ----------- Website Settings
+        Route::get("settings/about", [SettingsController::class, 'editAbout'])->name('edit-about');
+        Route::patch("settings/about", [SettingsController::class, 'updateAbout'])->name('edit-about');
+
+        Route::get("settings/services", [SettingsController::class, 'editServices'])->name('edit-services');
+        Route::patch("settings/services", [SettingsController::class, 'updateServices'])->name('edit-services');
+
+        Route::get("settings/privacy", [SettingsController::class, 'editPrivacy'])->name('edit-privacy');
+        Route::patch("settings/privacy", [SettingsController::class, 'updatePrivacy'])->name('edit-privacy');
+
+        Route::get("settings/terms", [SettingsController::class, 'editTerms'])->name('edit-terms');
+        Route::patch("settings/terms", [SettingsController::class, 'updateTerms'])->name('edit-terms');
     });
 
 
