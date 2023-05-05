@@ -15,7 +15,7 @@
 
                 <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                     <hr>
-                    <form action="" method="post" class="w-100 m-1">
+                    <form action="{{ route('e-editProperty', ['id' => $property->id]) }}" method="post" class="w-100 m-1">
                         @method("PATCH")
                         @csrf
                         <input name="ownerfname" class="form-control my-2" type="text" placeholder="Owner Name" value="{{ $property->owner->full_name }}">
@@ -29,7 +29,8 @@
                                 Featured?
                             </label>
                         </div>
-                        <input class="form-control my-2" name="location" type="text" placeholder="Location" value="{{ $property->location }}">
+                        <input class="form-control my-2" name="location" type="text" placeholder="Location" value="{{ $property->city }}">
+                        <input class="form-control my-2" name="location" type="text" placeholder="Address" value="{{ $property->address }}">
                         <input type="number" name="bedrooms" id="" class="form-control my-2" placeholder="Number of Bedrooms" value="{{ $property->bedrooms_nb }}">
                         <input type="number" name="bathrooms" id="" class="form-control my-2" placeholder="Number of Bathrooms" value="{{ $property->bathrooms_nb }}">
                         <select name="type" id="" class="form-select my-2">

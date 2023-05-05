@@ -18,11 +18,14 @@
                         <div class="carousel-inner">
                             @foreach($featured_properties as $fproperty)
                                 <div class="carousel-item {{($loop->first) ? "active" : ""}}">
-                                    @foreach($fproperty->images->image as $path)
-                                    @if($loop->first)
-                                        <img src="{{ asset("storage/" . $path) }}" class="d-block w-100" alt="Property 1" loading="lazy">
-                                    @endif
-                                   @endforeach
+                                    @isset($fproperty->images->image)
+                                        @foreach($fproperty->images->image as $path)
+                                            @if($loop->first)
+                                                <img src="{{ asset("storage/" . $path) }}" class="d-block w-100" alt="Property 1" loading="lazy">
+                                            @endif
+                                        @endforeach
+                                    @endisset
+
                                     <div class="carousel-caption d-none d-md-block">
                                         <h4><a href="{{ route('property', ['id' => $fproperty->id]) }}">{{ $fproperty->title }}</a></h4>
                                         <p>{{ $fproperty->description }}</p>

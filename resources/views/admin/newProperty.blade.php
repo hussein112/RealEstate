@@ -25,7 +25,8 @@
                     </label>
                 </div>
                 <input type="number" class="form-control my-2" placeholder="Price" name="price">
-                <input type="text" class="form-control my-2" placeholder="Location" name="location">
+                <input type="text" class="form-control my-2" placeholder="City" name="city">
+                <input type="text" class="form-control my-2" placeholder="Address" name="address">
                 <input type="number" name="bedrooms" class="form-control my-2" placeholder="Number of Bedrooms">
                 <input type="number" name="bathrooms" class="form-control my-2" placeholder="Number of Bathrooms">
                 <select name="type" class="form-select my-2">

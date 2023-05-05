@@ -55,6 +55,10 @@ class Property extends Model
         return $this->belongsTo(Admin::class, 'admin_id', 'id');
     }
 
+    public function addedByEmployee(){
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
+    }
+
     public function appointements(){
         return $this->hasMany(Appointement::class);
     }

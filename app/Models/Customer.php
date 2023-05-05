@@ -11,7 +11,6 @@ class Customer extends Model
     use HasFactory, Sortable;
 
     protected $table = 'customer';
-    public $timestamps = false;
     protected $guarded = ['id'];
     public $sortable = [
         'id',
@@ -27,5 +26,9 @@ class Customer extends Model
 
     public function addedBy(){
         return $this->belongsTo(Admin::class, 'admin_id', 'id');
+    }
+
+    public function addedByEmployee(){
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 }

@@ -56,7 +56,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         Route::post("property", [PropertyController::class, 'store'])->name("e-newProperty");
 
         Route::get("user", [UserController::class, 'employeeCreate'])->name("e-newUser");
-        Route::post("user", [UserController::class, 'store'])->name("e-newUser");
+        Route::post("user", [UserController::class, 'superUsersStore'])->name("e-newUser");
 
         Route::get("customer", [CustomerController::class, 'employeeCreate'])->name("e-newCustomer");
         Route::post("customer", [CustomerController::class, 'store'])->name("e-newCustomer");
@@ -71,7 +71,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
      * Edit Routes
      */
     Route::prefix("edit")->group(function(){
-        Route::get("property/{id}", [PropertyController::class, 'edit'])->name("e-editProperty");
+        Route::get("property/{id}", [PropertyController::class, 'employeeEdit'])->name("e-editProperty");
         Route::patch("property/{id}", [PropertyController::class, 'update'])->name("e-editProperty");
 
         Route::get("user/{id}", [UserController::class, 'employeeEdit'])->name("e-editUser");

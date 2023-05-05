@@ -32,6 +32,18 @@ class Employee extends Authenticatable
         return $this->belongsTo(Image::class);
     }
 
+    public function addedProperties(){
+        return $this->hasMany(Property::class);
+    }
+
+    public function addedUsers(){
+        return $this->hasMany(User::class);
+    }
+
+    public function addedCustomers(){
+        return $this->hasMany(Customer::class);
+    }
+
     public function appointements(){
         return $this->hasMany(Appointement::class);
     }

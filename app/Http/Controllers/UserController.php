@@ -22,7 +22,7 @@ class UserController extends Controller
     }
     public function adminIndex(){
         return view("admin.users")->with([
-            'users' => User::all()
+            'users' => User::paginate(9)
         ]);
     }
     /**
@@ -74,6 +74,7 @@ class UserController extends Controller
             'email' => $request->email,
             'avatar_id' => ($img->id) ?? 1, // 1 -> Default.jpg
             'admin_id' => (Auth::guard('admin')->id()) ?? NULL,
+            'employee_id' => (Auth::guard('employee')->id()) ?? NULL,
         ]);
 
         Auth::login($user);
@@ -81,6 +82,38 @@ class UserController extends Controller
         // Send "Email Verification" Email
         event(new Registered($user));
         return view('auth.verify-email');
+    }
+
+
+    /**
+     * Super Users -> Admins + employees
+     */
+    public function superUsersStore(Request $request){
+        $request->validate([
+
+        ]);
+
+        if($request->hasFile('avatar')){
+            $img = Image::create([
+                'image' => $request->file('avatar')->store('avatars/users', 'public')
+            ]);
+        }
+
+        $user = User::create([
+            'f_name' => $request->fname,
+            'm_name' => $request->mname,
+            'l_name' => $request->lname,
+            'password' => $request->password,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'avatar_id' => ($img->id) ?? 1, // 1 -> Default.jpg
+            'admin_id' => (Auth::guard('admin')->id()) ?? NULL,
+            'employee_id' => (Auth::guard('employee')->id()) ?? NULL,
+        ]);
+
+        return back()->with([
+            'success_msg' => "User Added Successfully"
+        ]);
     }
 
     /**
@@ -134,9 +167,8 @@ class UserController extends Controller
             'avatar' => ''
         ]);
 
-        $img = Image::create([
-            'image' => $request->file('avatar')->store('avatars/users', 'public')
-        ]);
+
+
 
         $user = User::find($id);
         $user->f_name = $request->fname;
@@ -145,7 +177,12 @@ class UserController extends Controller
 //        $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->avatar_id = $img->id;
+        if($request->hasFile('image')){
+            $img = Image::create([
+                'image' => $request->file('avatar')->store('avatars/users', 'public')
+            ]);
+            $user->avatar_id = $img->id;
+        }
 
 
         if($user->isDirty()){

@@ -74,7 +74,19 @@
                             <td>{{ $property->bedrooms_nb }}</td>
                             <td>{{ $property->bathrooms_nb }}</td>
                             <td>{{ $property->created_at }}</td>
-                            <td>{{ $property->addedBy->f_name . ' ' . $property->addedBy->l_name }}</td>
+                            <td>
+                                @php
+                                    $name = '';
+                                    if(! is_null($property->employee_id)){
+                                        $name = $property->addedByEmployee->full_name;
+                                    }else{
+                                        if(isset($property->addedBy->f_name)){
+                                            $name = 'Admin-' . $property->addedBy->f_name . ' ' . $property->addedBy->l_name;
+                                        }
+                                    }
+                                @endphp
+                                {{ $name }}
+                            </td>
                             <td>{{ $property->type->type }}</td>
                             <td>{{ $property->owner->full_name }}</td>
                             <td>{{ $property->for }}</td>

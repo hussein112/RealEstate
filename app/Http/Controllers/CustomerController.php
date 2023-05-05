@@ -73,17 +73,15 @@ class CustomerController extends Controller
     {
         $validated = $request->validated();
 
-
-
         Customer::create([
             'full_name' => $request->fullname,
             'email' => $request->email,
             'phone' => $request->phone,
-            // To be changed if the employee is authorized to add customers
-            'admin_id' => Auth::guard('admin')->id()
+            'admin_id' => (Auth::guard('admin')->id()) ?? null,
+            'employee_id' => (Auth::guard("employee")->id()) ?? null
         ]);
 
-        return redirect()->intended()->with([
+        return redirect()->back()->with([
             'success_msg' => "Customer " . $request->fullname . " Addedd Successfully."
         ]);
     }

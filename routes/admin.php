@@ -86,7 +86,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::post("property", [PropertyController::class, 'store'])->name("a-newProperty");
 
         Route::get("user", [UserController::class, 'adminCreate'])->name("a-newUser");
-        Route::post("user", [UserController::class, 'store'])->name("a-newUser");
+        Route::post("user", [UserController::class, 'superUsersStore'])->name("a-newUser");
 
         // Assign Valuation to an Employee
         Route::post("valuation/request/assign/{valuation_id}/{employee_id}", [ValuationApprovalController::class, 'assign'])->name('a-assignValuationTo');

@@ -19,7 +19,11 @@
                     <form action="" method="post" class="w-100 m-1">
                         @method("PATCH")
                         @csrf
-                        <input name="ownerfname" class="form-control my-2" type="text" placeholder="Owner Name" value="{{ $property->owner->full_name }}">
+                        <select name="owner" class="form-select my-2">
+                            @foreach($customers as $customer)
+                                <option {{$customer->id}}>{{$customer->full_name}}</option>
+                            @endforeach
+                        </select>
                         <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}">
                         <input name="size" class="form-control my-2" type="number" placeholder="Size" value="{{ $property->size }}">
                         <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description">{{ $property->description }}</textarea>
@@ -33,7 +37,7 @@
                         <input class="form-control my-2" name="location" type="text" placeholder="Location" value="{{ $property->location }}">
                         <input type="number" name="bedrooms" id="" class="form-control my-2" placeholder="Number of Bedrooms" value="{{ $property->bedrooms_nb }}">
                         <input type="number" name="bathrooms" id="" class="form-control my-2" placeholder="Number of Bathrooms" value="{{ $property->bathrooms_nb }}">
-                        <select name="type" id="" class="form-select my-2">
+                        <select name="type" class="form-select my-2">
                             @foreach($types as $type)
                                 <option value="{{ $type->id }}" @selected($property->type->id == $type->id)>{{ $type->type }}</option>
                             @endforeach

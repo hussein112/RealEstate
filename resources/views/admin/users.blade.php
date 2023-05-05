@@ -50,11 +50,15 @@
                                 <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                             </td>
                             <td><img src="{{ asset('storage/' . $user->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal{{$user->id}}"></td>
-                            @if(isset($user->admin_id))
-                                <td>{{ ($user->addedBy->f_name) ? $user->addedBy->f_name . ' ' . $user->addedBy->l_name : "None"}}</td>
-                            @else
-                                <td>Manually Registered</td>
-                            @endif
+                            <td>
+                                @if(isset($user->admin_id))
+                                    {{ $user->addedBy->f_name . ' ' . $user->addedBy->l_name }}
+                                @elseif(isset($user->employee_id))
+                                    Employee-{{ $user->addedByEmployee->full_name }}
+                                @else
+                                    Manually Registered
+                                @endif
+                            </td>
                             @if($user->email_verified_at != null)
                                 <td class="bg-info">
                                     <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
@@ -81,6 +85,10 @@
                 <x-image-modal modalTitle="{{ $user->f_name }}'s Avatar" img="{{ $user->avatar->image }}" targetId="{{ $user->id }}">
                 </x-image-modal>
             @endforeach
+
+            <div class="container">
+                {{ $users->links() }}
+            </div>
         </main>
     </x-slot>
 </x-admin-layout>

@@ -51,7 +51,9 @@
                             <td><img src="{{ asset('storage/' . $user->avatar->image) }}" type="button" data-bs-toggle="modal" data-bs-target="#imageModal{{$user->id}}"></td>
                             <td>
                                 @if(isset($user->admin_id))
-                                    {{ $user->addedBy->f_name . ' ' . $user->addedBy->l_name }}
+                                    Admin-{{ $user->addedBy->f_name . ' ' . $user->addedBy->l_name }}
+                                @elseif(isset($user->employee_id))
+                                    {{ $user->addedByEmployee->full_name }}
                                 @else
                                     Manually Registered
                                 @endif
@@ -79,7 +81,13 @@
             @foreach($users as $user)
                 <x-delete-modal target="user" targetId="{{ $user->id }}" auth="e">
                 </x-delete-modal>
+                <x-image-modal img="{{ $user->avatar->image }}" targetId="{{ $user->id }}" modalTitle="{{ $user->f_name }}'s Avatar.">
+                </x-image-modal>
             @endforeach
+
+            <div class="container">
+                {{ $users->links() }}
+            </div>
         </main>
     </x-slot>
 </x-employee.layout>

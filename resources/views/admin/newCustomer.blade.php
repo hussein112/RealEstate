@@ -31,7 +31,7 @@
                 <div class="mb-3 row">
                     <label for="phone" class="col-form-label col-sm-2">Phone</label>
                     <div class="col-sm-10">
-                        <input autocomplete="off" id="phone" class="form-control my-2" type="tel" name="phone" placeholder="Phone Number">
+                        <input autocomplete="off" id="phone" class="form-control my-2" type="text" name="phone" placeholder="Phone Number">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddPropertyRequest;
+use App\Http\Requests\UpdatePropertyRequest;
 use App\Models\Customer;
 use App\Models\Feature;
 use App\Models\Image;
@@ -49,7 +50,7 @@ class PropertyController extends Controller
     public function show($id)
     {
         return view('property')->with([
-            'property' => Property::find($id)
+            'property' => Property::findOrFail($id)
         ]);
     }
 
@@ -123,7 +124,10 @@ class PropertyController extends Controller
 
     public function employeeEdit($id){
         return view("employee.editProperty")->with([
-            'property' => Property::findOrFail($id)
+            'property' => Property::find($id),
+            'types' => Type::all(),
+            'customers' => Customer::all(),
+            'features' => Feature::all(),
         ]);
     }
 
@@ -250,11 +254,12 @@ class PropertyController extends Controller
             'description' => $request->description,
             'featured' => ($request->has('featured') ? $request->featured : 0),
             'price' => $request->price,
-            'city' => $request->location,
-            'address' => 'Testing',
+            'city' => $request->city,
+            'address' => $request->address,
             'bedrooms_nb' => $request->bedrooms,
             'bathrooms_nb' => $request->bathrooms,
-            'admin_id' => Auth::guard('admin')->id(),
+            'employee_id' => (Auth::guard('employee')->id()) ?? null,
+            'admin_id' => (Auth::guard('admin')->id()) ?? null,
             'type_id' => $request->type,
             'for' => $request->for,
             'customer_id' => $request->owner
@@ -301,7 +306,9 @@ class PropertyController extends Controller
     {
         return view("admin.editProperty")->with([
             'property' => Property::find($id),
-            'types' => Type::all()
+            'types' => Type::all(),
+            'customers' => Customer::all(),
+            'features' => Feature::all(),
         ]);
     }
 
@@ -311,23 +318,9 @@ class PropertyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePropertyRequest $request, $id)
     {
-        $validated = $request->validate([
-            'size' => ['numeric', 'max_digits:4'],
-            'title' => ['max:300', 'regex:/[\s\Wa-zA-z0-9]/'],
-            'description' => ['max:450', 'regex:/[\s\Wa-zA-z0-9]/'],
-            'price' => ['numeric', 'max_digits:6'],
-            'location' => ['regex:/[\s\Wa-zA-z0-9]/', 'max:120'],
-            'bedrooms' => ['numeric', 'max_digits:2'],
-            'bathrooms' => ['numeric', 'max_digits:2'],
-            'type' => ['numeric', 'max_digits:1'],
-            'for' => ['string', 'max:20'],
-            'owner' => ['numeric', 'max_digits:4'],
-            // 1024 -> 1MB
-//            'images' => ['image', 'mimes:jpeg,png,jpg', 'size:1024', 'dimensions:min_width=200,max_width=1000,min_height=100,max_height=100']
-            'images.image.*' => 'image'
-        ]);
+        $validated = $request->validated();
 
         $property = Property::findOrFail($id);
         $property->customer_id = DB::table('customer')
@@ -336,8 +329,11 @@ class PropertyController extends Controller
                                     ->get()[0]->id;
         $property->title = $request->title;
         $property->size = $request->size;
+        $property->customer_id = $request->owner;
         $property->price = $request->price;
         $property->featured = ($request->featured) ?? 0;
+        $property->city = ($request->featured) ?? 0;
+        $property->address = ($request->featured) ?? 0;
         $property->bedrooms_nb = $request->bedrooms;
         $property->bathrooms_nb = $request->bathrooms;
         $property->type_id = $request->type;
