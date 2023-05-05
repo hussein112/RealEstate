@@ -166,7 +166,7 @@ class ValuationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      */
-    public function update($id)
+    public function done($id)
     {
          $valuation = Valuation::findOrFail($id);
          $valuation->status = 1;

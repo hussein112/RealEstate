@@ -21,7 +21,7 @@
                             <div class="carousel-inner">
                                 @foreach($property->images as $image)
                                     <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
-                                        <img class="d-block w-100" src="{{ asset("storage/" . $image->image) }}" alt="{{ $property->title }}">
+                                        <img class="d-block w-100" src="{{ asset('storage/' . $image->image) }}" alt="{{ $property->title }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -35,7 +35,7 @@
                             </button>
                         </div>
                     @elseif(sizeof($property->images) == 1)
-                        <img class="d-block w-100" src="{{ asset("storage/" . $property->images[0]->image) }}" alt="{{ $property->title }}">
+                        <img class="d-block w-100" src="{{ asset('storage/' . $property->images[0]->image) }}" alt="{{ $property->title }}">
                     @else
                         <img class="d-block w-100" src="{{ asset("storage/defaults/property.jpg") }}" alt="{{ $property->title }}">
                     @endif

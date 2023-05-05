@@ -243,9 +243,7 @@
                                                 <p class="mb-1">{{ $notification->data['message'] }}</p>
                                             </a>
                                         @endif
-
                                     @endforeach
-
                                 @else
                                     <p>No Notifications</p>
                                 @endif

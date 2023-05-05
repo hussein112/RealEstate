@@ -50,10 +50,9 @@
 
 
         function createNewValuationNotification(data){
-            const container = document.querySelector(".notifications .offcanvas-body .list-group");
+            const container = document.querySelector(".notifications .offcanvas-body .notifications-list");
             const notificationContainer = document.createElement("a");
-            //enquiry/{id}/{notification_id?}
-            notificationContainer.setAttribute("href", "valuation/" + data.valuation_id + "/" + data.id);
+            notificationContainer.setAttribute("href", "valuation/" + data.valuation.id);
             notificationContainer.setAttribute("class", "notification unread-notification");
 
             let notificationDescription = document.createElement("div");
@@ -61,14 +60,14 @@
 
             let notificationTitle = document.createElement("h5");
             notificationTitle.setAttribute("class", "mb-1");
-            notificationTitle.innerHTML = data.message;
+            notificationTitle.innerHTML = data.valuation.full_name + " Requested a new Valuation";
 
             let circle = createCircleNotification();
 
             notificationTitle.appendChild(circle);
 
             let notificationTime = document.createElement("small");
-            notificationTime.innerHTML = data.created_at;
+            notificationTime.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
 
 
             notificationDescription.appendChild(notificationTitle);
@@ -128,7 +127,7 @@
 
             let toastBody = document.createElement("div");
             toastBody.setAttribute("class", "toast-body");
-            toastBody.innerHTML = (title === "Valuation") ? data.valuation.full_name + " Requested a Valuation" : data.enquiry.id + " Assigned for you.";
+            toastBody.innerHTML = (title === "Valuation") ? data.valuation.full_name + " Valuation Assigned For You" : data.enquiry.id + " Assigned for you.";
 
             toast.appendChild(toastHeader);
             toast.appendChild(toastBody);

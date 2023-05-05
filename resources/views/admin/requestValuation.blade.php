@@ -2,16 +2,15 @@
     <x-slot name="main">
         <main class="valuation-details container">
             @isset($valuation)
-                <x-page-title title="Valuation" subtitle="Valuation #{{$valuation->id}}">
-                <div class="container">
-                    <hr>
-                    <div>
-                        <a href="{{ route("a-approveValuation", ['id' => $valuation->id]) }}" class="btn btn-primary">Approve</a>
-                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</a>
-                        <small>Issued @ {{ $valuation->created_at }}</small>
-                    </div>
-                    <table class="table mt-5">
-                        <tbody class="table-group-divider">
+                <x-page-title title="Valuation" subtitle="Valuation #{{$valuation->id}}"></x-page-title>
+                <hr>
+                <div>
+                    <a href="{{ route("a-approveValuation", ['id' => $valuation->id]) }}" class="btn btn-primary">Approve</a>
+                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</a>
+                    <small>Issued @ {{ $valuation->created_at }}</small>
+                </div>
+                <table class="table mt-5">
+                    <tbody class="table-group-divider">
                         <tr>
                             <th>ID</th>
                             <td>{{ $valuation->id }}</td>
@@ -117,11 +116,8 @@
                             <th>Description</th>
                             <td>{{ $valuation->description }}</td>
                         </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            @endisset
+                    </tbody>
+                </table>
         </main>
 
         <div class="modal fade" tabindex="-1" id="rejectModal">
@@ -138,12 +134,13 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                         <form action="{{ route("a-rejectRequest", ['id' => $valuation->id]) }}" method="post">
                             @csrf
-                            @method("DELETE")
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger">Yes</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        @endisset
     </x-slot>
 </x-admin-layout>

@@ -123,12 +123,17 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::get("valuation/{id}", [ValuationController::class, 'adminEdit'])->name("a-editValuation");
         Route::patch("valuation/{id}", [ValuationController::class, 'update'])->name("a-editValuation");
+        Route::patch("valuation/{id}", [ValuationController::class, 'done'])->name("a-editValuation");
+
 
         Route::get("customers/{id}", [CustomerController::class, 'adminEdit'])->name("a-editCustomer");
         Route::patch("customers/{id}", [CustomerController::class, 'update'])->name("a-editCustomer");
 
         Route::get("enquiries/{id}", [EnquiriesController::class, 'edit'])->name("a-editEnquiry");
         Route::patch("enquiries/{id}", [EnquiriesController::class, 'update'])->name("a-editEnquiry");
+        Route::patch("enquiries/done/{id}", [EnquiriesController::class, 'markAsDone'])->name("a-markAsDone");
+
+
 
         Route::patch("profile/{id}", [AdminController::class, 'update'])->name('a-profile');
 

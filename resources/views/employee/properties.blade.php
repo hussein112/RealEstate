@@ -81,7 +81,7 @@
                             <td><a href="{{ route("e-property", ['id' => $property->id]) }}" class="btn btn-primary flex-center"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
                             <td>
                                 <a href="{{ route("e-editProperty", ['id' => $property->id]) }}" class="btn btn-primary">Edit</a>
-                            </td>
+                                <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$property->id}}">Delete</button>                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -94,6 +94,13 @@
                 {{ $properties->links() }}
             </div>
             <!-- End Pagination -->
+
+            <!-- Start Delete Modal -->
+            @foreach($properties as $property)
+                <x-delete-modal target="property" targetId="{{ $property->id }}" auth="e">
+                </x-delete-modal>
+            @endforeach
+            <!-- End Delete Modal -->
 
         </main>
     </x-slot>

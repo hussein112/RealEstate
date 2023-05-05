@@ -82,7 +82,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
 //        Route::get("valuation/{id}", [ValuationController::class, 'employeeEdit'])->name("e-editValuation");
         // Mark Valuation As done
-        Route::patch("valuation/{id}", [ValuationController::class, 'update'])->name("e-editValuation");
+        Route::patch("valuation/{id}", [ValuationController::class, 'done'])->name("e-editValuation");
 
         Route::get("enquiries/{id}", [EnquiriesController::class, 'edit'])->name("e-editEnquiry");
         // Mark Enquiry As done

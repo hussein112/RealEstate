@@ -88,7 +88,18 @@
                                     @endif
                                 @endif
                                 <td class="bg-danger text-light">{{ $valuation->due_date }}</td>
-                                <td><a class="btn btn-primary flex-center" href="{{ route("a-valuationDetails", ['id' => $valuation->id]) }}"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
+                                <td>
+                                    <a class="btn btn-primary flex-center" href="{{ route("a-valuationDetails", ['id' => $valuation->id]) }}">
+                                        <iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon>
+                                    </a>
+                                    <form action="{{ route("a-editValuation", ['id' => $valuation->id]) }}" method="post" class="center">
+                                        @csrf
+                                        @method("PATCH")
+                                        <button class="btn btn-primary flex-center" type="submit">
+                                            <iconify-icon icon="mdi:coffee-maker-done"></iconify-icon>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     @endisset

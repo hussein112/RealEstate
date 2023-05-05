@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ValuationAssignedEvent;
 use App\Mail\ValuationApprovedEmail;
 use App\Mail\ValuationRejectedEmail;
 use App\Models\Assign;
@@ -87,7 +88,7 @@ class ValuationApprovalController extends Controller
 
         // Notify Employee
         $employee = Employee::findOrFail($employeeId);
-        $employee->notify(new NewValuation($valuation, auth()->user()->id));
+        event (new ValuationAssignedEvent($valuation, $employee));
 
         return view("admin.assignValuation")->with([
             'valuation' => $valuation,
