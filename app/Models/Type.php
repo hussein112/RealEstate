@@ -14,4 +14,8 @@ class Type extends Model
     public function property(){
         return $this->hasMany(Property::class);
     }
+
+    public function advertise(){
+        return $this->hasMany(Advertise::class);
+    }
 }

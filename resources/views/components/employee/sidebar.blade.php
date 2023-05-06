@@ -180,17 +180,42 @@
                                     @foreach(auth()->user()->unreadNotifications as $notification)
                                         @php($types = explode("\\", $notification->type))
                                         @php($notification_type = end($types))
-                                        <a href="{{ ($notification_type == "NewValuation") ? route("e-valuationDetails", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) : route("e-enquiryDetails", ['id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">{{ $notification->data['message'] }}
-                                                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
-                                                        <span class="visually-hidden">New alerts</span>
-                                                     </span>
-                                                </h5>
-                                                <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
-                                            </div>
-                                        </a>
-                                    @endforeach
+                                        @if($notification_type == "NewValuation")
+                                            <a href="{{ route("e-valuationDetails", ['id' => $notification->data['valuation_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1">{{ $notification->data['message'] }}
+                                                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                                            <span class="visually-hidden">New alerts</span>
+                                                         </span>
+                                                        </h5>
+                                                        <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                    </div>
+                                                </a>
+                                        @elseif($notification_type == "AssignedEnquiry")
+                                            <a href="{{ route("e-enquiryDetails", ['id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">{{ $notification->data['message'] }}
+                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                                            <span class="visually-hidden">New alerts</span>
+                                                         </span>
+                                                    </h5>
+                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                </div>
+                                            </a>
+                                        @else
+                                            <!-- Assinged Advertise -->
+                                            <a href="{{ route("e-advertiseDetails", ['id' => $notification->data['advertise_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">{{ $notification->data['message'] }}
+                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                                            <span class="visually-hidden">New alerts</span>
+                                                         </span>
+                                                    </h5>
+                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                </div>
+                                            </a>
+                                        @endif
+                                            @endforeach
                                     <hr>
                                     @foreach(auth()->user()->readNotifications as $notification)
                                         <div class="notification read-notification" aria-current="true">
@@ -247,6 +272,11 @@
             <li class="nav-item">
                 <a href="{{ route("e-enquiries") }}" class="nav-link {{ ( request()->is('employee/enquiries') || request()->is('employee/enquiry/*')) ? 'active' : '' }}">
                     Enquiries
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route("e-advertisements") }}" class="nav-link {{ ( request()->is('employee/advertisements') || request()->is('employee/enquiry/*')) ? 'active' : '' }}">
+                    Advertisements
                 </a>
             </li>
 

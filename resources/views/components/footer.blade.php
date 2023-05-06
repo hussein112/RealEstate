@@ -39,7 +39,7 @@
                 @endguest
                 <li class="l-item"><a href="{{ route("propertiesForBuy") }}">Buy Property</a></li>
                 <li class="l-item"><a href="{{ route("propertiesForRent") }}">Rent Property</a></li>
-                <li class="l-item"><a href="/user/advertise.html">Sell Property</a></li>
+                <li class="l-item"><a href="{{ route("newAdvertise") }}">Sell Property</a></li>
             </ul>
 
 

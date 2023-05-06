@@ -32,3 +32,8 @@ Broadcast::channel('employee.enquiry.{id}', function ($employee, $id) {
 Broadcast::channel('employee.valuation.{id}', function ($employee, $id) {
     return ! is_null($employee);
 }, ['guards' => ['employee']]);
+
+
+Broadcast::channel('employee.advertise.{id}', function ($employee, $id) {
+    return ! is_null($employee);
+}, ['guards' => ['employee']]);

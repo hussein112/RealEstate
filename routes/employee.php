@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvertiseController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FeatureController;
@@ -42,6 +43,14 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
     Route::get("valuation/{id}/{notification_id?}", [ValuationController::class, 'employeeShow'])->name("e-valuationDetails");
 
+    Route::get("advertisements", [AdvertiseController::class, 'employeeIndex'])->name('e-advertisements');
+
+
+    Route::get("advertise/{id}/{notification_id?}", [AdvertiseController::class, 'employeeShow'])->name("e-advertiseDetails");
+    Route::post("advertisement/approve/{id}", [AdvertiseController::class, 'approve'])->name("e-approveAdvertisement");
+    Route::post("advertisement/reject/{id}", [AdvertiseController::class, 'reject'])->name("e-rejectAdvertisement");
+    Route::post("advertisement/done/{id}", [AdvertiseController::class, 'done'])->name("e-markAsDoneAdvertisement");
+
     // Edit & index will return the same form
     Route::get("profile/{id}", [EmployeeController::class, 'edit'])->name('e-profileShow');
 
@@ -63,6 +72,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
         Route::get("appointement", [AppointementController::class, 'employeeCreate'])->name("e-newAppointement");
         Route::post("appointement", [AppointementController::class, 'employeeStore'])->name("e-newAppointement");
+
     });
 
 

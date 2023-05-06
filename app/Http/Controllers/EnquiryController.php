@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\EmployeeCapacity;
 use App\Events\AssignedEnquiryEvent;
 use App\Events\EnquiryAssigned;
 use App\Events\UnAssignedEnquiryEvent;
@@ -18,45 +19,7 @@ use Illuminate\Support\Facades\Notification;
 
 class EnquiryController extends Controller
 {
-
-    // MAX ALLOWED enquiry for an employee/day
-    public $EMPLOYEE_CAPACITY = 10;
-
-    /**
-     * Select an employee from the available ones
-     *
-     * @return mixed
-     */
-    public function getEmployee(){
-        $available_employees = $this->getAllAvailableEmployees();
-        if(sizeof($available_employees) > 0){
-            return Arr::Random($available_employees);
-        }
-        return null;
-    }
-
-
-    public function getAllAvailableEmployees(){
-        $employees_capacity = [
-//            'id' => 'nb_of_tasks'
-        ];
-
-        $employees = Employee::all();
-
-        foreach($employees as $employee){
-            $employees_capacity[$employee->id] = Enquiry::where('employee_id', $employee->id)->count();
-        }
-
-
-        $available_employees = [];
-        foreach($employees_capacity as $id => $capacity){
-            if($capacity < $this->EMPLOYEE_CAPACITY){
-                array_push($available_employees, $id);
-            }
-        }
-
-        return $available_employees;
-    }
+    use EmployeeCapacity;
 
     public function notifyAdmin($enquiry){
         event (new UnAssignedEnquiryEvent($enquiry));

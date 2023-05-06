@@ -51,4 +51,8 @@ class Employee extends Authenticatable
     public function valuation(){
         return $this->hasMany(Valuation::class);
     }
+
+    public function advertisement(){
+        return $this->hasMany(Advertise::class);
+    }
 }

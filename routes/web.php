@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvertiseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\AdminController;
@@ -43,6 +44,9 @@ require __DIR__.'/userauth.php';
 
 Route::get("valuation", [ValuationController::class, 'create'])->name("newValuation");
 Route::post("valuation/new", [ValuationController::class, 'store'])->name("createValuation");
+
+Route::get("advertise", [AdvertiseController::class, 'index'])->name("newAdvertise");
+Route::post("valuation/new", [AdvertiseController::class, 'store'])->name("createAdvertise");
 
 Route::post("enquiry/new/{propertyId}", [EnquiryController::class, 'store'])->name("createEnquiry");
 // Assign enquiry to an employee

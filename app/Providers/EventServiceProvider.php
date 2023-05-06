@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\AdvertiseAssignedEvent;
 use App\Events\AssignedEnquiryEvent;
 use App\Events\EnquiryAssigned;
 use App\Events\NewValuationRequest;
@@ -9,6 +10,7 @@ use App\Events\TestingEvent;
 use App\Events\UnAssignedEnquiryEvent;
 use App\Events\ValuationAssignedEvent;
 use App\Events\ValuationRequestedEvent;
+use App\Listeners\AdvertiseAssignedListener;
 use App\Listeners\AssignedEnquiryListener;
 use App\Listeners\SendEnquiryAssignedNotifications;
 use App\Listeners\SendNewValuationRequestedNotification;
@@ -44,6 +46,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ValuationAssignedEvent::class => [
             ValuationAssignedListener::class
+        ],
+        AdvertiseAssignedEvent::class => [
+            AdvertiseAssignedListener::class
         ],
     ];
 
