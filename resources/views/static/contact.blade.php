@@ -4,37 +4,24 @@
     </x-slot>
     <x-slot name="main">
         <section id="branches">
-    <div class="container flex flex-wrap">
-        <div class="container flex flex-wrap branch-main m-2">
-            <ul class="branch custom-list m-1">
-                <li class="l-item">Jounieh Branch</li>
-                <li class="l-item"><a href="tel:+9611234565"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> 0096103123456</a></li>
-                <li class="l-item"><a href="mailto:1@2.com"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> 1@2.com</a></li>
-                <li class="l-item"><a href="contact.html"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> Contact</a></li>
-            </ul>
-            <div id="googleMap" class="m-1">MAP</div>
-        </div>
-
-        <div class="container flex flex-wrap branch-main m-2">
-            <ul class="branch custom-list m-1">
-                <li class="l-item">Tyre Branch</li>
-                <li class="l-item"><a href="tel:+9611234565"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> 0096103123456</a></li>
-                <li class="l-item"><a href="mailto:1@2.com"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> 1@2.com</a></li>
-                <li class="l-item"><a href="contact.html"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> Contact</a></li>
-            </ul>
-            <div id="googleMap" class="m-1">MAP</div>
-        </div>
-
-        <div class="container flex flex-wrap branch-main m-2">
-            <ul class="branch custom-list m-1">
-                <li class="l-item">Beirut Branch</li>
-                <li class="l-item"><a href="tel:+9611234565"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> 0096103123456</a></li>
-                <li class="l-item"><a href="mailto:1@2.com"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> 1@2.com</a></li>
-                <li class="l-item"><a href="contact.html"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> Contact</a></li>
-            </ul>
-            <div id="googleMap" class="m-1">MAP</div>
-        </div>
-    </div>
-</section>
+            <div class="container flex flex-wrap">
+                @isset($branches)
+                    @foreach($branches as $branch)
+                        <div class="container flex flex-wrap branch-main m-2">
+                            <ul class="branch custom-list m-1">
+                                <h2>{{ $branch->name }}</h2>
+                                <li class="l-item"><a href="tel:{{$branch->phone}}"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> {{$branch->phone}}</a></li>
+                                <li class="l-item"><a href="mailto:{{$branch->phone}}"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> {{$branch->phone}}</a></li>
+                                <li class="l-item"><a href="contact.html"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> Contact</a></li>
+                                <li class="l-item">{{ $branch->location }}</li>
+                                <h3>Working Hours</h3>
+                                <li>From: {{$branch->from_hour}} A.M</li>
+                                <li>To: {{$branch->to_hour}} A.M</li>
+                            </ul>
+                        </div>
+                    @endforeach
+                @endisset
+            </div>
+        </section>
     </x-slot>
 </x-user-layout>

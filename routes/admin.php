@@ -154,6 +154,9 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::get("settings/terms", [SettingsController::class, 'editTerms'])->name('edit-terms');
         Route::patch("settings/terms", [SettingsController::class, 'updateTerms'])->name('edit-terms');
+
+        Route::get("settings/contact", [SettingsController::class, 'editContact'])->name('edit-contact');
+        Route::patch("settings/contact", [SettingsController::class, 'updateContact'])->name('edit-contact');
     });
 
 

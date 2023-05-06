@@ -1,12 +1,25 @@
+/* Light Theme by Default */
 :root{
     --transition: .3s;
     --pr: #f1f5f9;
-    --se: #79ffd7;
+    --se: #ff6157;
     --te: rgb(60, 138, 255);
     --rgbte: 60, 138, 255;
     --fo: #292929;
+    --yellow: #f5ff57;
+    --fi: #5acb96;
     --fs: 20px;
     --br: 10px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau:ital,wght@0,1;0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,1;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+*{
+    font-family: 'ysabeau';
+}
+
+body{
+    background: var(--pr) !important;
 }
 
 /* Start Bootstrap Fixes */
@@ -17,15 +30,6 @@
 
 .home-team .collapse:not(.show){
     display: none !important;
-}
-
-.btn-primary{
-    background-color: var(--pr);
-    color: var(--fo);
-}
-
-.btn-primary:hover{
-    background-color: var(--se);
 }
 
 .carousel-indicators button{
@@ -51,7 +55,6 @@
 .carousel-caption h5 a{
     color: var(--pr) !important;
 }
-
 
 
 .card{

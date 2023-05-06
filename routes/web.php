@@ -30,7 +30,7 @@ Route::get('', [WebsiteController::class, 'home'])->name("home");
 Route::get('contact', [WebsiteController::class, 'contact'])->name("contact");
 Route::get('about', [WebsiteController::class, 'about'])->name("about");
 Route::get('terms/partner', [WebsiteController::class, 'partnerTerms'])->name("partnerTerms");
-Route::get('policy', [WebsiteController::class, 'policy'])->name("policy");
+Route::get('policy', [WebsiteController::class, 'privacy'])->name("privacy");
 Route::get('services', [WebsiteController::class, 'services'])->name("services");
 Route::get('team', [WebsiteController::class, 'team'])->name("team");
 Route::get('terms', [WebsiteController::class, 'terms'])->name("terms");

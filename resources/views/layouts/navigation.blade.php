@@ -30,14 +30,6 @@
                     <a href="{{ route("logout") }}" class="nav-link">Log Out</a>
                 @endauth
                 <a href="{{ route("newValuation") }}" class="nav-link">Get a Valuation</a>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        EN
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="#">AR</a></li>
-                    </ul>
-                </li>
                 <li class="nav-item colors mx-2">
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="theme">

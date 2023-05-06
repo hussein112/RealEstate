@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\Post;
 use App\Models\Property;
 use App\Models\Type;
@@ -30,12 +31,12 @@ class WebsiteController extends Controller
         ]);
     }
 
-
     public function contact(){
         return view("static.contact")->with([
             'fors' => Property::select('for')->get(),
             'wheres' => Property::select('city')->get(),
             'types' => Type::all(),
+            'branches' => Branch::all()
         ]);
     }
 
@@ -55,8 +56,8 @@ class WebsiteController extends Controller
         ]);
     }
 
-    public function policy(){
-        return view("static.policy")->with([
+    public function privacy(){
+        return view("static.privacy")->with([
             'fors' => Property::select('for')->get(),
             'wheres' => Property::select('city')->get(),
             'types' => Type::all()

@@ -7,13 +7,13 @@
 
             <div class="social-media container">
                 <div class="d-flex flex-wrap">
-                    <a href="#" class="m-1"><iconify-icon icon="mdi:linkedin"></iconify-icon>
+                    <a href="{{ config("company.social_media.linkedin") }}" class="m-1"><iconify-icon icon="mdi:linkedin"></iconify-icon>
                     </a>
-                    <a href="#" class="m-1"><iconify-icon icon="mdi:twitter"></iconify-icon>
+                    <a href="{{ config("company.social_media.twitter") }}" class="m-1"><iconify-icon icon="mdi:twitter"></iconify-icon>
                     </a>
-                    <a href="#" class="m-1"><iconify-icon icon="mdi:instagram"></iconify-icon>
+                    <a href="{{ config("company.social_media.instagram") }}" class="m-1"><iconify-icon icon="mdi:instagram"></iconify-icon>
                     </a>
-                    <a href="#" class="m-1"><iconify-icon icon="mdi:facebook"></iconify-icon>
+                    <a href="{{ config("company.social_media.facebook") }}" class="m-1"><iconify-icon icon="mdi:facebook"></iconify-icon>
                     </a>
                 </div>
             </div>
@@ -24,9 +24,9 @@
                 <li class="l-item">Company</li>
                 <li class="l-item"><a href="{{ route("about") }}">About</a></li>
                 <li class="l-item"><a href="{{ route("services") }}">Our Services</a></li>
-                <li class="l-item"><a href="/blog.html">Blog</a></li>
+                <li class="l-item"><a href="{{ route("blog") }}">Blog</a></li>
                 <li class="l-item"><a href="{{ route("team") }}">Team</a></li>
-                <li class="l-item"><a href="{{ route("policy") }}">Privacy Policy</a></li>
+                <li class="l-item"><a href="{{ route("privacy") }}">Privacy Policy</a></li>
                 <li class="l-item"><a href="{{ route("terms") }}">Terms & Conditions</a></li>
             </ul>
 
@@ -45,8 +45,8 @@
 
             <ul class="site-map custom-list m-1">
                 <li class="l-item">Contact Us</li>
-                <li class="l-item"><a href="tel:+9611234565"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> 0096103123456</a></li>
-                <li class="l-item"><a href="mailto:1@2.com"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> info@company.com</a></li>
+                <li class="l-item"><a href="tel:+{{config('company.contact.phone')}}"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> {{config('company.contact.phone')}}</a></li>
+                <li class="l-item"><a href="mailto:{{config('company.contact.email')}}"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> {{config('company.contact.email')}}</a></li>
                 <li class="l-item"><a href="{{ route("contact") }}"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> Contact</a></li>
             </ul>
 
@@ -63,7 +63,7 @@
 
         <div class="copy">
             <p class="text-capitalize float-start">
-                ABC Real Estate Compnay 2022 &copy; All Rights Reserved.
+                {{ config('company.name') }} {{ date("Y") }} &copy; All Rights Reserved.
             </p>
 
             <p class="text-capitalize float-end">

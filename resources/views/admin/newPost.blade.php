@@ -19,7 +19,7 @@
                         @endforeach
                     @endisset
                 </select>
-                <button class="btn btn-primary" type="submit" class="my-2">Post</button>
+                <button class="btn btn-primary my-2" type="submit">Post</button>
             </form>
             @vite('resources/js/editorScaffolding.js')
         </main>

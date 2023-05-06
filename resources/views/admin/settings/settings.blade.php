@@ -11,6 +11,7 @@
                 <x-settings-card header="our services Page" link="edit-services" body="ljalfldhalfhjsadfhl sadfasdf"></x-settings-card>
                 <x-settings-card header="privacy policy Page" link="edit-privacy" body="ljalfldhalfhjsadfhl sadfasdf"></x-settings-card>
                 <x-settings-card header="terms & conditions Page" link="edit-terms" body="ljalfldhalfhjsadfhl sadfasdf"></x-settings-card>
+                <x-settings-card header="contact details" link="edit-contact" body="ljalfldhalfhjsadfhl sadfasdf"></x-settings-card>
             </div>
         </main>
     </x-slot>

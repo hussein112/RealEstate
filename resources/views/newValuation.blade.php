@@ -1,5 +1,4 @@
 <x-user-layout>
-
     <x-slot name="header">
         <x-header page="valuation" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>
     </x-slot>
@@ -23,7 +22,7 @@
                 <input name="fullname" type="text" class="form-control my-3 mx-1" placeholder="Full Name">
                 <input name="email" type="text" class="form-control my-3 mx-1" placeholder="Email Address">
                 <input name="phone" type="text" class="form-control my-3 mx-1" placeholder="Telephone Number">
-                <h2>Adress Details</h2>
+                <h2>Address Details</h2>
                 <div class="address grid">
                     <input name="addressone" type="text" class="form-control" placeholder="Address Line 1">
                     <input name="addresstwo" type="text" class="form-control" placeholder="Address Line 2">
