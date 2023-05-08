@@ -17,6 +17,11 @@
                 createToast(data, "Valuation");
                 createNewValuationNotification(data);
             });
+        window.Echo.private('employee.advertise.{{$employee->id}}')
+            .listen('.new-advertise', (data) => {
+                createToast(data.advertisement, "Advertise");
+                createNewAdvertiseNotification(data.advertisement);
+            });
 
         function createNewEnquiryNotification(data){
             const container = document.querySelector(".notifications .offcanvas-body .notifications-list");
@@ -61,6 +66,36 @@
             let notificationTitle = document.createElement("h5");
             notificationTitle.setAttribute("class", "mb-1");
             notificationTitle.innerHTML = data.valuation.full_name + " Requested a new Valuation";
+
+            let circle = createCircleNotification();
+
+            notificationTitle.appendChild(circle);
+
+            let notificationTime = document.createElement("small");
+            notificationTime.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
+
+
+            notificationDescription.appendChild(notificationTitle);
+            notificationDescription.appendChild(notificationTime);
+
+            notificationContainer.appendChild(notificationDescription);
+
+
+            container.insertBefore(notificationContainer, container.firstChild);
+        }
+
+        function createNewAdvertiseNotification(data){
+            const container = document.querySelector(".notifications .offcanvas-body .notifications-list");
+            const notificationContainer = document.createElement("a");
+            notificationContainer.setAttribute("href", "valuation/" + data.id);
+            notificationContainer.setAttribute("class", "notification unread-notification");
+
+            let notificationDescription = document.createElement("div");
+            notificationDescription.setAttribute("class", "d-flex w-100 justify-content-between");
+
+            let notificationTitle = document.createElement("h5");
+            notificationTitle.setAttribute("class", "mb-1");
+            notificationTitle.innerHTML = data.full_name + " Requested a new Advertisement";
 
             let circle = createCircleNotification();
 
@@ -127,7 +162,18 @@
 
             let toastBody = document.createElement("div");
             toastBody.setAttribute("class", "toast-body");
-            toastBody.innerHTML = (title === "Valuation") ? data.valuation.full_name + " Valuation Assigned For You" : data.enquiry.id + " Assigned for you.";
+            let body = '';
+            switch(title){
+                case "Valuation":
+                    body = data.valuation.full_name;
+                    break;
+                case "Enquiry":
+                    body = data.enquiry.id + " Assigned for you.";
+                    break;
+                default:
+                    body = "Advertisement #" + data.id + " Assigned For You";
+            }
+            toastBody.innerHTML = body;
 
             toast.appendChild(toastHeader);
             toast.appendChild(toastBody);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvertiseController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostController;
@@ -61,6 +62,13 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     // Edit & index will return the same form
     Route::get("profile/{id}", [AdminController::class, 'edit'])->name('a-profileShow');
 
+
+
+    Route::get("advertisements", [AdvertiseController::class, 'adminIndex'])->name('a-advertisements');
+    Route::get("advertise/{id}/{notification_id?}", [AdvertiseController::class, 'adminShow'])->name("a-advertiseDetails");
+    Route::patch("advertisement/approve/{id}", [AdvertiseController::class, 'approve'])->name("a-approveAdvertisement");
+    Route::patch("advertisement/reject/{id}", [AdvertiseController::class, 'reject'])->name("a-rejectAdvertisement");
+    Route::patch("advertisement/done/{id}", [AdvertiseController::class, 'done'])->name("a-markAsDoneAdvertisement");
 
     /**
      * Insert Routes
@@ -154,6 +162,9 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::get("settings/terms", [SettingsController::class, 'editTerms'])->name('edit-terms');
         Route::patch("settings/terms", [SettingsController::class, 'updateTerms'])->name('edit-terms');
+
+        Route::get("settings/advertise", [SettingsController::class, 'editAdvertise'])->name('edit-advertise');
+        Route::patch("settings/advertise", [SettingsController::class, 'updateAdvertise'])->name('edit-advertise');
 
         Route::get("settings/contact", [SettingsController::class, 'editContact'])->name('edit-contact');
         Route::patch("settings/contact", [SettingsController::class, 'updateContact'])->name('edit-contact');

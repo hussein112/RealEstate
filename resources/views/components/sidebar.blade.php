@@ -50,9 +50,14 @@
                                         });
                                         window.Echo.private('admin.enquiry')
                                             .listen('.unAssignedEnquiry', (data) => {
-                                                console.log(data);
                                                 createNewUnassignedEnquiryNotification(data);
                                                 createToast(data, "Enquiry");
+                                            });
+                                        window.Echo.private('admin.advertise.{{$admin->id}}')
+                                            .listen('.unAssignedAdvertisement', (data) => {
+                                                console.log(data);
+                                                createNewUnassignedEnquiryNotification(data);
+                                                createToast(data, "Advertisement");
                                             });
                                     }
 
@@ -268,13 +273,18 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-posts") }}" class="nav-link  {{ ( request()->is('admin/posts') || request()->is('admin/*/admin/*')) ? 'active' : '' }}">
-                    Blog
+                <a href="{{ route("a-properties") }}" class="nav-link {{ ( request()->is('admin/properties') || request()->is('admin/*/property/*')) ? 'active' : '' }}">
+                    Properties
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route("a-properties") }}" class="nav-link {{ ( request()->is('admin/properties') || request()->is('admin/*/property/*')) ? 'active' : '' }}">
-                    Properties
+                <a href="{{ route("a-advertisements") }}" class="nav-link {{ ( request()->is('admin/advertisements') || request()->is('admin/*/advertisements/*')) ? 'active' : '' }}">
+                    Advertisements
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route("a-posts") }}" class="nav-link  {{ ( request()->is('admin/posts') || request()->is('admin/*/admin/*')) ? 'active' : '' }}">
+                    Blog
                 </a>
             </li>
             <li class="nav-item">

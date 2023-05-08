@@ -32,7 +32,7 @@ class SettingsController extends Controller
         Storage::disk('local')->put('website/services/services.txt', $request->get('content'));
         Storage::disk('local')->put('website/services/quote.txt', $request->get('quote'));
         return redirect()->back()->with([
-            'sucess_msg' => 'About us page updated successfulyy'
+            'sucess_msg' => 'Services page updated successfulyy'
         ]);
     }
 
@@ -46,7 +46,7 @@ class SettingsController extends Controller
         Storage::disk('local')->put('website/privacy/privacy.txt', $request->get('content'));
         Storage::disk('local')->put('website/privacy/quote.txt', $request->get('quote'));
         return redirect()->back()->with([
-            'sucess_msg' => 'About us page updated successfulyy'
+            'sucess_msg' => 'Privacy Policy page updated successfulyy'
         ]);
     }
 
@@ -59,10 +59,22 @@ class SettingsController extends Controller
         Storage::disk('local')->put('website/terms/terms.txt', $request->get('content'));
         Storage::disk('local')->put('website/terms/quote.txt', $request->get('quote'));
         return redirect()->back()->with([
-            'sucess_msg' => 'About us page updated successfulyy'
+            'sucess_msg' => 'Terms & conditions page updated successfulyy'
         ]);
     }
 
+
+    public function editAdvertise(){
+        return view("admin.settings.editAdvertise");
+    }
+
+    public function updateAdvertise(Request $request){
+        Storage::disk('local')->put('website/advertise/advertise.txt', $request->get('content'));
+        Storage::disk('local')->put('website/advertise/quote.txt', $request->get('quote'));
+        return redirect()->back()->with([
+            'sucess_msg' => 'advertise page updated successfuly'
+        ]);
+    }
 
     public function editContact(){
         return view("admin.settings.editContact");
@@ -72,7 +84,7 @@ class SettingsController extends Controller
         Storage::disk('local')->put('website/terms/terms.txt', $request->get('content'));
         Storage::disk('local')->put('website/terms/quote.txt', $request->get('quote'));
         return redirect()->back()->with([
-            'sucess_msg' => 'About us page updated successfulyy'
+            'sucess_msg' => 'Contact us page updated successfulyy'
         ]);
     }
 }

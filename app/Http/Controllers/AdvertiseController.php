@@ -26,7 +26,19 @@ class AdvertiseController extends Controller
 
     public function employeeIndex(){
         return view("employee.advertisements")->with([
-            'advertisements' => Advertise::where("employee_id", Auth::guard("employee")->id())->get()
+            'advertisements' => Advertise::where("employee_id", Auth::guard("employee")->id())
+                ->where("status", "<>", "3")
+                ->where("status", "<>", "2")
+                ->get()
+        ]);
+    }
+
+
+    public function adminIndex(){
+        return view("admin.advertisements")->with([
+            'advertisements' => Advertise::where("status", "<>", "3")
+                ->where("status", "<>", "2")
+                ->get()
         ]);
     }
 
@@ -74,6 +86,16 @@ class AdvertiseController extends Controller
             auth()->user()->notifications()->findOrFail($notificationId)->markAsRead();
         }
         return view("employee.advertisement")->with([
+            'advertisement' => Advertise::findOrFail($id)
+        ]);
+    }
+
+
+    public function adminShow($id, $notificationId = null){
+        if(isset($notificationId)){
+            auth()->user()->notifications()->findOrFail($notificationId)->markAsRead();
+        }
+        return view("admin.advertisement")->with([
             'advertisement' => Advertise::findOrFail($id)
         ]);
     }

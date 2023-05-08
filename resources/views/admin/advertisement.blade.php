@@ -1,4 +1,4 @@
-<x-employee.layout>
+<x-admin-layout>
     <x-slot name="main">
         <main class="valuation-details container">
             @isset($advertisement)
@@ -6,7 +6,7 @@
                 <div class="container">
                     @if($advertisement->status == 0)
                         <div class="d-flex">
-                            <form action="{{ route("e-approveAdvertisement", ['id' => $advertisement->id]) }}" method="POST">
+                            <form action="{{ route("a-approveAdvertisement", ['id' => $advertisement->id]) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-primary">Approve</button>
@@ -14,7 +14,7 @@
                             <button class="btn btn-danger mx-1" type="button" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
                         </div>
                     @elseif($advertisement->status == 1)
-                        <form action="{{ route("e-markAsDoneAdvertisement", ['id' => $advertisement->id]) }}" method="POST">
+                        <form action="{{ route("a-markAsDoneAdvertisement", ['id' => $advertisement->id]) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="btn btn-danger">Mark as Done</button>
@@ -87,26 +87,26 @@
             @endisset
 
 
-                <div class="modal" tabindex="-1" id="rejectModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Reject Advertisement</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="text-capitalize">Are You Sure You want to reject <strong>Advertisement #{{ $advertisement->id }}?</strong></p>
-                            </div>
-                            <form action="{{ route("e-rejectAdvertisement", ['id' => $advertisement->id]) }}" method="POST" class="modal-footer">
-                                @csrf
-                                @method('PATCH')
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
-                                <button type="submit" class="btn btn-danger">Yes</button>
-                            </form>
+            <div class="modal" tabindex="-1" id="rejectModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Reject Advertisement</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <div class="modal-body">
+                            <p class="text-capitalize">Are You Sure You want to reject <strong>Advertisement #{{ $advertisement->id }}?</strong></p>
+                        </div>
+                        <form action="{{ route("a-rejectAdvertisement", ['id' => $advertisement->id]) }}" method="POST" class="modal-footer">
+                            @csrf
+                            @method('PATCH')
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-danger">Yes</button>
+                        </form>
                     </div>
                 </div>
+            </div>
 
         </main>
     </x-slot>
-</x-employee.layout>
+</x-admin-layout>

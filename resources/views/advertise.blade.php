@@ -5,8 +5,12 @@
 
     <x-slot name="main">
         <section class="container">
+            <q class="p-4 mb-5">
+                {!! \Illuminate\Support\Facades\Storage::get('website/advertise/quote.txt') !!}
+            </q>
+
             <article>
-                {!! \Illuminate\Support\Facades\Storage::get('website/about/about.txt') !!}
+                {!! \Illuminate\Support\Facades\Storage::get('website/advertise/advertise.txt') !!}
             </article>
             <h2 class="section-title flex-center">
                 Fill the details below to list your property on our website

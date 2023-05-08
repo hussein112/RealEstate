@@ -47,9 +47,9 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
 
     Route::get("advertise/{id}/{notification_id?}", [AdvertiseController::class, 'employeeShow'])->name("e-advertiseDetails");
-    Route::post("advertisement/approve/{id}", [AdvertiseController::class, 'approve'])->name("e-approveAdvertisement");
-    Route::post("advertisement/reject/{id}", [AdvertiseController::class, 'reject'])->name("e-rejectAdvertisement");
-    Route::post("advertisement/done/{id}", [AdvertiseController::class, 'done'])->name("e-markAsDoneAdvertisement");
+    Route::patch("advertisement/approve/{id}", [AdvertiseController::class, 'approve'])->name("e-approveAdvertisement");
+    Route::patch("advertisement/reject/{id}", [AdvertiseController::class, 'reject'])->name("e-rejectAdvertisement");
+    Route::patch("advertisement/done/{id}", [AdvertiseController::class, 'done'])->name("e-markAsDoneAdvertisement");
 
     // Edit & index will return the same form
     Route::get("profile/{id}", [EmployeeController::class, 'edit'])->name('e-profileShow');
