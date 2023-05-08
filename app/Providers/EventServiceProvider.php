@@ -7,6 +7,7 @@ use App\Events\AssignedEnquiryEvent;
 use App\Events\EnquiryAssigned;
 use App\Events\NewValuationRequest;
 use App\Events\TestingEvent;
+use App\Events\UnassignedAdvertisementEvent;
 use App\Events\UnAssignedEnquiryEvent;
 use App\Events\ValuationAssignedEvent;
 use App\Events\ValuationRequestedEvent;
@@ -15,6 +16,7 @@ use App\Listeners\AssignedEnquiryListener;
 use App\Listeners\SendEnquiryAssignedNotifications;
 use App\Listeners\SendNewValuationRequestedNotification;
 use App\Listeners\TestingEventListener;
+use App\Listeners\UnassignedAdvertisementListener;
 use App\Listeners\UnAssignedEnquiryListener;
 use App\Listeners\ValuationAssignedListener;
 use App\Listeners\ValuationRequestedListener;
@@ -49,6 +51,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AdvertiseAssignedEvent::class => [
             AdvertiseAssignedListener::class
+        ],
+        UnassignedAdvertisementEvent::class => [
+            UnassignedAdvertisementListener::class
         ],
     ];
 
