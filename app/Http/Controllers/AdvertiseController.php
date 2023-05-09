@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Custom\EmployeeCapacity;
 use App\Events\AdvertiseAssignedEvent;
+use App\Events\UnassignedAdvertisementEvent;
+use App\Mail\AdvertisementApprovedEmail;
+use App\Mail\AdvertisementRejectedEmail;
 use App\Models\Advertise;
 use App\Models\Employee;
 use App\Models\Property;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AdvertiseController extends Controller
 {
@@ -71,6 +75,10 @@ class AdvertiseController extends Controller
         ]);
     }
 
+    public function notifyAdmin($advertisement){
+        event (new UnassignedAdvertisementEvent($advertisement));
+    }
+
 
     public function assign($advertise, $employeeId){
         $advertise->employee_id = $employeeId;
@@ -107,6 +115,15 @@ class AdvertiseController extends Controller
         $advertisement->status = 1;
         $advertisement->save();
 
+        $to = [
+            [
+                'email' => $advertisement->email,
+                'name' => $advertisement->full_name
+            ]
+        ];
+
+        Mail::to($to)->send(new AdvertisementApprovedEmail($advertisement));
+
         return redirect()->back()->with([
             'success_msg' => "Advertisement Approved"
         ]);
@@ -117,6 +134,15 @@ class AdvertiseController extends Controller
         $advertisement = Advertise::findOrFail($id);
         $advertisement->status = 2;
         $advertisement->save();
+
+        $to = [
+            [
+                'email' => $advertisement->email,
+                'name' => $advertisement->full_name
+            ]
+        ];
+
+        Mail::to($to)->send(new AdvertisementRejectedEmail($advertisement));
 
         return redirect()->back()->with([
             'success_msg' => "Advertisement Rejected"

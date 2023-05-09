@@ -38,6 +38,6 @@ Broadcast::channel('employee.advertise.{id}', function ($employee, $id) {
     return ! is_null($employee);
 }, ['guards' => ['employee']]);
 
-Broadcast::channel('admin.advertise', function ($admin, $id) {
+Broadcast::channel('admin.advertise', function ($admin) {
     return ! is_null($admin);
 }, ['guards' => ['admin']]);

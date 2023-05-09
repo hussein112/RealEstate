@@ -59,7 +59,7 @@ class UnassignedAdvertisement extends Notification
     {
         return [
             'message' => "The advertisement id " . $this->advertisement->id . " cannot be assigned to any employee, since they are all at full capacity.",
-            'enquiry_id' => $this->advertisement->id
+            'advertisement_id' => $this->advertisement->id
         ];
     }
 }

@@ -3,9 +3,7 @@
 namespace App\Events;
 
 use App\Models\Advertise;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -38,6 +36,6 @@ class UnassignedAdvertisementEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('admin-advertise');
+        return new PrivateChannel('admin.advertise');
     }
 }

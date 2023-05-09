@@ -60,13 +60,6 @@ class ValuationController extends Controller
             'valuation' => Valuation::findOrFail($id)
         ]);
     }
-    /**
-     * Display all the valuations
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new valuation.

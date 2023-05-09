@@ -46,7 +46,7 @@ Route::get("valuation", [ValuationController::class, 'create'])->name("newValuat
 Route::post("valuation/new", [ValuationController::class, 'store'])->name("createValuation");
 
 Route::get("advertise", [AdvertiseController::class, 'index'])->name("newAdvertise");
-Route::post("valuation/new", [AdvertiseController::class, 'store'])->name("createAdvertise");
+Route::post("advertise/new", [AdvertiseController::class, 'store'])->name("createAdvertise");
 
 Route::post("enquiry/new/{propertyId}", [EnquiryController::class, 'store'])->name("createEnquiry");
 // Assign enquiry to an employee

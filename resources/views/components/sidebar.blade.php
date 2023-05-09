@@ -50,14 +50,14 @@
                                         });
                                         window.Echo.private('admin.enquiry')
                                             .listen('.unAssignedEnquiry', (data) => {
-                                                createNewUnassignedEnquiryNotification(data);
+                                                createNewUnassignedNotification(data, "Enquiry");
                                                 createToast(data, "Enquiry");
                                             });
-                                        window.Echo.private('admin.advertise.{{$admin->id}}')
+                                        window.Echo.private('admin.advertise')
                                             .listen('.unAssignedAdvertisement', (data) => {
                                                 console.log(data);
-                                                createNewUnassignedEnquiryNotification(data);
-                                                createToast(data, "Advertisement");
+                                                createNewUnassignedNotification(data.advertisement, "Advertisement");
+                                                createToast(data.advertisement, "Advertisement");
                                             });
                                     }
 
@@ -98,11 +98,11 @@
                                         container.insertBefore(notificationContainer, container.firstChild);
                                     }
 
-                                    function createNewUnassignedEnquiryNotification(data){
+                                    function createNewUnassignedNotification(data, title){
                                         const container = document.querySelector(".notifications .offcanvas-body .notifications-list");
                                         const notificationContainer = document.createElement("a");
 
-                                        notificationContainer.setAttribute("href", "enquiry/assign/" + data.enquiry.enquiry_id);
+                                        notificationContainer.setAttribute("href", "enquiry/assign/" + data.id);
                                         notificationContainer.setAttribute("class", "notification unread-notification");
 
                                         let notificationDescription = document.createElement("div");
@@ -110,7 +110,7 @@
 
                                         let notificationTitle = document.createElement("h5");
                                         notificationTitle.setAttribute("class", "mb-1");
-                                        notificationTitle.innerHTML = "Enquiry #" + data.enquiry.id + " Cannot Be Assigned";
+                                        notificationTitle.innerHTML = title + " #" + data.id + " Cannot Be Assigned";
 
                                         let notificationTime = document.createElement("small");
                                         notificationTime.innerHTML = "{{ Carbon\Carbon::parse(Date::now())->diffForHumans(Carbon\Carbon::now()) }}";
@@ -182,7 +182,7 @@
 
                                         let toastBody = document.createElement("div");
                                         toastBody.setAttribute("class", "toast-body");
-                                        toastBody.innerHTML = (title === "Valuation") ? data.valuation.full_name + " Requested a Valuation" : data.enquiry.id + " Cannot be assigned to any of the employees, since they are all at full capacity";
+                                        toastBody.innerHTML = (title === "Valuation") ? data.full_name + " Requested a Valuation" : title + " #" + data.id + " Cannot be assigned to any of the employees, since they are all at full capacity";
 
                                         toast.appendChild(toastHeader);
                                         toast.appendChild(toastBody);
@@ -208,6 +208,19 @@
                                                 </div>
                                                 <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
                                             </a>
+                                        @elseif($notification_type == "UnassignedAdvertisement")
+{{--                                            <!-- Assign Advertisement Manually -->--}}
+{{--                                            <a href="{{ route("a-assignEnquiry", ['advertisem' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">--}}
+{{--                                                <div class="d-flex w-100 justify-content-between">--}}
+{{--                                                    <h5 class="mb-1"> Enquiry Cannot be Assigned--}}
+{{--                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">--}}
+{{--                                                        <span class="visually-hidden">New alerts</span>--}}
+{{--                                                     </span>--}}
+{{--                                                    </h5>--}}
+{{--                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>--}}
+{{--                                                </div>--}}
+{{--                                                <p class="mb-1">{{ $notification->data['message'] }}</p>--}}
+{{--                                            </a>--}}
                                         @else
                                             <!-- Assign Enquiry Manually -->
                                             <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
