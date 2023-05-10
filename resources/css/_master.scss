@@ -161,6 +161,10 @@ body{
     border-radius: 10px;
 }
 
+footer .custom-list{
+    width: 25%;
+}
+
 
 .l-item{
     padding: 10px 0;
@@ -230,6 +234,7 @@ section{
 .section-title{
     color: var(--te);
     text-transform: capitalize;
+    font-weight: 900;
 }
 
 .page-header{
@@ -370,7 +375,7 @@ footer input{
     max-width: 300px;
 }
 
-footer li{
+footer .l-item-title{
     text-align: center;
 }
 

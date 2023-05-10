@@ -12,7 +12,7 @@ class WebsiteController extends Controller
     public function home(){
         return view("home")->with([
             'featured_properties' => Property::where('featured', 1)->get(),
-            'latest_properties' => Property::select('*')->take(10)->orderBy('created_at', 'asc')->get(),
+            'latest_properties' => Property::where('featured', '<>', 1)->take(10)->orderBy('created_at', 'asc')->get(),
             'posts' => Post::select('*')->take(10)->get(),
 
 //            For search

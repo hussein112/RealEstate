@@ -30,10 +30,11 @@
                     <a href="{{ route("logout") }}" class="nav-link">Log Out</a>
                 @endauth
                 <a href="{{ route("newValuation") }}" class="nav-link">Get a Valuation</a>
-                <li class="nav-item colors mx-2">
+                <li class="nav-link colors mx-2">
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="theme">
-                        <label class="form-check-label" for="theme">Theme</label>
+                        <label class="form-check-label" for="theme"><iconify-icon icon="gg:dark-mode" style="color: white;"></iconify-icon>
+                        </label>
                     </div>
                 </li>
             </div>

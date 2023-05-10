@@ -8,7 +8,7 @@
                     <select name="dealtype" id="searchfor" class="form-select m-2">
                         @isset($fors)
                             @foreach($fors as $for)
-                                <option value="{{ $for->for }}">{{ ucfirst($for->for) }}</option>
+                                <option value="{{ $for->for }}">{{ ($for->for == 1) ? "Sell" : "Rent" }}</option>
                             @endforeach
                         @endisset
                     </select>
