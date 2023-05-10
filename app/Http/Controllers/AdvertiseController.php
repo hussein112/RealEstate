@@ -11,6 +11,7 @@ use App\Models\Advertise;
 use App\Models\Employee;
 use App\Models\Property;
 use App\Models\Type;
+use App\Notifications\AssignedAdvertise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -86,6 +87,34 @@ class AdvertiseController extends Controller
 
         $employee = Employee::findOrFail($employeeId);
         event(new AdvertiseAssignedEvent($employee, $advertise));
+    }
+
+
+    public function showUnassigned($advertisementId, $notification_id){
+        if(isset($notification_id)){
+            auth()->user()->notifications()->findOrFail($notification_id)->markAsRead();
+        }
+        return view('admin.assignAdvertise')->with([
+            'employees' => Employee::all(),
+            'advertisement' => Advertise::findOrFail($advertisementId)
+        ]);
+    }
+
+    public function assignByForce($advertiseId, $employeeId){
+        $advertisement = Advertise::findOrFail($advertiseId);
+
+        $advertisement->employee_id = $employeeId;
+        $advertisement->save();
+
+        $employee = Employee::findOrFail($employeeId);
+
+        event(new AssignedAdvertise($advertisement));
+
+        return view("admin.assignAdvertise")->with([
+            'advertisement' => $advertisement,
+            'sucess_msg' => "Advertisenent Assigned To Employee",
+            'employee' => $employee
+        ]);
     }
 
 

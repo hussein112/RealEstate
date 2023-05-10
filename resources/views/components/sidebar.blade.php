@@ -210,17 +210,17 @@
                                             </a>
                                         @elseif($notification_type == "UnassignedAdvertisement")
 {{--                                            <!-- Assign Advertisement Manually -->--}}
-{{--                                            <a href="{{ route("a-assignEnquiry", ['advertisem' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">--}}
-{{--                                                <div class="d-flex w-100 justify-content-between">--}}
-{{--                                                    <h5 class="mb-1"> Enquiry Cannot be Assigned--}}
-{{--                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">--}}
-{{--                                                        <span class="visually-hidden">New alerts</span>--}}
-{{--                                                     </span>--}}
-{{--                                                    </h5>--}}
-{{--                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>--}}
-{{--                                                </div>--}}
-{{--                                                <p class="mb-1">{{ $notification->data['message'] }}</p>--}}
-{{--                                            </a>--}}
+                                            <a href="{{ route("a-assignAdvertisement", ['advertisement_id' => $notification->data['advertisement_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1"> Advertisement Cannot be Assigned
+                                                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                                        <span class="visually-hidden">New alerts</span>
+                                                     </span>
+                                                    </h5>
+                                                    <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                </div>
+                                                <p class="mb-1">{{ $notification->data['message'] }}</p>
+                                            </a>
                                         @else
                                             <!-- Assign Enquiry Manually -->
                                             <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
@@ -248,7 +248,19 @@
                                                 </div>
                                                 <p class="mb-1">Property For {{ $notification->data['for'] }}</p>
                                             </div>
-                                        @else
+                                            @elseif($notification_type == "UnassignedAdvertisement")
+                                                <a href="{{ route("a-assignAdvertisement", ['advertisement_id' => $notification->data['advertisement_id'], 'notification_id' => $notification->id]) }}" class="notification unread-notification" aria-current="true">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1"> Advertisement Cannot be Assigned
+                                                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
+                                                        <span class="visually-hidden">New alerts</span>
+                                                     </span>
+                                                        </h5>
+                                                        <small> {{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(Carbon\Carbon::now()) }} </small>
+                                                    </div>
+                                                    <p class="mb-1">{{ $notification->data['message'] }}</p>
+                                                </a>
+                                            @else
                                             <a href="{{ route("a-assignEnquiry", ['enquiry_id' => $notification->data['enquiry_id'], 'notification_id' => $notification->id]) }}" class="notification read-notification" aria-current="true">
                                                 <div class="">
                                                     <h5 class="mb-1"> Enquiry Cannot be Assigned

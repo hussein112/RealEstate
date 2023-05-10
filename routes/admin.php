@@ -103,6 +103,10 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         // Review the enquiry
         Route::get("enquiry/assign/{enquiry_id}/{notification_id?}", [EnquiriesController::class, 'review'])->name('a-assignEnquiry');
         Route::post("enquiry/assign/{enquiry_id}/{employee_id}", [EnquiriesController::class, 'assign'])->name('a-assignEnquiryTo');
+
+        Route::get("advertise/assign/{advertisement_id}/{notification_id?}", [AdvertiseController::class, 'showUnassigned'])->name('a-assignAdvertisement');
+
+        Route::post("advertise/assign/{advertisement_id}/{employee_id}", [AdvertiseController::class, 'assignByForce'])->name('a-assignAdvertisementTo');
     });
 
 
