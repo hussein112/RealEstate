@@ -2,18 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Information Email</title>
+    <title>{!! \Illuminate\Support\Facades\Storage::get('website/email/valuation/rejected/title.txt') !!} </title>
 </head>
-<body>
-<h1>Your Request Was Rejected</h1>
-<p>Hello </p>
-<p>{{ $description }}</p>
-<p>Thank you for using our service!</p>
-<hr>
-<ul class="social-media">
-    <a href="#">Facebook</a>
-    <a href="#">Twitter</a>
-    <a href="#">Instagram</a>
-</ul>
-</body>
+<p>Hello <b>{{ $valuation->full_name }}</b>,</p>
+<p>{!! \Illuminate\Support\Facades\Storage::get('website/email/valuation/rejected/body.txt') !!}</p>
+<div class="signature">
+    <p>Thank you for using our service!</p>
+    <hr>
+    <h5>{{ ucfirst(config("company.name")) }}</h5>
+    <ul>
+        <li>
+            <a href="{{ config('company.social_media.facebook') }}">Facebook</a>
+        </li>
+        <li>
+            <a href="{{ config('company.social_media.twitter') }}">Twitter</a>
+        </li>
+        <li>
+            <a href="{{ config('company.social_media.instagram') }}">Instagram</a>
+        </li>
+        <li>
+            <a href="{{ config('company.social_media.linkedin') }}">Linked In</a>
+        </li>
+    </ul>
+</div>
 </html>

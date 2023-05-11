@@ -13,6 +13,7 @@
                 <x-settings-card header="terms & conditions Page" link="edit-terms" body="general rules to use website"></x-settings-card>
                 <x-settings-card header="Advertising Rules" link="edit-advertise" body="rules before making deals"></x-settings-card>
                 <x-settings-card header="contact details" link="edit-contact" body="Email & Phone"></x-settings-card>
+                <x-settings-card header="email templates" link="edit-emails" body="email message settings/styling"></x-settings-card>
             </div>
 
             <hr>

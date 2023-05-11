@@ -87,4 +87,25 @@ class SettingsController extends Controller
             'sucess_msg' => 'Contact us page updated successfulyy'
         ]);
     }
+
+
+
+    public function editEmails(){
+        return view("admin.settings.editEmails");
+    }
+
+
+    public function editEmail($email){
+        return view("admin.settings.editEmail")->with(['email' => $email]);
+    }
+
+    public function updateEmail(Request $request, $email){
+        $directory = (substr($email, 0, 1) == "a") ? "advertise" : "valuation";
+        $type = (substr($email, 2, 1) == "a") ? "approved" : "rejected";
+        Storage::disk('local')->put('website/email/' . $directory . '/' . $type . '/body.txt', $request->get('body'));
+        Storage::disk('local')->put('website/email/' . $directory . '/' . $type . '/title.txt', $request->get('title'));
+        return redirect()->back()->with([
+            'sucess_msg' => 'Email template updated successfuly'
+        ]);
+    }
 }

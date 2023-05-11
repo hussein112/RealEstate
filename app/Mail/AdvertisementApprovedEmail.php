@@ -6,6 +6,7 @@ use App\Models\Advertise;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -35,8 +36,12 @@ class AdvertisementApprovedEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: "company@gmail.com",
+            from: config('company.reply_email'),
+            replyTo: [
+                new Address('foremployee_10@company.com', 'Employe Name')
+            ],
             subject: 'Advertisement Approved',
+            tags: ['advertise']
         );
     }
 
@@ -50,8 +55,7 @@ class AdvertisementApprovedEmail extends Mailable
         return new Content(
             view: 'emails.advertise.approved',
             with: [
-                'id' => $this->advertisement->id,
-                'description' => $this->advertisement->description
+                'advertisement' => $this->advertisement
             ]
         );
     }

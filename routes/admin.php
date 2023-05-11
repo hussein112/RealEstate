@@ -172,6 +172,12 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::get("settings/contact", [SettingsController::class, 'editContact'])->name('edit-contact');
         Route::patch("settings/contact", [SettingsController::class, 'updateContact'])->name('edit-contact');
+
+        Route::get("settings/email", [SettingsController::class, 'editEmails'])->name('edit-emails');
+        Route::get("settings/email/edit/{email}", [SettingsController::class, 'editEmail'])->name('edit-email');
+        Route::patch("settings/email/edit/{email}", [SettingsController::class, 'updateEmail'])->name('edit-email');
+
+
     });
 
 

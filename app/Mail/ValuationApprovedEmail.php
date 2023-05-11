@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Models\Valuation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -32,9 +33,12 @@ class ValuationApprovedEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: "company@email.com",
-            subject: 'Valuation Approved Email',
-
+            from: config('company.reply_email'),
+            replyTo: [
+                new Address('foremployee_10@company.com', 'Employe Name')
+            ],
+            subject: 'Valuation Approved',
+            tags: ['valuation']
         );
     }
 
@@ -48,8 +52,7 @@ class ValuationApprovedEmail extends Mailable
         return new Content(
             view: 'emails.valuations.approved',
             with: [
-                'id' => $this->valuation->id,
-                'description' => $this->valuation->description
+                'valuation' => $this->valuation
             ]
         );
     }

@@ -6,6 +6,7 @@ use App\Models\Advertise;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -34,8 +35,12 @@ class AdvertisementRejectedEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: "company@email.com",
-            subject: 'Advertisement Rejected Email',
+            from: config('company.reply_email'),
+            replyTo: [
+                new Address('foremployee_10@company.com', 'Employe Name')
+            ],
+            subject: 'Advertisement Rejected',
+            tags: ['advertise']
         );
     }
 
@@ -47,10 +52,9 @@ class AdvertisementRejectedEmail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.valuations.rejected',
+            view: 'emails.advertise.rejected',
             with: [
-                'id' => $this->advertisement->id,
-                'description' => $this->advertisement->description
+                'advertisement' => $this->advertisement
             ]
         );
     }
