@@ -41,12 +41,15 @@ class ValuationApprovalController extends Controller
         // Approve Valuation
         $this->markAsApproved($id);
 
+        $valuation = Valuation::find($id);
+        $valuation->due_date = Carbon::now()->addDays(7);
+        $valuation->save();
+
         // Assign to an Employee
-        return view("admin.assignValuation")->with([
+        return redirect()->back()->with([
             'employees' => Employee::all(),
             'valuation' => Valuation::findOrFail($id)
         ]);
-
     }
 
 

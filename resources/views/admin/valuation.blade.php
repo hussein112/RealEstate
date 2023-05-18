@@ -3,10 +3,16 @@
         <main class="valuation-details container">
             @isset($valuation)
                 <x-page-title title="valuations" subtitle="Valuation #{{ $valuation->id }}"></x-page-title>
+                @if($approval_status[0]->status == 1)
+                    <div>
+                        <a href="{{ route("a-approveValuation", ['id' => $valuation->id]) }}" class="btn btn-primary">Approve</a>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</a>
+                        <small>Issued @ {{ $valuation->created_at }}</small>
+                    </div>
+                @endif
 
                 <div class="container">
                     <hr>
-
                     <table class="table mt-5">
                         <tbody class="table-group-divider">
                         <tr>
@@ -27,10 +33,15 @@
                         <tr>
                             <th class="bg-danger">Valuation Status</th>
                             <td class="bg-danger text-light">
-                                @isset($valuation->status)
-                                    {{ ($valuation->status == 0) ? "In Progress" : "Done" }}
-                                @endisset
-                                <a href="{{ route("valuationRequest", ['id' => $valuation->id]) }}">Waiting Approval</a>
+                                @if($valuation->status == 1)
+                                    Done
+                                @elseif($approval_status[0]->status == 1)
+                                    Waiting Approval
+                                @elseif($approval_status[0]->status == 0)
+                                    Rejected
+                                @else
+                                    In Progress
+                                @endif
                             </td>
                         </tr>
 
@@ -108,6 +119,27 @@
 
                 </div>
             @endisset
+            <div class="modal fade" tabindex="-1" id="rejectModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Reject Valuation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to reject valuation <b>{{ $valuation->id }}?</b> </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                <form action="{{ route("a-rejectRequest", ['id' => $valuation->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </main>
     </x-slot>
 </x-admin-layout>

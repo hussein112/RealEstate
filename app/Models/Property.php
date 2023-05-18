@@ -66,4 +66,8 @@ class Property extends Model
     public function enquiries(){
         return $this->hasMany(Enquiry::class);
     }
+
+    public function favorites(){
+        return $this->hasMany(FavoriteList::class);
+    }
 }

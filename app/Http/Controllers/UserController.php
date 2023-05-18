@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddUserRequest;
+use App\Models\FavoriteList;
 use App\Models\Image;
 use App\Models\Property;
 use App\Models\Type;
@@ -30,7 +31,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view("userProfile")->with([
+            'user' => User::find(auth()->user()->id),
+            'favorites' => FavoriteList::where("user_id", auth()->user()->id)->get()
+        ]);
     }
 
     public function adminCreate(){

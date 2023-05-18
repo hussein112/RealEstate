@@ -27,6 +27,7 @@
                     <a href="{{ route("register") }}" class="nav-link">Register</a>
                 @endguest
                 @auth
+                    <a href="{{ route("profile") }}" class="nav-link">Profile</a>
                     <a href="{{ route("logout") }}" class="nav-link">Log Out</a>
                 @endauth
                 <a href="{{ route("newValuation") }}" class="nav-link">Get a Valuation</a>

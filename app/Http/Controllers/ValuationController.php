@@ -19,7 +19,6 @@ class ValuationController extends Controller
 {
     public function adminIndex(){
         return view('admin.valuations')->with([
-            // Sort According to approval status
             'valuations' => Valuation::sortable()->paginate(9),
             'approval_status' => ValuationApproval::all()
         ]);
@@ -36,7 +35,8 @@ class ValuationController extends Controller
 
     public function adminShow($id){
         return view('admin.valuation')->with([
-            'valuation' => Valuation::find($id)
+            'valuation' => Valuation::find($id),
+            'approval_status' => ValuationApproval::where('valuation_id', $id)->get()
         ]);
     }
 

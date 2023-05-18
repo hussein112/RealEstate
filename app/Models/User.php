@@ -45,7 +45,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-
     public function avatar(){
         return $this->belongsTo(Image::class);
     }
@@ -59,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-    public function groups(){
-        return $this->hasMany(Group::class);
+    public function favoriteList(){
+        return $this->hasMany(FavoriteList::class);
     }
 }
