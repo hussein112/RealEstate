@@ -5,7 +5,11 @@
 
     <x-slot name="main">
         <h2 class="section-title center">{{ $user->f_name . " " . $user->l_name }}</h2>
-        <div class="container d-flex">
+        <div class="container d-flex flex-column">
+            @if($user->email_verfied_at == null)
+                <a href="#" class="text-danger">You Need To Verify Your Email</a>
+            @endif
+            <hr>
             <!-- Update Info -->
             <form class="container flex flex-column flex-wrap" action="{{ route("register") }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -42,7 +46,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary m-2">Update</button>
             </form>
-
+            <hr>
             <!-- Favorites -->
             <div class="gallery">
             <h3 class="gallery-title">Favorite Properties</h3>

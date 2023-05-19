@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddUserRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Models\FavoriteList;
 use App\Models\Image;
-use App\Models\Property;
-use App\Models\Type;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -57,15 +54,13 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      * @param  \App\Http\Requests\AddUserRequest  $request
      */
-    public function store(Request $request)
+    public function store(AddUserRequest $request)
     {
-        $request->validate([
+        $validated = $request->validated();
 
-        ]);
-
-        if($request->hasFile('avatar')){
+        if(request()->hasFile('avatar')){
             $img = Image::create([
-                'image' => $request->file('avatar')->store('avatars/users', 'public')
+                'image' => request()->file('avatar')->store('avatars/users', 'public')
             ]);
         }
 
@@ -181,7 +176,7 @@ class UserController extends Controller
 //        $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->phone = $request->phone;
-        if($request->hasFile('image')){
+        if(request()->hasFile('avatar')){
             $img = Image::create([
                 'image' => $request->file('avatar')->store('avatars/users', 'public')
             ]);
