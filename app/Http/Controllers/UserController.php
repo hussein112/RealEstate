@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Requests\AddUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\FavoriteList;
 use App\Models\Image;
@@ -10,6 +12,9 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -155,19 +160,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $validated = $request->validate([
-            'fname' => 'max:255',
-            'mname' => '',
-            'lname' => '',
-            'email' => '',
-            'phone' => '',
-            'avatar' => ''
-        ]);
-
-
-
+        $validate = $request->validated();
 
         $user = User::find($id);
         $user->f_name = $request->fname;
@@ -183,7 +178,6 @@ class UserController extends Controller
             $user->avatar_id = $img->id;
         }
 
-
         if($user->isDirty()){
             $user->save();
             return redirect()->back()->with([
@@ -194,6 +188,24 @@ class UserController extends Controller
         return redirect()->back()->with([
             'error_msg' => 'Nothing to Update!'
         ]);
+    }
+
+
+    public function updatePassword(Request $request, $id){
+        $request->validate([
+            'old' => 'required',
+            'new' => ['required', Password::min(10)->mixedCase()->numbers()]
+        ]);
+
+        if(!Hash::check($request->old, auth()->user()->password)){
+            return back()->with("error_msg", "Old Password Doesn't match!");
+        }
+
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new)
+        ]);
+
+        return back()->with("success_msg", "Password Updated Succesfully");
     }
 
     /**

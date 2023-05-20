@@ -148,8 +148,6 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
 
 
-        Route::patch("profile/{id}", [AdminController::class, 'update'])->name('a-profile');
-
         // Approve a Valuation Request
         Route::get("valuation/request/approve/{id}", [ValuationApprovalController::class, 'approve'])->name('a-approveValuation');
 

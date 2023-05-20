@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class AddAdminRequest extends FormRequest
+class UpdateAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +26,13 @@ class AddAdminRequest extends FormRequest
      */
     public function rules()
     {
+        $admin = Admin::find($this->id);
         return [
-            'fname' => ['required', 'string', 'min:3', 'max:40'],
-            'mname' => ['required', 'string', 'min:3', 'max:40'],
-            'lname' => ['required', 'string', 'min:3', 'max:40'],
-            'email' => ['required', 'email', 'unique:App\Models\Admin,email'],
-            'phone' => ['required', 'unique:App\Models\Admin,phone', 'regex:/^[0-9]+ [0-9]* [0-9]{3,}$/'],
+            'fname' => ['string', 'min:3', 'max:40'],
+            'mname' => ['string', 'min:3', 'max:40'],
+            'lname' => ['string', 'min:3', 'max:40'],
+            'email' => ['email', Rule::unique('admin', 'email')->ignore($admin, 'email')],
+            'phone' => [Rule::unique('admin', 'phone')->ignore($admin, 'phone'), 'regex:/^[0-9]+ [0-9]* [0-9]{3,}$/'],
             'password' => ['required', Password::min(10)->mixedCase()->numbers()],
             'image' => ['image', 'max:2000']
         ];

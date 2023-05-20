@@ -6,9 +6,6 @@
         <div class="container d-flex flex-column">
             @if($errors->any())
                     <h3>Error Inserting Property</h3>
-                    @foreach($errors->all() as $error)
-                        <strong class="bg-success text-light m-1 p-1">{{ $error }}</strong>
-                    @endforeach
             @else
                 <x-messages msg="success_msg" type="success"></x-messages>
             @endif
@@ -17,7 +14,13 @@
             <form action="{{ route('a-newProperty') }}" method="post" class="w-100 m-1" enctype="multipart/form-data">
                 @csrf
                 <input class="form-control my-2" type="text" placeholder="Title" name="title">
+                @if($errors->has('title'))
+                    <div class="error text-danger">* {{$errors->first('title')}}</div>
+                @endif
                 <input type="number" class="form-control my-2" placeholder="Size" name="size">
+                @if($errors->has('size'))
+                    <div class="error text-danger">* {{$errors->first('size')}}</div>
+                @endif
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="featured" value="1" id="featuredCheck">
                     <label class="form-check-label" for="featuredCheck">
@@ -25,10 +28,25 @@
                     </label>
                 </div>
                 <input type="number" class="form-control my-2" placeholder="Price" name="price">
+                @if($errors->has('price'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('price')) }}</div>
+                @endif
                 <input type="text" class="form-control my-2" placeholder="City" name="city">
+                @if($errors->has('city'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('city')) }}</div>
+                @endif
                 <input type="text" class="form-control my-2" placeholder="Address" name="address">
+                @if($errors->has('address'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('address')) }}</div>
+                @endif
                 <input type="number" name="bedrooms" class="form-control my-2" placeholder="Number of Bedrooms">
+                @if($errors->has('bedrooms'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('bedrooms')) }}</div>
+                @endif
                 <input type="number" name="bathrooms" class="form-control my-2" placeholder="Number of Bathrooms">
+                @if($errors->has('bathrooms'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('bathrooms')) }}</div>
+                @endif
                 <select name="type" class="form-select my-2">
                     <option selected disabled>-- Type --</option>
                     @isset($types)
@@ -37,6 +55,9 @@
                         @endforeach
                     @endisset
                 </select>
+                @if($errors->has('bathrooms'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('bathrooms')) }}</div>
+                @endif
                 <select name="for" class="form-select my-2">
                     <option selected disabled>-- For --</option>
                     <option value="rent">Rent</option>

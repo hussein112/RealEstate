@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Property;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePropertyRequest extends FormRequest
 {
@@ -23,9 +25,10 @@ class UpdatePropertyRequest extends FormRequest
      */
     public function rules()
     {
+        $property = Property::find($this->id);
         return [
             'size' => ['numeric', 'max_digits:4'],
-            'title' => ['unique:property', 'max:300', 'regex:/[\s\Wa-zA-z0-9]/'],
+            'title' => ['max:300', 'regex:/[\s\Wa-zA-z0-9]/', Rule::unique('property', 'title')->ignore($property, 'title')],
             'description' => ['max:450', 'regex:/[\s\Wa-zA-z0-9]/'],
             'price' => ['numeric', 'max_digits:6'],
             'city' => ['regex:/[\s\Wa-zA-z0-9]/', 'max:120'],
@@ -35,10 +38,7 @@ class UpdatePropertyRequest extends FormRequest
             'type' => ['numeric', 'max_digits:1'],
             'for' => ['string', 'max:20'],
             'owner' => ['numeric', 'max_digits:4'],
-            // 1024 -> 1MB
-//            'images' => ['image', 'mimes:jpeg,png,jpg', 'size:1024', 'dimensions:min_width=200,max_width=1000,min_height=100,max_height=100']
-//            'images.image' => ,
-            'images.image.*' => 'image'
+            'images.image.*' => ['image', 'max:3000']
         ];
     }
 }

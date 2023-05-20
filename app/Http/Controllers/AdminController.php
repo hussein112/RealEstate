@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddAdminRequest;
+use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin;
 use App\Models\Appointement;
 use App\Models\Enquiry;
@@ -74,18 +76,12 @@ class AdminController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function store(Request $request)
+    public function store(AddAdminRequest $request)
     {
-        $validated = $request->validate([
-            'fname' => ['required'],
-            'mname' => ['required'],
-            'lname' => ['required'],
-            'email' => ['required'],
-            'phone' => ['required'],
-            'image' => ['']
-        ]);
-        if($request->hasFile('image')){
-            $path = $request->file('image')->store('avatars/admin', 'public');
+        $validated = $request->validated();
+
+        if($request->hasFile('avatar')){
+            $path = $request->file('avatar')->store('avatars/admin', 'public');
             $img = Image::create([
                 'image' => $path
             ]);
@@ -132,19 +128,10 @@ class AdminController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAdminRequest $request, $id)
     {
-        $validated = $request->validate([
-            'fname' => 'max:255',
-            'mname' => '',
-            'lname' => '',
-            'email' => '',
-            'phone' => ''
-        ]);
+        $validated = $request->validated();
 
         $admin = Admin::find($id);
         $admin->f_name = $request->fname;
@@ -154,13 +141,12 @@ class AdminController extends Controller
         $admin->email = $request->email;
         $admin->phone = $request->phone;
 
-        if(isset($request->avatar)){
+        if(request()->hasFile('avatar')){
             $img = Image::create([
                 'image' => $request->file('avatar')->store('avatars/admin', 'public')
             ]);
+            $admin->avatar_id = $img->id;
         }
-
-        $admin->avatar_id = ($img->id) ?? $admin->avatar_id;
 
         if($admin->isDirty()){
             $admin->save();

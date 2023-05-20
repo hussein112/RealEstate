@@ -37,10 +37,8 @@ class AddPropertyRequest extends FormRequest
             'type' => ['required', 'numeric', 'max_digits:1'],
             'for' => ['required', 'string', 'max:20'],
             'owner' => ['required', 'numeric', 'max_digits:4'],
-            // 1024 -> 1MB
-//            'images' => ['image', 'mimes:jpeg,png,jpg', 'size:1024', 'dimensions:min_width=200,max_width=1000,min_height=100,max_height=100']
             'images.image' => ['required'],
-            'images.image.*' => 'image'
+            'images.image.*' => ['image', 'max:3000']
         ];
     }
 }
