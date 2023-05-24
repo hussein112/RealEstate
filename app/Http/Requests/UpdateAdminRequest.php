@@ -33,7 +33,6 @@ class UpdateAdminRequest extends FormRequest
             'lname' => ['string', 'min:3', 'max:40'],
             'email' => ['email', Rule::unique('admin', 'email')->ignore($admin, 'email')],
             'phone' => [Rule::unique('admin', 'phone')->ignore($admin, 'phone'), 'regex:/^[0-9]+ [0-9]* [0-9]{3,}$/'],
-            'password' => ['required', Password::min(10)->mixedCase()->numbers()],
             'image' => ['image', 'max:2000']
         ];
     }

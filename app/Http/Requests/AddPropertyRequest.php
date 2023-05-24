@@ -14,7 +14,6 @@ class AddPropertyRequest extends FormRequest
      */
     public function authorize()
     {
-//        return (Auth::guard() == 'admin');
         return true;
     }
 
@@ -27,18 +26,25 @@ class AddPropertyRequest extends FormRequest
     {
         return [
             'size' => ['required', 'numeric', 'max_digits:4'],
-            'title' => ['required', 'unique:property', 'max:300', 'regex:/[\s\Wa-zA-z0-9]/'],
-            'description' => ['required', 'max:450', 'regex:/[\s\Wa-zA-z0-9]/'],
+            'title' => ['required', 'unique:App\Models\Property,title', 'max:100', 'string'],
+            'description' => ['max:450', 'string'],
             'price' => ['required', 'numeric', 'max_digits:6'],
-            'city' => ['required', 'regex:/[\s\Wa-zA-z0-9]/', 'max:120'],
-            'address' => ['required', 'regex:/[\s\Wa-zA-z0-9]/', 'max:400'],
+            'city' => ['required', 'string', 'max:40'],
+            'address' => ['required', 'string', 'max:150'],
             'bedrooms' => ['required', 'numeric', 'max_digits:2'],
             'bathrooms' => ['required', 'numeric', 'max_digits:2'],
             'type' => ['required', 'numeric', 'max_digits:1'],
             'for' => ['required', 'string', 'max:20'],
-            'owner' => ['required', 'numeric', 'max_digits:4'],
+            'owner' => ['required', 'numeric'],
             'images.image' => ['required'],
-            'images.image.*' => ['image', 'max:3000']
+            'images.image.*' => ['image', 'max:2000']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'images.image.required' => "Upload at leas one image"
         ];
     }
 }

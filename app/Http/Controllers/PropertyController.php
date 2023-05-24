@@ -228,18 +228,9 @@ class PropertyController extends Controller
         return view('admin.newProperty')->with([
             'types' => Type::all(),
             'customers' => Customer::all(),
-            'features' => Feature::all(),
+            'features' => Feature::all()
         ]);
     }
-
-
-    /**
-     * Show the form for creating a new Property.
-     */
-    public function create()
-    {
-    }
-
 
 
     /**
@@ -248,6 +239,11 @@ class PropertyController extends Controller
     public function store(AddPropertyRequest $request)
     {
         $validated = $request->validated();
+        // Extra Validation
+        if($request->for !== "rent" && $request->for !== "buy"){
+            return redirect()->back()->with('error_msg', "Invalid 'for' input");
+        }
+        $for = ($request->for == "rent") ? 1 : 2;
         $property = Property::create([
             'size' => $request->size,
             'title' => $request->title,
@@ -261,7 +257,7 @@ class PropertyController extends Controller
             'employee_id' => (Auth::guard('employee')->id()) ?? null,
             'admin_id' => (Auth::guard('admin')->id()) ?? null,
             'type_id' => $request->type,
-            'for' => $request->for,
+            'for' => $for,
             'customer_id' => $request->owner
         ]);
 
@@ -278,14 +274,14 @@ class PropertyController extends Controller
             $features = explode(',', $request->hks);
             foreach($features as $feature){
                 if(strlen($feature) > 2){
-                    $old = Feature::where('feature', $feature)->first();
-                    if($old == null){
+                    dd(Feature::where('feature', $feature)->get('id'));
+                    if(! Feature::where('feature', $feature)->exists()){
                         $newF = Feature::create([
                             'feature' => trim($feature)
                         ]);
                         $property->features()->attach($property->id, ['feature_id' => $newF->id]);
                     }else{
-                        $property->features()->attach($property->id, ['feature_id' => $old->id]);
+                        $property->features()->attach($property->id, ['feature_id' => Feature::where('feature', $feature)->get()->id]);
                     }
                 }
             }

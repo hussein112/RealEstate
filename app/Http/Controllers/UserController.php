@@ -168,7 +168,6 @@ class UserController extends Controller
         $user->f_name = $request->fname;
         $user->m_name = $request->mname;
         $user->l_name = $request->lname;
-//        $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->phone = $request->phone;
         if(request()->hasFile('avatar')){

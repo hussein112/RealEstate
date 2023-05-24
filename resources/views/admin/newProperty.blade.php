@@ -3,12 +3,10 @@
     <main class="container">
         <x-page-title title="property" subtitle="add new property"></x-page-title>
 
+        @if(session('error_msg') != null)
+            <h2>{{ session('error_msg') }}</h2>
+        @endif
         <div class="container d-flex flex-column">
-            @if($errors->any())
-                    <h3>Error Inserting Property</h3>
-            @else
-                <x-messages msg="success_msg" type="success"></x-messages>
-            @endif
         </div>
             <hr>
             <form action="{{ route('a-newProperty') }}" method="post" class="w-100 m-1" enctype="multipart/form-data">
@@ -63,6 +61,9 @@
                     <option value="rent">Rent</option>
                     <option value="buy">Buy</option>
                 </select>
+                @if($errors->has('for'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('for')) }}</div>
+                @endif
                 <div class="input-group">
                     <select name="owner" class="form-select" aria-describedby="test">
                         @if(sizeof($customers) > 0)
@@ -75,8 +76,14 @@
                         @endif
                     </select>
                     <a href="{{ route('a-newCustomer') }}" id="test" class="btn btn-outline-primary">New</a>
+                    @if($errors->has('owner'))
+                        <div class="error text-danger">* {{ ucfirst($errors->first('owner')) }}</div>
+                    @endif
                 </div>
                 <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description"></textarea>
+                @if($errors->has('description'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('description')) }}</div>
+                @endif
                 @vite('resources/js/admin/features.js')
                 <select name="features" class="form-select" aria-describedby="test" onchange="window.csvinput.manualTag(this)">
                     @if(sizeof($features) > 0)
@@ -87,13 +94,20 @@
                     @else
                         <option disabled selected>-- No Customers, Yet --</option>
                     @endif
+                    @if($errors->has('features'))
+                        <div class="error text-danger">* {{ ucfirst($errors->first('features')) }}</div>
+                    @endif
                 </select>
                 <div id="hk-input-csv"></div>
 
                 <div class="mb-3">
                     <label for="images" class="form-label">Choose Property Images</label>
                     <input class="form-control" type="file" id="images" name="images[image][]" accept="jpg,png,jpeg" multiple>
+                    @if($errors->has("images.image"))
+                        <div class="error text-danger">* {{ ucfirst($errors->first("images.image")) }}</div>
+                    @endif
                 </div>
+
                 <button type="submit" class="btn btn-primary add-product">Add</button>
             </form>
     </main>

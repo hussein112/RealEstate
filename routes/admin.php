@@ -58,7 +58,6 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
 
 
-
     // Edit & index will return the same form
     Route::get("profile/{id}", [AdminController::class, 'edit'])->name('a-profileShow');
 
@@ -117,6 +116,8 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::prefix("edit")->group(function(){
         Route::get("admin/{id}", [AdminController::class, 'edit'])->name('a-editAdmin');
         Route::patch("admin/{id}", [AdminController::class, 'update'])->name('a-editAdmin');
+        Route::patch("admin/password/{id}", [AdminController::class, 'updatePassword'])->name('a-editAdminPassword');
+
 
         Route::get("post/{id}", [PostController::class, 'adminEdit'])->name('a-editPost');
         Route::patch("post/{id}", [PostController::class, 'update'])->name('a-editPost');

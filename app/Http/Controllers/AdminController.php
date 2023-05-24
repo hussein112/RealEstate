@@ -14,6 +14,7 @@ use App\Models\Valuation;
 use App\Custom\DateQueries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class AdminController extends Controller
 {
@@ -104,17 +105,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -124,6 +114,25 @@ class AdminController extends Controller
         return view("admin.profile")->with([
             'admin' => Admin::find($id)
         ]);
+    }
+
+
+    public function updatePassword(Request $request, $id){
+        $admin = Admin::find($id);
+        $request->validate([
+            'old' => 'required',
+            'new' => ['required', Password::min(10)->mixedCase()->numbers()]
+        ]);
+
+        if(!Hash::check($request->old, $admin->password)){
+            return back()->with("error_msg", "Old Password Doesn't match!");
+        }
+
+        User::whereId($admin->id)->update([
+            'password' => Hash::make($request->new)
+        ]);
+
+        return back()->with("success_msg", "Password Updated Succesfully");
     }
 
     /**
@@ -137,7 +146,6 @@ class AdminController extends Controller
         $admin->f_name = $request->fname;
         $admin->m_name = $request->mname;
         $admin->l_name = $request->lname;
-//        $admin->password = Hash::make($request->password);
         $admin->email = $request->email;
         $admin->phone = $request->phone;
 
