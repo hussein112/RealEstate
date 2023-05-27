@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddPostRequest extends FormRequest
+class UpdateCustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class AddPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,9 +24,7 @@ class AddPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'unique:App\Models\Post,title'],
-            'post' => ['required', 'string'],
-            'category' => ['numeric']
+            //
         ];
     }
 }

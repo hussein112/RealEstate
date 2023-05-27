@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\NewValuationRequest;
 use App\Events\ValuationRequestedEvent;
+use App\Http\Requests\AddValuationRequest;
 use App\Models\Admin;
 use App\Models\Property;
 use App\Models\Type;
@@ -78,24 +79,9 @@ class ValuationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function store(Request $request)
+    public function store(AddValuationRequest $request)
     {
-        $request->validate([
-            'fullname' => ['required'],
-            'email' => ['required'],
-            'phone' => ['required'],
-            'addressone' => ['required'],
-            'addresstwo' => ['required'],
-            'state' => ['required'],
-            'postalcode' => ['required'],
-            'city' => ['required'],
-            'bedrooms' => ['required'],
-            'bathrooms' => ['required'],
-            'type' => ['required'],
-            'description' => ['required'],
-        ]);
-
-
+        $validated = $request->validated();
 
         $valuation = Valuation::create([
             'full_name' => $request->fullname,

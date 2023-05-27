@@ -28,16 +28,16 @@ class UpdatePropertyRequest extends FormRequest
         $property = Property::find($this->id);
         return [
             'size' => ['numeric', 'max_digits:4'],
-            'title' => ['max:300', 'regex:/[\s\Wa-zA-z0-9]/', Rule::unique('property', 'title')->ignore($property, 'title')],
-            'description' => ['max:450', 'regex:/[\s\Wa-zA-z0-9]/'],
+            'title' => ['max:300', 'string', Rule::unique('property', 'title')->ignore($property, 'title')],
+            'description' => ['max:450', 'string'],
             'price' => ['numeric', 'max_digits:6'],
-            'city' => ['regex:/[\s\Wa-zA-z0-9]/', 'max:120'],
-            'address' => ['regex:/[\s\Wa-zA-z0-9]/', 'max:400'],
+            'city' => ['string', 'max:120'],
+            'address' => ['string', 'max:400'],
             'bedrooms' => ['numeric', 'max_digits:2'],
             'bathrooms' => ['numeric', 'max_digits:2'],
             'type' => ['numeric', 'max_digits:1'],
             'for' => ['string', 'max:20'],
-            'owner' => ['numeric', 'max_digits:4'],
+            'owner' => ['numeric'],
             'images.image.*' => ['image', 'max:3000']
         ];
     }

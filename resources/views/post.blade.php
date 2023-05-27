@@ -7,7 +7,9 @@
     <x-slot name="main">
         @isset($post)
             <section id="post">
-                <img src="{{ asset('storage/' . $post->images[0]->image) }}" alt="">
+                @if(sizeof($post->images) > 0)
+                    <img src="{{ asset('storage/' . $post->images[0]->image) }}" alt="">
+                @endif
                 <div class="meta p-5">
                     <h2 class="post-title">{{ $post->title }}</h2>
                     <div class="flex flex-wrap">

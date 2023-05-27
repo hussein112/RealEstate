@@ -276,7 +276,6 @@ class PropertyController extends Controller
                 $feature = trim($features[$i]);
                 if(strlen($feature) > 2){
                     if(Feature::where('feature', $feature)->exists()){
-                        echo "<h1>" . $feature . ", " . $property->title . "</h1>";
                         $property->features()->attach($property->id, ['feature_id' => Feature::where('feature', $feature)->first()->id]);
                     }else{
                         $newF = Feature::create([
@@ -324,10 +323,6 @@ class PropertyController extends Controller
         $validated = $request->validated();
 
         $property = Property::findOrFail($id);
-        $property->customer_id = DB::table('customer')
-                                    ->select("id")
-                                    ->where('full_name', $request->ownerfname)
-                                    ->get()[0]->id;
         $property->title = $request->title;
         $property->size = $request->size;
         $property->customer_id = $request->owner;

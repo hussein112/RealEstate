@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Custom\DateQueries;
+use App\Http\Requests\AddEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Appointement;
 use App\Models\Employee;
 use App\Models\Enquiry;
@@ -78,24 +80,15 @@ class EmployeeController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function store(Request $request)
+    public function store(AddEmployeeRequest $request)
     {
-        $validate = $request->validate([
-            'fullname' => [],
-            'password' => [],
-            'email' => [],
-            'phone' => [],
-            'stmt' => [],
-            'avatar' => []
-        ]);
-
+        $validated = $request->validated();
 
         if($request->hasFile('avatar')){
             $img = Image::create([
                 'image' => $request->file('avatar')->store('avatars/employee', 'public')
             ]);
         }
-
 
         Employee::create([
             'full_name' => $request->fullname,
@@ -113,17 +106,6 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -138,22 +120,14 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEmployeeRequest $request, $id)
     {
-        $validated = $request->validate([
-            'fname' => 'max:255',
-            'mname' => '',
-            'lname' => '',
-            'email' => '',
-            'phone' => ''
-        ]);
+        $validated = $request->validated();
 
         $employee = Employee::find($id);
         $employee->full_name = $request->fullname;
-//        $admin->password = Hash::make($request->password);
         $employee->email = $request->email;
         $employee->phone = $request->phone;
         $employee->statement = $request->stmt;

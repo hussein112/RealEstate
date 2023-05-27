@@ -16,12 +16,12 @@
 
                 <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                     <hr>
-                    <form action="" method="post" class="w-100 m-1">
+                    <form action="{{ route("a-editProperty", ['id' => $property->id]) }}" method="post" class="w-100 m-1">
                         @method("PATCH")
                         @csrf
                         <select name="owner" class="form-select my-2">
                             @foreach($customers as $customer)
-                                <option {{$customer->id}}>{{$customer->full_name}}</option>
+                                <option value="{{ $customer->id }}">{{$customer->full_name}}</option>
                             @endforeach
                         </select>
                         <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}">

@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Post;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class AddPostRequest extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +25,11 @@ class AddPostRequest extends FormRequest
      */
     public function rules()
     {
+        $post = Post::find($this->id);
         return [
-            'title' => ['required', 'string', 'unique:App\Models\Post,title'],
+            'title' => ['required', 'string',  Rule::unique('post', 'title')->ignore($post, 'title')],
             'post' => ['required', 'string'],
-            'category' => ['numeric']
+            'category' => ['required', 'numeric']
         ];
     }
 }
