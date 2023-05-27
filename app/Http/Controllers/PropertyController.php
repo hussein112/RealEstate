@@ -272,18 +272,23 @@ class PropertyController extends Controller
 
         if(isset($request->hks)){
             $features = explode(',', $request->hks);
-            foreach($features as $feature){
+            for($i = 0; $i <= 2; $i++){
+                $feature = trim($features[$i]);
                 if(strlen($feature) > 2){
-                    dd(Feature::where('feature', $feature)->get('id'));
-                    if(! Feature::where('feature', $feature)->exists()){
+                    if(Feature::where('feature', $feature)->exists()){
+                        echo "<h1>" . $feature . ", " . $property->title . "</h1>";
+                        $property->features()->attach($property->id, ['feature_id' => Feature::where('feature', $feature)->first()->id]);
+                    }else{
                         $newF = Feature::create([
-                            'feature' => trim($feature)
+                            'feature' => $feature
                         ]);
                         $property->features()->attach($property->id, ['feature_id' => $newF->id]);
-                    }else{
-                        $property->features()->attach($property->id, ['feature_id' => Feature::where('feature', $feature)->get()->id]);
                     }
                 }
+            }
+            foreach($features as $feature){
+                $feature = trim($feature);
+
             }
         }
 
