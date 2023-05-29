@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddAppointementRequest;
+use App\Http\Requests\UpdateAppointementRequest;
 use App\Models\Appointement;
 use App\Models\Property;
 use Illuminate\Http\Request;
@@ -34,15 +36,7 @@ class AppointementController extends Controller
             'appointement' => Appointement::find($id)
         ]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -65,54 +59,21 @@ class AppointementController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function store(Request $request)
+    public function store(AddAppointementRequest $request)
     {
-        $request->validate([
-            'title' => ['required'],
-            'notes' => ['required'],
-            'property' => ['required']
-        ]);
+        $validated = $request->validated();
 
         $appointement = Appointement::create([
             'title' => $request->title,
             'notes' => $request->notes,
             'property_id' => $request->property,
+            'employee_id' => Auth::guard("employee")->id() ?? NULL,
             'admin_id' => auth()->user()->id
         ]);
 
         return redirect()->back()->with([
             'success_msg' => "Appointement Added Successfully"
         ]);
-    }
-
-    public function employeeStore(Request $request){
-        $request->validate([
-            'title' => ['required'],
-            'notes' => ['required'],
-            'property' => ['required']
-        ]);
-
-        $appointement = Appointement::create([
-            'title' => $request->title,
-            'notes' => $request->notes,
-            'property_id' => $request->property,
-            'employee_id' => auth()->user()->id
-        ]);
-
-        return redirect()->back()->with([
-            'success_msg' => "Appointement Added Successfully"
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -134,13 +95,9 @@ class AppointementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAppointementRequest $request, $id)
     {
-        $validated = $request->validate([
-            'title' => ['required'],
-            'notes' => ['required'],
-            'property' => ['required']
-        ]);
+        $validate = $request->validated();
 
         $appointement = Appointement::findOrFail($id);
         $appointement->title = $request->title;
@@ -158,34 +115,6 @@ class AppointementController extends Controller
             'error_msg' => 'Nothing to Update!'
         ]);
     }
-
-
-
-    public function employeeUpdate(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'title' => ['required'],
-            'notes' => ['required'],
-            'property' => ['required']
-        ]);
-
-        $appointement = Appointement::findOrFail($id);
-        $appointement->title = $request->title;
-        $appointement->notes = $request->notes;
-        $appointement->property_id = $request->property;
-
-        if($appointement->isDirty()){
-            $appointement->save();
-            return redirect()->back()->with([
-                'success_msg' => $appointement->title . " Updated Successfully",
-            ]);
-        }
-
-        return redirect()->back()->with([
-            'error_msg' => 'Nothing to Update!'
-        ]);
-    }
-
 
     /**
      * Remove the specified resource from storage.

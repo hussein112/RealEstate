@@ -2,8 +2,6 @@
     <x-slot name="main">
         <main class="container">
             <x-page-title title="appointements" subtitle="all the appointements in the system"></x-page-title>
-
-
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
@@ -43,7 +41,11 @@
                             <td>{{ $appointement->notes }}</td>
                             <td>{{ $appointement->created_at }}</td>
                             <td class="td-long">{{ $appointement->forAdmin->f_name . ' ' . $appointement->forAdmin->l_name }}</td>
-                            <td><a href="{{ route("a-property", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
+                            @if(isset($appointement->property_id))
+                                <td><a href="{{ route("a-property", ['id' => $appointement->property_id]) }}">{{ $appointement->property_id }}</a></td>
+                            @else
+                                <td>-</td>
+                            @endif
                             <td class="action-btns">
                                 <a href="{{ route('a-editAppointement', ['id' => $appointement->id]) }}" class="btn btn-primary m-1">Edit</a>
                                 <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$appointement->id}}">Delete</button>

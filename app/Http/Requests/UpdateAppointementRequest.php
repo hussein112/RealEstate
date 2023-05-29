@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Customer;
+use App\Models\Appointement;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCustomerRequest extends FormRequest
+class UpdateAppointementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,11 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function rules()
     {
-        $customer = Customer::find($this->id);
+        $appointement = Appointement::find($this->id);
         return [
-            'fullname' => ['required', 'string', 'max:300'],
-            'email' => ['required', 'email', Rule::unique('customer', 'email')->ignore($customer, 'email')],
-            'phone' => ['required', 'regex:/^[0-9]+ [0-9]* [0-9]{3,}$/', Rule::unique('customer', 'phone')->ignore($customer, 'phone')]
+            'title' => ['required', 'string', 'max:200', Rule::unique('appointement', 'title')->ignore($appointement, 'title')],
+            'notes' => ['nullable', 'string', 'max:450'],
+            'property' => ['nullable']
         ];
     }
 }
