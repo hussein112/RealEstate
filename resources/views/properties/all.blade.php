@@ -43,19 +43,19 @@
                                         <h6 class="card-subtitle">
                                             <a href="{{ route("searchByLocation", ['city' => $property->city]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="material-symbols:location-on"></iconify-icon>
-                                                {{ ucfirst($property->city) }}
+                                                <span>{{ ucfirst($property->city) }}</span>
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">
                                             <a href="{{ route("searchByPrice", ['price' => $property->price]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
-                                                {{ $property->price }}
+                                                <span>{{ $property->price }}</span>
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">
                                             <a href="{{ route("searchByBedroomsNumber", ['nb' => $property->bedrooms_nb]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="ic:sharp-meeting-room"></iconify-icon>
-                                                {{ $property->bedrooms_nb }}
+                                                <span>{{ $property->bedrooms_nb }}</span>
                                             </a>
                                         </h6>
                                     </div>
@@ -63,10 +63,10 @@
                                 <p class="card-text">{{ $property->description }}</p>
                                 <div class="links d-flex w-100 justify-content-between flex-wrap">
                                     <a href="#" class="card-link ">
-                                        <iconify-icon icon="mdi:content-save-plus-outline"></iconify-icon>
+                                        <iconify-icon icon="material-symbols:heart-plus"></iconify-icon>
                                     </a>
                                     <a href="#" class="card-link">
-                                        <iconify-icon icon="gis:search-poi"></iconify-icon>
+                                        <iconify-icon icon="gis:search-poi"></iconify-icon>ss
                                     </a>
                                 </div>
                             </div>

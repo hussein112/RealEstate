@@ -17,9 +17,9 @@
                             <iconify-icon icon="uil:pen" class="mx-2"></iconify-icon>
                             {{ $post->author->f_name . ' ' . $post->author->l_name }}
                         </a>
-                        <a href="{{ route("searchByDate", ['date' => $post->created_at]) }}" class="date flex-center">
-                            <iconify-icon icon="material-symbols:edit-calendar" class="mx-2"></iconify-icon>
-                            {{ $post->created_at }}
+                        <a href="{{ route("searchByDate", ['date' => $post->created_at]) }}" class="date">
+                            @php($date = new \Illuminate\Support\Carbon($post->created_at))
+                            {{ $date->toDateString() }}
                         </a>
                             @if(isset($post->category->category))
                             <a href="{{ route("searchByCategory", ['id' => $post->category->id]) }}" class="category flex-center">

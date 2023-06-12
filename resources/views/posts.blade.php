@@ -12,15 +12,16 @@
                             <img src="{{ asset("storage/defaults/post.jpg") }}" class="card-img-top" alt="Property 1">
                             <div class="card-body">
                                 <header class="card-head">
-                                    <a href="#" class="card-title">{{ $post->title }}</a>
+                                    <a href="{{ route('post', ['id' => $post->id]) }}" class="card-title">{{ $post->title }}</a>
                                 </header>
                                 <p class="card-text">{{ strip_tags($post->content) }}</p>
                                 <div class="links d-flex justify-content-between align-items-center flex-wrap">
-                                    <a href="#" class="card-link ">
-                                        <iconify-icon icon="mdi:read-more"></iconify-icon>
+                                    <a href="{{ route('post', ['id' => $post->id]) }}" class="card-link btn btn-primary">
+                                        Continue Reading
                                     </a>
-                                    <a href="#" class="date">
-                                        {{ $post->created_at }}
+                                    <a href="{{ route("searchByDate", ['date' => $post->created_at]) }}" class="date">
+                                        @php($date = new \Illuminate\Support\Carbon($post->created_at))
+                                        {{ $date->toDateString() }}
                                     </a>
                                 </div>
                             </div>

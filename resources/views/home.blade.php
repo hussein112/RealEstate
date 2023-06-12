@@ -115,20 +115,20 @@
                                         <h6 class="card-subtitle">
                                             <a href="{{ route("searchByLocation", ['city' => $lproperty->city]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="material-symbols:location-on"></iconify-icon>
-                                                {{ ucfirst($lproperty->city) }}
+                                                <span>{{ ucfirst($lproperty->city) }}</span>
                                             </a>
 
                                         </h6>
                                         <h6 class="card-subtitle">
                                             <a href="{{ route("searchByPrice", ['price' => $lproperty->price]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
-                                                {{ $lproperty->price }}
+                                                <span>{{ $lproperty->price }}</span>
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">
                                             <a href="{{ route("searchByBedroomsNumber", ['nb' => $lproperty->bedrooms_nb]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="mdi:guest-room"></iconify-icon>
-                                                {{ $lproperty->bedrooms_nb }}
+                                                <span>{{ $lproperty->bedrooms_nb }}</span>
                                             </a>
                                         </h6>
                                     </div>
@@ -136,7 +136,7 @@
                                 <p class="card-text">{{ $lproperty->description }}</p>
                                 <div class="links d-flex w-100 justify-content-between flex-wrap">
                                     <a href="#" class="card-link ">
-                                        <iconify-icon icon="mdi:content-save-plus-outline"></iconify-icon>
+                                        <iconify-icon icon="material-symbols:heart-plus"></iconify-icon>
                                     </a>
                                 </div>
                             </div>
@@ -173,11 +173,12 @@
                                     </header>
                                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam atque ab aperiam velit rem, nostrum necessitatibus deserunt esse, temporibus labore nulla.</p>
                                     <div class="links d-flex justify-content-between align-items-center flex-wrap">
-                                        <a href="{{ route('post', ['id' => $post->id]) }}" class="card-link ">
+                                        <a href="{{ route('post', ['id' => $post->id]) }}" class="card-link btn btn-primary">
                                             Continue Reading
                                         </a>
                                         <a href="{{ route("searchByDate", ['date' => $post->created_at]) }}" class="date">
-                                            {{ $post->created_at }}
+                                            @php($date = new \Illuminate\Support\Carbon($post->created_at))
+                                            {{ $date->toDateString() }}
                                         </a>
                                     </div>
                                 </div>

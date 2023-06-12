@@ -481,6 +481,31 @@ q{
 }
 
 
+.property {
+    .price{
+        color: var(--se);
+    }
+    .meta{
+        .property-title{
+            color: var(--te);
+            text-transform: capitalize;
+        }
+        .contain{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 550px;
+            border: 1px solid var(--fo);
+
+            *{
+                color: var(--se);
+                text-decoration: none;
+                width: (400px / 5);
+            }
+        }
+    }
+}
+
 
 /* End Property Page */
 

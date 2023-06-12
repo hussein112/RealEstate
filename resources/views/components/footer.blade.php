@@ -6,7 +6,7 @@
             </div>
 
             <div class="social-media container">
-                <div class="d-flex flex-wrap">
+                <div class="flex">
                     <a href="{{ config("company.social_media.linkedin") }}" class="m-1"><iconify-icon icon="mdi:linkedin"></iconify-icon>
                     </a>
                     <a href="{{ config("company.social_media.twitter") }}" class="m-1"><iconify-icon icon="mdi:twitter"></iconify-icon>
@@ -44,9 +44,9 @@
 
             <ul class="site-map custom-list m-1">
                 <li class="l-item l-item-title">Contact Us</li>
-                <li class="l-item"><a href="tel:+{{config('company.contact.phone')}}"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> {{config('company.contact.phone')}}</a></li>
-                <li class="l-item"><a href="mailto:{{config('company.contact.email')}}"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> {{config('company.contact.email')}}</a></li>
-                <li class="l-item"><a href="{{ route("contact") }}"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> Contact</a></li>
+                <li class="l-item"><a href="tel:+{{config('company.contact.phone')}}" class="flex-center"><iconify-icon icon="material-symbols:phone-enabled"></iconify-icon> <span>{{config('company.contact.phone')}}</span></a></li>
+                <li class="l-item"><a href="mailto:{{config('company.contact.email')}}" class="flex-center"><iconify-icon icon="material-symbols:alternate-email"></iconify-icon> <span>{{config('company.contact.email')}}</span></a></li>
+                <li class="l-item"><a href="{{ route("contact") }}" class="flex-center"><iconify-icon icon="ant-design:form-outlined"></iconify-icon> <span>Contact</span></a></li>
             </ul>
         </div>
 

@@ -46,7 +46,7 @@
 
                 <article class="container flex">
                     <div class="property">
-                        <h1 class="price text-primary">{{ $property->price }} $</h1>
+                        <h1 class="price">{{ $property->price }} $</h1>
                         @guest
                             <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
                                 <iconify-icon icon="material-symbols:heart-plus"></iconify-icon>
@@ -64,31 +64,34 @@
 
                         <div class="meta p-5">
                             <h2 class="property-title">{{ $property->title }}</h2>
-                            <div class="">
-                                <a href="#" class="date">
+                            <div class="contain">
+                                <a href="#" class="date flex-center">
                                     <iconify-icon icon="ic:baseline-calendar-month"></iconify-icon>
-                                    {{ $property->date_posted }}
+                                    @php($date = new \Illuminate\Support\Carbon($property->date_posted))
+                                    <span>{{ $date->toDateString() }}</span>
                                 </a>
-                                <a href="#" class="type">
+                                <a href="#" class="type flex-center">
                                     <iconify-icon icon="mdi:tag"></iconify-icon>
-                                    {{ $property->type->type }}
+                                    <span>{{ $property->type->type }}</span>
                                 </a>
-                                <a href="#" class="bednum">
-                                    <iconify-icon icon="mdi:guest-room"></iconify-icon
-                                    {{ $property->bedrooms_nb }}
+                                <a href="#" class="bednum flex-center">
+                                    <iconify-icon icon="mdi:guest-room"></iconify-icon>
+                                    <span>{{ $property->bedrooms_nb }}</span>
                                 </a>
-                                <a href="#" class="bathnum">
+                                <a href="#" class="bathnum flex-center">
                                     <iconify-icon icon="mdi:bathroom"></iconify-icon>
-                                    {{ $property->bathrooms_nb }}
+                                    <span>{{ $property->bathrooms_nb }}</span>
                                 </a>
-                                <a href="#" class="space">
+                                <a href="#" class="space flex-center">
                                     <iconify-icon icon="icons8:resize-four-directions"></iconify-icon>
-                                    {{ $property->size }}m<sup>2</sup></a>
+                                    <span>{{ $property->size }}m<sup>2</sup></span>
+                                </a>
                             </div>
                         </div>
-                        <p class="description">
-                            {{ $property->description }}
-                        </p>
+                        <div class="description">
+                            <h3>Description</h3>
+                            <p>{{ $property->description }}</p>
+                        </div>
                         <h3>Features</h3>
                         <ul class="grid custom-list">
                             @if(isset($property->features))
@@ -115,29 +118,23 @@
                             <input type="text" class="form-control" id="phone" name="phone" placeholder="03 / 123 456">
                             <label for="phone">Phone Number</label>
                         </div>
-                        <div class="form-floating">
+                        <div class="form-floating mb-3">
                             <textarea class="form-control" placeholder="Leave a comment here" id="message" style="height: 100px" name="message"></textarea>
                             <label for="message">Message</label>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 mt-1">
                             <button class="btn btn-primary" type="submit">Enquire</button>
                         </div>
                     </form>
                 </article>
 
                 <div class="container">
-                    <h2>Share this property</h2>
-                    <ul>
-                        <li>
-                            <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-                        </li>
-                        <li>
-                            <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet">Tweet</a>
-                        </li>
-                        <li>
-                            <a href="whatsapp://send?text={{ url()->current() }}">Whatsapp</a>
-                        </li>
-                    </ul>
+                    <h3>Share</h3>
+                    <div class="flex w-25">
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet">Tweet</a>
+                        <a href="whatsapp://send?text={{ url()->current() }}">Whatsapp</a>
+                    </div>
                 </div>
 
                 <hr>

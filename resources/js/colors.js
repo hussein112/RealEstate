@@ -10,7 +10,7 @@ export const colors = {
         primary: "#03001C",
         secondary: "#444",
         tertiary: "rgb(91, 143, 185)",
-        rgbtertiary: "255, 255, 255",
+        rgbtertiary: "0, 0, 0",
         fourth: "#ffffff",
     }
 }
