@@ -71,13 +71,6 @@
                             <td>{{ $property->owner->full_name }}</td>
                         </tr>
                         </tbody>
-                        <tfoot>
-                        <th class="d-flex papers-btn">
-                            <button class="btn btn-primary">Save CSV</button>
-                            <button class="btn btn-primary">Save PDF</button>
-                            <button class="btn btn-primary">Print</button>
-                        </th>
-                        </tfoot>
                     </table>
                 <div class="right-side-wrapper w-100 m-1">
                     @isset($property->images)

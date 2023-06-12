@@ -76,11 +76,6 @@
                             <td>{{ $advertisement->message }}</td>
                         </tr>
                         </tbody>
-                        <tfoot class="d-flex papers-specific">
-                        <td><button class="btn btn-primary">Save CSV</button></td>
-                        <td><button class="btn btn-primary">Save PDF</button></td>
-                        <td><button class="btn btn-primary">Print</button></td>
-                        </tfoot>
                     </table>
 
                 </div>
