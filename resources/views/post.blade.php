@@ -40,6 +40,40 @@
             </section>
         @endisset
 
+
+        <!-- Start Similar Posts -->
+
+        @isset($similar_posts)
+            <h2 class="section-title center">Similar Posts</h2>
+            <div class="container cards d-flex flex-wrap align-items-center">
+                @foreach($similar_posts as $post)
+                    <div class="card m-2">
+                        @if(sizeof($post->images) > 0)
+                            {{--                                    Set the first image as thumbnail --}}
+                            <img src="{{ asset("storage/" . $post->images[0]->image) }}" class="card-img-top" alt="Blog Post" loading="lazy">
+                        @endif
+                        <div class="card-body">
+                            <header class="card-head">
+                                <a href="{{ route('post', ['id' => $post->id]) }}" class="card-title">{{ $post->title }}</a>
+                            </header>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam atque ab aperiam velit rem, nostrum necessitatibus deserunt esse, temporibus labore nulla.</p>
+                            <div class="links d-flex justify-content-between align-items-center flex-wrap">
+                                <a href="{{ route('post', ['id' => $post->id]) }}" class="card-link btn btn-primary">
+                                    Continue Reading
+                                </a>
+                                <a href="{{ route("searchByDate", ['date' => $post->created_at]) }}" class="date">
+                                    @php($date = new \Illuminate\Support\Carbon($post->created_at))
+                                    {{ $date->toDateString() }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endisset
+
+        <!-- End Similar Posts -->
+
     </x-slot>
 
 </x-user-layout>

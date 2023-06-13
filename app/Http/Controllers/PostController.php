@@ -103,8 +103,16 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $post = Post::findOrFail($id);
+        $similar = Post::where('id', '<>', $id)
+            ->where(function ($query) use ($post) {
+                $query->where('category_id', $post->category_id)
+                    ->orWhere('admin_id', $post->admin_id);
+            })
+            ->get();
         return view("post")->with([
-            'post' => Post::findOrFail($id)
+            'post' => $post,
+            'similar_posts' => $similar
         ]);
     }
 

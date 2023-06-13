@@ -61,7 +61,6 @@
                             </form>
                         @endauth
 
-
                         <div class="meta p-5">
                             <h2 class="property-title">{{ $property->title }}</h2>
                             <div class="contain">
@@ -140,17 +139,17 @@
                 <hr>
                 <!-- Start Similar Properties -->
                 <div class="similar-properties">
+                    <h2>Similar Properties</h2>
                     <div class="container cards d-flex flex-wrap align-items-center">
-                        <h2>Similar Properties</h2>
                         @isset($similar_properties)
                             @foreach($similar_properties as $property)
                                 <div class="card m-2">
                                     @if(sizeof($property->images) > 1)
                                         <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
                                             <div class="carousel-inner">
-                                                @foreach($property->images->image as $path)
+                                                @foreach($property->images as $path)
                                                     <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
-                                                        <img src="{{ asset('storage/' . $path) }}" alt="{{ $property->title }}">
+                                                        <img src="{{ asset('storage/' . $path->image) }}" alt="{{ $property->title }}">
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -169,24 +168,24 @@
 
                                     <div class="card-body">
                                         <header class="card-head">
-                                            <a href="#" class="card-title">{{ $property->title }}</a>
+                                            <a href="{{ route('property', ['id' => $property->id]) }}" class="card-title">{{ $property->title }}</a>
                                             <div class="d-flex w-100 justify-content-between flex-wrap">
                                                 <h6 class="card-subtitle">
-                                                    <a href="#" class="text-capitalize text-muted flex-center">
+                                                    <a href="{{ route("searchByLocation", ['city' => $property->city]) }}" class="text-capitalize text-muted flex-center">
                                                         <iconify-icon icon="material-symbols:location-on"></iconify-icon>
-                                                        {{ $property->location }}
+                                                        <span>{{ ucfirst($property->city) }}</span>
                                                     </a>
                                                 </h6>
                                                 <h6 class="card-subtitle">
-                                                    <a href="#" class="text-capitalize text-muted flex-center">
+                                                    <a href="{{ route("searchByPrice", ['price' => $property->price]) }}" class="text-capitalize text-muted flex-center">
                                                         <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
-                                                        {{ $property->price }}
+                                                        <span>{{ $property->price }}</span>
                                                     </a>
                                                 </h6>
                                                 <h6 class="card-subtitle">
-                                                    <a href="#" class="text-capitalize text-muted flex-center">
-                                                        <iconify-icon icon="ic:sharp-meeting-room"></iconify-icon>
-                                                        {{ $property->bedrooms_nb }}
+                                                    <a href="{{ route("searchByBedroomsNumber", ['nb' => $property->bedrooms_nb]) }}" class="text-capitalize text-muted flex-center">
+                                                        <iconify-icon icon="mdi:guest-room"></iconify-icon>
+                                                        <span>{{ $property->bedrooms_nb }}</span>
                                                     </a>
                                                 </h6>
                                             </div>
@@ -194,10 +193,7 @@
                                         <p class="card-text">{{ $property->description }}</p>
                                         <div class="links d-flex w-100 justify-content-between flex-wrap">
                                             <a href="#" class="card-link ">
-                                                <iconify-icon icon="mdi:content-save-plus-outline"></iconify-icon>
-                                            </a>
-                                            <a href="#" class="card-link">
-                                                <iconify-icon icon="gis:search-poi"></iconify-icon>
+                                                <iconify-icon icon="material-symbols:heart-plus"></iconify-icon>
                                             </a>
                                         </div>
                                     </div>
@@ -209,6 +205,7 @@
                 <!-- End Similar Properties -->
             </section>
         @endisset
+        <!-- Start Login Modal -->
         <div class="modal fade" tabindex="-1" id="loginModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -257,5 +254,7 @@
                     </div>
                 </div>
             </div>
+        <!-- End Login Modal -->
+
     </x-slot>
 </x-user-layout>

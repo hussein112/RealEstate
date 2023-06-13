@@ -9,6 +9,7 @@ use App\Models\Feature;
 use App\Models\Image;
 use App\Models\Property;
 use App\Models\Type;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -18,6 +19,8 @@ class PropertyController extends Controller
 {
 
     protected int $paginate = 12;
+
+    protected int $SIMILARTIY_RANGE = 200;
 
     /********************* START READ METHODS (USER) *********************/
 
@@ -49,8 +52,18 @@ class PropertyController extends Controller
      */
     public function show($id)
     {
+        $property = Property::findOrFail($id);
+        $similar = Property::where('id', '<>', $id)
+            ->where(function ($query) use ($property) {
+                $query->where('address', 'LIKE', '%' . $property->address . '%')
+                    ->orWhere('size', 'BETWEEN', [$property->size - $this->SIMILARTIY_RANGE, $property->size + $this->SIMILARTIY_RANGE])
+                    ->orWhere('price', 'BETWEEN', [$property->price - $this->SIMILARTIY_RANGE, $property->price + $this->SIMILARTIY_RANGE])
+                    ->orWhere('city', $property->city);
+            })
+            ->get();
         return view('property')->with([
-            'property' => Property::findOrFail($id)
+            'property' => $property,
+            'similar_properties' => $similar
         ]);
     }
 
