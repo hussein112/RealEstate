@@ -50,7 +50,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended($this->getAuthRedirectUrl($guard));
+        return redirect()->intended();
     }
 
     /**

@@ -21,4 +21,10 @@ class FavoriteListController extends Controller
             'success_msg' => "Property Added Successfully"
         ]);
     }
+
+
+    public function destroy($id){
+        FavoriteList::destroy($id);
+        return redirect()->back()->with("Property Removed Successfully");
+    }
 }

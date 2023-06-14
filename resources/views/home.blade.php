@@ -135,9 +135,12 @@
                                 </header>
                                 <p class="card-text">{{ $lproperty->description }}</p>
                                 <div class="links d-flex w-100 justify-content-between flex-wrap">
-                                    <a href="#" class="card-link ">
-                                        <iconify-icon icon="material-symbols:heart-plus"></iconify-icon>
-                                    </a>
+                                    <form class="card-link" action="{{ route("addToFavourites", ['id' => $lproperty->id]) }}" method="post">
+                                        @csrf
+                                        <button @auth type="submit" @endauth @guest type="button" data-bs-toggle="modal" data-bs-target="#loginModal" @endguest>
+                                            <iconify-icon icon="material-symbols:heart-plus"></iconify-icon>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -199,6 +202,8 @@
 
         <!-- /Latest News -->
 
+
+        <x-login-modal></x-login-modal>
     </x-slot>
 
 </x-user-layout>

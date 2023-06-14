@@ -1,7 +1,4 @@
 <x-auth-layout>
-    <!-- Session Status -->
-    {{--    <x-auth-session-status class="mb-4" :status="session('status')" />--}}
-
     <x-slot name="form">
         <form action="{{ route('u-login') }}" method="post" class="container flex flex-column flex-wrap">
             @csrf

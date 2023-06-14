@@ -9,6 +9,8 @@ require __DIR__ . '/userauth.php';
 
 Route::get('profile', [UserController::class, 'index'])->name("profile");
 Route::post('fav/add/{id}', [FavoriteListController::class, 'store'])->name("addToFavourites");
+Route::delete('fav/delete/{id}', [FavoriteListController::class, 'destroy'])->name("removeFromFavourites");
+
 
 Route::patch("update/{id}", [UserController::class, 'update'])->name("update");
 
