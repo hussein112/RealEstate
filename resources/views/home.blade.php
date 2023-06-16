@@ -4,6 +4,12 @@
         <x-header page="page" :types="$types" :wheres="$wheres" :fors="$fors"></x-header>
     </x-slot>
     <x-slot name="main">
+        @if(session('info_message') != null)
+            <x-alert-message type="info" msg="{{ session('info_message') }}"></x-alert-message>
+        @endif
+        @if(session('success_msg') != null)
+            <x-alert-message type="success" msg="{{ session('success_msg') }}"></x-alert-message>
+        @endif
         <!-- Featured Properties -->
         <section id="featured-properties">
             <h2 class="section-title center">Featured Properties</h2>

@@ -17,9 +17,7 @@ class FavoriteListController extends Controller
             'property_id' => $property_id
         ]);
 
-        return redirect()->back()->with([
-            'success_msg' => "Property Added Successfully"
-        ]);
+        return redirect()->back()->with('success_msg', "Property Added Successfully");
     }
 
 
