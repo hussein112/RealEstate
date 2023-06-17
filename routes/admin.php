@@ -178,8 +178,10 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("settings/email/edit/{email}", [SettingsController::class, 'editEmail'])->name('edit-email');
         Route::patch("settings/email/edit/{email}", [SettingsController::class, 'updateEmail'])->name('edit-email');
 
-
         Route::patch("settings/employee_capacity", [SettingsController::class, 'updateEmployeeCapacity'])->name('a-updateEmployeeCapacity');
+
+        // Special case (Due to the fact that this route is accessed through axios).
+        Route::post("property/{property_id}/{image_id}", [PropertyController::class, 'updateImage'])->name('a-updateImage');
     });
 
 

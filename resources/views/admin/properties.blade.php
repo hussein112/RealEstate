@@ -82,7 +82,7 @@
                             <td>{{ isset($property->addedBy->f_name) ? $property->addedBy->f_name . '  ' . $property->addedBy->l_name : "no admin!"}}</td>
                             <td>{{ ($property->type->type) ?? "no type" }}</td>
                             <td>{{ ($property->owner->full_name) ?? 'no owner' }}</td>
-                            <td>{{ $property->for }}</td>
+                            <td>{{ ($property->for == 1) ? "Sell" : "Rent" }}</td>
                             <td class="action-btns">
                                 <a href="{{ route("a-editProperty", ['id' => $property->id]) }}" class="btn btn-primary m-1">Edit</a>
                                 <a href="{{ route("a-editProperty", ['id' => $property->id]) }}" class="btn btn-primary flex-center"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a>

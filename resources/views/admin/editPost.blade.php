@@ -29,13 +29,16 @@
     </x-slot>
 </x-admin-layout>
 <script>
-    setTimeout(function(){
-        let images = Array.from(document.querySelectorAll("#editor img"));
+    // Quick & Urgent fix for TinyMCE path
+    setTimeout(() => {
+        let editor = document.querySelector('iframe');
+        let iframeDocument = editor.contentDocument || editor.contentWindow.document;
+        let images = Array.from(iframeDocument.querySelectorAll("img"));
         images.forEach(image => {
             console.log("IMAGE SORUCE: " + image.src);
             if(image.src.includes("storage")){
-                image.src = "../" + image.src;
+                image.src = image.src.replace("admin/", '');
             }
         })
-    }, 4000);
+    }, 5000);
 </script>

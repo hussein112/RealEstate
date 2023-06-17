@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class PropertyController extends Controller
 {
@@ -350,6 +351,30 @@ class PropertyController extends Controller
         return redirect()->back()->with([
             'error_msg' => 'Nothing to Update!'
         ]);
+    }
+
+
+    /**
+     * Update the property image.
+     * Remove the old image, insert new one.
+     * @param Request $request
+     * @param int $imageId
+     * @param int $propertyId
+     */
+    public function updateImage(Request $request, int $propertyId, int $imageId){
+        Image::destroy($imageId);
+        $property = Property::findOrFail($propertyId);
+        if($request->hasFile('image')) {
+            $img = Image::create([
+                'image' => $request->file('image')->store('property/' . $property->id, 'public')
+            ]);
+            $property->images()->attach($property->id, ['image_id' => $img->id]);
+            $property->save();
+            session()->put("success_msg", "Image Updated Successfully");
+            return json_encode(["Done"]);
+        }
+        return json_encode(["Something Went Wrong"]);
+
     }
 
     /**

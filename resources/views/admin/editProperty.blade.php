@@ -69,7 +69,7 @@
                                                 <div class="row">
                                                     @php($prop_images = "")
                                                     @foreach($property->images as $key)
-                                                        @php($prop_images .= "," . $key->id))
+                                                        @php($prop_images .= "," . $key->id)
                                                         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
                                                         <div class="image">
                                                             <img
@@ -79,7 +79,10 @@
                                                                 loading="lazy"
                                                             />
                                                             <div class="actions">
-                                                                <iconify-icon icon="material-symbols:edit"></iconify-icon>
+                                                                <input type="file" name="image" id="update-image-{{$key->id}}" class="btn btn-info m-1">
+                                                                    <iconify-icon icon="material-symbols:edit"></iconify-icon>
+                                                                </input>
+                                                                <!-- Delete the previous, add the new -->
                                                                 <button id="delete-{{$key->id}}" class="btn btn-danger m-1" type="button">
                                                                     <iconify-icon icon="mdi:delete"></iconify-icon>
                                                                 </button>
@@ -87,27 +90,16 @@
                                                         </div>
                                                     </div>
                                                     @endforeach
+                                                    @if($prop_images != "")
                                                         <script>
+                                                            // Data Passed to the Vite File
                                                             let keys = "{{$prop_images}}"
-                                                            let ids = keys.split(",");
-                                                            ids.forEach(id => {
-                                                                if(id !== ''){
-                                                                    document.getElementById("delete-" + id).addEventListener("click", () => {
-                                                                        if(confirm("Are you sure you want to delete image #" + id)){
-                                                                            axios.delete(`http://127.0.0.1:8000/admin/delete/images/${id}`, {
-                                                                                headers: {
-                                                                                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                                                                                }
-                                                                            }).then(response => {
-                                                                                location.reload();
-                                                                            }).catch(error => {
-                                                                                alert(error);
-                                                                            });
-                                                                        }
-                                                                    });
-                                                                }
-                                                            });
+                                                            let CSSRF = "{{@csrf_token()}}"
+                                                            let prop_id = {{$property->id}}
+
                                                         </script>
+                                                    @endif
+                                                    @vite("resources/js/admin/alterPropertyImages.js")
                                                 </div>
                                                 <!-- End Property Image Gallery -->
                                             </div>
