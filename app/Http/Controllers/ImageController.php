@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
@@ -75,10 +76,11 @@ class ImageController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        Image::destroy($id);
+        session()->put("success_msg", "Image Deleted Successfully");
+        return json_encode(["Done"]);
     }
 }

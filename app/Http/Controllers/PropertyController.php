@@ -153,13 +153,6 @@ class PropertyController extends Controller
         ]);
     }
 
-    public function adminProperty($id){
-        return view("admin.property")->with([
-            'property' => Property::find($id)
-        ]);
-    }
-
-
     /**
      * City
      */

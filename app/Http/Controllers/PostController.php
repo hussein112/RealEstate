@@ -90,9 +90,7 @@ class PostController extends Controller
 
         $post->images()->attach($post->id, ['image_id' => session('image_id')]);
 
-        return redirect()->back()->with([
-            'success_msg' => "Post Added Successfully"
-        ]);
+        return redirect()->back()->with('success_msg', "Post Added Successfully");
     }
 
     /**

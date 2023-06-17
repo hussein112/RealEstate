@@ -10,6 +10,8 @@
             <form action="{{ route("a-editPost", ['id' => $post->id]) }}" method="post" class="new-post" enctype="multipart/form-data">
                 @method("PATCH")
                 @csrf
+
+{{--                http://127.0.0.1:8000/storage/post/l4fAJy4JjdetuiqYLKxHedAu3lFl8CUc39PlHKdk.jpg--}}
                 <input class="form-control my-2" type="text" name="title" placeholder="Title" value="{{ $post->title }}">
                 <textarea id="editor" name="post" class="my-2">{{ $post->content }}</textarea>
                 <select name="category" class="form-select my-2">
@@ -26,3 +28,14 @@
         @vite('resources/js/editorScaffolding.js')
     </x-slot>
 </x-admin-layout>
+<script>
+    setTimeout(function(){
+        let images = Array.from(document.querySelectorAll("#editor img"));
+        images.forEach(image => {
+            console.log("IMAGE SORUCE: " + image.src);
+            if(image.src.includes("storage")){
+                image.src = "../" + image.src;
+            }
+        })
+    }, 4000);
+</script>

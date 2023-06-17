@@ -14,5 +14,8 @@ return [
         'phone' => '76 967 804',
         'email' => 'husseinkhalil420@gmail.com',
     ],
-    'reply_email' => 'company@info.com'
+    'reply_email' => 'company@info.com',
+    'settings.txt' => [
+        'employee_capacity' => 10
+    ]
 ];

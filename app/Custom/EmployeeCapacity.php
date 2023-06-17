@@ -8,9 +8,15 @@ use App\Models\Assign;
 use App\Models\Employee;
 use App\Models\Enquiry;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 trait EmployeeCapacity{
-    public $EMPLOYEE_CAPACITY = 10;
+
+    public static function getEmployeeCapacity(){
+        $capacity_ = Storage::get('website/settings.txt');
+        $temp = explode('-', $capacity_);
+        return (int)end($temp);
+    }
 
     public function getEmployee(){
         $available_employees = $this->getAllAvailableEmployees();
@@ -45,7 +51,7 @@ trait EmployeeCapacity{
 
         $available_employees = [];
         foreach($employees_capacity as $id => $capacity){
-            if($capacity < $this->EMPLOYEE_CAPACITY){
+            if($capacity < $this->getEmployeeCapacity()){
                 array_push($available_employees, $id);
             }
         }

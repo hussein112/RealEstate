@@ -6,7 +6,7 @@
             <hr>
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
-            <form action="{{ route('e-editEmployee', ['id' => $employee->id]) }}" method="post">
+            <form id="update-user-profile" action="{{ route('e-editEmployee', ['id' => $employee->id]) }}" method="post">
                 @method('PATCH')
                 @csrf
                 <div class="mb-3 row">
@@ -50,8 +50,9 @@
                         <input class="form-control form-control-lg" id="avatar" type="file">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary" id="update-profile">Update</button>
             </form>
         </main>
     </x-slot>
 </x-employee.layout>
+<x-confirmation-dialog title="Update Profile" body="Are you sure you want to update your profile?"></x-confirmation-dialog>

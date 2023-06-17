@@ -16,12 +16,12 @@
 
                 <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                     <hr>
-                    <form action="{{ route("a-editProperty", ['id' => $property->id]) }}" method="post" class="w-100 m-1">
+                    <form id="update-user-profile" action="{{ route("a-editProperty", ['id' => $property->id]) }}" method="post" class="w-100 m-1">
                         @method("PATCH")
                         @csrf
                         <select name="owner" class="form-select my-2">
                             @foreach($customers as $customer)
-                                <option value="{{ $customer->id }}">{{$customer->full_name}}</option>
+                                <option value="{{ $customer->id }}" @selected($customer->id == $property->customer_id)>{{$customer->full_name}}</option>
                             @endforeach
                         </select>
                         <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}">
@@ -42,13 +42,84 @@
                                 <option value="{{ $type->id }}" @selected($property->type->id == $type->id)>{{ $type->type }}</option>
                             @endforeach
                         </select>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary" id="update-profile">Update</button>
                     </form>
 
-
-                        <div class="right-side-wrapper w-100 m-1">
+                    <!-- Start Images & Features -->
+                    <div class="right-side-wrapper w-100 m-1">
                             @isset($property->images)
-                                <div id="property" class="carousel slide property-slides" data-bs-ride="true">
+                                <!-- Modal Dialog CSS EDITS
+                                    max-width: none; */
+                                    /* margin-right: none; */
+                                    /* margin-left: none; -->
+                            <div class="floating-edit">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <iconify-icon icon="material-symbols:edit"></iconify-icon>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade w-100" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Property Images</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Start Property Image Gallery  -->
+                                                <div class="row">
+                                                    @php($prop_images = "")
+                                                    @foreach($property->images as $key)
+                                                        @php($prop_images .= "," . $key->id))
+                                                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                                        <div class="image">
+                                                            <img
+                                                                src="{{ asset('storage/' . $key->image) }}"
+                                                                class="w-100 shadow-1-strong rounded mb-4"
+                                                                alt="{{ $property->title }}"
+                                                                loading="lazy"
+                                                            />
+                                                            <div class="actions">
+                                                                <iconify-icon icon="material-symbols:edit"></iconify-icon>
+                                                                <button id="delete-{{$key->id}}" class="btn btn-danger m-1" type="button">
+                                                                    <iconify-icon icon="mdi:delete"></iconify-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                        <script>
+                                                            let keys = "{{$prop_images}}"
+                                                            let ids = keys.split(",");
+                                                            ids.forEach(id => {
+                                                                if(id !== ''){
+                                                                    document.getElementById("delete-" + id).addEventListener("click", () => {
+                                                                        if(confirm("Are you sure you want to delete image #" + id)){
+                                                                            axios.delete(`http://127.0.0.1:8000/admin/delete/images/${id}`, {
+                                                                                headers: {
+                                                                                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                                                                                }
+                                                                            }).then(response => {
+                                                                                location.reload();
+                                                                            }).catch(error => {
+                                                                                alert(error);
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        </script>
+                                                </div>
+                                                <!-- End Property Image Gallery -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="property" class="carousel slide property-slides" data-bs-ride="true">
                                     <div class="carousel-indicators">
                                         @for($i = 0; $i < sizeof($property->images); $i++)
                                             <button type="button" data-bs-target="#property" data-bs-slide-to="{{ $i }}" class="{{ ($i == 0) ? 'active' : '' }}" aria-current="{{ ($i == 0) ? 'true' : '' }}" aria-label="Slide {{ $i }}"></button>
@@ -59,10 +130,6 @@
                                         @foreach($property->images as $key)
                                             <div class="carousel-item @if($loop->first) active @endif">
                                                 <img src="{{ asset('storage/' . $key->image) }}" class="d-block w-100" style="height: 250px; max-height: 300px" alt="{{ $property->title }}" loading="lazy">
-                                                <div class="carousel-btns">
-                                                    <iconify-icon icon="material-symbols:edit-sharp" type="button" data-bs-toggle="modal" data-bs-target="#editModal"></iconify-icon>
-                                                    <iconify-icon icon="ic:round-delete" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal"></iconify-icon>
-                                                </div>
                                             </div>
                                         @endforeach
                                     </div>
@@ -89,9 +156,12 @@
                             @endif
                         </div>
                     </div>
+                    <!-- End Images & Features -->
+
                 </div>
             @endisset
         </main>
     </x-slot>
 
 </x-admin-layout>
+<x-confirmation-dialog title="Update Property" body="Are you sure you want to update the property?"></x-confirmation-dialog>

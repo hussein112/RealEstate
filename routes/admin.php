@@ -1,8 +1,10 @@
+
 <?php
 
 use App\Http\Controllers\AdvertiseController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
@@ -45,7 +47,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::get("enquiry/{id}", [EnquiriesController::class, 'adminShow'])->name('a-enquiryDetails');
 
     Route::get("properties", [PropertyController::class, 'adminIndex'])->name('a-properties');
-    Route::get("property/{id}", [PropertyController::class, 'adminProperty'])->name('a-property');
+
 
     Route::get("users", [UserController::class, 'adminIndex'])->name('a-users');
 
@@ -177,6 +179,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::patch("settings/email/edit/{email}", [SettingsController::class, 'updateEmail'])->name('edit-email');
 
 
+        Route::patch("settings/employee_capacity", [SettingsController::class, 'updateEmployeeCapacity'])->name('a-updateEmployeeCapacity');
     });
 
 
@@ -204,6 +207,10 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         // Reject a Valuation Request
         Route::delete("valuation/request/reject/{id}", [ValuationApprovalController::class, 'reject'])->name('a-rejectRequest');
+
+
+        // Delete Images
+        Route::delete("images/{id}", [ImageController::class, 'destroy'])->name("a-deleteImage");
     });
 
 

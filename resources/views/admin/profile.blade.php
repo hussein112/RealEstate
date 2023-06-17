@@ -9,7 +9,7 @@
             <div class="data">
                 @isset($admin)
                     @vite('resources/js/admin/passwords.js')
-                    <form action="{{ route("a-editAdmin", ['id' => $admin->id]) }}" method="post" class="d-flex flex-column flex-lg-row" enctype="multipart/form-data">
+                    <form id="update-user-profile" action="{{ route("a-editAdmin", ['id' => $admin->id]) }}" method="post" class="d-flex flex-column flex-lg-row" enctype="multipart/form-data">
                         @method("PATCH")
                         @csrf
                         <div class="image w-20 m-2">
@@ -67,7 +67,7 @@
                                     <div class="error text-danger">* {{$errors->first('phone')}}</div>
                                 @endif
                             </div>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary" id="update-profile">Update</button>
                         </div>
                     </form>
                 @endisset
@@ -97,3 +97,4 @@
         </main>
     </x-slot>
 </x-admin-layout>
+<x-confirmation-dialog title="Update Profile" body="Are you sure you want to update your profile?"></x-confirmation-dialog>

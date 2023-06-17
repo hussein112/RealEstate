@@ -40,7 +40,7 @@ class PostImagesController extends Controller
         ]);
         session(['image_id' => $img->id]);
         return response()->json([
-            'location' => asset("storage/$path")]
+            'location' => asset("storage/" . $path)]
         );
     }
 

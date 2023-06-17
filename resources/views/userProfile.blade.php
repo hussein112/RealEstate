@@ -5,16 +5,15 @@
 
     <x-slot name="main">
         <h2 class="section-title center">{{ $user->f_name . " " . $user->l_name }}</h2>
-        @if(session('error_msg'))
-            {{ session('error_msg') }}
-        @endif
         <div class="container d-flex flex-column">
-            @if($user->email_verfied_at == null)
-                <a href="#" class="text-danger">You Need To Verify Your Email</a>
+            <x-messages type="info" msg="error_msg"></x-messages>
+            <x-messages type="success" msg="success_msg"></x-messages>
+            @if($user->email_verified_at == null)
+                <a href="{{ route("verification.notice") }}" class="text-danger">You Need To Verify Your Email</a>
             @endif
             <hr>
             <!-- Update Info -->
-            <form class="container flex flex-column flex-wrap" action="{{ route("update", ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
+            <form id="update-user-profile" class="container flex flex-column flex-wrap" action="{{ route("update", ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="form-floating mb-3">
@@ -63,7 +62,7 @@
                         @endif
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary m-2">Update</button>
+                <button type="submit" class="btn btn-primary m-2" id="update-profile">Update</button>
             </form>
             <hr>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePassword">
@@ -107,3 +106,4 @@
         </div>
     </x-slot>
 </x-user-layout>
+<x-confirmation-dialog title="Update Profile" body="Are you sure you want to update your profile?"></x-confirmation-dialog>

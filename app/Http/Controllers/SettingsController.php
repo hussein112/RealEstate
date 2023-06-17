@@ -108,4 +108,13 @@ class SettingsController extends Controller
             'sucess_msg' => 'Email template updated successfuly'
         ]);
     }
+
+
+
+
+    public function updateEmployeeCapacity(Request $request){
+        $capacity = 'ec-' . $request->get("capacity");
+        Storage::disk('local')->put('website/settings.txt', $capacity);
+        return redirect()->back()->with('success_msg', 'Employee Capacity Updated.');
+    }
 }

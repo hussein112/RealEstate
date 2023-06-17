@@ -55,7 +55,6 @@
                         @sortablelink("for", "For")
                     </th>
                     <th scope="col">Actions</th>
-                    <th scope="col">Details</th>
                 </tr>
                 </thead>
                 @isset($properties)
@@ -86,9 +85,9 @@
                             <td>{{ $property->for }}</td>
                             <td class="action-btns">
                                 <a href="{{ route("a-editProperty", ['id' => $property->id]) }}" class="btn btn-primary m-1">Edit</a>
-                                <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$property->id}}">Delete</button>
+                                <a href="{{ route("a-editProperty", ['id' => $property->id]) }}" class="btn btn-primary flex-center"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a>
+                            <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$property->id}}">Delete</button>
                             </td>
-                            <td><a href="{{ route("a-property", ['id' => $property->id]) }}" class="btn btn-primary flex-center"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
                         </tr>
                     @endforeach
                 </tbody>

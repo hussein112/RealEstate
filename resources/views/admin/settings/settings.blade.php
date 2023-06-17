@@ -7,7 +7,7 @@
             <hr>
 
             <div class="grid">
-                <x-settings-card header="About Us Page" link="edit-about" body="Compnay CV"></x-settings-card>
+                <x-settings-card header="About Us Page" link="edit-about" body="Company CV"></x-settings-card>
                 <x-settings-card header="our services Page" link="edit-services" body="list of company services"></x-settings-card>
                 <x-settings-card header="privacy policy Page" link="edit-privacy" body="data collection policy"></x-settings-card>
                 <x-settings-card header="terms & conditions Page" link="edit-terms" body="general rules to use website"></x-settings-card>
@@ -22,11 +22,11 @@
             <p class="lead">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam autem debitis distinctio dolor dolorum ea fugit iste iure laudantium necessitatibus nemo placeat quae quia, quo quod similique voluptas. Assumenda?
             </p>
-            <form action="" method="POST">
+            <form action="{{ route("a-updateEmployeeCapacity") }}" method="POST">
                 @csrf
                 @method("PATCH")
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="ec" placeholder="12">
+                    <input type="number" name="capacity" class="form-control" value="{{ App\Custom\EmployeeCapacity::getEmployeeCapacity() }}">
                     <label for="ec">Employee Capacity</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
