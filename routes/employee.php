@@ -35,7 +35,6 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
     Route::get("enquiry/{id}/{notification_id?}", [EnquiriesController::class, 'employeeShow'])->name('e-enquiryDetails');
 
     Route::get("properties", [PropertyController::class, 'employeeIndex'])->name('e-properties');
-    Route::get("property/{id}", [PropertyController::class, 'employeeProperty'])->name('e-property');
 
     Route::get("users", [UserController::class, 'employeeIndex'])->name('e-users');
 

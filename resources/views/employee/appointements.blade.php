@@ -43,7 +43,7 @@
                                 <td>{{ $appointement->notes }}</td>
                                 <td>{{ $appointement->created_at }}</td>
                                 <td class="td-long">{{ $appointement->forEmployee->full_name }}</td>
-                                <td><a href="{{ route("e-property", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
+                                <td><a href="{{ route("e-editProperty", ['id' => $appointement->purpose->id]) }}">{{ $appointement->purpose->id }}</a></td>
                                 <td class="action-btns">
                                     <a href="{{ route('e-editAppointement', ['id' => $appointement->id]) }}" class="btn btn-primary m-1">Edit</a>
                                     <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$appointement->id}}">Delete</button>

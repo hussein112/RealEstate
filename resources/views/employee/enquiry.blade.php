@@ -44,7 +44,7 @@
                         <tr>
                             <th>Property</th>
                             <td>
-                                <a href="{{ route('e-property', ['id' => $enquiry->purpose->id]) }}">{{ $enquiry->purpose->title }}</a>
+                                <a href="{{ route('e-editProperty', ['id' => $enquiry->purpose->id]) }}">{{ $enquiry->purpose->title }}</a>
                             </td>
                         </tr>
 
@@ -55,7 +55,6 @@
                         <td><button class="btn btn-primary">Print</button></td>
                         </tfoot>
                     </table>
-
                 </div>
             @endisset
         </main>

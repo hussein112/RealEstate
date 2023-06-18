@@ -42,7 +42,7 @@
                             <td>{{ $appointement->created_at }}</td>
                             <td class="td-long">{{ $appointement->forAdmin->f_name . ' ' . $appointement->forAdmin->l_name }}</td>
                             @if(isset($appointement->property_id))
-                                <td><a href="{{ route("a-property", ['id' => $appointement->property_id]) }}">{{ $appointement->property_id }}</a></td>
+                                <td><a href="{{ route("a-editProperty", ['id' => $appointement->property_id]) }}">{{ $appointement->property_id }}</a></td>
                             @else
                                 <td>-</td>
                             @endif

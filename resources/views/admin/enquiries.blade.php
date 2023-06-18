@@ -38,7 +38,7 @@
                                     <td>{{ $enquiry->created_at }}</td>
                                     <td>{{ $enquiry->issuer_name }}</td>
                                     <td class="td-long">{{ $enquiry->issuer_message }}</td>
-                                    <td><a href="{{ route('a-property', ['id' => $enquiry->property_id]) }}">{{ $enquiry->property_id }}</a></td>
+                                    <td><a href="{{ route('a-editProperty', ['id' => $enquiry->property_id]) }}">{{ $enquiry->property_id }}</a></td>
                                     <td><a href="mailto:{{ $enquiry->issuer_email }}">{{ $enquiry->issuer_email }}</a></td>
                                     <td>
                                         <a class="btn btn-primary flex-center" href="{{ route('a-enquiryDetails', ['id' => $enquiry->id]) }}">
