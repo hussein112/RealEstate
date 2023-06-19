@@ -81,10 +81,23 @@ class FeatureController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     */
+    public function remove($id, $propertyId)
+    {
+        $property = Property::findOrFail($propertyId);
+        $property->features()->detach($id);
+        return redirect()->back()->with('success_msg', "Feature Removed Successfully.");
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
      */
     public function destroy($id)
     {
-        //
+        Feature::destroy($id);
+        return redirect()->back()->with('success_msg', "Feature Deleted Successfully.");
     }
 }

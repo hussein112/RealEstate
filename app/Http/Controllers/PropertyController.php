@@ -120,13 +120,6 @@ class PropertyController extends Controller
         ]);
     }
 
-    public function employeeProperty($id){
-        return view("employee.property")->with([
-            'property' => Property::findOrFail($id),
-            'features' => Feature::all()
-        ]);
-    }
-
     public function employeeCreate(){
         return view("employee.newProperty")->with([
             'types' => Type::all(),
@@ -341,6 +334,26 @@ class PropertyController extends Controller
         $property->bathrooms_nb = $request->bathrooms;
         $property->type_id = $request->type;
 
+        if(isset($request->hks)){
+            $features = explode(',', $request->hks);
+            for($i = 0; $i < sizeof($features); $i++){
+                $feature = trim($features[$i]);
+                if(strlen($feature) > 2){ # Extra validation for nonsense features. (e.g., hi)
+                    if(Feature::where('feature', $feature)->exists()){
+                        if($property->features()->where('feature', $features)->exists()){
+                            return redirect()->back()->with("info_msg", "Nothing to Update!");
+                        }
+                        $property->features()->attach($property->id, ['feature_id' => Feature::where('feature', $feature)->first()->id]);
+                    }else{
+                        $newF = Feature::create([
+                            'feature' => $feature
+                        ]);
+                        $property->features()->attach($property->id, ['feature_id' => $newF->id]);
+                    }
+                }
+            }
+        }
+
         if($property->isDirty()){
             $property->save();
             return redirect()->back()->with([
@@ -348,9 +361,7 @@ class PropertyController extends Controller
             ]);
         }
 
-        return redirect()->back()->with([
-            'error_msg' => 'Nothing to Update!'
-        ]);
+        return redirect()->back()->with('info_msg', 'Nothing to Update!');
     }
 
 
