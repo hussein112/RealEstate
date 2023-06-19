@@ -378,6 +378,26 @@ class PropertyController extends Controller
     }
 
     /**
+     * Insert new image to alread existing property. (i.e., From the edit page).
+     * @param Request $request
+     * @param int $imageId
+     * @param int $propertyId
+     */
+    public function insertImage(Request $request, int $propertyId){
+        $property = Property::findOrFail($propertyId);
+        if($request->hasFile('image')) {
+            $img = Image::create([
+                'image' => $request->file('image')->store('property/' . $property->id, 'public')
+            ]);
+            $property->images()->attach($property->id, ['image_id' => $img->id]);
+            $property->save();
+            session()->put("success_msg", "Image Updated Successfully");
+            return json_encode(["Done"]);
+        }
+        return json_encode(["Something Went Wrong"]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

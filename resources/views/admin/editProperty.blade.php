@@ -45,8 +45,11 @@
                         <button type="submit" class="btn btn-primary" id="update-profile">Update</button>
                     </form>
 
-                    <!-- Start Images & Features -->
+                    <!-- Start Images & Features -->s
                     <div class="right-side-wrapper w-100 m-1">
+                        <div>
+                            <input type="file" name="new-image" id="new-image">
+                        </div>
                             @isset($property->images)
                                 <!-- Modal Dialog CSS EDITS
                                     max-width: none; */
@@ -96,10 +99,9 @@
                                                             let keys = "{{$prop_images}}"
                                                             let CSSRF = "{{@csrf_token()}}"
                                                             let prop_id = {{$property->id}}
-
                                                         </script>
                                                     @endif
-                                                    @vite("resources/js/admin/alterPropertyImages.js")
+                                                    @vite("resources/js/common/alterPropertyImages.js")
                                                 </div>
                                                 <!-- End Property Image Gallery -->
                                             </div>

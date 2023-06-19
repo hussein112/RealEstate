@@ -15,10 +15,14 @@
 
                 <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                     <hr>
-                    <form action="{{ route('e-editProperty', ['id' => $property->id]) }}" method="post" class="w-100 m-1">
+                    <form id="update-user-profile" action="{{ route('e-editProperty', ['id' => $property->id]) }}" method="post" class="w-100 m-1">
                         @method("PATCH")
                         @csrf
-                        <input name="ownerfname" class="form-control my-2" type="text" placeholder="Owner Name" value="{{ $property->owner->full_name }}">
+                        <select name="owner" class="form-select my-2">
+                            @foreach($customers as $customer)
+                                <option value="{{ $customer->id }}" @selected($customer->id == $property->customer_id)>{{$customer->full_name}}</option>
+                            @endforeach
+                        </select>
                         <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}">
                         <input name="size" class="form-control my-2" type="number" placeholder="Size" value="{{ $property->size }}">
                         <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description">{{ $property->description }}</textarea>
@@ -38,12 +42,79 @@
                                 <option value="{{ $type->id }}" @selected($property->type->id == $type->id)>{{ $type->type }}</option>
                             @endforeach
                         </select>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary" id="update-profile">Update</button>
                     </form>
 
 
+                    <!-- Start Images & Features -->
                     <div class="right-side-wrapper w-100 m-1">
+                        <div>
+                            <input type="file" name="new-image" id="new-image">
+                        </div>
                         @isset($property->images)
+                            <!-- Modal Dialog CSS EDITS
+                                    max-width: none; */
+                                    /* margin-right: none; */
+                                    /* margin-left: none; -->
+                            <div class="floating-edit">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <iconify-icon icon="material-symbols:edit"></iconify-icon>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade w-100" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Property Images</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Start Property Image Gallery  -->
+                                                <div class="row">
+                                                    @php($prop_images = "")
+                                                    @foreach($property->images as $key)
+                                                        @php($prop_images .= "," . $key->id)
+                                                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                                            <div class="image">
+                                                                <img
+                                                                    src="{{ asset('storage/' . $key->image) }}"
+                                                                    class="w-100 shadow-1-strong rounded mb-4"
+                                                                    alt="{{ $property->title }}"
+                                                                    loading="lazy"
+                                                                />
+                                                                <div class="actions">
+                                                                    <input type="file" name="image" id="update-image-{{$key->id}}" class="btn btn-info m-1">
+                                                                    <iconify-icon icon="material-symbols:edit"></iconify-icon>
+                                                                    </input>
+                                                                    <!-- Delete the previous, add the new -->
+                                                                    <button id="delete-{{$key->id}}" class="btn btn-danger m-1" type="button">
+                                                                        <iconify-icon icon="mdi:delete"></iconify-icon>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    @if($prop_images != "")
+                                                        <script>
+                                                            // Data Passed to the Vite File
+                                                            let keys = "{{$prop_images}}"
+                                                            let CSSRF = "{{@csrf_token()}}"
+                                                            let prop_id = {{$property->id}}
+
+                                                        </script>
+                                                    @endif
+                                                    @vite("resources/js/common/alterPropertyImages.js")
+                                                </div>
+                                                <!-- End Property Image Gallery -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div id="property" class="carousel slide property-slides" data-bs-ride="true">
                                 <div class="carousel-indicators">
                                     @for($i = 0; $i < sizeof($property->images); $i++)
@@ -55,10 +126,6 @@
                                     @foreach($property->images as $key)
                                         <div class="carousel-item @if($loop->first) active @endif">
                                             <img src="{{ asset('storage/' . $key->image) }}" class="d-block w-100" style="height: 250px; max-height: 300px" alt="{{ $property->title }}" loading="lazy">
-                                            <div class="carousel-btns">
-                                                <iconify-icon icon="material-symbols:edit-sharp" type="button" data-bs-toggle="modal" data-bs-target="#editModal"></iconify-icon>
-                                                <iconify-icon icon="ic:round-delete" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal"></iconify-icon>
-                                            </div>
                                         </div>
                                     @endforeach
                                 </div>
@@ -85,9 +152,11 @@
                             @endif
                         </div>
                     </div>
-                </div>
+                    </div>
+                    <!-- End Images & Features -->
             @endisset
         </main>
     </x-slot>
 
 </x-employee.layout>
+<x-confirmation-dialog title="Update Property" body="Are you sure you want to update the property?"></x-confirmation-dialog>

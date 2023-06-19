@@ -23,10 +23,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/test", function(){
-    return view("test");
-});
-
 Route::get('', [WebsiteController::class, 'home'])->name("home");
 Route::get('contact', [WebsiteController::class, 'contact'])->name("contact");
 Route::get('about', [WebsiteController::class, 'about'])->name("about");
@@ -89,9 +85,8 @@ Route::prefix('posts')->group(function(){
 
 require __DIR__ .'/user.php';
 
-/**
- * Company Routes
- */
+require __DIR__ . '/common.php';
+
 require __DIR__ . '/employee.php';
 
 require __DIR__ . '/admin.php';

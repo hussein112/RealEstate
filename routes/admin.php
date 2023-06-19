@@ -179,9 +179,6 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::patch("settings/email/edit/{email}", [SettingsController::class, 'updateEmail'])->name('edit-email');
 
         Route::patch("settings/employee_capacity", [SettingsController::class, 'updateEmployeeCapacity'])->name('a-updateEmployeeCapacity');
-
-        // Special case (Due to the fact that this route is accessed through axios).
-        Route::post("property/{property_id}/{image_id}", [PropertyController::class, 'updateImage'])->name('a-updateImage');
     });
 
 
@@ -209,10 +206,6 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         // Reject a Valuation Request
         Route::delete("valuation/request/reject/{id}", [ValuationApprovalController::class, 'reject'])->name('a-rejectRequest');
-
-
-        // Delete Images
-        Route::delete("images/{id}", [ImageController::class, 'destroy'])->name("a-deleteImage");
     });
 
 
