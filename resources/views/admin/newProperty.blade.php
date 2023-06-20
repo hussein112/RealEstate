@@ -13,37 +13,37 @@
             <hr>
             <form action="{{ route('a-newProperty') }}" method="post" class="w-100 m-1" enctype="multipart/form-data">
                 @csrf
-                <input class="form-control my-2" type="text" placeholder="Title" name="title" required>
+                <input class="form-control my-2" type="text" placeholder="Title" name="title">
                 @if($errors->has('title'))
                     <div class="error text-danger">* {{$errors->first('title')}}</div>
                 @endif
-                <input type="number" class="form-control my-2" placeholder="Size" name="size" required>
+                <input type="number" class="form-control my-2" placeholder="Size" name="size">
                 @if($errors->has('size'))
                     <div class="error text-danger">* {{$errors->first('size')}}</div>
                 @endif
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="featured" value="1" id="featuredCheck" required>
+                    <input class="form-check-input" type="checkbox" name="featured" value="1" id="featuredCheck">
                     <label class="form-check-label" for="featuredCheck">
                         Featured?
                     </label>
                 </div>
-                <input type="number" class="form-control my-2" placeholder="Price" name="price" required>
+                <input type="number" class="form-control my-2" placeholder="Price" name="price">
                 @if($errors->has('price'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('price')) }}</div>
                 @endif
-                <input type="text" class="form-control my-2" placeholder="City" name="city" required>
+                <input type="text" class="form-control my-2" placeholder="City" name="city">
                 @if($errors->has('city'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('city')) }}</div>
                 @endif
-                <input type="text" class="form-control my-2" placeholder="Address" name="address" required>
+                <input type="text" class="form-control my-2" placeholder="Address" name="address">
                 @if($errors->has('address'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('address')) }}</div>
                 @endif
-                <input type="number" name="bedrooms" class="form-control my-2" placeholder="Number of Bedrooms" required>
+                <input type="number" name="bedrooms" class="form-control my-2" placeholder="Number of Bedrooms">
                 @if($errors->has('bedrooms'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('bedrooms')) }}</div>
                 @endif
-                <input type="number" name="bathrooms" class="form-control my-2" placeholder="Number of Bathrooms" required>
+                <input type="number" name="bathrooms" class="form-control my-2" placeholder="Number of Bathrooms">
                 @if($errors->has('bathrooms'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('bathrooms')) }}</div>
                 @endif
@@ -86,7 +86,7 @@
                 @if($errors->has('description'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('description')) }}</div>
                 @endif
-                @vite('resources/js/admin/features.js')
+
                 <select name="features" class="form-select" aria-describedby="test" onchange="window.csvinput.manualTag(this)">
                     @if(sizeof($features) > 0)
                         <option selected disabled>-- Features --</option>
@@ -100,11 +100,16 @@
                         <div class="error text-danger">* {{ ucfirst($errors->first('features')) }}</div>
                     @endif
                 </select>
+                @if(session('features_error'))
+                    <div class="error text-danger">* {{ ucfirst(session('features_error')) }}</div>
+                @endif
+                @vite("resources/js/admin/features.js")
                 <div id="hk-input-csv"></div>
+                <script src="https://cdn.jsdelivr.net/gh/hussein112/TagsInput@1.0/tagsinput.min.js"></script>
 
                 <div class="mb-3">
                     <label for="images" class="form-label">Choose Property Images</label>
-                    <input class="form-control" type="file" id="images" name="images[image][]" accept="jpg,png,jpeg" multiple required>
+                    <input class="form-control" type="file" id="images" name="images[image][]" accept="jpg,png,jpeg" multiple>
                     @if($errors->has("images.image"))
                         <div class="error text-danger">* {{ ucfirst($errors->first("images.image")) }}</div>
                     @endif

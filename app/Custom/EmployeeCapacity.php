@@ -14,8 +14,13 @@ trait EmployeeCapacity{
 
     public static function getEmployeeCapacity(){
         $capacity_ = Storage::get('website/settings.txt');
-        $temp = explode('-', $capacity_);
-        return (int)end($temp);
+        $settings = explode(',', $capacity_);
+        foreach ($settings as $setting){
+            if(! strstr($setting, 'ec') == false){
+                $temp = explode("-", $setting);
+                return (int)end($temp);
+            }
+        }
     }
 
     public function getEmployee(){

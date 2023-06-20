@@ -15,12 +15,21 @@ use Illuminate\View\View;
 
 class PostController extends Controller
 {
+    protected int $paginate = 9;
+
+    /**
+     * Display all the posts [Admins]
+     */
     public function adminIndex(){
         return view("admin.posts")->with([
             'posts' => Post::paginate(10),
         ]);
     }
 
+    /**
+     * Display the form to edit specific post.
+     * @param $id
+     */
     public function adminEdit($id){
         return view("admin.editPost")->with([
             'post' => Post::findOrFail($id),
@@ -29,6 +38,9 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * Display the form to create new post.
+     */
     public function adminCreate()
     {
         return view('admin.newPost')->with([
@@ -36,35 +48,13 @@ class PostController extends Controller
         ]);
     }
 
-
-    public function searchByDate($date){
-        return view("posts")->with([
-            'posts' => Post::where("created_at", $date)->paginate(9)
-        ]);
-    }
-
-
-    public function searchByAuthor($id){
-        return view("posts")->with([
-            'posts' => Post::where("admin_id", $id)->paginate(9)
-        ]);
-    }
-
-
-    public function searchByCategory($id){
-        return view("posts")->with([
-            'posts' => Post::where("category_id", $id)->paginate(9)
-        ]);
-    }
-
     /**
-     * Display a listing of the resource.
+     * Display all the posts. [Users]
      */
     public function index()
     {
         return view("posts")->with([
-            'posts' => Post::paginate(9
-            )
+            'posts' => Post::paginate($this->paginate)
         ]);
     }
 
@@ -94,7 +84,7 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified post. [Users]
      *
      * @param  int  $id
      * @return View
@@ -115,7 +105,7 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified post in DB.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -148,7 +138,7 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified post from DB.
      *
      * @param  int  $id
      */
@@ -157,6 +147,35 @@ class PostController extends Controller
         Post::destroy($id);
         return redirect()->back()->with([
             'success_msg' => 'Post ' . $id . ' Deleted Successfully'
+        ]);
+    }
+
+
+
+
+
+
+    /**************************************************
+     **************** SEARCH LOGIC
+     **************************************************/
+
+    public function searchByDate($date){
+        return view("posts")->with([
+            'posts' => Post::where("created_at", $date)->paginate(9)
+        ]);
+    }
+
+
+    public function searchByAuthor($id){
+        return view("posts")->with([
+            'posts' => Post::where("admin_id", $id)->paginate(9)
+        ]);
+    }
+
+
+    public function searchByCategory($id){
+        return view("posts")->with([
+            'posts' => Post::where("category_id", $id)->paginate(9)
         ]);
     }
 }

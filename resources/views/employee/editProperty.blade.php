@@ -37,8 +37,9 @@
                         <input class="form-control my-2" name="location" type="text" placeholder="Address" value="{{ $property->address }}">
                         <input type="number" name="bedrooms" id="" class="form-control my-2" placeholder="Number of Bedrooms" value="{{ $property->bedrooms_nb }}">
                         <input type="number" name="bathrooms" id="" class="form-control my-2" placeholder="Number of Bathrooms" value="{{ $property->bathrooms_nb }}">
-                        @vite('resources/js/admin/features.js')
+                        @vite("resources/js/admin/features.js")
                         <div id="hk-input-csv"></div>
+                        <script src="https://cdn.jsdelivr.net/gh/hussein112/TagsInput@1.0/tagsinput.min.js"></script>
                         <select name="features" class="form-select" aria-describedby="test" onchange="window.csvinput.manualTag(this)">
                             @if(sizeof($features) > 0)
                                 <option selected disabled>-- Features --</option>

@@ -179,6 +179,9 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::patch("settings/email/edit/{email}", [SettingsController::class, 'updateEmail'])->name('edit-email');
 
         Route::patch("settings/employee_capacity", [SettingsController::class, 'updateEmployeeCapacity'])->name('a-updateEmployeeCapacity');
+
+        Route::patch("settings/max_images", [SettingsController::class, 'updatePropertyMaxImages'])->name('a-updatePropertyMaxImages');
+        Route::patch("settings/max_features", [SettingsController::class, 'updatePropertyMaxFeatures'])->name('a-updatePropertyMaxFeatures');
     });
 
 

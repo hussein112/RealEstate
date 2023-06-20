@@ -18,19 +18,49 @@
 
             <hr>
 
-            <h2>Employee Capacity</h2>
-            <p class="lead">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam autem debitis distinctio dolor dolorum ea fugit iste iure laudantium necessitatibus nemo placeat quae quia, quo quod similique voluptas. Assumenda?
-            </p>
-            <form action="{{ route("a-updateEmployeeCapacity") }}" method="POST">
-                @csrf
-                @method("PATCH")
-                <div class="form-floating mb-3">
-                    <input type="number" name="capacity" class="form-control" value="{{ App\Custom\EmployeeCapacity::getEmployeeCapacity() }}">
-                    <label for="ec">Employee Capacity</label>
+            <div class="employee-capacity">
+                <h2>Employee Capacity</h2>
+                <p class="lead">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam autem debitis distinctio dolor dolorum ea fugit iste iure laudantium necessitatibus nemo placeat quae quia, quo quod similique voluptas. Assumenda?
+                </p>
+                <form action="{{ route("a-updateEmployeeCapacity") }}" method="POST">
+                    @csrf
+                    @method("PATCH")
+                    <div class="form-floating mb-3">
+                        <input type="number" name="capacity" class="form-control" value="{{ App\Custom\EmployeeCapacity::getEmployeeCapacity() }}">
+                        <label for="ec">Employee Capacity</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+            <div class="property">
+                <div class="max-images">
+                    <h2>Max images per property</h2>
+                    <form action="{{ route("a-updatePropertyMaxImages") }}" method="POST">
+                        @csrf
+                        @method("PATCH")
+                        <div class="form-floating mb-3">
+                            <input type="number" name="max" class="form-control" value="{{ App\Custom\MaxImagesPerProperty::getMax() }}">
+                            <label for="ec">Max Images/Property</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+
+                <div class="max-features">
+                    <h2>Max Features per property</h2>
+                    <form action="{{ route("a-updatePropertyMaxFeatures") }}" method="POST">
+                        @csrf
+                        @method("PATCH")
+                        <div class="form-floating mb-3">
+                            <input type="number" name="max" class="form-control" value="{{ App\Custom\MaxFeaturesPerProperty::getMax() }}">
+                            <label for="ec">Max Features/Property</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
         </main>
     </x-slot>
 </x-admin-layout>

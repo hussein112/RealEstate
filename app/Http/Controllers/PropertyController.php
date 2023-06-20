@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\MaxFeaturesPerProperty;
 use App\Http\Requests\AddPropertyRequest;
 use App\Http\Requests\UpdatePropertyRequest;
 use App\Models\Customer;
@@ -23,10 +24,8 @@ class PropertyController extends Controller
 
     protected int $SIMILARTIY_RANGE = 200;
 
-    /********************* START READ METHODS (USER) *********************/
-
     /**
-     * Display all Properties
+     * Display all Properties [Users]
      */
     public function index()
     {
@@ -38,7 +37,7 @@ class PropertyController extends Controller
 
 
     /**
-     * Display all Featured Properties
+     * Display all Featured Properties [Users]
      */
     public function featured(){
         return view('properties')->with([
@@ -48,7 +47,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Display the specified Property.
+     * Display the specified Property. [Users]
      * @param  int  $id
      */
     public function show($id)
@@ -69,7 +68,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Display properties for buy only
+     * Display properties for buy only [Users]
      */
     public function buy(){
         return view("properties")->with([
@@ -82,7 +81,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Display properties for rent only
+     * Display properties for rent only [Users]
      */
     public function rent(){
         return view("properties")->with([
@@ -95,8 +94,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Fill a form in order to add the customer property on the website
-     *
+     * Fill a form in order to add the customer property on the website [User]
      */
     public function sell(){
         return view("properties.advertise")->with([
@@ -108,18 +106,18 @@ class PropertyController extends Controller
     }
 
 
-    /********************* END READ METHODS (USER) *********************
-    *************************************************************
-    *************************************************
-    *************************************/
-
-
+    /**
+     * Display all the properties [Employees]
+     */
     public function employeeIndex(){
         return view("employee.properties")->with([
             'properties' => Property::paginate($this->paginate)
         ]);
     }
 
+    /**
+     * Display the from for creating new property [Employees]
+     */
     public function employeeCreate(){
         return view("employee.newProperty")->with([
             'types' => Type::all(),
@@ -129,6 +127,10 @@ class PropertyController extends Controller
     }
 
 
+    /**
+     * Display the form to edit existing property [Employees]
+     * @param $id
+     */
     public function employeeEdit($id){
         return view("employee.editProperty")->with([
             'property' => Property::find($id),
@@ -139,8 +141,9 @@ class PropertyController extends Controller
     }
 
 
-    /********************* START READ METHODS (ADMIN) *********************/
-
+    /**
+     * Display all the properties [Admins]
+     */
     public function adminIndex(){
         return view("admin.properties")->with([
             'properties' => Property::paginate($this->paginate)
@@ -148,82 +151,8 @@ class PropertyController extends Controller
     }
 
     /**
-     * City
-     */
-    public function searchByLocation($city){
-        $search_results = Property::query()
-            ->where('city', 'LIKE', '%'. $city .'%')
-            ->paginate(10);
-        return view("properties")->with([
-            'properties' => $search_results,
-            'page' => 'all',
-            'fors' => Property::select('for')->get(),
-            'wheres' => Property::select('city')->get(),
-            'types' => Type::all(),
-        ]);
-    }
-
-    public function searchByPrice($price){
-        $search_results = Property::query()
-            ->where('price', 'LIKE', '%'. $price .'%')
-            ->paginate(10);
-        return view("properties")->with([
-            'properties' => $search_results,
-            'page' => 'all',
-            'fors' => Property::select('for')->get(),
-            'wheres' => Property::select('city')->get(),
-            'types' => Type::all(),
-        ]);
-    }
-
-
-
-    public function searchByBedroomsNumber($nb){
-        $search_results = Property::query()
-            ->where('bedrooms_nb', $nb)
-            ->paginate(10);
-
-        return view("properties")->with([
-            'properties' => $search_results,
-            'page' => 'all',
-            'fors' => Property::select('for')->get(),
-            'wheres' => Property::select('city')->get(),
-            'types' => Type::all(),
-        ]);
-    }
-
-
-    public function search(Request $request){
-        if($request->minprice == -1 && $request->maxprice == -1 && $request->minbedrooms == 0 && $request->maxbedrooms == 0){
-            $search_results = Property::query()
-                                ->where('for', 'LIKE', '%'.$request->dealtype.'%')
-                                ->orWhere('city', 'LIKE', '%'. $request->location .'%')
-                                ->paginate(10);
-        }else{
-            $search_results = Property::query()
-                ->where('for', 'LIKE', '%'.$request->dealtype.'%')
-                ->orWhere('city', 'LIKE', '%'. $request->location .'%')
-                ->orWhere('type_id', 'LIKE', '%'. $request->propertyType .'%')
-                ->orWhere('bedrooms_nb', '>', '%'. $request->minbedrooms .'%')
-                ->orWhere('bedrooms_nb', '<', '%'. $request->maxbedrooms .'%')
-                ->orWhere('price', '>', '%'. $request->minprice .'%')
-                ->orWhere('price', '<', '%'. $request->maxprice .'%')
-                ->paginate(10);
-        }
-        return view("properties")->with([
-            'properties' => $search_results,
-            'page' => 'all',
-            'fors' => Property::select('for')->get(),
-            'wheres' => Property::select('city')->get(),
-            'types' => Type::all(),
-        ]);
-    }
-    /********************* END READ METHODS (ADMIN) *********************
-     *************************************************************
-     *************************************************
-     *************************************/
-
-
+     * Display the form for creating new property [Admins]
+    */
     public function createAdmin(){
         return view('admin.newProperty')->with([
             'types' => Type::all(),
@@ -234,47 +163,64 @@ class PropertyController extends Controller
 
 
     /**
+     * Display the form for editing an existing property [Admins]
+     */
+    public function edit($id)
+    {
+        return view("admin.editProperty")->with([
+            'property' => Property::find($id),
+            'types' => Type::all(),
+            'customers' => Customer::all(),
+            'features' => Feature::all(),
+        ]);
+    }
+
+
+
+    /**
      * Store a newly created resource in storage.
      */
-    public function store(AddPropertyRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
+//        $validated = $request->validated();
         // Extra Validation
-        if($request->for !== "rent" && $request->for !== "buy"){
-            return redirect()->back()->with('error_msg', "Invalid 'for' input");
-        }
-        $for = ($request->for == "rent") ? 1 : 2;
-        $property = Property::create([
-            'size' => $request->size,
-            'title' => $request->title,
-            'description' => $request->description,
-            'featured' => ($request->has('featured') ? $request->featured : 0),
-            'price' => $request->price,
-            'city' => $request->city,
-            'address' => $request->address,
-            'bedrooms_nb' => $request->bedrooms,
-            'bathrooms_nb' => $request->bathrooms,
-            'employee_id' => (Auth::guard('employee')->id()) ?? null,
-            'admin_id' => (Auth::guard('admin')->id()) ?? null,
-            'type_id' => $request->type,
-            'for' => $for,
-            'customer_id' => $request->owner
-        ]);
-
-        if($request->hasFile('images.image')){
-            foreach($request->file('images.image.*') as $file){
-                $img = Image::create([
-                    'image' => $file->store('property/' . $property->id, 'public')
-                ]);
-                $property->images()->attach($property->id, ['image_id' => $img->id]);
+//        if($request->for !== "rent" && $request->for !== "buy"){
+//            return redirect()->back()->with('error_msg', "Invalid 'for' input");
+//        }
+//        $for = ($request->for == "rent") ? 1 : 2;
+//        $property = Property::create([
+//            'size' => $request->size,
+//            'title' => $request->title,
+//            'description' => $request->description,
+//            'featured' => ($request->has('featured') ? $request->featured : 0),
+//            'price' => $request->price,
+//            'city' => $request->city,
+//            'address' => $request->address,
+//            'bedrooms_nb' => $request->bedrooms,
+//            'bathrooms_nb' => $request->bathrooms,
+//            'employee_id' => (Auth::guard('employee')->id()) ?? null,
+//            'admin_id' => (Auth::guard('admin')->id()) ?? null,
+//            'type_id' => $request->type,
+//            'for' => $for,
+//            'customer_id' => $request->owner
+//        ]);
+//
+//        if($request->hasFile('images.image')){
+//            foreach($request->file('images.image.*') as $file){
+//                $img = Image::create([
+//                    'image' => $file->store('property/' . $property->id, 'public')
+//                ]);
+//                $property->images()->attach($property->id, ['image_id' => $img->id]);
+//            }
+//        }
+        if($request->get('hk-csv')){
+            $features = explode(',', $request->get('hk-csv'));
+            if(sizeof($features) > MaxFeaturesPerProperty::getMax()){
+                return redirect()->back()->with('features_error', 'Features should be no more than ' . MaxFeaturesPerProperty::getMax());
             }
-        }
-
-        if(isset($request->hks)){
-            $features = explode(',', $request->hks);
-            for($i = 0; $i <= 2; $i++){
+            for($i = 0; $i < sizeof($features); $i++){
                 $feature = trim($features[$i]);
-                if(strlen($feature) > 2){
+                if(strlen($feature) > 2){ // Avoid small texts i.e., 'hi'
                     if(Feature::where('feature', $feature)->exists()){
                         $property->features()->attach($property->id, ['feature_id' => Feature::where('feature', $feature)->first()->id]);
                     }else{
@@ -295,25 +241,8 @@ class PropertyController extends Controller
     }
 
 
-
-
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     */
-    public function edit($id)
-    {
-        return view("admin.editProperty")->with([
-            'property' => Property::find($id),
-            'types' => Type::all(),
-            'customers' => Customer::all(),
-            'features' => Feature::all(),
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified property.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -409,7 +338,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified property from DB.
      *
      * @param  int  $id
      */
@@ -418,6 +347,92 @@ class PropertyController extends Controller
         Property::destroy($id);
         return redirect()->back()->with([
             'success_msg' => 'Property ' . $id . ' Deleted Successfully'
+        ]);
+    }
+
+
+
+    /**
+     * *************************************
+     * ********* SEARCH LOGIC
+     * ************************************
+     */
+
+    /**
+     * By City
+     */
+    public function searchByLocation($city){
+        $search_results = Property::query()
+            ->where('city', 'LIKE', '%'. $city .'%')
+            ->paginate(10);
+        return view("properties")->with([
+            'properties' => $search_results,
+            'page' => 'all',
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
+    }
+
+
+    public function searchByPrice($price){
+        $search_results = Property::query()
+            ->where('price', 'LIKE', '%'. $price .'%')
+            ->paginate(10);
+        return view("properties")->with([
+            'properties' => $search_results,
+            'page' => 'all',
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
+    }
+
+
+    public function searchByBedroomsNumber($nb){
+        $search_results = Property::query()
+            ->where('bedrooms_nb', $nb)
+            ->paginate(10);
+
+        return view("properties")->with([
+            'properties' => $search_results,
+            'page' => 'all',
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
+        ]);
+    }
+
+
+
+
+    /**
+     * General Search
+     * @param Request $request
+     */
+    public function search(Request $request){
+        if($request->minprice == -1 && $request->maxprice == -1 && $request->minbedrooms == 0 && $request->maxbedrooms == 0){
+            $search_results = Property::query()
+                                ->where('for', 'LIKE', '%'.$request->dealtype.'%')
+                                ->orWhere('city', 'LIKE', '%'. $request->location .'%')
+                                ->paginate($this->paginate);
+        }else{
+            $search_results = Property::query()
+                ->where('for', 'LIKE', '%'.$request->dealtype.'%')
+                ->orWhere('city', 'LIKE', '%'. $request->location .'%')
+                ->orWhere('type_id', 'LIKE', '%'. $request->propertyType .'%')
+                ->orWhere('bedrooms_nb', '>', '%'. $request->minbedrooms .'%')
+                ->orWhere('bedrooms_nb', '<', '%'. $request->maxbedrooms .'%')
+                ->orWhere('price', '>', '%'. $request->minprice .'%')
+                ->orWhere('price', '<', '%'. $request->maxprice .'%')
+                ->paginate($this->paginate);
+        }
+        return view("properties")->with([
+            'properties' => $search_results,
+            'page' => 'all',
+            'fors' => Property::select('for')->get(),
+            'wheres' => Property::select('city')->get(),
+            'types' => Type::all(),
         ]);
     }
 }

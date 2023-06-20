@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Custom\MaxFeaturesPerProperty;
+use App\Custom\MaxImagesPerProperty;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +38,7 @@ class AddPropertyRequest extends FormRequest
             'type' => ['required', 'numeric', 'max_digits:1'],
             'for' => ['required', 'string', 'max:20'],
             'owner' => ['required', 'numeric'],
-            'images.image' => ['required'],
+            'images.image' => ['required', 'max:'.MaxImagesPerProperty::getMax()],
             'images.image.*' => ['image', 'max:2000']
         ];
     }
@@ -44,7 +46,8 @@ class AddPropertyRequest extends FormRequest
     public function messages()
     {
         return [
-            'images.image.required' => "Upload at leas one image"
+            'images.image.required' => "Upload at least one image",
+            'images.image.max' => "Maximum of " . MaxImagesPerProperty::getMax() . " images are allowed.",
         ];
     }
 }

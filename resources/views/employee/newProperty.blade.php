@@ -55,18 +55,20 @@
                     </select>
                 </div>
                 <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description"></textarea>
-                @vite('resources/js/admin/features.js')
-                <select name="features" class="form-select" aria-describedby="test" onchange="window.csvinput.manualTag(this)">
+                @vite("resources/js/admin/features.js")
+                <div id="hk-input-csv"></div>
+                <script src="https://cdn.jsdelivr.net/gh/hussein112/TagsInput@1.0/tagsinput.min.js"></script>
+                <select name="features" class="form-select" aria-describedby="test" onchange="window.tagsinput.manualTag(this)">
                     @if(sizeof($features) > 0)
                         <option selected disabled>-- Features --</option>
                         @foreach($features as $feature)
                             <option value="{{ $feature->id }}">{{ $feature->feature }}</option>
                         @endforeach
-                    @else
-                        <option disabled selected>-- No Customers, Yet --</option>
                     @endif
                 </select>
-                <div id="hk-input-csv"></div>
+                @if(session('features_error'))
+                    <div class="error text-danger">* {{ ucfirst(session('features_error')) }}</div>
+                @endif
 
                 <div class="mb-3">
                     <label for="images" class="form-label">Choose Property Images</label>
