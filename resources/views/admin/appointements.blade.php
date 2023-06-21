@@ -1,14 +1,14 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="container">
-            <x-page-title title="appointements" subtitle="all the appointements in the system"></x-page-title>
+            <x-page-title title="appointments" subtitle="all the appointments in the system"></x-page-title>
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
-            <x-create-button target="a-newAppointement" title="Appointement"></x-create-button>
+            <x-create-button target="a-newAppointement" title="Appointment"></x-create-button>
 
             <table class="table table-bordered caption-top">
-                <caption>List of All Appointements</caption>
+                <caption>List of All Appointments</caption>
                 <thead>
                 <tr>
                     <th scope="col">

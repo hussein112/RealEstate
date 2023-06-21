@@ -5,11 +5,8 @@
             <x-page-title title="employee" subtitle="edit employee #{{ $employee->full_name }}"></x-page-title>
             <div class="container my-5">
                 <hr>
-                @if(session('error_msg') != null)
-                    <x-messages msg="error_msg" type="danger"></x-messages>g>
-                @elseif(session('success_msg' != null))
-                    <x-messages msg="success_msg" type="success"></x-messages>
-                @endif
+                <x-messages msg="error_msg" type="danger"></x-messages>
+                <x-messages msg="success_msg" type="success"></x-messages>
                 <form action="{{ route('a-editEmployee', ['id' => $employee->id]) }}" method="post">
                     @method('PATCH')
                     @csrf

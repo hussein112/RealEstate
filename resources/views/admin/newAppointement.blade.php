@@ -2,10 +2,10 @@
 
     <x-slot name="main">
         <main class="container">
-            <x-page-title title="appointement" subtitle="TO-REMEMBER"></x-page-title>
-            <hr>
+            <x-page-title title="appointment" subtitle="TO-REMEMBER"></x-page-title>
             <x-messages msg="success_msg" type="success"></x-messages>
             <x-messages msg="error_msg" type="danger"></x-messages>
+            <hr>
             <form action="{{ route('a-newAppointement') }}" method="post">
                 @csrf
                 <div class="mb-3 row">
@@ -14,6 +14,9 @@
                         <input type="text" class="form-control" placeholder="Appointement Title" name="title" autocomplete="off" id="title">
                     </div>
                 </div>
+                @if($errors->has('title'))
+                    <div class="error text-danger">* {{$errors->first('title')}}</div>
+                @endif
 
                 <div class="mb-3 row">
                     <label for="notes" class="col-form-label col-sm-2">Notes</label>
@@ -21,6 +24,9 @@
                         <textarea placeholder="Additional Notes" name="notes" id="notes" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                 </div>
+                @if($errors->has('notes'))
+                    <div class="error text-danger">* {{$errors->first('notes')}}</div>
+                @endif
 
                 <div class="mb-3 row">
                     <label for="property" class="col-form-label col-sm-2">Property</label>
@@ -35,6 +41,9 @@
                         </select>
                     </div>
                 </div>
+                @if($errors->has('property'))
+                    <div class="error text-danger">* {{$errors->first('property')}}</div>
+                @endif
 
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>

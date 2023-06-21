@@ -3,13 +3,10 @@
     <x-slot name="main">
         <main class="users-admin container">
             <x-page-title title="employees" subtitle="all the employees in the system"></x-page-title>
-
-
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
             <x-create-button target="a-newEmployee" title="Employee"></x-create-button>
-
             <table class="table table-bordered caption-top">
                 <caption>List of All Employees</caption>
                 <thead>
@@ -66,7 +63,6 @@
                     </tbody>
                 @endisset
             </table>
-
 
             @foreach($employees as $employee)
                 <x-delete-modal target="employee" targetId="{{ $employee->id }}" auth="a">

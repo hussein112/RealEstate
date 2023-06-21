@@ -3,9 +3,9 @@
     <x-slot name="main">
         <main class="container">
             <x-page-title title="employee" subtitle="add new employee"></x-page-title>
-            <hr>
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
+            <hr>
             <form action="{{ route('a-newEmployee') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @vite('resources/js/admin/passwords.js')

@@ -4,7 +4,6 @@
             <x-page-title title="posts" subtitle="all the posts in the system"></x-page-title>
             <hr>
             <x-create-button target="a-newPost" title="Post"></x-create-button>
-
             <table class="table table-bordered caption-top">
                 <caption>List of All Posts</caption>
                 <thead>

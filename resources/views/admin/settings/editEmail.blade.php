@@ -6,8 +6,8 @@
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>
             @isset($email)
-                @php($directory = (substr($email, 0, 1) == "a") ? "advertise" : "valuation")
-                @php($type = (substr($email, 2, 1) == "a" ? "approved" : "rejected"))
+                @php($directory = (str_starts_with($email, "a")) ? "advertise" : "valuation")
+                @php($type = (str_starts_with($email, "a") ? "approved" : "rejected"))
             @endisset
             <script src="https://cdn.tiny.cloud/1/kpum9hwkqbfk4jh8byr2k70m6lgh669bbqxig4cblr9e8gc5/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
             <form action="{{ route("edit-email", ['email' => $email]) }}" method="post" class="new-post" enctype="multipart/form-data">

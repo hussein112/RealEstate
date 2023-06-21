@@ -2,8 +2,6 @@
     <x-slot name="main">
         <main class="users-admin container">
             <x-page-title title="users" subtitle="all the users in the system"></x-page-title>
-
-
             <x-messages msg="error_msg" type="danger"></x-messages>
             <x-messages msg="success_msg" type="success"></x-messages>
             <hr>

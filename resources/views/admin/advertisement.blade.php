@@ -20,7 +20,6 @@
                             <button type="submit" class="btn btn-danger">Mark as Done</button>
                         </form>
                     @endif
-                    <hr>
                     <table class="table mt-5">
                         <tbody class="table-group-divider">
                         <tr>
@@ -81,6 +80,7 @@
                 </div>
             @endisset
 
+            <!-- Reject Advertisement Modal -->
 
             <div class="modal" tabindex="-1" id="rejectModal">
                 <div class="modal-dialog">

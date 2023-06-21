@@ -3,18 +3,9 @@
         <main class="container">
             @isset($property)
                 <x-page-title title="property" subtitle="edit property #{{$property->id}}"></x-page-title>
-                <div class="container d-flex flex-column">
-
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                            <strong class="bg-danger text-light p-2 m-1">{{ $error  }}</strong>
-                    @endforeach
-                @else
-                    <x-messages msg="success_msg" type="success"></x-messages>
-                    <x-messages msg="info_msg" type="info"></x-messages>
-                @endif
-                </div>
-
+                <x-messages msg="success_msg" type="success"></x-messages>
+                <x-messages msg="info_msg" type="info"></x-messages>
+                <hr>
                 <div class="container my-5 d-flex flex-column flex-lg-row justify-content-around property-details">
                     <hr>
                     <form id="update-user-profile" action="{{ route("a-editProperty", ['id' => $property->id]) }}" method="post" class="w-100 m-1">
@@ -25,10 +16,25 @@
                                 <option value="{{ $customer->id }}" @selected($customer->id == $property->customer_id)>{{$customer->full_name}}</option>
                             @endforeach
                         </select>
+                        @if($errors->has('owner'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('owner')) }}</div>
+                        @endif
                         <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}">
+                        @if($errors->has('title'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('title')) }}</div>
+                        @endif
                         <input name="size" class="form-control my-2" type="number" placeholder="Size" value="{{ $property->size }}">
+                        @if($errors->has('size'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('size')) }}</div>
+                        @endif
                         <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description">{{ $property->description }}</textarea>
+                        @if($errors->has('description'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('description')) }}</div>
+                        @endif
                         <input name="price" class="form-control my-2" type="number" placeholder="Price" value="{{ $property->price }}">
+                        @if($errors->has('price'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('price')) }}</div>
+                        @endif
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="featured" value="1" id="featuredCheck" @checked($property->featured == 1)>
                             <label class="form-check-label" for="featuredCheck">
@@ -36,8 +42,17 @@
                             </label>
                         </div>
                         <input class="form-control my-2" name="location" type="text" placeholder="Location" value="{{ $property->location }}">
-                        <input type="number" name="bedrooms" id="" class="form-control my-2" placeholder="Number of Bedrooms" value="{{ $property->bedrooms_nb }}">
-                        <input type="number" name="bathrooms" id="" class="form-control my-2" placeholder="Number of Bathrooms" value="{{ $property->bathrooms_nb }}">
+                        @if($errors->has('location'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('location')) }}</div>
+                        @endif
+                        <input type="number" name="bedrooms" class="form-control my-2" placeholder="Number of Bedrooms" value="{{ $property->bedrooms_nb }}">
+                        @if($errors->has('bedrooms'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('bedrooms')) }}</div>
+                        @endif
+                        <input type="number" name="bathrooms" class="form-control my-2" placeholder="Number of Bathrooms" value="{{ $property->bathrooms_nb }}">
+                        @if($errors->has('bathrooms'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('bathrooms')) }}</div>
+                        @endif
                         @vite("resources/js/admin/features.js")
                         <div id="hk-input-csv"></div>
                         <script src="https://cdn.jsdelivr.net/gh/hussein112/TagsInput@1.0/tagsinput.min.js"></script>
@@ -59,6 +74,9 @@
                                 <option value="{{ $type->id }}" @selected($property->type->id == $type->id)>{{ $type->type }}</option>
                             @endforeach
                         </select>
+                        @if($errors->has('type'))
+                            <div class="error text-danger">* {{ ucfirst($errors->first('type')) }}</div>
+                        @endif
                         <button type="submit" class="btn btn-primary" id="update-profile">Update</button>
                     </form>
 

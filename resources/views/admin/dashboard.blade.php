@@ -1,7 +1,6 @@
 <x-admin-layout>
     <x-slot name="main">
         <main class="home-admin container">
-
             <x-page-title title="dashboard" subtitle="overview of the system"></x-page-title>
             <hr>
             <div class="mt-5 grid-3 admin-cards">
@@ -26,11 +25,11 @@
                         <x-dashboard-card auth="a" icon="gridicons:multiple-users" title="users" :latest-count="$latest_users" :count="$users"></x-dashboard-card>
                 @endisset
 
+                    <!-- Load Admin Notes Plugin -->
+                    <script src="https://cdn.jsdelivr.net/gh/hussein112/AdminNotes@latest/admin-note.js" type="module"></script>
+                    <div id="an-notes">
 
-                <script src="https://cdn.jsdelivr.net/gh/hussein112/AdminNotes@latest/admin-note.js" type="module"></script>
-                <div id="an-notes">
-
-                </div>
+                    </div>
             </div>
         </main>
     </x-slot>

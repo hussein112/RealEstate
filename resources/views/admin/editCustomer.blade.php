@@ -3,11 +3,8 @@
         <main class="container">
             <x-page-title title="customer" subtitle="edit customer #{{ $customer->full_name }}"></x-page-title>
             <div class="container my-5">
-                @if(session('success_msg'))
-                    <x-messages msg="success_msg" type="success"></x-messages>
-                @elseif(session('error_msg'))
-                    <x-messages msg="success_msg" type="success"></x-messages>
-                @endif
+                <x-messages msg="error_msg" type="danger"></x-messages>
+                <x-messages msg="success_msg" type="success"></x-messages>
                 <hr>
                 <form action="{{ route('a-editCustomer', ['id' => $customer->id]) }}" method="post">
                     @method('PATCH')

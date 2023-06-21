@@ -12,25 +12,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AppointementController extends Controller
 {
+    /**
+     * Display all the appointments an admin have created
+     *
+     */
     public function adminIndex(){
         return view('admin.appointements')->with([
             'appointements' => Appointement::where('admin_id', Auth::guard("admin")->id())->sortable()->paginate(9)
         ]);
     }
 
-    public function employeeIndex(){
-        return view("employee.appointements")->with([
-            'appointements' => Appointement::where('employee_id', Auth::guard("employee")->id())->sortable()->paginate(9)
-        ]);
-    }
-
-    public function employeeEdit($id){
-        return view("employee.editAppointement")->with([
-            'appointement' => Appointement::findOrFail($id),
-            'properties' => Property::all()
-        ]);
-    }
-
+    /**
+     * Display the specified appointment [Admins]
+     * @param $id
+     */
     public function adminShow($id){
         return view("admin.appointement")->with([
             'appointement' => Appointement::find($id)
@@ -39,7 +34,7 @@ class AppointementController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new appointment [Admins].
      */
     public function create()
     {
@@ -48,6 +43,45 @@ class AppointementController extends Controller
         ]);
     }
 
+
+
+    /**
+     * Display the form for editing an existing appointement.
+     *
+     * @param  int  $id
+     */
+    public function edit($id)
+    {
+        return view("admin.editAppointement")->with([
+            'appointement' => Appointement::findOrFail($id),
+            'properties' => Property::all()
+        ]);
+    }
+
+    /**
+     * Display all the appointments an employee have created
+     *
+     */
+    public function employeeIndex(){
+        return view("employee.appointements")->with([
+            'appointements' => Appointement::where('employee_id', Auth::guard("employee")->id())->sortable()->paginate(9)
+        ]);
+    }
+
+    /**
+     * Display the form for editing an existing appointment
+     * @param $id
+     */
+    public function employeeEdit($id){
+        return view("employee.editAppointement")->with([
+            'appointement' => Appointement::findOrFail($id),
+            'properties' => Property::all()
+        ]);
+    }
+
+    /**
+     * Display the form for creating new appointment [Employees]
+     */
     public function employeeCreate(){
         return view("employee.newAppointement")->with([
             'properties' => Property::all()
@@ -55,7 +89,7 @@ class AppointementController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created appointment in DB.
      *
      * @param  \Illuminate\Http\Request  $request
      */
@@ -71,23 +105,10 @@ class AppointementController extends Controller
             'admin_id' => auth()->user()->id
         ]);
 
-        return redirect()->back()->with([
-            'success_msg' => "Appointement Added Successfully"
-        ]);
+        return redirect()->back()->with('success_msg', "Appointment Added Successfully.");
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     */
-    public function edit($id)
-    {
-        return view("admin.editAppointement")->with([
-            'appointement' => Appointement::findOrFail($id),
-            'properties' => Property::all()
-        ]);
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -117,15 +138,13 @@ class AppointementController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified appointment from DB.
      *
      * @param  int  $id
      */
     public function destroy($id)
     {
         Appointement::destroy($id);
-        return redirect()->back()->with([
-            'success_msg' => 'Appointement ' . $id . ' Deleted Successfully'
-        ]);
+        return redirect()->back()->with('success_msg', 'Appointment ' . $id . ' Deleted Successfully.');
     }
 }

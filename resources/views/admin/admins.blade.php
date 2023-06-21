@@ -63,19 +63,14 @@
                 @endisset
             </table>
 
-            <!-- Start Show Image Modal -->
-
-
-            <!-- End Show Image Modal -->
-
-            <!-- Start Delete Modal -->
+            <!-- Start Modals -->
             @foreach($admins as $admin)
                 <x-delete-modal target="admin" targetId="{{ $admin->id }}" auth="a">
                 </x-delete-modal>
                 <x-image-modal modalTitle="{{ $admin->f_name }}'s Avatar" img="{{ $admin->avatar->image }}" targetId="{{ $admin->id }}">
                 </x-image-modal>
             @endforeach
-            <!-- End Delete Modal -->
+            <!-- End Modals -->
         </main>
     </x-slot>
 </x-admin-layout>

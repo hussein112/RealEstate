@@ -6,33 +6,33 @@
             <table class="table table-bordered caption-top">
                 <caption>All Advertisements</caption>
                 <thead>
-                <tr>
-                    <th scope="col">
-                        @sortablelink("id", "ID")
-                    </th>
+                    <tr>
+                        <th scope="col">
+                            @sortablelink("id", "ID")
+                        </th>
 
-                    <th scope="col">
-                        @sortablelink("created_at", "Date Issued")
-                    </th>
+                        <th scope="col">
+                            @sortablelink("created_at", "Date Issued")
+                        </th>
 
-                    <th scope="col">
-                        @sortablelink("location", "City")
-                    </th>
-                    <th scope="col">
-                        @sortablelink("type", "Property Type")
-                    </th>
-                    <th scope="col">
-                        @sortablelink("for", "For")
-                    </th>
-                    <th scope="col">
-                        @sortablelink("valuation_status", "Status")
-                    </th>
-                    <th scope="col">
-                        @sortablelink("employee_id", "Assinged To")
-                    </th>
-                    <th scope="col">Details</th>
-                    <th scope="col">Mark As Done</th>
-                </tr>
+                        <th scope="col">
+                            @sortablelink("location", "City")
+                        </th>
+                        <th scope="col">
+                            @sortablelink("type", "Property Type")
+                        </th>
+                        <th scope="col">
+                            @sortablelink("for", "For")
+                        </th>
+                        <th scope="col">
+                            @sortablelink("valuation_status", "Status")
+                        </th>
+                        <th scope="col">
+                            @sortablelink("employee_id", "Assinged To")
+                        </th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Mark As Done</th>
+                    </tr>
                 </thead>
                 <tbody>
                 @foreach($advertisements as $advertisement)
@@ -47,18 +47,19 @@
                         @elseif($advertisement->status == 3)
                             <td class="bg-danger text-light">
                                 Done
-                                {{--                                <iconify-icon icon="material-symbols:pending-actions-rounded"></iconify-icon>--}}
                             </td>
                         @else
-                            {{--                            0 --> needs review(approve/reject) --}}
+                            <!-- Needs Reveiw -->
                             <td class="bg-danger text-light">
                                 <a href="{{ route("a-advertiseDetails", ['id' => $advertisement->id]) }}">Needs Review</a>
                             </td>
                         @endif
                         <td>
-                            @isset($advertisement->employee_id)
+                            @if(isset($advertisement->employee_id))
                                 {{ $advertisement->assignedTo->full_name }}
-                            @endisset
+                            @else
+                                -
+                            @endif
                         </td>
                         <td><a class="btn btn-primary flex-center" href="{{ route("a-advertiseDetails", ['id' => $advertisement->id]) }}"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a></td>
                         <td>
