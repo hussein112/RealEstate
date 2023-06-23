@@ -8,8 +8,8 @@
             <hr>
             <form action="{{ route("a-newPost") }}" method="post" class="new-post" enctype="multipart/form-data">
                 @csrf
-                <input class="form-control my-2" type="text" name="title" placeholder="Title">
-                <textarea id="editor" name="post" class="my-2"></textarea>
+                <input class="form-control my-2" type="text" name="title" placeholder="Title" maxlength="90" required>
+                <textarea id="editor" name="post" class="my-2" required></textarea>
                 <select name="category" class="form-select my-2">
                     @isset($categories)
                         <option selected disabled>--- Category ---</option>

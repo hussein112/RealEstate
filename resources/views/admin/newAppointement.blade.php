@@ -11,7 +11,7 @@
                 <div class="mb-3 row">
                     <label for="title" class="col-form-label col-sm-2">Title</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Appointement Title" name="title" autocomplete="off" id="title">
+                        <input type="text" class="form-control" placeholder="Appointment Title" name="title" autocomplete="off" id="title" maxlength="90" required>
                     </div>
                 </div>
                 @if($errors->has('title'))
@@ -21,7 +21,7 @@
                 <div class="mb-3 row">
                     <label for="notes" class="col-form-label col-sm-2">Notes</label>
                     <div class="col-sm-10">
-                        <textarea placeholder="Additional Notes" name="notes" id="notes" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea placeholder="Additional Notes" name="notes" id="notes" cols="30" rows="5" class="form-control" maxlength="400" required></textarea>
                     </div>
                 </div>
                 @if($errors->has('notes'))

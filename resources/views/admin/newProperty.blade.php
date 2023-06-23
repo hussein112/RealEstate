@@ -3,21 +3,18 @@
     <main class="container">
         <x-page-title title="property" subtitle="add new property"></x-page-title>
 
-        @if(session('error_msg') != null)
-            <x-messages msg="error_msg" type="error"></x-messages>
-        @elseif(session('success_msg') != null)
-            <x-messages msg="success_msg" type="success"></x-messages>
-        @endif
+        <x-messages msg="error_msg" type="error"></x-messages>
+        <x-messages msg="success_msg" type="success"></x-messages>
         <div class="container d-flex flex-column">
         </div>
             <hr>
             <form action="{{ route('a-newProperty') }}" method="post" class="w-100 m-1" enctype="multipart/form-data">
                 @csrf
-                <input class="form-control my-2" type="text" placeholder="Title" name="title">
+                <input class="form-control my-2" type="text" placeholder="Title" name="title" maxlength="90" required>
                 @if($errors->has('title'))
                     <div class="error text-danger">* {{$errors->first('title')}}</div>
                 @endif
-                <input type="number" class="form-control my-2" placeholder="Size" name="size">
+                <input type="number" class="form-control my-2" placeholder="Size" name="size" required>
                 @if($errors->has('size'))
                     <div class="error text-danger">* {{$errors->first('size')}}</div>
                 @endif
@@ -27,27 +24,27 @@
                         Featured?
                     </label>
                 </div>
-                <input type="number" class="form-control my-2" placeholder="Price" name="price">
+                <input type="number" class="form-control my-2" placeholder="Price" name="price" required>
                 @if($errors->has('price'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('price')) }}</div>
                 @endif
-                <input type="text" class="form-control my-2" placeholder="City" name="city">
+                <input type="text" class="form-control my-2" placeholder="City" name="city" maxlength="15" required>
                 @if($errors->has('city'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('city')) }}</div>
                 @endif
-                <input type="text" class="form-control my-2" placeholder="Address" name="address">
+                <input type="text" class="form-control my-2" placeholder="Address" name="address" maxlength="150" required>
                 @if($errors->has('address'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('address')) }}</div>
                 @endif
-                <input type="number" name="bedrooms" class="form-control my-2" placeholder="Number of Bedrooms">
+                <input type="number" name="bedrooms" class="form-control my-2" placeholder="Number of Bedrooms" required>
                 @if($errors->has('bedrooms'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('bedrooms')) }}</div>
                 @endif
-                <input type="number" name="bathrooms" class="form-control my-2" placeholder="Number of Bathrooms">
+                <input type="number" name="bathrooms" class="form-control my-2" placeholder="Number of Bathrooms" required>
                 @if($errors->has('bathrooms'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('bathrooms')) }}</div>
                 @endif
-                <select name="type" class="form-select my-2">
+                <select name="type" class="form-select my-2" required>
                     <option selected disabled>-- Type --</option>
                     @isset($types)
                         @foreach($types as $type)
@@ -58,7 +55,7 @@
                 @if($errors->has('bathrooms'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('bathrooms')) }}</div>
                 @endif
-                <select name="for" class="form-select my-2">
+                <select name="for" class="form-select my-2" required>
                     <option selected disabled>-- For --</option>
                     <option value="rent">Rent</option>
                     <option value="buy">Buy</option>
@@ -67,7 +64,7 @@
                     <div class="error text-danger">* {{ ucfirst($errors->first('for')) }}</div>
                 @endif
                 <div class="input-group">
-                    <select name="owner" class="form-select" aria-describedby="test">
+                    <select name="owner" class="form-select" aria-describedby="test" required>
                         @if(sizeof($customers) > 0)
                             <option selected disabled>-- Owner --</option>
                         @foreach($customers as $customer)
@@ -109,7 +106,7 @@
 
                 <div class="mb-3">
                     <label for="images" class="form-label">Choose Property Images</label>
-                    <input class="form-control" type="file" id="images" name="images[image][]" accept="jpg,png,jpeg" multiple>
+                    <input class="form-control" type="file" id="images" name="images[image][]" accept="jpg,png,jpeg" multiple required>
                     @if($errors->has("images.image"))
                         <div class="error text-danger">* {{ ucfirst($errors->first("images.image")) }}</div>
                     @endif

@@ -25,12 +25,12 @@ class AddUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'fname' => ['required', 'string', 'min:3', 'max:40'],
-            'mname' => ['required', 'string', 'min:3', 'max:40'],
-            'lname' => ['required', 'string', 'min:3', 'max:40'],
+            'fname' => ['required', 'string', 'max:40'],
+            'mname' => ['required', 'string', 'max:40'],
+            'lname' => ['required', 'string', 'max:40'],
             'password' => ['required', Password::min(10)->mixedCase()->numbers()],
             'phone' => ['required', 'unique:App\Models\User,phone', 'regex:/^[0-9]+ [0-9]* [0-9]{3,}$/'],
-            'email' => ['required', 'email', 'unique:App\Models\User,email'],
+            'email' => ['required', 'email', 'max:70', 'unique:App\Models\User,email'],
             'avatar' => ['image', 'max:2000']
         ];
     }

@@ -12,7 +12,7 @@
                 <div class="mb-3 row">
                     <label for="fname" class="col-form-label col-sm-2">Full Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Full Name" name="fullname" autocomplete="off" id="fname">
+                        <input type="text" class="form-control" placeholder="Full Name" name="fullname" autocomplete="off" id="fname" maxlength="120" required>
                     </div>
                     @if($errors->has('fullname'))
                         <div class="error text-danger">* {{ ucfirst($errors->first('fullname')) }}</div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <label for="password" class="col-form-label col-sm-2">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" aria-label="Password" aria-describedby="showpass">
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" aria-label="Password" aria-describedby="showpass" required>
                     <span class="input-group-text" id="showpass">
                         <iconify-icon icon="bx:hide" id="passicon"></iconify-icon>
                     </span>
@@ -31,7 +31,7 @@
                 <div class="mb-3 row">
                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input autocomplete="off" id="email" class="form-control" type="email" placeholder="Email" name="email">
+                        <input autocomplete="off" id="email" class="form-control" type="email" placeholder="Email" name="email" maxlength="70" required>
                     </div>
                     @if($errors->has('email'))
                         <div class="error text-danger">* {{ ucfirst($errors->first('email')) }}</div>
@@ -41,7 +41,7 @@
                 <div class="mb-3 row">
                     <label for="phone" class="col-form-label col-sm-2">Phone</label>
                     <div class="col-sm-10">
-                        <input autocomplete="off" id="phone" class="form-control my-2" type="tel" name="phone" placeholder="Phone Number">
+                        <input autocomplete="off" id="phone" class="form-control my-2" type="tel" name="phone" pattern="^[0-9]+ [0-9]* [0-9]{3,}$" placeholder="Phone Number" required>
                     </div>
                     @if($errors->has('phone'))
                         <div class="error text-danger">* {{ ucfirst($errors->first('phone')) }}</div>
@@ -50,7 +50,7 @@
                 <div class="mb-3 row">
                     <label for="stmt" class="col-sm-2 col-form-label">Statement</label>
                     <div class="col-sm-10">
-                        <textarea name="stmt" id="stmt" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea name="stmt" id="stmt" cols="30" rows="10" class="form-control" maxlength="400"></textarea>
                     </div>
                     @if($errors->has('stmt'))
                         <div class="error text-danger">* {{ ucfirst($errors->first('stmt')) }}</div>

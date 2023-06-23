@@ -24,7 +24,7 @@ class AddPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'unique:App\Models\Post,title'],
+            'title' => ['required', 'string', 'unique:App\Models\Post,title', 'max:70'],
             'post' => ['required', 'string'],
             'category' => ['numeric']
         ];

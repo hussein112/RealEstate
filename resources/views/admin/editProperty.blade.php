@@ -19,7 +19,7 @@
                         @if($errors->has('owner'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('owner')) }}</div>
                         @endif
-                        <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}">
+                        <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}" maxlength="90">
                         @if($errors->has('title'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('title')) }}</div>
                         @endif
@@ -27,7 +27,7 @@
                         @if($errors->has('size'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('size')) }}</div>
                         @endif
-                        <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description">{{ $property->description }}</textarea>
+                        <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description" maxlength="400">{{ $property->description }}</textarea>
                         @if($errors->has('description'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('description')) }}</div>
                         @endif

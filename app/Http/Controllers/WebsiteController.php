@@ -9,6 +9,11 @@ use App\Models\Type;
 
 class WebsiteController extends Controller
 {
+    /**
+     * Display the home page.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function home(){
         return view("home")->with([
             'featured_properties' => Property::where('featured', 1)->get(),
@@ -23,6 +28,11 @@ class WebsiteController extends Controller
         ]);
     }
 
+    /**
+     * Display the about us page.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function about(){
         return view("static.about")->with([
             'fors' => Property::select('for')->get(),
@@ -31,6 +41,11 @@ class WebsiteController extends Controller
         ]);
     }
 
+    /**
+     * Display the contact us page.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function contact(){
         return view("static.contact")->with([
             'fors' => Property::select('for')->get(),
@@ -40,6 +55,11 @@ class WebsiteController extends Controller
         ]);
     }
 
+    /**
+     * Display the terms and conditions page.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function terms(){
         return view("static.terms")->with([
             'fors' => Property::select('for')->get(),
@@ -48,6 +68,11 @@ class WebsiteController extends Controller
         ]);
     }
 
+    /**
+     * Display the terms for advertising.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function partnerTerms(){
         return view("static.partnerTerms")->with([
             'fors' => Property::select('for')->get(),
@@ -56,6 +81,11 @@ class WebsiteController extends Controller
         ]);
     }
 
+    /**
+     * Display the privacy policy page.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function privacy(){
         return view("static.privacy")->with([
             'fors' => Property::select('for')->get(),
@@ -64,6 +94,11 @@ class WebsiteController extends Controller
         ]);
     }
 
+    /**
+     * Display the services page.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function services(){
         return view("static.services")->with([
             'fors' => Property::select('for')->get(),
@@ -72,6 +107,11 @@ class WebsiteController extends Controller
         ]);
     }
 
+    /**
+     * Display the team members page.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function team(){
         return view("static.team")->with([
             'fors' => Property::select('for')->get(),

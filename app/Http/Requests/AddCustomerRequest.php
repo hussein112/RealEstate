@@ -24,8 +24,8 @@ class AddCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname' => ['required', 'string', 'max:300'],
-            'email' => ['required', 'email', 'unique:App\Models\Customer,email'],
+            'fullname' => ['required', 'string', 'max:120'],
+            'email' => ['required', 'email', 'max:70', 'unique:App\Models\Customer,email'],
             'phone' => ['required', 'unique:App\Models\Customer,phone', 'regex:/^[0-9]+ [0-9]* [0-9]{3,}$/']
         ];
     }

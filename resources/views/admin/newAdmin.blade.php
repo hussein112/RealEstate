@@ -8,20 +8,20 @@
             <form action="{{ route('a-newAdmin') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @vite('resources/js/admin/passwords.js')
-                <input class="form-control my-2" type="text" placeholder="First Name" name="fname" required>
+                <input class="form-control my-2" type="text" placeholder="First Name" name="fname" maxlength="40" required>
                 @if($errors->has('fname'))
                     <div class="error text-danger">* {{$errors->first('fname')}}</div>
                 @endif
-                <input class="form-control my-2" type="text" placeholder="Middle Name" name="mname" required>
+                <input class="form-control my-2" type="text" placeholder="Middle Name" name="mname" maxlength="40" required>
                 @if($errors->has('mname'))
                     <div class="error text-danger">* {{$errors->first('mname')}}</div>
                 @endif
-                <input class="form-control my-2" type="text" placeholder="Last Name" name="lname" required>
+                <input class="form-control my-2" type="text" placeholder="Last Name" name="lname" maxlength="40" required>
                 @if($errors->has('lname'))
                     <div class="error text-danger">* {{$errors->first('lname')}}</div>
                 @endif
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" aria-label="Password" aria-describedby="showpass" required>
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" aria-label="Password" aria-describedby="showpass" maxlength="250" required>
                     <span class="input-group-text" id="showpass">
                         <iconify-icon icon="bx:hide" id="passicon"></iconify-icon>
                     </span>
@@ -29,13 +29,13 @@
                 @if($errors->has('password'))
                     <div class="error text-danger">* {{$errors->first('password')}}</div>
                 @endif
-                <input class="form-control my-2" name="email" type="email" placeholder="Email" required>
+                <input class="form-control my-2" name="email" type="email" placeholder="Email" maxlength="70" required>
                 @if($errors->has('email'))
                     <div class="error text-danger">* {{$errors->first('email')}}</div>
                 @endif
                 <div class="d-flex align-items-center">
                     <iconify-icon class="display-4" icon="twemoji:flag-lebanon"></iconify-icon>
-                    <input type="text" name="phone" id="phone" class="form-control w-auto mx-2" placeholder="03 123 456" required>
+                    <input type="text" name="phone" id="phone" class="form-control w-auto mx-2" placeholder="03 123 456" pattern="^[0-9]+ [0-9]* [0-9]{3,}$" required>
                 </div>
                 @if($errors->has('phone'))
                     <div class="error text-danger">* {{$errors->first('phone')}}</div>

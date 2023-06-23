@@ -24,8 +24,8 @@ class AddAppointementRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:200', 'unique:App\Models\Appointement,title'],
-            'notes' => ['nullable', 'string', 'max:450'],
+            'title' => ['required', 'string', 'max:90', 'unique:App\Models\Appointement,title'],
+            'notes' => ['nullable', 'string', 'max:400'],
             'property' => ['nullable']
         ];
     }

@@ -25,11 +25,11 @@ class AddEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname' => ['required', 'string'],
+            'fullname' => ['required', 'string', 'max:120'],
             'password' => ['required', Password::min(10)->mixedCase()->numbers()],
-            'email' => ['required', 'email', 'unique:App\Models\Employee,email'],
+            'email' => ['required', 'email', 'max:70', 'unique:App\Models\Employee,email'],
             'phone' => ['required', 'unique:App\Models\Employee,phone', 'regex:/^[0-9]+ [0-9]* [0-9]{3,}$/'],
-            'stmt' => ['nullable', 'string', 'max:450'],
+            'stmt' => ['nullable', 'string', 'max:400'],
             'avatar' => ['nullable', 'image', 'max:2000']
         ];
     }

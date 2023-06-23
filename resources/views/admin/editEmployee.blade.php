@@ -13,7 +13,7 @@
                     <div class="mb-3 row">
                         <label for="fname" class="col-form-label col-sm-2">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Full Name" name="fullname" value="{{ $employee->full_name }}" autocomplete="off" id="fname">
+                            <input type="text" class="form-control" placeholder="Full Name" name="fullname" value="{{ $employee->full_name }}" autocomplete="off" id="fname" maxlength="120">
                         </div>
                         @if($errors->has('fullname'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('fullname')) }}</div>
@@ -22,7 +22,7 @@
                     <div class="mb-3 row">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input autocomplete="off" id="email" class="form-control" type="email" placeholder="Email" name="email" value="{{ $employee->email }}">
+                            <input autocomplete="off" id="email" class="form-control" type="email" placeholder="Email" name="email" value="{{ $employee->email }}" maxlength="70">
                         </div>
                         @if($errors->has('email'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('email')) }}</div>
@@ -32,7 +32,7 @@
                     <div class="mb-3 row">
                         <label for="phone" class="col-form-label col-sm-2">Phone</label>
                         <div class="col-sm-10">
-                            <input autocomplete="off" id="phone" class="form-control my-2" type="tel" name="phone" placeholder="Phone Number" value="{{ $employee->phone }}">
+                            <input autocomplete="off" id="phone" class="form-control my-2" type="tel" name="phone" placeholder="Phone Number" value="{{ $employee->phone }}" pattern="^[0-9]+ [0-9]* [0-9]{3,}$">
                         </div>
                         @if($errors->has('phone'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('phone')) }}</div>
@@ -41,7 +41,7 @@
                     <div class="mb-3 row">
                         <label for="stmt" class="col-sm-2 col-form-label">Statement</label>
                         <div class="col-sm-10">
-                            <textarea name="stmt" id="stmt" cols="30" rows="10" class="form-control">{{ $employee->statement }}</textarea>
+                            <textarea name="stmt" id="stmt" cols="30" rows="10" class="form-control" maxlength="400">{{ $employee->statement }}</textarea>
                         </div>
                         @if($errors->has('stmt'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('stmt')) }}</div>

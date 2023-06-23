@@ -27,8 +27,8 @@ class UpdateCustomerRequest extends FormRequest
     {
         $customer = Customer::find($this->id);
         return [
-            'fullname' => ['required', 'string', 'max:300'],
-            'email' => ['required', 'email', Rule::unique('customer', 'email')->ignore($customer, 'email')],
+            'fullname' => ['required', 'string', 'max:120'],
+            'email' => ['required', 'email', 'max:70', Rule::unique('customer', 'email')->ignore($customer, 'email')],
             'phone' => ['required', 'regex:/^[0-9]+ [0-9]* [0-9]{3,}$/', Rule::unique('customer', 'phone')->ignore($customer, 'phone')]
         ];
     }

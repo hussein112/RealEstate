@@ -29,14 +29,14 @@ class AddPropertyRequest extends FormRequest
         return [
             'size' => ['required', 'numeric', 'max_digits:4'],
             'title' => ['required', 'unique:App\Models\Property,title', 'max:100', 'string'],
-            'description' => ['max:450', 'string'],
+            'description' => ['max:400', 'string'],
             'price' => ['required', 'numeric', 'max_digits:6'],
-            'city' => ['required', 'string', 'max:40'],
+            'city' => ['required', 'string', 'max:15'],
             'address' => ['required', 'string', 'max:150'],
             'bedrooms' => ['required', 'numeric', 'max_digits:2'],
             'bathrooms' => ['required', 'numeric', 'max_digits:2'],
             'type' => ['required', 'numeric', 'max_digits:1'],
-            'for' => ['required', 'string', 'max:20'],
+            'for' => ['required', 'string', 'max:15'],
             'owner' => ['required', 'numeric'],
             'images.image' => ['required', 'max:'.MaxImagesPerProperty::getMax()],
             'images.image.*' => ['image', 'max:2000']

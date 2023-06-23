@@ -9,7 +9,7 @@
             <form action="{{ route("a-editPost", ['id' => $post->id]) }}" method="post" class="new-post" enctype="multipart/form-data">
                 @method("PATCH")
                 @csrf
-                <input class="form-control my-2" type="text" name="title" placeholder="Title" value="{{ $post->title }}">
+                <input class="form-control my-2" type="text" name="title" maxlength="70" placeholder="Title" value="{{ $post->title }}">
                 <textarea id="editor" name="post" class="my-2">{{ $post->content }}</textarea>
                 <select name="category" class="form-select my-2">
                     @isset($categories)

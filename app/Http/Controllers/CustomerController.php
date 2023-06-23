@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
+    /**
+     * Show all the customer on the system. [Admins]
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function adminIndex(){
         return view("admin.customers")->with([
             'customers' => Customer::paginate(9)
@@ -19,27 +24,47 @@ class CustomerController extends Controller
     }
 
 
+    /**
+     * Show all the customers on the system. [Employees]
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function employeeIndex(){
         return view("employee.customers")->with([
             'customers' => Customer::paginate(9)
         ]);
     }
 
+    /**
+     * Display the form for creating a new customer [Admins]
+     *
+     */
     public function adminCreate(){
         return view('admin.newCustomer');
     }
 
+    /**
+     * Display the form for creating a new customer [Employees]
+     *
+     */
     public function employeeCreate(){
         return view("employee.newCustomer");
     }
 
+    /**
+     * Display the form for editing an existing customer. [Admins]
+     *
+     */
     public function adminEdit($id){
         return view("admin.editCustomer")->with([
             'customer' => Customer::find($id)
         ]);
     }
 
-
+    /**
+     * Display the form for editing an existing customer. [Employees]
+     *
+     */
     public function employeeEdit($id){
         return view("employee.editCustomer")->with([
             'customer' => Customer::find($id)
@@ -48,7 +73,7 @@ class CustomerController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created customer in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      */
@@ -70,7 +95,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified customer in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -94,7 +119,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified customer from storage.
      *
      * @param  int  $id
      */

@@ -9,15 +9,15 @@
             <form action="{{ route('a-editUser', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
                 @method("PATCH")
                 @csrf
-                <input name="fname" class="form-control my-2" type="text" placeholder="First Name" value="{{ $user->f_name }}">
+                <input name="fname" class="form-control my-2" type="text" placeholder="First Name" value="{{ $user->f_name }}" maxlength="40">
                 @if($errors->has('fname'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('fname')) }}</div>
                 @endif
-                <input name="mname" class="form-control my-2" type="text" placeholder="Middle Name" value="{{ $user->m_name }}">
+                <input name="mname" class="form-control my-2" type="text" placeholder="Middle Name" value="{{ $user->m_name }}" maxlength="40">
                 @if($errors->has('mname'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('mname')) }}</div>
                 @endif
-                <input name="lname" class="form-control my-2" type="text" placeholder="Last Name" value="{{ $user->l_name }}">
+                <input name="lname" class="form-control my-2" type="text" placeholder="Last Name" value="{{ $user->l_name }}" maxlength="40">
                 @if($errors->has('lname'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('lname')) }}</div>
                 @endif
@@ -30,11 +30,11 @@
                 @if($errors->has('password'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('password')) }}</div>
                 @endif
-                <input name="email" class="form-control my-2" type="email" placeholder="Email" value="{{ $user->email }}">
+                <input name="email" class="form-control my-2" type="email" placeholder="Email" value="{{ $user->email }}" maxlength="70">
                 @if($errors->has('email'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('email')) }}</div>
                 @endif
-                <input name="phone" class="form-control my-2" type="tel" placeholder="Phone Number" value="{{ $user->phone }}">
+                <input name="phone" class="form-control my-2" type="tel" placeholder="Phone Number" value="{{ $user->phone }}" pattern="^[0-9]+ [0-9]* [0-9]{3,}$">
                 @if($errors->has('phone'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('phone')) }}</div>
                 @endif

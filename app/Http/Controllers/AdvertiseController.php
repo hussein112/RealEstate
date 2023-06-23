@@ -20,8 +20,11 @@ class AdvertiseController extends Controller
 {
     use EmployeeCapacity;
 
+    /**
+     * Render the Advertise view.
+     */
     public function index(){
-        return view("advertise")->with([
+        return view("properties.advertise")->with([
             'fors' => Property::select('for')->get(),
             'wheres' => Property::select('city')->get(),
             'types' => Type::all(),
@@ -29,6 +32,10 @@ class AdvertiseController extends Controller
     }
 
 
+    /**
+     * Display all the advertisements on the system [Employees]
+     *
+     */
     public function employeeIndex(){
         return view("employee.advertisements")->with([
             'advertisements' => Advertise::where("employee_id", Auth::guard("employee")->id())
@@ -39,6 +46,9 @@ class AdvertiseController extends Controller
     }
 
 
+    /**
+     * Display all the advertisements on the system [Admins]
+     */
     public function adminIndex(){
         return view("admin.advertisements")->with([
             'advertisements' => Advertise::where("status", "<>", "3")
@@ -47,6 +57,12 @@ class AdvertiseController extends Controller
         ]);
     }
 
+    /**
+     * Store a new advertisement.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request){
         $request->validate([
 
@@ -76,11 +92,24 @@ class AdvertiseController extends Controller
         ]);
     }
 
+    /**
+     * Notify the admin when an advertisement cannot be assigned to any of the employees.
+     *
+     * @param $advertisement
+     * @return void
+     */
     public function notifyAdmin($advertisement){
         event (new UnassignedAdvertisementEvent($advertisement));
     }
 
 
+    /**
+     * Assign the given advertise to the given employee.
+     *
+     * @param $advertise
+     * @param $employeeId
+     * @return void
+     */
     public function assign($advertise, $employeeId){
         $advertise->employee_id = $employeeId;
         $advertise->save();
@@ -90,6 +119,13 @@ class AdvertiseController extends Controller
     }
 
 
+    /**
+     * Display the specified unassigned advertisement.
+     *
+     * @param $advertisementId
+     * @param $notification_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function showUnassigned($advertisementId, $notification_id){
         if(isset($notification_id)){
             auth()->user()->notifications()->findOrFail($notification_id)->markAsRead();
@@ -100,6 +136,13 @@ class AdvertiseController extends Controller
         ]);
     }
 
+    /**
+     * Assign the given advertisement to the given employee even if the latter is at full capacity
+     *
+     * @param $advertiseId
+     * @param $employeeId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function assignByForce($advertiseId, $employeeId){
         $advertisement = Advertise::findOrFail($advertiseId);
 
@@ -117,7 +160,13 @@ class AdvertiseController extends Controller
         ]);
     }
 
-
+    /**
+     * Show the specified advertisement. [Employees]
+     * it could be from a notification.
+     *
+     * @param $id
+     * @param $notificationId
+     */
     public function employeeShow($id, $notificationId = null){
         if(isset($notificationId)){
             auth()->user()->notifications()->findOrFail($notificationId)->markAsRead();
@@ -127,7 +176,12 @@ class AdvertiseController extends Controller
         ]);
     }
 
-
+    /**
+     * Show the specified advertisement. [Admins]
+     * it could be from a notification.
+     * @param $id
+     * @param $notificationId
+     */
     public function adminShow($id, $notificationId = null){
         if(isset($notificationId)){
             auth()->user()->notifications()->findOrFail($notificationId)->markAsRead();
@@ -138,7 +192,12 @@ class AdvertiseController extends Controller
     }
 
 
-
+    /**
+     * Approve a pending advertisement request.
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function approve($id){
         $advertisement = Advertise::findOrFail($id);
         $advertisement->status = 1;
@@ -159,6 +218,12 @@ class AdvertiseController extends Controller
     }
 
 
+    /**
+     * Reject a pending advertisement request.
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function reject($id){
         $advertisement = Advertise::findOrFail($id);
         $advertisement->status = 2;
@@ -178,14 +243,19 @@ class AdvertiseController extends Controller
         ]);
     }
 
-
+    /**
+     * Mark an advertisement as done
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function done($id){
         $advertisement = Advertise::findOrFail($id);
         $advertisement->status = 3;
         $advertisement->save();
 
         return redirect()->back()->with([
-            'success_msg' => "Advertisement Marked as Done"
+            'success_msg' => "Advertisement Marked as Done."
         ]);
     }
 }

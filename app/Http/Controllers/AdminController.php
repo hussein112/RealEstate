@@ -23,7 +23,7 @@ class AdminController extends Controller
     protected int $paginate = 12;
 
     /**
-     * Display a listing of the resource.
+     * Display the dashboard
      */
     public function index()
     {
@@ -57,6 +57,9 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Display all the admins in the system.
+     */
     public function admins(){
         return view("admin.admins")->with([
             'admins' => Admin::paginate($this->paginate)
@@ -64,8 +67,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * Show the form for creating a new admin.
      */
     public function create()
     {
@@ -73,7 +75,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created admin in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      */
@@ -98,14 +100,13 @@ class AdminController extends Controller
         ]);
 
 
-
         return redirect()->back()->with([
             'success_msg' => $request->fname . ' ' . $request->lname . " Added Successfully",
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified admin.
      *
      * @param  int  $id
      */
@@ -117,6 +118,13 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * Update the password for the specified admin
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePassword(Request $request, $id){
         $admin = Admin::find($id);
         $request->validate([
@@ -135,8 +143,9 @@ class AdminController extends Controller
         return back()->with("success_msg", "Password Updated Succesfully");
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * Update the specified admin in storage.
      */
     public function update(UpdateAdminRequest $request, $id)
     {
@@ -168,8 +177,9 @@ class AdminController extends Controller
         ]);
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified admin from storage.
      *
      * @param  int  $id
      */
