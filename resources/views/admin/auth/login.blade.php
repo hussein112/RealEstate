@@ -17,13 +17,9 @@
                 </label>
             </div>
             @if($errors->any)
-                <x-login-errors>
-                    <x-slot name="errors">
-                        @foreach($errors->all() as $error)
-                            <strong class="text-danger">* {{ $error }}</strong>
-                        @endforeach
-                    </x-slot>
-                </x-login-errors>
+                @foreach($errors->all() as $error)
+                    <strong class="text-danger">* {{ $error }}</strong>
+                @endforeach
             @endif
             <button type="submit" class="btn btn-primary m-2">Login</button>
         </form>

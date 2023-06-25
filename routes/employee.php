@@ -8,12 +8,10 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
-use App\Models\Appointement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointementController;
-use App\Http\Controllers\BranchesController;
-use App\Http\Controllers\EnquiriesController;
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\ValuationController;
 
 require __DIR__ . '/employeeauth.php';
@@ -31,8 +29,8 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
     Route::get("customers", [CustomerController::class, 'employeeIndex'])->name('e-customers');
 
-    Route::get("enquiries", [EnquiriesController::class, 'employeeIndex'])->name('e-enquiries');
-    Route::get("enquiry/{id}/{notification_id?}", [EnquiriesController::class, 'employeeShow'])->name('e-enquiryDetails');
+    Route::get("enquiries", [EnquiryController::class, 'employeeIndex'])->name('e-enquiries');
+    Route::get("enquiry/{id}/{notification_id?}", [EnquiryController::class, 'employeeShow'])->name('e-enquiryDetails');
 
     Route::get("properties", [PropertyController::class, 'employeeIndex'])->name('e-properties');
 
@@ -93,13 +91,13 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
         // Mark Valuation As done
         Route::patch("valuation/{id}", [ValuationController::class, 'done'])->name("e-editValuation");
 
-        Route::get("enquiries/{id}", [EnquiriesController::class, 'edit'])->name("e-editEnquiry");
+        Route::get("enquiries/{id}", [EnquiryController::class, 'edit'])->name("e-editEnquiry");
         // Mark Enquiry As done
-        Route::patch("enquiries/{id}", [EnquiriesController::class, 'update'])->name("e-editEnquiry");
+        Route::patch("enquiries/{id}", [EnquiryController::class, 'update'])->name("e-editEnquiry");
 
         Route::patch("profile/{id}", [EmployeeController::class, 'update'])->name('e-editEmployee');
 
-        Route::patch("enquiries/done/{id}", [EnquiriesController::class, 'markAsDone'])->name("e-markAsDone");
+        Route::patch("enquiries/done/{id}", [EnquiryController::class, 'markAsDone'])->name("e-markAsDone");
 
 
         Route::get("appointement/{id}", [AppointementController::class, 'employeeEdit'])->name("e-editAppointement");
@@ -118,7 +116,7 @@ Route::prefix('/employee')->middleware("auth:employee")->group(function(){
 
         Route::delete("valuation/{id}", [ValuationController::class, 'destroy'])->name("e-deleteValuation");
 
-        Route::delete("enquiries/{id}", [EnquiriesController::class, 'destroy'])->name("e-deleteEnquiry");
+        Route::delete("enquiries/{id}", [EnquiryController::class, 'destroy'])->name("e-deleteEnquiry");
 
         Route::delete("customer/{id}", [CustomerController::class, 'destroy'])->name("e-deleteCustomer");
 

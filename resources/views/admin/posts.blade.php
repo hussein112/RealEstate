@@ -4,7 +4,8 @@
             <x-page-title title="posts" subtitle="all the posts in the system"></x-page-title>
             <hr>
             <x-create-button target="a-newPost" title="Post"></x-create-button>
-            <table class="table table-bordered caption-top">
+            <div class="d-flex">
+                <table class="table table-bordered caption-top">
                 <caption>List of All Posts</caption>
                 <thead>
                 <tr>
@@ -51,17 +52,39 @@
                 @endisset
                 </tbody>
             </table>
+                <div>
+                    @foreach($categories as $category)
+                        <div>
+                            <span>{{ $category->category }}</span>
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}">
+                                <iconify-icon icon="material-symbols:edit"></iconify-icon>
+                            </button>
+
+                            <button type="button" class="btn btn-danger" id="deleteCategory">
+                                <iconify-icon icon="mdi:delete"></iconify-icon>
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
             <div class="center">
                 {{ $posts->links() }}
             </div>
 
             <!-- Start Delete Modal -->
-                @foreach($posts as $post)
-                    <x-delete-modal target="post" targetId="{{ $post->id }}" auth="a">
-                    </x-delete-modal>
-                @endforeach
+            @foreach($posts as $post)
+                <x-delete-modal target="post" targetId="{{ $post->id }}" auth="a">
+                </x-delete-modal>
+            @endforeach
             <!-- End Delete Modal -->
+
+            <!-- Start Edit Category Modal -->
+            @foreach($categories as $category)
+                <x-edit-modal target="Category" targetId="{{ $category->id }}" auth="a"></x-edit-modal>
+            @endforeach
+            <!-- End Edit Category Modal -->
         </main>
     </x-slot>
 </x-admin-layout>

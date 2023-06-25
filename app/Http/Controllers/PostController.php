@@ -23,6 +23,7 @@ class PostController extends Controller
     public function adminIndex(){
         return view("admin.posts")->with([
             'posts' => Post::paginate(10),
+            'categories' => Category::all(),
         ]);
     }
 
@@ -70,15 +71,28 @@ class PostController extends Controller
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $clean_post = $purifier->purify($request->post);
 
+        if($request->has('new-category')){
+            if(! Category::where('category', $request->get('new-category'))->exists()){
+                $category = Category::create([
+                    'category' => $request->get("new-category")
+                ]);
+                $category_id = $category->id;
+            }
+        }else{
+            $category_id = $request->category;
+        }
+
         $post = Post::create([
             'date_posted' => now(),
             'title' => $request->title,
             'content' => $clean_post,
-            'category_id' => ($request->category) ?? NULL,
+            'category_id' => ($category_id) ?? NULL,
             'admin_id' => Auth::guard("admin")->id()
         ]);
 
-        $post->images()->attach($post->id, ['image_id' => session('image_id')]);
+        if(session('image_id')){
+            $post->images()->attach($post->id, ['image_id' => session('image_id')]);
+        }
 
         return redirect()->back()->with('success_msg', "Post Added Successfully");
     }

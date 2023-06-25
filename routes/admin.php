@@ -4,7 +4,6 @@
 use App\Http\Controllers\AdvertiseController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostImagesController;
 use App\Http\Controllers\PropertyController;
@@ -14,8 +13,8 @@ use App\Http\Controllers\ValuationApprovalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointementController;
-use App\Http\Controllers\BranchesController;
-use App\Http\Controllers\EnquiriesController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\ValuationController;
 
 require __DIR__ . '/adminauth.php';
@@ -37,14 +36,14 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
     Route::get("appointements", [AppointementController::class, 'adminIndex'])->name('a-appointements');
     Route::get("appointement/{id}", [AppointementController::class, 'details'])->name('a-appointementDetails');
 
-    Route::get("branches", [BranchesController::class, 'adminIndex'])->name('a-branches');
+    Route::get("branches", [BranchController::class, 'adminIndex'])->name('a-branches');
 
     Route::get("customers", [CustomerController::class, 'adminIndex'])->name('a-customers');
 
     Route::get("employees", [EmployeeController::class, 'adminIndex'])->name("a-employees");
 
-    Route::get("enquiries", [EnquiriesController::class, 'adminIndex'])->name('a-enquiries');
-    Route::get("enquiry/{id}", [EnquiriesController::class, 'adminShow'])->name('a-enquiryDetails');
+    Route::get("enquiries", [EnquiryController::class, 'adminIndex'])->name('a-enquiries');
+    Route::get("enquiry/{id}", [EnquiryController::class, 'adminShow'])->name('a-enquiryDetails');
 
     Route::get("properties", [PropertyController::class, 'adminIndex'])->name('a-properties');
 
@@ -102,8 +101,8 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::post("valuation/request/assign/{valuation_id}/{employee_id}", [ValuationApprovalController::class, 'assign'])->name('a-assignValuationTo');
         // Manually Assign Enquiry to an Employee
         // Review the enquiry
-        Route::get("enquiry/assign/{enquiry_id}/{notification_id?}", [EnquiriesController::class, 'review'])->name('a-assignEnquiry');
-        Route::post("enquiry/assign/{enquiry_id}/{employee_id}", [EnquiriesController::class, 'assign'])->name('a-assignEnquiryTo');
+        Route::get("enquiry/assign/{enquiry_id}/{notification_id?}", [EnquiryController::class, 'review'])->name('a-assignEnquiry');
+        Route::post("enquiry/assign/{enquiry_id}/{employee_id}", [EnquiryController::class, 'assignByForce'])->name('a-assignEnquiryTo');
 
         Route::get("advertise/assign/{advertisement_id}/{notification_id?}", [AdvertiseController::class, 'showUnassigned'])->name('a-assignAdvertisement');
 
@@ -119,7 +118,6 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("admin/{id}", [AdminController::class, 'edit'])->name('a-editAdmin');
         Route::patch("admin/{id}", [AdminController::class, 'update'])->name('a-editAdmin');
         Route::patch("admin/password/{id}", [AdminController::class, 'updatePassword'])->name('a-editAdminPassword');
-
 
         Route::get("post/{id}", [PostController::class, 'adminEdit'])->name('a-editPost');
         Route::patch("post/{id}", [PostController::class, 'update'])->name('a-editPost');
@@ -145,9 +143,9 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
         Route::get("customers/{id}", [CustomerController::class, 'adminEdit'])->name("a-editCustomer");
         Route::patch("customers/{id}", [CustomerController::class, 'update'])->name("a-editCustomer");
 
-        Route::get("enquiries/{id}", [EnquiriesController::class, 'edit'])->name("a-editEnquiry");
-        Route::patch("enquiries/{id}", [EnquiriesController::class, 'update'])->name("a-editEnquiry");
-        Route::patch("enquiries/done/{id}", [EnquiriesController::class, 'markAsDone'])->name("a-markAsDone");
+        Route::get("enquiries/{id}", [EnquiryController::class, 'edit'])->name("a-editEnquiry");
+        Route::patch("enquiries/{id}", [EnquiryController::class, 'update'])->name("a-editEnquiry");
+        Route::patch("enquiries/done/{id}", [EnquiryController::class, 'markAsDone'])->name("a-markAsDone");
 
 
 

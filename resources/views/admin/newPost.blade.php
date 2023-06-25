@@ -9,7 +9,7 @@
             <form action="{{ route("a-newPost") }}" method="post" class="new-post" enctype="multipart/form-data">
                 @csrf
                 <input class="form-control my-2" type="text" name="title" placeholder="Title" maxlength="90" required>
-                <textarea id="editor" name="post" class="my-2" required></textarea>
+                <textarea id="editor" name="post" class="my-2"></textarea>
                 <select name="category" class="form-select my-2">
                     @isset($categories)
                         <option selected disabled>--- Category ---</option>
@@ -18,6 +18,9 @@
                         @endforeach
                     @endisset
                 </select>
+                <div class="new-category">
+                    <input type="text" class="form-control" name="new-category" placeholder="Create new Category">
+                </div>
                 <button class="btn btn-primary my-2" type="submit">Post</button>
             </form>
             @vite('resources/js/editorScaffolding.js')
