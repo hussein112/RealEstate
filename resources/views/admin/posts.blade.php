@@ -60,10 +60,6 @@
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}">
                                 <iconify-icon icon="material-symbols:edit"></iconify-icon>
                             </button>
-
-                            <button type="button" class="btn btn-danger" id="deleteCategory">
-                                <iconify-icon icon="mdi:delete"></iconify-icon>
-                            </button>
                         </div>
                     @endforeach
                 </div>
@@ -73,18 +69,19 @@
                 {{ $posts->links() }}
             </div>
 
-            <!-- Start Delete Modal -->
+            <!-- Start Delete Post Modal -->
             @foreach($posts as $post)
                 <x-delete-modal target="post" targetId="{{ $post->id }}" auth="a">
                 </x-delete-modal>
             @endforeach
-            <!-- End Delete Modal -->
+            <!-- End Delete Post Modal -->
 
             <!-- Start Edit Category Modal -->
             @foreach($categories as $category)
-                <x-edit-modal target="Category" targetId="{{ $category->id }}" auth="a"></x-edit-modal>
+                <x-edit-modal target="Category" targetId="{{ $category->id }}" targetContent="{{ $category->category }}" auth="a"></x-edit-modal>
             @endforeach
             <!-- End Edit Category Modal -->
+
         </main>
     </x-slot>
 </x-admin-layout>

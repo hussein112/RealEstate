@@ -12,16 +12,19 @@ class EditModal extends Component
 
     public $targetId;
 
+    public $targetContent;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($target, $targetId, $auth)
+    public function __construct($target, $targetId, $auth, $targetContent)
     {
         $this->target = $target;
         $this->targetId = $targetId;
         $this->auth = $auth;
+        $this->targetContent = $targetContent;
     }
 
     /**

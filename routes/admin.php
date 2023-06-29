@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\AdvertiseController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostController;
@@ -180,6 +181,8 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::patch("settings/max_images", [SettingsController::class, 'updatePropertyMaxImages'])->name('a-updatePropertyMaxImages');
         Route::patch("settings/max_features", [SettingsController::class, 'updatePropertyMaxFeatures'])->name('a-updatePropertyMaxFeatures');
+
+        Route::patch("categories/{id}", [CategoryController::class, 'update'])->name("a-updateCategory");
     });
 
 

@@ -6,14 +6,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="text" value="{{ $target }}">
+                <form method="post" action="{{ route($auth . '-update' . ucfirst($target), ['id' => $targetId]) }}">
+                    @method('PATCH')
+                    @csrf
+                    <input name="category" type="text" class="form-control" value="{{ $targetContent }}">
+                    <button type="submit" class="btn btn-danger">Update</button>
+                </form>
             </div>
-{{--            <form method="post" action="{{ route($auth . '-delete' . ucfirst($target), ['id' => $targetId]) }}" class="modal-footer">--}}
-{{--                @method('DELETE')--}}
-{{--                @csrf--}}
-{{--                <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>--}}
-{{--                <button type="submit" class="btn btn-danger">Yes</button>--}}
-{{--            </form>--}}
+
         </div>
     </div>
 </div>
