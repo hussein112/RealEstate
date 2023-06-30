@@ -16,6 +16,10 @@
                     </th>
 
                     <th scope="col">
+                        @sortablelink("until", "Until")
+                    </th>
+
+                    <th scope="col">
                         @sortablelink("location", "City")
                     </th>
                     <th scope="col">
@@ -36,6 +40,7 @@
                     <tr>
                         <th scope="row">{{ $advertisement->id }}</th>
                         <td>{{ $advertisement->created_at }}</td>
+                        <td>{{ $advertisement->until }}</td>
                         <td>{{ $advertisement->location }}</td>
                         <td>{{ $advertisement->type->type }}</td>
                         <td class="td-long">{{ ($advertisement->for == 1) ? "Sell" : "Rent" }}</td>

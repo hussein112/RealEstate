@@ -42,6 +42,7 @@
                     <option value="rent">Rent</option>
                     <option value="buy">Buy</option>
                 </select>
+                <input type="date" name="until" class="my-2">
                 <div class="input-group">
                     <select name="owner" class="form-select" aria-describedby="test">
                         @if(sizeof($customers) > 0)

@@ -63,6 +63,10 @@
                 @if($errors->has('for'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('for')) }}</div>
                 @endif
+                <input type="date" name="until" class="my-2" required>
+                @if($errors->has('until'))
+                    <div class="error text-danger">* {{ ucfirst($errors->first('until')) }}</div>
+                @endif
                 <div class="input-group">
                     <select name="owner" class="form-select" aria-describedby="test" required>
                         @if(sizeof($customers) > 0)

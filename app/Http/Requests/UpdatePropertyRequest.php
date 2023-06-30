@@ -38,7 +38,8 @@ class UpdatePropertyRequest extends FormRequest
             'type' => ['numeric', 'max_digits:1'],
             'for' => ['string', 'max:20'],
             'owner' => ['numeric'],
-            'images.image.*' => ['image', 'max:3000']
+            'images.image.*' => ['image', 'max:3000'],
+            'until' => ['nullable']
         ];
     }
 }

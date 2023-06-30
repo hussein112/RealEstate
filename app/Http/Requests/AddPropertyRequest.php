@@ -39,7 +39,8 @@ class AddPropertyRequest extends FormRequest
             'for' => ['required', 'string', 'max:15'],
             'owner' => ['required', 'numeric'],
             'images.image' => ['required', 'max:'.MaxImagesPerProperty::getMax()],
-            'images.image.*' => ['image', 'max:2000']
+            'images.image.*' => ['image', 'max:2000'],
+            'until' => ['nullable']
         ];
     }
 

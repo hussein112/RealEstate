@@ -23,6 +23,16 @@
                                 <option value="{{ $customer->id }}" @selected($customer->id == $property->customer_id)>{{$customer->full_name}}</option>
                             @endforeach
                         </select>
+                        @if(isset($property->until))
+                            @php($remaining = \Carbon\Carbon::parse($property->until)->diffInDays(Carbon\Carbon::now()))
+                            <h4>{{ ($remaining == 0) ? "Today is The Last Day" : $remaining . " Days left." }} </h4>
+                        @else
+                            <h4>Until It's Sold</h4>
+                        @endif
+                        <input type="date" name="until" value="{{ $property->until }}">
+                        @if($errors->has('until'))
+                            <div class="error text-danger">* {{ucfirst($errors->first('until'))}}</div>
+                        @endif
                         <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}">
                         <input name="size" class="form-control my-2" type="number" placeholder="Size" value="{{ $property->size }}">
                         <textarea name="description" cols="30" rows="10" class="form-control my-2" placeholder="Description">{{ $property->description }}</textarea>

@@ -19,6 +19,16 @@
                         @if($errors->has('owner'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('owner')) }}</div>
                         @endif
+                        @if(isset($property->until))
+                            @php($remaining = strtotime(date("Y-m-d")) - strtotime($property->until))
+                            <h4>{{ ($remaining == 0) ? "Today Should Be Deleted" : $remaining . " Days left." }} </h4>
+                        @else
+                            <h4>Until It's Sold</h4>
+                        @endif
+                        <input type="date" name="until" value="{{ $property->until }}">
+                        @if($errors->has('until'))
+                            <div class="error text-danger">* {{ucfirst($errors->first('until'))}}</div>
+                        @endif
                         <input name="title" class="form-control my-2" type="text" placeholder="Title" value="{{ $property->title }}" maxlength="90">
                         @if($errors->has('title'))
                             <div class="error text-danger">* {{ ucfirst($errors->first('title')) }}</div>

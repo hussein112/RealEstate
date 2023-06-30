@@ -61,7 +61,7 @@
                         </tr>
 
                         <tr>
-                            <th>Property Type</th>
+                            <th>For</th>
                             <td>{{ ($advertisement->for == 1) ? "Sell" : "Rent" }}</td>
                         </tr>
 
@@ -75,12 +75,12 @@
                             <th>Message</th>
                             <td>{{ $advertisement->message }}</td>
                         </tr>
+
+                        <tr>
+                            <th>Should Be Listed Until</th>
+                            <td>{{ $advertisement->until }}</td>
+                        </tr>
                         </tbody>
-                        <tfoot class="d-flex papers-specific">
-                        <td><button class="btn btn-primary">Save CSV</button></td>
-                        <td><button class="btn btn-primary">Save PDF</button></td>
-                        <td><button class="btn btn-primary">Print</button></td>
-                        </tfoot>
                     </table>
 
                 </div>

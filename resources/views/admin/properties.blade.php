@@ -22,6 +22,9 @@
                         @sortablelink('title', 'Title')
                     </th>
                     <th scope="col">
+                        @sortablelink('until', 'Until')
+                    </th>
+                    <th scope="col">
                         @sortablelink('description', "Description")
                     </th>
                     <th scope="col">
@@ -64,6 +67,7 @@
                             <th scope="row">{{ $property->id }}</th>
                             <td>{{$property->size}}m<sup>2</sup></td>
                             <td>{{ $property->title }}</td>
+                            <td>{{ $property->until }}</td>
                             <td class="td-long">{{ $property->description }}</td>
                             @if($property->featured == 1)
                                 <td class="bg-primary">

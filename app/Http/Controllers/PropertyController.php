@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Custom\MaxFeaturesPerProperty;
 use App\Http\Requests\AddPropertyRequest;
 use App\Http\Requests\UpdatePropertyRequest;
+use App\Models\Advertise;
 use App\Models\Customer;
 use App\Models\Feature;
 use App\Models\Image;
@@ -180,39 +181,40 @@ class PropertyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AddPropertyRequest $request)
     {
-//        $validated = $request->validated();
+        $validated = $request->validated();
         // Extra Validation
-//        if($request->for !== "rent" && $request->for !== "buy"){
-//            return redirect()->back()->with('error_msg', "Invalid 'for' input");
-//        }
-//        $for = ($request->for == "rent") ? 1 : 2;
-//        $property = Property::create([
-//            'size' => $request->size,
-//            'title' => $request->title,
-//            'description' => $request->description,
-//            'featured' => ($request->has('featured') ? $request->featured : 0),
-//            'price' => $request->price,
-//            'city' => $request->city,
-//            'address' => $request->address,
-//            'bedrooms_nb' => $request->bedrooms,
-//            'bathrooms_nb' => $request->bathrooms,
-//            'employee_id' => (Auth::guard('employee')->id()) ?? null,
-//            'admin_id' => (Auth::guard('admin')->id()) ?? null,
-//            'type_id' => $request->type,
-//            'for' => $for,
-//            'customer_id' => $request->owner
-//        ]);
-//
-//        if($request->hasFile('images.image')){
-//            foreach($request->file('images.image.*') as $file){
-//                $img = Image::create([
-//                    'image' => $file->store('property/' . $property->id, 'public')
-//                ]);
-//                $property->images()->attach($property->id, ['image_id' => $img->id]);
-//            }
-//        }
+        if($request->for !== "rent" && $request->for !== "buy"){
+            return redirect()->back()->with('error_msg', "Invalid 'for' input");
+        }
+        $for = ($request->for == "rent") ? 1 : 2;
+        $property = Property::create([
+            'size' => $request->size,
+            'title' => $request->title,
+            'description' => $request->description,
+            'featured' => ($request->has('featured') ? $request->featured : 0),
+            'price' => $request->price,
+            'city' => $request->city,
+            'address' => $request->address,
+            'bedrooms_nb' => $request->bedrooms,
+            'bathrooms_nb' => $request->bathrooms,
+            'employee_id' => (Auth::guard('employee')->id()) ?? null,
+            'admin_id' => (Auth::guard('admin')->id()) ?? null,
+            'type_id' => $request->type,
+            'for' => $for,
+            'customer_id' => $request->owner,
+            'until' => ($request->until) ?? NULL
+        ]);
+
+        if($request->hasFile('images.image')){
+            foreach($request->file('images.image.*') as $file){
+                $img = Image::create([
+                    'image' => $file->store('property/' . $property->id, 'public')
+                ]);
+                $property->images()->attach($property->id, ['image_id' => $img->id]);
+            }
+        }
         if($request->get('hk-csv')){
             $features = explode(',', $request->get('hk-csv'));
             if(sizeof($features) > MaxFeaturesPerProperty::getMax()){
@@ -262,6 +264,7 @@ class PropertyController extends Controller
         $property->bedrooms_nb = $request->bedrooms;
         $property->bathrooms_nb = $request->bathrooms;
         $property->type_id = $request->type;
+        $property->until = ($request->until) ?? NULL;
 
         if(isset($request->hks)){
             $features = explode(',', $request->hks);

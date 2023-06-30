@@ -22,6 +22,9 @@
                         @sortablelink("title", "Title")
                     </th>
                     <th scope="col">
+                        @sortablelink("until", "Until")
+                    </th>
+                    <th scope="col">
                         Description
                     </th>
                     <th scope="col">
@@ -64,6 +67,7 @@
                             <th scope="row">{{ $property->id }}</th>
                             <td>{{ $property->size }}m<sup>2</sup></td>
                             <td>{{ $property->title }}</td>
+                            <td>{{ $property->until }}</td>
                             <td class="td-long">{{ $property->description }}</td>
                             <td class="bg-success">
                                 <iconify-icon icon="icon-park-solid:correct" style="color: white;"></iconify-icon>
@@ -91,7 +95,6 @@
                             <td>{{ $property->for }}</td>
                             <td>
                                 <a href="{{ route("e-editProperty", ['id' => $property->id]) }}" class="btn btn-primary flex-center"><iconify-icon icon="ic:sharp-remove-red-eye"></iconify-icon></a>
-                                <a href="{{ route("e-editProperty", ['id' => $property->id]) }}" class="btn btn-primary">Edit</a>
                                 <button class="btn btn-danger m-1" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{$property->id}}">Delete</button>                            </td>
                         </tr>
                     @endforeach
