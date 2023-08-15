@@ -3,6 +3,7 @@
 namespace App\Custom\Schedulers;
 
 use App\Models\Property;
+use Illuminate\Support\Carbon;
 
 class DeleteProperty
 {
@@ -11,7 +12,9 @@ class DeleteProperty
     {
         $properties = Property::all();
         foreach($properties as $property){
-            if($property->until == date("Y-m-d")){
+            $until = Carbon::createFromFormat("Y-m-d", $property->until);
+            $now = Carbon::createFromFormat("Y-m-d", date("Y-m-d"));
+            if($until->gte($now)){
                 Property::destroy($property->id);
             }
         }
