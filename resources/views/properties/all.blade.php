@@ -13,7 +13,7 @@
                                 @if(sizeof($property->images) > 1)
                                     <div id="l-p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
                                         <div class="carousel-inner">
-                                            @foreach($property->images->image as $path)
+                                            @foreach($property->images as $path)
                                                 <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
                                                     <img src="{{ asset($path) }}" alt="{{ $property->title }}">
                                                 </div>
