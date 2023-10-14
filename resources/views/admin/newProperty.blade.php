@@ -63,7 +63,8 @@
                 @if($errors->has('for'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('for')) }}</div>
                 @endif
-                <input type="date" name="until" class="my-2" required>
+                <label>Until</label>
+                <input type="date" name="until" class="my-2 form-control" required>
                 @if($errors->has('until'))
                     <div class="error text-danger">* {{ ucfirst($errors->first('until')) }}</div>
                 @endif

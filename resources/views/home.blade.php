@@ -96,7 +96,7 @@
                                         <div class="carousel-inner">
                                             @foreach($lproperty->images as $image)
                                                 <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
-                                                    <img src="{{ asset("storage/" . $image->image) }}" class="d-block w-100" alt="Property" loading="lazy">
+                                                    <img src="{{ asset('storage/' . $image->image) }}" class="d-block w-100" alt="Property" loading="lazy">
                                                 </div>
                                             @endforeach
                                         </div>

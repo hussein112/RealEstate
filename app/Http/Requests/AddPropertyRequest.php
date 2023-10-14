@@ -29,7 +29,7 @@ class AddPropertyRequest extends FormRequest
         return [
             'size' => ['required', 'numeric', 'max_digits:4'],
             'title' => ['required', 'unique:App\Models\Property,title', 'max:100', 'string'],
-            'description' => ['max:400', 'string'],
+            'description' => ['max:1000', 'string'],
             'price' => ['required', 'numeric', 'max_digits:6'],
             'city' => ['required', 'string', 'max:15'],
             'address' => ['required', 'string', 'max:150'],

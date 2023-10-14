@@ -206,7 +206,7 @@ Route::prefix('/admin')->middleware("auth:admin")->group(function(){
 
         Route::delete("customers/{id}", [CustomerController::class, 'destroy'])->name("a-deleteCustomer");
 
-        Route::delete("enquiries/{id}", [EnquiriesController::class, 'destroy'])->name("a-deleteEnquiry");
+        Route::delete("enquiries/{id}", [EnquiryController::class, 'destroy'])->name("a-deleteEnquiry");
 
         // Reject a Valuation Request
         Route::delete("valuation/request/reject/{id}", [ValuationApprovalController::class, 'reject'])->name('a-rejectRequest');
