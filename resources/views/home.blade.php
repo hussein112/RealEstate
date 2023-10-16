@@ -128,7 +128,7 @@
                                         <h6 class="card-subtitle">
                                             <a href="{{ route("searchByPrice", ['price' => $lproperty->price]) }}" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
-                                                <span>{{ $lproperty->price }}</span>
+                                                <span>{{ number_format($lproperty->price, 2) }}</span>
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">

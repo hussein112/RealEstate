@@ -46,7 +46,7 @@
 
                 <article class="container flex">
                     <div class="property">
-                        <h1 class="price">{{ $property->price }} $</h1>
+                        <h1 class="price">{{ number_format($property->price, 2) }} $</h1>
                         @guest
                             <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
                                 <iconify-icon icon="material-symbols:heart-plus"></iconify-icon>
@@ -180,7 +180,7 @@
                                                     <h6 class="card-subtitle">
                                                         <a href="{{ route("searchByPrice", ['price' => $property->price]) }}" class="text-capitalize text-muted flex-center">
                                                             <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
-                                                            <span>{{ $property->price }}</span>
+                                                            <span>{{ number_format($property->price, 2) }}</span>
                                                         </a>
                                                     </h6>
                                                     <h6 class="card-subtitle">
