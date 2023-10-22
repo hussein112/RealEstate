@@ -37,13 +37,13 @@
                                         <h6 class="card-subtitle">
                                             <a href="#" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="material-symbols:location-on"></iconify-icon>
-                                                {{ $property->location }}
+                                                {{ $property->address }}
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">
                                             <a href="#" class="text-capitalize text-muted flex-center">
                                                 <iconify-icon icon="ri:money-dollar-circle-fill"></iconify-icon>
-                                                {{ $property->price }}
+                                                {{ number_format($property->price, 2) }}
                                             </a>
                                         </h6>
                                         <h6 class="card-subtitle">

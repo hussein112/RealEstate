@@ -812,7 +812,19 @@ q {
   text-align: center;
   box-shadow: 0 0 5px var(--se) inset;
 }
+#property .property-image {
+  width: 100%;
+  height: 600px;
+}
+#property .property {
+  flex: 1;
+}
 
+@media (max-width: 992px) {
+  #property article {
+    flex-wrap: wrap;
+  }
+}
 .property .price {
   color: var(--se);
 }

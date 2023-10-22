@@ -143,7 +143,7 @@
                                 <div class="links d-flex w-100 justify-content-between flex-wrap">
                                     <form class="card-link" action="{{ route("addToFavourites", ['id' => $lproperty->id]) }}" method="post">
                                         @csrf
-                                        <button @auth type="submit" @endauth @guest type="button" data-bs-toggle="modal" data-bs-target="#loginModal" @endguest>
+                                        <button @auth type="submit" @endauth @guest type="button" data-bs-toggle="modal" data-bs-target="#loginModal" @endguest class="btn">
                                             <iconify-icon icon="material-symbols:heart-plus"></iconify-icon>
                                         </button>
                                     </form>

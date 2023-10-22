@@ -14,14 +14,14 @@
                         <div id="p-carousel1" class="carousel slide card-img-top" data-bs-ride="true">
                             <div class="carousel-indicators">
                                 @for($i = 0; $i < sizeof($property->images); $i++)
-                                    <button type="button" data-bs-target="#p-carousel1" data-bs-slide-to="{{$i}}" class="active" aria-current="true" aria-label="Slide"></button>
+                                    <button type="button" data-bs-target="#p-carousel1" data-bs-slide-to="{{$i}}" @if($i == 0) class="active" @endif aria-current="true" aria-label="Slide"></button>
                                 @endfor
                             </div>
 
                             <div class="carousel-inner">
                                 @foreach($property->images as $image)
                                     <div class="carousel-item {{ ($loop->first) ? "active" : "" }}">
-                                        <img class="d-block w-100" src="{{ asset('storage/' . $image->image) }}" alt="{{ $property->title }}">
+                                        <img class="property-image" src="{{ asset('storage/' . $image->image) }}" alt="{{ $property->title }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -61,7 +61,7 @@
                             </form>
                         @endauth
 
-                        <div class="meta p-5">
+                        <div class="meta">
                             <h2 class="property-title">{{ $property->title }}</h2>
                             <div class="contain">
                                 <a href="#" class="date flex-center">
