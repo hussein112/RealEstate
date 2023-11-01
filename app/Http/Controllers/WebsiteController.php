@@ -22,8 +22,8 @@ class WebsiteController extends Controller
 
 //            For search
 //            'locations' => Property::sele
-            'fors' => Property::select('for')->get(),
-            'wheres' => Property::select('city')->get(),
+            'fors' => Property::select('for')->distinct()->get(),
+            'wheres' => Property::select('city')->distinct()->get(),
             'types' => Type::all(),
         ]);
     }
