@@ -363,15 +363,19 @@ q{
 }
 
 
-#terms article{
-    margin: 2px;
-    color: var(--fo);
+#terms{
+    q{
+        padding: 20px;
+    }
+    article{
+        margin-top: 150px;
+        color: var(--fo);
+        h3,
+        h2{
+            color: var(--te);
+        }
+    }
 }
-
-#terms article h3{
-    color: var(--te);
-}
-
 #terms article h4{
     color: var(--fo);
     text-transform: capitalize;

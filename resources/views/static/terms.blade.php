@@ -4,7 +4,7 @@
     </x-slot>
     <x-slot name="main">
         <section id="terms" class="container">
-            <q class="p-4 mb-5">
+            <q class="mb-5">
                 {!! \Illuminate\Support\Facades\Storage::get('website/terms/quote.txt') !!}
             </q>
 
