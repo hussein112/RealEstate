@@ -44,9 +44,21 @@
 
 
 
-#featured-properties .carousel img{
-    width: 500px;
-    height: 450px;
+#featured-properties {
+    .carousel img{
+        width: 500px;
+        height: 450px;
+    }
+    .carousel-caption{
+        h4 a{
+            color: var(--pr) !important;
+        }
+        p{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
 }
 
 
@@ -482,7 +494,8 @@ q{
     .list-item{
         padding: 10px;
         text-align: center;
-        box-shadow: 0 0 5px var(--se) inset;
+        border: 1px solid var(--fo);
+        border-radius: 10px;
     }
     .property-image {
         width: 100%;
@@ -512,13 +525,14 @@ q{
             display: flex;
             align-items: center;
             justify-content: space-around;
-            width: 550px;
             border: 1px solid var(--fo);
-
+            border-radius: 5px;
+            width: 90%;
+            flex-wrap: wrap;
             *{
                 color: var(--se);
                 text-decoration: none;
-                width: calc(400px / 5);
+                padding: 5px 0;
             }
         }
     }

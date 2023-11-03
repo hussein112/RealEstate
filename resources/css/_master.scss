@@ -50,12 +50,6 @@ body{
     padding: 25px 0;
 }
 
-.carousel-caption h4 a,
-.carousel-caption h5 a{
-    color: var(--fo) !important;
-}
-
-
 .card{
     width: 350px;
     max-height: 500px;
@@ -166,13 +160,10 @@ body{
 }
 
 footer {
-    .custom-list{
-    }
     iconify-icon{
         font-size: 30px;
     }
 }
-
 
 .l-item{
     padding: 10px 0;

@@ -47,11 +47,6 @@ body {
   padding: 25px 0;
 }
 
-.carousel-caption h4 a,
-.carousel-caption h5 a {
-  color: var(--fo) !important;
-}
-
 .card {
   width: 350px;
   max-height: 500px;
@@ -442,6 +437,14 @@ footer .developper:hover {
   width: 500px;
   height: 450px;
 }
+#featured-properties .carousel-caption h4 a {
+  color: var(--pr) !important;
+}
+#featured-properties .carousel-caption p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 /* Start Properties for Buy */
 .buy-header {
@@ -813,7 +816,8 @@ q {
 #property .list-item {
   padding: 10px;
   text-align: center;
-  box-shadow: 0 0 5px var(--se) inset;
+  border: 1px solid var(--fo);
+  border-radius: 10px;
 }
 #property .property-image {
   width: 100%;
@@ -839,13 +843,15 @@ q {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 550px;
   border: 1px solid var(--fo);
+  border-radius: 5px;
+  width: 90%;
+  flex-wrap: wrap;
 }
 .property .meta .contain * {
   color: var(--se);
   text-decoration: none;
-  width: 80px;
+  padding: 5px 0;
 }
 
 /* End Property Page */
